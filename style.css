@@ -1,0 +1,246 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  font-family: sans-serif;
+  text-decoration: none;
+}
+
+.header {
+  background: black;
+  padding-inline: 16px;
+  height: 120px;
+}
+
+body {
+  background-color: black; 
+}
+
+.logo-container {
+  background-image: url('img/logofundo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 90px; 
+  height: 100px; 
+  display: inline-block;
+  margin-top: 50px;
+  margin-left: 4%;
+}
+
+.nav {
+  max-width: 1280px;
+  height: 70px;
+  margin-inline: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 48px;
+  color: white;
+  margin-top: auto; 
+  margin-top: 30px; 
+}
+
+.nav-list {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  margin-bottom: -30px; 
+  margin-right: 80px;
+  margin-top: 10px;
+}
+
+.nav-list a {
+  font-size: 18px;
+  color: #fff;
+  padding-block: 16px;
+}
+
+.hero {
+  height: calc(100vh - 70px);
+  background: center / cover no-repeat url("img/banner.jpg");
+}
+
+.title {
+  font-family: sans-serif;
+  font-size: 60px;
+  color: white;
+  text-align: center;
+  margin-top: -650px; 
+  text-align: left;
+  margin-left: 20%;
+}
+
+.custom-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  border: 1px solid #0056b3; 
+  border-radius: 30px;
+  background-color: black;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 20%;
+}
+
+.custom-button:hover {
+  background-color: #0056b3;
+}
+
+.container {
+  display: flex;
+  justify-content: center; /* Alterado para centralizar */
+  flex-wrap: wrap;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.box {
+  width: 300px; /* Define um tamanho fixo para a caixa */
+  height: 250px; /* Define um tamanho fixo para a caixa */
+  background-color: #416AE2;
+  box-sizing: border-box;
+  border: 2px solid white;
+  border-radius: 20px;
+  margin: 60px;
+  display: flex; /* Adiciona um display flex para centralizar a imagem e o parágrafo */
+  justify-content: center; /* Centraliza a imagem horizontalmente */
+  align-items: center; /* Centraliza a imagem e o parágrafo verticalmente */
+  flex-direction: column; /* Empilha os itens verticalmente */
+  padding: 10px; /* Adiciona um preenchimento interno */
+  text-align: center; /* Centraliza o texto */
+}
+
+.box img {
+  max-width: 50%; /* Ajusta o tamanho máximo da imagem para evitar que ela ultrapasse a caixa */
+  max-height: 500%; /* Ajusta o tamanho máximo da imagem para evitar que ela ultrapasse a caixa */
+  margin-top: 10px; /* Ajusta o espaçamento superior da imagem */
+}
+
+.box p {
+  font-family: sans-serif;
+  max-width: 100%; /* Define um tamanho máximo para a largura do texto */
+  color: white;
+  margin-top: 10px; /* Ajusta o espaçamento superior do parágrafo */
+}
+
+.box.seguranca p {
+  color: #416AE2; /* Define a cor do texto para #416AE2 */
+}
+
+
+.box:nth-child(2) { /* Seleciona a segunda caixa */
+  background-color: black; /* Altera a cor da segunda caixa para preto */
+  border: 2px solid #416AE2;
+}
+
+
+@media screen and (max-width: 768px) {
+  .box {
+    width: calc(50% - 20px);
+    margin-right: 20px; /* Ajuste para o espaçamento */
+    margin-left: 20px; /* Ajuste para o espaçamento */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .box {
+    width: calc(100% - 20px);
+    margin-right: 10px; /* Ajuste para o espaçamento */
+    margin-left: 10px; /* Ajuste para o espaçamento */
+  }
+}
+
+.hamburger {
+  display: none;
+  border: none;
+  background: none;
+  border-top: 3px solid #fff;
+  cursor: pointer;
+  margin-bottom: -30px; 
+}
+
+.hamburger::after,
+.hamburger::before {
+  content: " ";
+  display: block;
+  width: 30px;
+  height: 3px;
+  background: #fff;
+  margin-top: 5px;
+  position: relative;
+  transition: 0.3s;
+}
+
+@media (max-width: 600px) {
+  .hamburger {
+    display: block;
+    z-index: 1;
+  }
+
+  .nav-list {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    clip-path: circle(100px at 90% -15%);
+    transition: 1s ease-out;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 0;
+    pointer-events: none;
+  }
+
+  .nav-list a {
+    font-size: 24px;
+    opacity: 0;
+  }
+
+  .nav-list li:nth-child(1) a {
+    transition: 0.5s 0.2s;
+  }
+
+  .nav-list li:nth-child(2) a {
+    transition: 0.5s 0.4s;
+  }
+
+  .nav-list li:nth-child(3) a {
+    transition: 0.5s 0.6s;
+  }
+
+  /* Estilos ativos */
+
+  .nav.active .nav-list {
+    clip-path: circle(1500px at 90% -15%);
+    pointer-events: all;
+  }
+
+  .nav.active .nav-list a {
+    opacity: 1;
+  }
+
+  .nav.active .hamburger {
+    position: fixed;
+    top: 26px;
+    right: 16px;
+    border-top-color: transparent;
+  }
+
+  .nav.active .hamburger::before {
+    transform: rotate(135deg);
+  }
+
+  .nav.active .hamburger::after {
+    transform: rotate(-135deg);
+    top: -7px;
+  }
+}

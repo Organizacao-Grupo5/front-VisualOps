@@ -14,6 +14,8 @@ a {
   height: 120px;
 }
 
+
+
 body {
   background-color: black;
   height: 100%; /* Adicionamos esta linha */
@@ -51,7 +53,9 @@ body {
   list-style: none;
   margin-bottom: -30px; 
   margin-right: 80px;
-  margin-top: 10px;
+  margin-top: -120px; 
+  padding-top: 120px; 
+
 }
 
 .nav-list a {
@@ -61,10 +65,9 @@ body {
 }
 
 .hero {
-  height: calc(100vh - 70px);
+  height: 100vh; 
   background: center / cover no-repeat url("img/banner.jpg");
 }
-
 .title {
   font-family: sans-serif;
   font-size: 60px;
@@ -84,9 +87,7 @@ body {
   color: white;
 }
 
-.blue-text {
-  color: blue;
-}
+
 .custom-button {
   display: block;
   margin: 20px auto;
@@ -107,48 +108,48 @@ body {
 
 .container {
   display: flex;
-  justify-content: center; /* Alterado para centralizar */
+  justify-content: center; 
   flex-wrap: wrap;
   padding: 20px;
   box-sizing: border-box;
 }
 
 .box {
-  width: 300px; /* Define um tamanho fixo para a caixa */
-  height: 250px; /* Define um tamanho fixo para a caixa */
+  width: 300px; 
+  height: 250px; 
   background-color: #416AE2;
   box-sizing: border-box;
   border: 2px solid white;
   border-radius: 20px;
   margin: 60px;
-  display: flex; /* Adiciona um display flex para centralizar a imagem e o parágrafo */
-  justify-content: center; /* Centraliza a imagem horizontalmente */
-  align-items: center; /* Centraliza a imagem e o parágrafo verticalmente */
-  flex-direction: column; /* Empilha os itens verticalmente */
-  padding: 10px; /* Adiciona um preenchimento interno */
-  text-align: center; /* Centraliza o texto */
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; 
+  padding: 10px; 
+  text-align: center; 
 }
 
 .box img {
-  max-width: 50%; /* Ajusta o tamanho máximo da imagem para evitar que ela ultrapasse a caixa */
-  max-height: 500%; /* Ajusta o tamanho máximo da imagem para evitar que ela ultrapasse a caixa */
-  margin-top: 10px; /* Ajusta o espaçamento superior da imagem */
+  max-width: 50%; 
+  max-height: 500%; 
+  margin-top: 10px; 
 }
 
 .box p {
   font-family: sans-serif;
-  max-width: 100%; /* Define um tamanho máximo para a largura do texto */
+  max-width: 100%; 
   color: white;
-  margin-top: 10px; /* Ajusta o espaçamento superior do parágrafo */
+  margin-top: 10px;
 }
 
 .box.seguranca p {
-  color: #416AE2; /* Define a cor do texto para #416AE2 */
+  color: #416AE2; 
 }
 
 
-.box:nth-child(2) { /* Seleciona a segunda caixa */
-  background-color: black; /* Altera a cor da segunda caixa para preto */
+.box:nth-child(2) { 
+  background-color: black; 
   border: 2px solid #416AE2;
 }
 
@@ -156,21 +157,21 @@ body {
 
 .black-background-image {
   position: absolute;
-  top: 100%; /* Definimos para iniciar no final do body */
+  top: 100%; 
   left: 0;
   width: 20%;
-  height: 120vh; /* Ajustamos a altura para preencher a tela */
+  height: 120vh; 
   background-size: cover;
   background-position: center;
-  background-image: url('img/fios.png'); /* Substitua 'img/fios.png' pelo caminho da sua imagem */
-  background-repeat: no-repeat; /* Evita que a imagem se repita */
+  background-image: url('img/fios.png'); 
+  background-repeat: no-repeat; 
   z-index: -1;
 }
 
 .black-background-image.right {
-  left: auto; /* Reseta a posição do lado esquerdo */
-  right: 0; /* Define o posicionamento no lado direito */
-  background-image: url('img/fios.png'); /* Substitua 'img/fios.png' pelo caminho da sua imagem */
+  left: auto; 
+  right: 0; 
+  background-image: url('img/fios.png'); 
 }
 
 
@@ -178,16 +179,16 @@ body {
 @media screen and (max-width: 768px) {
   .box {
     width: calc(50% - 20px);
-    margin-right: 20px; /* Ajuste para o espaçamento */
-    margin-left: 20px; /* Ajuste para o espaçamento */
+    margin-right: 20px; 
+    margin-left: 20px; 
   }
 }
 
 @media screen and (max-width: 480px) {
   .box {
     width: calc(100% - 20px);
-    margin-right: 10px; /* Ajuste para o espaçamento */
-    margin-left: 10px; /* Ajuste para o espaçamento */
+    margin-right: 10px; 
+    margin-left: 10px; 
   }
 }
 

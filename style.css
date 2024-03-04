@@ -15,9 +15,9 @@ a {
 }
 
 body {
-  background-color: black; 
+  background-color: black;
+  height: 100%; /* Adicionamos esta linha */
 }
-
 .logo-container {
   background-image: url('img/logofundo.png');
   background-size: contain;
@@ -75,6 +75,18 @@ body {
   margin-left: 20%;
 }
 
+.titlewhy{
+  font-family: sans-serif;
+  font-size: 60px;
+  margin-top: 200px;
+  display: flex;
+  justify-content: center;
+  color: white;
+}
+
+.blue-text {
+  color: blue;
+}
 .custom-button {
   display: block;
   margin: 20px auto;
@@ -139,6 +151,28 @@ body {
   background-color: black; /* Altera a cor da segunda caixa para preto */
   border: 2px solid #416AE2;
 }
+
+
+
+.black-background-image {
+  position: absolute;
+  top: 100%; /* Definimos para iniciar no final do body */
+  left: 0;
+  width: 20%;
+  height: 120vh; /* Ajustamos a altura para preencher a tela */
+  background-size: cover;
+  background-position: center;
+  background-image: url('img/fios.png'); /* Substitua 'img/fios.png' pelo caminho da sua imagem */
+  background-repeat: no-repeat; /* Evita que a imagem se repita */
+  z-index: -1;
+}
+
+.black-background-image.right {
+  left: auto; /* Reseta a posição do lado esquerdo */
+  right: 0; /* Define o posicionamento no lado direito */
+  background-image: url('img/fios.png'); /* Substitua 'img/fios.png' pelo caminho da sua imagem */
+}
+
 
 
 @media screen and (max-width: 768px) {

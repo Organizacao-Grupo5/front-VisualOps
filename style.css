@@ -1,6 +1,14 @@
+
+@font-face {
+  font-family: 'Outfit';
+  src: url(./font/Outfit-VariableFont_wght.ttf) format('opentype');
+}
+
+
 * {
   margin: 0;
   padding: 0;
+  font-family: 'Outfit';
 }
 
 a {
@@ -91,7 +99,7 @@ body {
 }
 
 
-h2{
+.titlewhy h2{
   font-family: sans-serif;
   font-size: 30px;
   color: white;
@@ -100,6 +108,17 @@ h2{
   margin-top: 50px;
   text-align: center;
 }
+
+.texto-porque-escolher{
+  font-family: sans-serif;
+  font-size: 30px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  text-align: center;
+}
+
 .titlewhy span {
   color: blue;
   
@@ -306,3 +325,144 @@ h2{
     top: -7px;
   }
 }
+
+/*Começo do código do Guilhereme*/
+
+/*Todos os inputs são iguais então deixei genérico*/
+input{
+  font-weight: bolder;
+  color: black;
+  font-size: 16px;
+  background-color: #D9D9D9;
+}
+
+/*Criação da caixa de contato conosco*/
+.caixa-contato{
+  width: 80%;
+  height: 40vw;
+  margin: 0 10% 10% 10%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.caixa-nome-email{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+ }
+
+.caixa-nome-email input{
+  width: 30%;
+  height: 3vw;
+}
+
+.caixa-assunto{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+ }
+
+.caixa-assunto input{
+  width: 70%;
+  height: 3vw;
+}
+
+.caixa-mensagem{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+ 
+}
+
+.caixa-mensagem input{
+  width: 90%;
+  height: 20vw;
+}
+
+/*Fim da caixa de contato conosco*/
+
+
+
+/*barrinhas do footer*/
+.footer-barrinha{
+  height: 6rem;
+  width: 1px;
+  background-color: black;
+}
+
+.footer-barrinha-horizontal{
+  height: 1px;
+  width: 100%;
+  background-color: black;
+}
+
+
+/*Criação do footer*/
+
+footer{
+  width: 100%;
+  padding-bottom: 2%;
+  background-color: #D9D9D9;
+  display: flex;
+  flex-direction: column;
+}
+
+.caixa-footer{
+  width: 80%;
+  margin: 0 10% 0 10%;
+  background-color: #D9D9D9;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-cima{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+
+/*Arrumar o nome da empresa no footer*/
+.footer-cima .footer-nome-empresa{
+  font-size: 35px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/*Parte de info da empresa no footer*/
+.footer-cima .footer-info-empresa{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-cima .footer-info-empresa h2{
+  font-size: 25px;
+}
+
+.footer-cima .footer-info-empresa div{
+  font-size:16px;
+  font-weight: 600;
+}
+
+
+.footer-baixo{
+  width: 100%;
+  margin-top: 1%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-baixo div{
+  font-weight: bold;
+}
+
+.footer-baixo div img{
+  width: 17%;
+}
+

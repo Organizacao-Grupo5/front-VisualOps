@@ -17,6 +17,20 @@ body, html {
     justify-content: space-between;
     overflow: hidden;
 }
+
+.div-mensagem {
+    width: 150px;
+    height: 100px;
+    background-color: white;
+    border: 3px solid #416ae5;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 2;
+    display: none;
+}
+
+
   
 
 .fio-esquerdo, .fio-direito {
@@ -47,7 +61,7 @@ main > .area-cadastro {
     z-index: 1;
 }
 
-main > .area-cadastro > form {
+main > .area-cadastro > .dados-cadastros {
     width: 54%;
     display: flex;
     flex-direction: column;
@@ -64,25 +78,30 @@ main > .area-cadastro > form {
     margin-bottom: 10px;
     width: 100px;
     height: 70px;
+    transition: ease .3s;
 }
 
-main > .area-cadastro > form > h1 {
+.imagem-logo:hover {
+    scale: 1.05;
+}
+
+main > .area-cadastro > .dados-cadastros > h1 {
     padding-bottom: 15px;
     font-size: 35px;
 }
 
-main > .area-cadastro > form > div {
+main > .area-cadastro > .dados-cadastros > div {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
 
-main > .area-cadastro > form > div > label {
+main > .area-cadastro > .dados-cadastros > div > label {
     margin-bottom: 10px;
     font-weight: 800;
 }
 
-main > .area-cadastro > form > div > label > input {
+main > .area-cadastro > .dados-cadastros > div > label > input {
     padding: 8px;
     font-size: 15px;
     border: 2px solid #416ae5;

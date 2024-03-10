@@ -7,15 +7,18 @@
     <link rel="stylesheet" href="css/cadastro.css">
 </head>
 <body>
+    <div class="div-mensagem">
+        <span id="idMensagem"></span>
+    </div>
     <div class="fio-esquerdo"></div>
     <main>
         <div class="area-cadastro">
-            <form action="/" method="post">
+            <div class="dados-cadastros">
                 <h1>Cadastrar</h1>
                 <div>
                     <label for="ipt_nome">
                         Nome<br>
-                        <input type="text" placeholder="Digite aqui seu nome">
+                        <input type="text" id="ipt_nome" placeholder="Digite aqui seu nome">
                     </label>
                     <label for="ipt_email">
                         Email<br>
@@ -23,7 +26,7 @@
                     </label>
                     <label for="ipt_senha">
                         Senha<br>
-                        <input type="password" id="ipt_senha" placeholder="Digite sua senha">
+                        <input type="password" id="ipt_senha" placeholder="Digite sua senha"><span>icon</span>
                     </label>
                     <label for="ipt_identificacao">
                         CPF/CNJP<br>
@@ -37,7 +40,7 @@
                     </label>
                     <label for="ipt_cep">
                         CEP<br>
-                        <input type="text" placeholder="xxxxx-xxx">
+                        <input type="text" id="ipt_cep" placeholder="xxxxx-xxx">
                     </label>
                     <label for="ipt_numero">
                         Número<br>
@@ -45,10 +48,10 @@
                     </label>
                     <label for="ipt_complemento">
                         Complemento<br>
-                        <input type="text" placeholder="Ex: torre 1 apartamento 003">
+                        <input type="text" id="ipt_complemento" placeholder="Ex: torre 1 apartamento 003">
                     </label>
                 </div>
-                <button class="btn-cadastrar">CADASTRAR</button>
+                <button class="btn-cadastrar" onclick="cadastrar()">CADASTRAR</button>
                 <span>OU</span>
                 <section class="slack-google">
                     <button class="btn-slack">
@@ -62,14 +65,14 @@
                 </section>
                 <span>já é cadastrado?</span>
                 <button class="btn-login">LOGIN</button>
-            </form>
-            <div class="side-imagem">
-                <img src="assets/img/logofundo.png" alt="logo">
             </div>
+            <a href="index.html" class="side-imagem">
+                <img src="assets/img/logofundo.png" alt="logo">
+            </a>
         </div>
-        <div class="imagem-logo">
-        </div>
+        <a href="index.html" class="imagem-logo"></a>
     </main>
     <div class="fio-direito"></div>
 </body>
+<script src="js/cadastrar.js"></script>
 </html>

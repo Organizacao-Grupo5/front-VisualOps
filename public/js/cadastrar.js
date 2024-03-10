@@ -1,9 +1,9 @@
+let mensagem = idMensagem;
+const divMsg = document.querySelector(".div-mensagem");
 
 function validarCampos() {
     const inputs = document.querySelectorAll('input');
     let validacaoCampos = true;
-    let mensagem = idMensagem;
-    const divMsg = document.querySelector(".div-mensagem");
     divMsg.style.display = "none"
     
     inputs.forEach(input => {
@@ -50,6 +50,7 @@ function visualizarSenha() {
 
 function cadastrar() {
     if (!validarCampos()) return false;
+
     const nome = ipt_nome.value;
     const email = ipt_email.value;
     const senha = ipt_senha.value;
@@ -58,5 +59,42 @@ function cadastrar() {
     const cep = ipt_cep;
     const numero = ipt_numero;
     const complemento = ipt_complemento;
-    console.log("chegou aqui")
+  
+    fetch("/usuarios/cadastrar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            nomeJSON: nome,
+            emailJSON: email,
+            senhaJSON: senha,
+            identificacaoJSON: identificacao,
+            estadoJSON: estado,
+            cepJSON: cep,
+            numeroJSON: numero,
+            complementoJSON: complemento
+        }),
+    }).then(resposta => {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+            divMsg.style.display = "block";
+            mensagem.innerHTML = "Cadastro realizado com sucesso!"
+
+            setTimeout(() => {
+                window.location = "index.html";
+            }, "1500");
+        } else {
+            divMsg.style.display = "block";
+            mensagem.innerHTML = "Não foi possivel realizar o seu cadastro, por favor tente novamente!"
+            setTimeout(() => {
+                divMsg.style.display = "none";;
+            }, "1500");
+            throw "Houve um erro ao tentar realizar o cadastro!"
+        }
+    }).catch(resposta => {
+        console.log('#ERRO: ', resposta);
+    });
+    return false;
 }

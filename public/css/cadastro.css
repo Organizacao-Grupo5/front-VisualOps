@@ -185,3 +185,30 @@ span {
     opacity: 0.4;
 } 
 
+
+/*Começo do código do Guilherme*/
+
+@media (max-width: 600px) {
+
+.area-cadastro a{
+    display: none;
+}
+
+main > .area-cadastro > .dados-cadastros{
+    width: 100%;
+}
+
+.dados-cadastros div{
+    flex-direction: column;
+}
+
+main > .area-cadastro > .dados-cadastros > div > label > input{
+    width: 55vw;
+}
+
+main > .area-cadastro{
+    width: 100%;
+    height: 5000vw;
+}
+
+}

@@ -29,10 +29,7 @@ body, html {
     z-index: 2;
     display: none;
     text-align: center;
-}
-
-
-  
+}  
 
 .fio-esquerdo, .fio-direito {
     background-image: url("../assets/img/fios.png");
@@ -51,7 +48,7 @@ main {
     align-items: center;
 }
 
-main > .area-cadastro {
+main > .area-login {
     width: 130%;
     height: 75%;
     display: flex;
@@ -63,8 +60,8 @@ main > .area-cadastro {
     z-index: 1;
 }
 
-main > .area-cadastro > .dados-cadastros {
-    width: 54%;
+main > .area-login > .dados-login {
+    width: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -87,28 +84,29 @@ main > .area-cadastro > .dados-cadastros {
     scale: 1.05;
 }
 
-main > .area-cadastro > .dados-cadastros > h1 {
-    padding-bottom: 15px;
-    font-size: 35px;
+main > .area-login > .dados-login > h1 {
+    padding-bottom: 55px;
+    font-size: 40px;
 }
 
-main > .area-cadastro > .dados-cadastros > div {
+main > .area-login > .dados-login > div {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: space-between;
 }
 
-main > .area-cadastro > .dados-cadastros > div > label {
-    margin-bottom: 10px;
+main > .area-login > .dados-login > div > label {
+    margin-bottom: 30px;
     font-weight: 800;
 }
 
-main > .area-cadastro > .dados-cadastros > div > label > input {
-    padding: 8px;
+main > .area-login > .dados-login > div > label > input {
+    padding: 10px;
     font-size: 15px;
     border: 2px solid #416ae5;
     min-width: 95px;
-    width: 15vw;
+    max-width: 300px;
+    width: 25vw;
     outline: #416ae5;
     box-shadow: 0px 0px 3px #416ae5;
 }
@@ -138,11 +136,11 @@ button > img {
     margin-right: 10px;
 }
 
-.btn-cadastrar {
+.btn-login {
     background-color: black;
     color: white;
     border: black;
-    margin-top: 20px;
+    margin-top: 10px;
     padding: 12px;
 }
 
@@ -164,11 +162,11 @@ span {
     display: block;
     font-weight: 600;
     color: gray;
-    margin: 5px;
+    margin: 15px;
 }
 
 .side-imagem {
-    width: 43%;
+    width: 50%;
     height: 100%;
     background-image: url('../assets/img/imagem-cadastro.png');
     background-position: center;

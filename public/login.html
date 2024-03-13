@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | VisualOps</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <div class="div-mensagem">
+        <span id="idMensagem"></span>
+    </div>
+    <div class="fio-esquerdo"></div>
+    <main>
+        <div class="area-login">
+            <section class="slack-google-mobile">
+                <button class="btn-slack">
+                    <img src="assets/img/slack.png" alt="imagem slack">
+                    SLACK
+                </button>
+                <button>
+                    <img src="./assets/img/google.png" alt="imagem google">
+                    GOOGLE
+                </button>
+            </section>
+            <span class="esconder-ou-mobile">OU</span>
+            <div class="dados-login">
+                <h1>Bem-vindo!</h1>
+                <div>
+                    <label for="ipt_email">
+                        Email<br>
+                        <input type="text" id="ipt_email" placeholder="Digite aqui seu email">
+                    </label>
+                    <label for="ipt_senha">
+                        Senha<br>
+                        <input type="password" id="ipt_senha" placeholder="Digite sua senha"><span class="material-symbols-outlined">visibility_off</span>
+                    </label>
+                </div>
+
+                <button class="btn-login">LOGIN</button>
+                <span class="esconder-ou-desk">OU</span>
+                <section class="slack-google">
+                    <button class="btn-slack">
+                        <img src="assets/img/slack.png" alt="imagem slack">
+                        SLACK
+                    </button>
+                    <button>
+                        <img src="./assets/img/google.png" alt="imagem google">
+                        GOOGLE
+                    </button>
+                </section>
+                <span>já é cadastrado?</span>
+                <button class="btn-cadastrar">CADASTRAR</button>
+            </div>
+            <a href="index.html" class="side-imagem">
+                <img src="assets/img/logofundo.png" alt="logo">
+            </a>
+        </div>
+        <a href="index.html" class="imagem-logo"></a>
+    </main>
+    <div class="fio-direito"></div>
+</body>
+<script src="js/cadastrar.js"></script>
+</html>

@@ -188,7 +188,37 @@ span {
 
 /*Começo do código do Guilherme*/
 
+ .esconder-endereco{
+    display: none;
+ }
+
+
+
+ .slack-google-mobile{
+    display: none;
+}
+
+.esconder-ou-mobile{
+    display: none;
+}
+
 @media (max-width: 600px) {
+
+ span{
+    margin: 10px;
+ }
+
+.esconder-endereco{
+    display: block;
+}
+
+.esconder-ou-desk{
+    display: none;
+}
+
+.esconder-ou-mobile{
+    display: block;
+}
 
 .area-cadastro a{
     display: none;
@@ -208,7 +238,37 @@ main > .area-cadastro > .dados-cadastros > div > label > input{
 
 main > .area-cadastro{
     width: 100%;
-    height: 5000vw;
+    height: 50000vw;
+    margin: 10% 0 10% 0;
+    flex-direction: column;
+}
+
+body, html {
+    overflow: scroll;
+    height: 170vh;
+}
+
+.slack-google{
+    display: none;
+}
+
+.slack-google-mobile{
+    display: block;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+button {
+    width: 125px;
+    padding: 8px;
+    font-size: 17px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: 2px #416ae5 solid;
 }
 
 }

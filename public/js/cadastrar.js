@@ -1,3 +1,19 @@
+const olhoSenha = document.getElementById("olho");
+
+olhoSenha.addEventListener("click", mudarVisibilidade);
+
+function mudarVisibilidade() {
+    const campoSenha = document.getElementById("ipt_senha");
+    if (campoSenha.type === "password") {
+        olhoSenha.innerHTML = "visibility";
+        campoSenha.type = "text";
+    }
+    else {
+        olhoSenha.innerHTML = "visibility_off"
+        campoSenha.type = "password";
+    }
+}
+
 let mensagem = idMensagem;
 const divMsg = document.querySelector(".div-mensagem");
 
@@ -28,7 +44,7 @@ function validarCampos() {
             validacaoCampos = false;
             return;
         } else if (input.id === "ipt_senha" && 
-                new RegExp("/^(?=.*\d)(?=.*[^\w\s])(?=.*[A-Z])(?=.*[a-z]).*$/").test(input.value)) {
+                !new RegExp("^(?=.*\\d)(?=.*[^\\w\\s])(?=.*[A-Z])(?=.*[a-z]).*$").test(input.value)) {
             divMsg.style.display = 'block';
             mensagem.innerHTML = 'A Senha deve conter letras MAIÚSCULAS, minúsculas, números e símbolos'
             validacaoCampos = false;

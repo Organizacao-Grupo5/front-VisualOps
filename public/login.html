@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro | VisualOps</title>
+    <title>Login | VisualOps</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
-    <link rel="stylesheet" href="css/cadastro.css">
+    <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
     <div class="div-mensagem">
@@ -15,7 +15,7 @@
     </div>
     <div class="fio-esquerdo"></div>
     <main>
-        <div class="area-cadastro">
+        <div class="area-login">
             <section class="slack-google-mobile">
                 <button class="btn-slack">
                     <img src="assets/img/slack.png" alt="imagem slack">
@@ -27,13 +27,9 @@
                 </button>
             </section>
             <span class="esconder-ou-mobile">OU</span>
-            <div class="dados-cadastros">
-                <h1>Cadastrar</h1>
+            <div class="dados-login">
+                <h1>Bem-vindo!</h1>
                 <div>
-                    <label for="ipt_nome">
-                        Nome<br>
-                        <input type="text" id="ipt_nome" placeholder="Digite aqui seu nome">
-                    </label>
                     <label for="ipt_email">
                         Email<br>
                         <input type="text" id="ipt_email" placeholder="Digite aqui seu email">
@@ -42,33 +38,9 @@
                         Senha<br>
                         <input type="password" id="ipt_senha" placeholder="Digite sua senha" class="row2"><span class="material-symbols-outlined olho row2" id="olho">visibility_off</span>
                     </label>
-                    <label for="ipt_identificacao">
-                        CPF/CNJP<br>
-                        <input type="text" id="ipt_identificacao" placeholder="digite seu CPF ou CNPJ">
-                    </label>
                 </div>
 
-                <h1 class="esconder-endereco">Endereço</h1>
-
-                <div>
-                    <label for="ipt_estado">
-                        Estado<br>
-                        <input type="text" id="ipt_estado" placeholder="Ex: São Paulo">
-                    </label>
-                    <label for="ipt_cep">
-                        CEP<br>
-                        <input type="text" id="ipt_cep" placeholder="xxxxx-xxx">
-                    </label>
-                    <label for="ipt_numero">
-                        Número<br>
-                        <input type="text" id="ipt_numero" placeholder="Ex: 000">
-                    </label>
-                    <label for="ipt_complemento">
-                        Complemento<br>
-                        <input type="text" id="ipt_complemento" placeholder="Ex: torre 1 apartamento 003">
-                    </label>
-                </div>
-                <button class="btn-cadastrar" onclick="cadastrar()">CADASTRAR</button>
+                <button class="btn-login" onclick="entrar()">LOGIN</button>
                 <span class="esconder-ou-desk">OU</span>
                 <section class="slack-google">
                     <button class="btn-slack">
@@ -81,15 +53,15 @@
                     </button>
                 </section>
                 <span>já é cadastrado?</span>
-                <button class="btn-login">LOGIN</button>
+                <button class="btn-cadastrar">CADASTRAR</button>
             </div>
             <a href="index.html" class="side-imagem">
                 <img src="assets/img/logofundo.png" alt="logo">
             </a>
         </div>
-        <a href="index.html" class="imagem-logo"><img src="assets/img/logofundo.png" alt="imagem_logo">VisualOps</a>
+        <a href="index.html" class="imagem-logo"></a>
     </main>
     <div class="fio-direito"></div>
 </body>
-<script src="js/cadastrar.js"></script>
+<script src="js/login.js"></script>
 </html>

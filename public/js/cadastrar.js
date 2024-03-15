@@ -5,11 +5,12 @@ const btPlano = document.getElementById("btPlano");
 btPlano.addEventListener("click", mostrarOpcoes); 
 
 function mostrarOpcoes() {
+    
     const plano1 = document.getElementById("plano1");
     const plano2 = document.getElementById("plano2");
     const plano3 = document.getElementById("plano3");
 
-    let listaPlano = [plano1, plano2, plano3];
+    const listaPlanos = [plano1, plano2, plano3];
 
     plano1.style.top = "100px";
     plano1.style.visibility = "hidden";
@@ -48,13 +49,15 @@ function mostrarOpcoes() {
             plano3.style.visibility = "visible";
             plano3.style.left = "calc(40vw + 95px)";
         }, 170);
+
+        listaPlanos.forEach(plano => {
+            plano.addEventListener("click", () => {
+                btPlano.innerHTML = plano.innerHTML;
+            })
+        });
     }
-
-    listaPlano.forEach(plano => {
-    
-    });
-
 }
+
 
 const olhoSenha = document.getElementById("olho");
 

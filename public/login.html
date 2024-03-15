@@ -34,13 +34,13 @@
                         Email<br>
                         <input type="text" id="ipt_email" placeholder="Digite aqui seu email">
                     </label>
-                    <label for="ipt_senha">
+                    <label for="ipt_senha" class="lbl-senha">
                         Senha<br>
-                        <input type="password" id="ipt_senha" placeholder="Digite sua senha"><span class="material-symbols-outlined">visibility_off</span>
+                        <input type="password" id="ipt_senha" placeholder="Digite sua senha" class="row2"><span class="material-symbols-outlined olho row2" id="olho">visibility_off</span>
                     </label>
                 </div>
 
-                <button class="btn-login">LOGIN</button>
+                <button class="btn-login" onclick="entrar()">LOGIN</button>
                 <span class="esconder-ou-desk">OU</span>
                 <section class="slack-google">
                     <button class="btn-slack">
@@ -63,5 +63,5 @@
     </main>
     <div class="fio-direito"></div>
 </body>
-<script src="js/cadastrar.js"></script>
+<script src="js/login.js"></script>
 </html>

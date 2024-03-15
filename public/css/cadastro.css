@@ -19,8 +19,8 @@ body, html {
 }
 
 .div-mensagem {
+    padding: 5px;
     width: 150px;
-    height: 100px;
     background-color: white;
     border: 3px solid #416ae5;
     position: absolute;
@@ -72,19 +72,27 @@ main > .area-cadastro > .dados-cadastros {
 
 .imagem-logo {
     background-color: transparent;
-    background-image: url('../assets/img/logofundo.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    display: flex;
+    align-items: center;
+    height: 75px;
+    color: white;
+    font-size: 30px;
+    font-weight: 700;
     margin-top: -25px;
     margin-bottom: 10px;
-    width: 100px;
-    height: 70px;
     transition: ease .3s;
 }
 
 .imagem-logo:hover {
     scale: 1.05;
+}
+
+.imagem-logo > img {
+    width: 100px;
+}
+
+a {
+    text-decoration: none;
 }
 
 main > .area-cadastro > .dados-cadastros > h1 {
@@ -113,6 +121,22 @@ main > .area-cadastro > .dados-cadastros > div > label > input {
     box-shadow: 0px 0px 3px #416ae5;
 }
 
+.olho {
+    margin: 5px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.row2 {
+    grid-row: 2;
+}
+
+.lbl-senha {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: auto auto;
+    align-items: center;
+}
 
 button {
     width: 250px;

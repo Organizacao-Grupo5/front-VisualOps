@@ -127,6 +127,15 @@ body {
   height: 600px;
 }
 
+.carrossel{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  transition: all ease-in-out 0.5s;
+}
+
 .box-planos {
   position: relative;
   /* Adiciona posição relativa para .box-planos */
@@ -352,6 +361,10 @@ body {
     font-size: 150%;
   }
 
+  .carrossel{
+    margin: 0;
+  }
+
   .container-planos {
     margin: 0 auto;
     display: flex;
@@ -404,20 +417,36 @@ body {
 
 @media screen and (max-width: 710px) {
   .container-planos {
-    width: 150%;
+    width: 100%;
     gap: 5%;
-    display: grid;
+    display: flex;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
+    max-width: 710px;
   }
 
+  .carrossel{
+    width: 200%;
+    gap: 5%;
+
+  }
+
+  #card_premium, #card_best{
+  opacity: 0.5;
+  filter: blur(5px);
+  scale: 0.9;
+  cursor: pointer;
+  }
+
+  
   .container-planos .box-planos {
-    width: 250px;
-    height: 400px;
     font-size: 15px;
     margin: 0 auto;
+    height: 500px;
+    width: 450px;
+    transition: all ease-in-out 0.5s;
   }
 
   .container-planos .fundobox {

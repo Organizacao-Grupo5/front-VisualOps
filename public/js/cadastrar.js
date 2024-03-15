@@ -1,3 +1,61 @@
+window.onload;
+
+const btPlano = document.getElementById("btPlano");
+
+btPlano.addEventListener("click", mostrarOpcoes); 
+
+function mostrarOpcoes() {
+    const plano1 = document.getElementById("plano1");
+    const plano2 = document.getElementById("plano2");
+    const plano3 = document.getElementById("plano3");
+
+    let listaPlano = [plano1, plano2, plano3];
+
+    plano1.style.top = "100px";
+    plano1.style.visibility = "hidden";
+    plano1.style.opacity = 0;
+
+    plano3.style.top = "100px";
+    plano3.style.visibility = "hidden";
+    plano3.style.opacity = 0;
+
+
+    if (plano2.style.visibility === "visible") {
+        plano3.style.left = "calc(40vw - 15px)"
+        plano3.style.opacity = 0;
+        plano3.style.visibility = "hidden";
+        setTimeout(()=> {
+            plano1.style.left = "calc(40vw - 15px)";
+            plano1.style.opacity = 0;
+            plano1.style.visibility = "hidden";
+        }, 100);
+        setTimeout(()=> {
+            plano2.style.top = "120px"
+            plano2.style.opacity = 0;
+            plano2.style.visibility = "hidden";
+        }, 150);
+    } else {
+        plano2.style.opacity = 1;
+        plano2.style.visibility = "visible";
+        plano2.style.top = "100px"
+        setTimeout(()=> {
+            plano1.style.opacity = 1;
+            plano1.style.visibility = "visible";
+            plano1.style.left = "calc(40vw - 125px)";
+        }, 100);
+        setTimeout(()=> {
+            plano3.style.opacity = 1;
+            plano3.style.visibility = "visible";
+            plano3.style.left = "calc(40vw + 95px)";
+        }, 170);
+    }
+
+    listaPlano.forEach(plano => {
+    
+    });
+
+}
+
 const olhoSenha = document.getElementById("olho");
 
 olhoSenha.addEventListener("click", mudarVisibilidade);
@@ -114,3 +172,4 @@ function cadastrar() {
     });
     return false;
 }
+

@@ -124,7 +124,7 @@ body {
   height: 600px;
 }
 
-.carrossel{
+.carrossel {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -330,7 +330,7 @@ body {
   align-self: flex-end;
 }
 
-.box-imagem-analistas{ 
+.box-imagem-analistas {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -349,8 +349,68 @@ body {
   top: 3600px;
 }
 
+/* NOSSA EQUIPE */
+
+.background-color-nossa-equipe {
+  background-color: rgba(64, 64, 184, 0.692);
+  clip-path: polygon(48.3% 0%, 48.3% 0%, 100% 15%, 100% 85%, 47.9% 100.3%, 48% 100.3%, 0% 85%, 0% 15%);
+  height: 600px;
+}
+
+.h1-nossa-equipe {
+  color: white;
+  font-family: sans-serif;
+  font-size: 60px;
+  text-align: center;
+}
+
+.carrossel-nossa-equipe {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 66%;
+  transition: all ease-in-out 0.5s;
+}
+
+.fotos-nossa-equipe {
+  width: 90%;
+}
+
+.box-nossa-equipe {
+  position: relative;
+  width: 300px;
+  height: 350px;
+  box-sizing: border-box;
+  margin: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+  text-align: center;
+}
+
+.fundobox-nossa-equipe {
+  position: absolute;
+  bottom: 10px;
+  width: 200px;
+  height: 40px;
+  background-color: white;
+  margin-top: -50px;
+}
+
+.container-nossa-equipe {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  height: 600px;
+}
+
+
 @media screen and (max-width: 1290px) {
-  .sobre-nos-imagem-analistas{
+  .sobre-nos-imagem-analistas {
     top: 555%;
   }
 }
@@ -361,7 +421,11 @@ body {
     font-size: 150%;
   }
 
-  .carrossel{
+  .carrossel {
+    margin: 0;
+  }
+
+  .carrossel-nossa-equipe {
     margin: 0;
   }
 
@@ -405,7 +469,49 @@ body {
   .sobre-nos-imagem-analistas {
     top: 4060px;
   }
-  
+
+  .texto-sobre-nos {
+    text-align: center;
+    width: 80%;
+  }
+
+  .nossa-equipe-completo {
+    margin-top: 40px;
+  }
+
+  .container-nossa-equipe {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 2%;
+    overflow: hidden;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  .container-nossa-equipe .box-nossa-equipe {
+    width: 25%;
+    height: 400px;
+    font-size: 15px;
+    margin: 0 auto;
+
+  }
+
+  .container-nossa-equipe .fundobox-nossa-equipe {
+    width: 80%;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .container-nossa-equipe .fundobox-nossa-equipe h2 {
+    margin: 0 auto;
+  }
+
 
   @media screen and (max-width: 800px) {
     .texto-porque-escolher {
@@ -415,6 +521,21 @@ body {
     .sobre-nos-imagem-analistas {
       top: 4500px;
     }
+
+    .background-color-nossa-equipe {
+      margin-top: 70px;
+    }
+  }
+
+  @media screen and (max-width: 897px) {
+    .sobre-nos-imagem-analistas {
+      top: 610%;
+    }
+
+    .texto-sobre-nos {
+      width: 60%;
+      font-size: 27px;
+    }
   }
 
   @media screen and (max-width: 672px) {
@@ -422,7 +543,6 @@ body {
       font-size: 110%;
     }
 
-    
   }
 }
 
@@ -438,20 +558,38 @@ body {
     max-width: 710px;
   }
 
-  .carrossel{
+  .carrossel {
     width: 200%;
     gap: 5%;
 
   }
 
-  #card_premium, #card_best{
-  opacity: 0.5;
-  filter: blur(5px);
-  scale: 0.9;
-  cursor: pointer;
+  .carrossel-nossa-equipe {
+    width: 200%;
+    gap: 5%;
+
   }
 
-  
+  .container-nossa-equipe {
+    width: 100%;
+    gap: 5%;
+    display: flex;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 710px;
+  }
+
+  #card_premium,
+  #card_best {
+    opacity: 0.5;
+    filter: blur(5px);
+    scale: 0.9;
+    cursor: pointer;
+  }
+
+
   .container-planos .box-planos {
     font-size: 15px;
     margin: 0 auto;
@@ -473,8 +611,29 @@ body {
     margin: 0 auto;
   }
 
+  .container-nossa-equipe .box-nossa-equipe {
+    font-size: 15px;
+    margin: 0 auto;
+    height: 500px;
+    width: 450px;
+    transition: all ease-in-out 0.5s;
+  }
+
+  .container-nossa-equipe .fundobox-nossa-equipe {
+    width: 80%;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .container-nossa-equipe .fundobox-nossa-equipe h2 {
+    margin: 0 auto;
+  }
+
   /* SOBRE NÓS */
-  
+
 
   .sobre_nos {
     background-image: url('../assets/img/imagem_programando.jpg');
@@ -484,15 +643,14 @@ body {
     margin: 0;
     margin-left: 7px;
     width: 80%;
-    /* border: solid 5px firebrick; */
   }
 
-  .background-image-sobre-nos{
+  .background-image-sobre-nos {
     margin-top: 350px;
     width: 20%;
   }
 
-  .background-image-sobre-nos-left{
+  .background-image-sobre-nos-left {
     background-image: url('../assets/img/fios.png');
     background-repeat: no-repeat;
     background-size: cover;
@@ -501,29 +659,42 @@ body {
     width: 15%;
     height: 120vh;
     background-position: center;
-    }
+  }
 
-    .sobre-nos-imagem-sobre-nos{
-      background-image: url('../assets/img/sobre_nos.png');
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center;
-      height: 290px;
-      width: 88%;
-      border-radius: 35px;
-      align-self: center;
-      position: absolute;
-      top: 4340px;
-      margin-top: 30px;
-      margin-right: 18px;
-    }
+  .sobre-nos-imagem-sobre-nos {
+    background-image: url('../assets/img/sobre_nos.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 290px;
+    width: 88%;
+    border-radius: 35px;
+    align-self: center;
+    position: absolute;
+    top: 4340px;
+    margin-top: 30px;
+    margin-right: 18px;
+  }
 
-  .sobre-nos-imagem-analistas{
-  margin-left: 30%;
-  position: absolute;
-  height: 290px;
-      width: 58%;
-  top: 4620px; 
+  .sobre-nos-imagem-analistas {
+    margin-left: 30%;
+    position: absolute;
+    height: 290px;
+    width: 58%;
+    top: 4620px;
+  }
+
+  .background-color-nossa-equipe {
+    background-color: rgba(64, 64, 184, 0.692);
+    clip-path: polygon(48.3% 0%, 48.3% 0%, 100% 15%, 100% 85%, 47.9% 100.3%, 48% 100.3%, 0% 85%, 0% 15%);
+    height: 600px;
+  }
+
+  .h1-nossa-equipe {
+    color: white;
+    font-family: sans-serif;
+    font-size: 60px;
+    text-align: center;
   }
 
 }
@@ -562,13 +733,16 @@ body {
     margin-left: 20px;
   }
 
-  .sobre-nos-imagem-sobre-nos{
+  /* SOBRE NOS */
+
+  .sobre-nos-imagem-sobre-nos {
     top: 410%;
   }
 
-  .sobre-nos-imagem-analistas{
+  .sobre-nos-imagem-analistas {
     top: 450%;
   }
+
 
   /*Coloca em outro @media vai ajustando até ficar bom*/
 
@@ -589,21 +763,25 @@ body {
 }
 
 @media screen and (max-width: 595px) {
-  .sobre-nos-imagem-sobre-nos{
+  .sobre-nos-imagem-sobre-nos {
     top: 398%;
   }
 
-  .sobre-nos-imagem-analistas{
+  .sobre-nos-imagem-analistas {
     top: 433%;
+  }
+
+  .h1-nossa-equipe {
+    margin-top: 20px;
   }
 }
 
 @media screen and (max-width: 579px) {
-  .sobre-nos-imagem-sobre-nos{
+  .sobre-nos-imagem-sobre-nos {
     top: 409%;
   }
 
-  .sobre-nos-imagem-analistas{
+  .sobre-nos-imagem-analistas {
     top: 446%;
   }
 }
@@ -918,18 +1096,20 @@ footer {
     font-weight: normal;
   }
 
-  
+  .nossa-equipe-completo {
+    margin-top: 50px;
+  }
 
 
 }
 
-@media (max-width: 1024px){
+@media (max-width: 1024px) {
   .caixa-contato-img {
     display: none;
   }
 
   textarea,
-  .textarea-mensagem{
+  .textarea-mensagem {
     width: 99%;
   }
 

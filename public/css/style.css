@@ -155,19 +155,28 @@ body {
 
 .fundobox {
   position: absolute;
-  /* Posiciona absolutamente dentro de .box-planos */
   bottom: 10px;
-  /* Posiciona a 10px acima do final */
   width: 200px;
   height: 40px;
   background-color: #47BDFF;
   margin-top: -50px;
-  /* Move 10px para cima */
+  display: inline-block;
+  padding: 8px 16px;
+  color: white;
+  cursor: pointer;
 }
 
 .fundobox h1 {
   color: white;
 }
+
+
+.fundobox:hover {
+  background-color: #0056b3;
+}
+
+
+
 
 
 .box-planos,

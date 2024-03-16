@@ -377,7 +377,7 @@ body {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 100%;
+  width: 200%;
   height: 66%;
   transition: all ease-in-out 0.5s;
 }
@@ -498,6 +498,7 @@ body {
     overflow: hidden;
     margin-top: 10px;
     margin-bottom: 20px;
+    height: 380px;
   }
 
   .container-nossa-equipe .box-nossa-equipe {

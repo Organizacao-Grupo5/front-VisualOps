@@ -175,10 +175,6 @@ body {
   background-color: #0056b3;
 }
 
-
-
-
-
 .box-planos,
 .box-planos * {
   color: #ffffff;
@@ -383,7 +379,7 @@ body {
 }
 
 .fotos-nossa-equipe {
-  width: 90%;
+  width: 250px;
 }
 
 .box-nossa-equipe {
@@ -403,13 +399,15 @@ body {
 .fundobox-nossa-equipe {
   position: absolute;
   bottom: 10px;
-  width: 200px;
+  width: 300px;
   height: 40px;
   background-color: white;
   margin-top: -50px;
+  padding: 3px;
 }
 
 .container-nossa-equipe {
+  overflow: hidden;
   display: flex;
   justify-content: center;
   padding: 20px;
@@ -422,6 +420,22 @@ body {
   .sobre-nos-imagem-analistas {
     top: 555%;
   }
+}
+
+@media screen and (max-width: 527px) {
+  .fotos-nossa-equipe{
+    width: 80px;
+  }
+}
+
+@media screen and (max-width: 510px) {
+ .fundobox-nossa-equipe{
+   width: 40%;
+ }
+
+ .fotos-nossa-equipe{
+  width: 50px;
+}
 }
 
 
@@ -502,15 +516,14 @@ body {
   }
 
   .container-nossa-equipe .box-nossa-equipe {
-    width: 25%;
+    width: 170px;
     height: 400px;
     font-size: 15px;
-    margin: 0 auto;
-
+    /* margin: 0 auto; */
   }
 
   .container-nossa-equipe .fundobox-nossa-equipe {
-    width: 80%;
+    width: 100%;
     font-size: 12px;
     display: flex;
     justify-content: center;
@@ -520,6 +533,10 @@ body {
 
   .container-nossa-equipe .fundobox-nossa-equipe h2 {
     margin: 0 auto;
+  }
+
+  .fotos-nossa-equipe {
+    width: 180px;
   }
 
 
@@ -535,6 +552,10 @@ body {
     .background-color-nossa-equipe {
       margin-top: 70px;
     }
+
+    /* .fotos-nossa-equipe{
+      width: 110%;
+    } */
   }
 
   @media screen and (max-width: 897px) {
@@ -545,6 +566,10 @@ body {
     .texto-sobre-nos {
       width: 60%;
       font-size: 27px;
+    }
+
+    .fotos-nossa-equipe{
+      width: 140px;
     }
   }
 
@@ -624,7 +649,7 @@ body {
   .container-nossa-equipe .box-nossa-equipe {
     font-size: 15px;
     margin: 0 auto;
-    height: 500px;
+    height: 300px;
     width: 450px;
     transition: all ease-in-out 0.5s;
   }
@@ -753,6 +778,10 @@ body {
     top: 450%;
   }
 
+  /* .fotos-nossa-equipe{
+    width: 160%;
+  } */
+
 
   /*Coloca em outro @media vai ajustando até ficar bom*/
 
@@ -770,6 +799,10 @@ body {
     margin-right: 10px;
     margin-left: 10px;
   }
+
+  .fundobox-nossa-equipe{
+    width: 60%;
+  }
 }
 
 @media screen and (max-width: 595px) {
@@ -784,6 +817,9 @@ body {
   .h1-nossa-equipe {
     margin-top: 20px;
   }
+
+  
+ 
 }
 
 @media screen and (max-width: 579px) {
@@ -794,6 +830,15 @@ body {
   .sobre-nos-imagem-analistas {
     top: 446%;
   }
+
+  .fotos-nossa-equipe{
+    width: 150px;
+  }
+
+  .fundobox-nossa-equipe{
+    width: 100%;
+  }
+
 }
 
 .hamburger {
@@ -882,6 +927,10 @@ body {
     transform: rotate(-135deg);
     top: -7px;
   }
+
+  /* .fotos-nossa-equipe{
+    width: 140%;
+  } */
 }
 
 /*Começo do código do Guilhereme*/
@@ -1110,6 +1159,9 @@ footer {
     margin-top: 50px;
   }
 
+  .fotos-nossa-equipe{
+    width: 120px;
+  }
 
 }
 

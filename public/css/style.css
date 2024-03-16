@@ -883,7 +883,8 @@ footer {
   width: 17%;
 }
 
-@media (max-width: 600px) {
+
+@media (max-width: 840px) {
 
   .footer-cima .footer-info-empresa div,
   .footer-barrinha,
@@ -917,6 +918,21 @@ footer {
     font-weight: normal;
   }
 
+  
+
+
+}
+
+@media (max-width: 1024px){
+  .caixa-contato-img {
+    display: none;
+  }
+
+  textarea,
+  .textarea-mensagem{
+    width: 99%;
+  }
+
   .caixa-contato {
     width: 70%;
     height: 100%;
@@ -944,5 +960,4 @@ footer {
   .caixa-contato-img {
     display: none;
   }
-
 }

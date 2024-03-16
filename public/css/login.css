@@ -220,80 +220,43 @@ span {
     display: none;
 }
 
+
 @media (max-width: 600px) {
 
- body, html {
-    height: 160vh;
- }
-
- main {
-    flex-direction: column;
- }
-
-.imagem-logo {
-    margin-top: 15px;
-    margin-bottom: unset;
-}
-
- span{
-    margin: 10px;
- }
-
-.esconder-endereco{
-    display: block;
-}
-
-.esconder-ou-desk{
+.area-login a{
     display: none;
 }
 
-.esconder-ou-mobile{
-    display: block;
-}
-
-.area-cadastro a{
-    display: none;
-}
-
-main > .area-cadastro > .dados-cadastros{
+main{
     width: 100%;
 }
 
-.dados-cadastros div{
-    flex-direction: column;
-}
-
-main > .area-cadastro > .dados-cadastros > div > label > input{
-    width: 55vw;
-}
-
-main > .area-cadastro{
+main > .area-login > .dados-login{
     width: 100%;
-    height: unset;
-    flex-direction: column;
 }
 
-.slack-google{
-    display: none;
+
+main > .area-login{
+    width: 75%;
+    height: 100%;
 }
 
-.slack-google-mobile{
-    display: block;
+label{
+    width: 48vw;
+}
+
+main > .area-login > .dados-login > div > label > input{
+    width: 43vw;
+}
+
+.slack-google > button {
+    width: 130px;
+}
+
+.slack-google {
+    width: 100%;
     display: flex;
-    width: 100%;
-    justify-content: space-around;
-}
-
-button {
-    width: 125px;
-    padding: 8px;
-    font-size: 17px;
-    font-weight: 700;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    border: 2px #416ae5 solid;
+    justify-content: space-between;
 }
 
 }

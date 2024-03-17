@@ -1030,6 +1030,7 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 }
 
 .footer-cima .footer-info-empresa h2 {
@@ -1059,10 +1060,15 @@ footer {
   width: 17%;
 }
 
+.footer-titulo-mobile{
+  display: none;
+}
+
+
+
 
 @media (max-width: 840px) {
 
-  .footer-cima .footer-info-empresa div,
   .footer-barrinha,
   .footer-nome-empresa {
     display: none;
@@ -1098,6 +1104,14 @@ footer {
     margin-top: 50px;
   }
 
+  
+  .footer-titulo-desk{
+    display: none;
+  }
+
+  .footer-titulo-mobile{
+    display: block;
+  }
 
 }
 
@@ -1141,5 +1155,17 @@ footer {
 
   .caixa-contato-img {
     display: none;
+  }
+
+  .aparecer-contatos{
+    display: none;
+    flex-direction: column;
+    transition: ease-in-out 2s;
+  }
+  
+  .aparecer-solucoes{
+    display: none;
+    flex-direction: column;
+    transition: ease-in-out 2s;
   }
 }

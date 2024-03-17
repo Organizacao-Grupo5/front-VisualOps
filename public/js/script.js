@@ -208,3 +208,28 @@ function exporCardEquipe(card) {
 
 window.addEventListener("resize", verificaTamanhoEquipe);
 window.onload = verificaTamanhoEquipe;
+
+
+
+// Sobre VisualOps
+
+function mostrarSolucoes(){
+    var infos = document.getElementById("aparecerSolucoes");
+    
+    if(infos.style.display == "flex" || infos.style.display == "block"){
+        infos.style.display = "none";
+    } else{
+        infos.style.display = "flex";
+    }
+
+};
+
+function mostrarContatos(){
+    var infos = document.getElementById("aparecerContatos");
+    
+    if(infos.style.display == "flex" || infos.style.display == "block"){
+        infos.style.display = "none";
+    } else{
+        infos.style.display = "flex";
+    }
+}

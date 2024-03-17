@@ -228,7 +228,7 @@ span {
 }
 
 main{
-    width: 100%;
+    width: 90%;
 }
 
 main > .area-login > .dados-login{
@@ -238,6 +238,7 @@ main > .area-login > .dados-login{
 
 main > .area-login{
     width: 75%;
+    flex-direction: column;
 }
 
 label{
@@ -256,6 +257,28 @@ main > .area-login > .dados-login > div > label > input{
     width: 100%;
     display: flex;
     justify-content: space-between;
+}
+
+.slack-google-mobile{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+button {
+    width: 100px;
+    padding: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: 2px #416ae5 solid;
+}
+
+button img{
+    width: 25%;
 }
 
 }

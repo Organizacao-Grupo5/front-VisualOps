@@ -89,30 +89,33 @@ const cardThiago = document.getElementById("card_thiago");
 const carrosselEquipe = document.getElementById("id_carrossel_equipe");
 
 cardClaudio.addEventListener("click", () => {
-    carrosselEquipe.style.marginLeft = "117%";
-    carrosselEquipe.style.marginRight = "0";
+    if (tela > 1040 || tela < 710) {
+        carrosselEquipe.style.marginLeft = "117%";
+        carrosselEquipe.style.marginRight = "0";
         ocultaCardEquipe(cardGuilherme);
         exporCardEquipe(cardDiego);
         ocultaCardEquipe(cardJulia);
         ocultaCardEquipe(cardMaria);
         ocultaCardEquipe(cardThiago);
         exporCardEquipe(cardClaudio);
-    
+    }
 });
 
 cardGuilherme.addEventListener("click", () => {
-    carrosselEquipe.style.marginLeft = "0";
-    carrosselEquipe.style.marginRight = "0";
+    if (tela > 1040 || tela < 710) {
+        carrosselEquipe.style.marginLeft = "0";
+        carrosselEquipe.style.marginRight = "0";
         ocultaCardEquipe(cardClaudio);
         ocultaCardEquipe(cardDiego);
         exporCardEquipe(cardJulia);
         ocultaCardEquipe(cardMaria);
         ocultaCardEquipe(cardThiago);
         exporCardEquipe(cardGuilherme);
-    
+    }
 });
 
 cardDiego.addEventListener("click", () => {
+    if (tela > 1040 || tela < 710) { 
         carrosselEquipe.style.marginLeft = "117%";
         carrosselEquipe.style.marginRight = "0";
         ocultaCardEquipe(cardGuilherme);
@@ -121,10 +124,11 @@ cardDiego.addEventListener("click", () => {
         ocultaCardEquipe(cardMaria);
         ocultaCardEquipe(cardThiago);
         exporCardEquipe(cardDiego);
-    
+    }
 });
 
 cardJulia.addEventListener("click", () => {
+    if (tela > 1040 || tela < 710) {
     
         carrosselEquipe.style.marginLeft = "0";
         carrosselEquipe.style.marginRight = "0";
@@ -134,11 +138,11 @@ cardJulia.addEventListener("click", () => {
         ocultaCardEquipe(cardMaria);
         ocultaCardEquipe(cardThiago);
         exporCardEquipe(cardJulia);
-    
+    }
 });
 
 cardMaria.addEventListener("click", () => {
-    
+    if (tela > 1040 || tela < 710) {
         carrosselEquipe.style.marginLeft = "0";
         carrosselEquipe.style.marginRight = "117%";
         ocultaCardEquipe(cardGuilherme);
@@ -147,11 +151,11 @@ cardMaria.addEventListener("click", () => {
         ocultaCardEquipe(cardJulia);
         exporCardEquipe(cardThiago);
         exporCardEquipe(cardMaria);
-   
+    }
 });
 
 cardThiago.addEventListener("click", () => {
-    
+    if (tela > 1040 || tela < 710) {
         carrosselEquipe.style.marginLeft = "0";
         carrosselEquipe.style.marginRight = "117%";
         ocultaCardEquipe(cardGuilherme);
@@ -160,20 +164,19 @@ cardThiago.addEventListener("click", () => {
         ocultaCardEquipe(cardJulia);
         exporCardEquipe(cardMaria);
         exporCardEquipe(cardThiago);
-   
+    }
 });
 
 const verificaTamanhoEquipe = () => {
-    tela = window.innerWidth;
-    if (tela > 710) {
+    if (tela < 1040 && tela > 710) {
         carrosselEquipe.style.marginLeft = "0";
         carrosselEquipe.style.marginRight = "0";
         exporCardEquipe(cardJulia);
-        ocultaCardEquipe(cardMaria);
-        ocultaCardEquipe(cardThiago);
+        exporCardEquipe(cardMaria);
+        exporCardEquipe(cardThiago);
         exporCardEquipe(cardGuilherme);
-        ocultaCardEquipe(cardDiego);
-        ocultaCardEquipe(cardClaudio);
+        exporCardEquipe(cardDiego);
+        exporCardEquipe(cardClaudio);
 
         qtd = 0;
     } else {

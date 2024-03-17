@@ -422,20 +422,11 @@ body {
   }
 }
 
-@media screen and (max-width: 527px) {
-  .fotos-nossa-equipe{
-    width: 80px;
-  }
-}
-
 @media screen and (max-width: 510px) {
  .fundobox-nossa-equipe{
    width: 40%;
  }
 
- .fotos-nossa-equipe{
-  width: 50px;
-}
 }
 
 
@@ -536,7 +527,7 @@ body {
   }
 
   .fotos-nossa-equipe {
-    width: 180px;
+    width: 220px;
   }
 
 
@@ -553,9 +544,6 @@ body {
       margin-top: 70px;
     }
 
-    /* .fotos-nossa-equipe{
-      width: 110%;
-    } */
   }
 
   @media screen and (max-width: 897px) {
@@ -568,9 +556,6 @@ body {
       font-size: 27px;
     }
 
-    .fotos-nossa-equipe{
-      width: 140px;
-    }
   }
 
   @media screen and (max-width: 672px) {
@@ -579,6 +564,13 @@ body {
     }
 
   }
+}
+
+@media screen and (max-width: 462px) {
+  .texto-sobre-nos {
+    font-size: 22px;
+  }
+
 }
 
 @media screen and (max-width: 710px) {
@@ -778,10 +770,6 @@ body {
     top: 450%;
   }
 
-  /* .fotos-nossa-equipe{
-    width: 160%;
-  } */
-
 
   /*Coloca em outro @media vai ajustando até ficar bom*/
 
@@ -829,10 +817,6 @@ body {
 
   .sobre-nos-imagem-analistas {
     top: 446%;
-  }
-
-  .fotos-nossa-equipe{
-    width: 150px;
   }
 
   .fundobox-nossa-equipe{
@@ -927,10 +911,6 @@ body {
     transform: rotate(-135deg);
     top: -7px;
   }
-
-  /* .fotos-nossa-equipe{
-    width: 140%;
-  } */
 }
 
 /*Começo do código do Guilhereme*/
@@ -1159,8 +1139,8 @@ footer {
     margin-top: 50px;
   }
 
-  .fotos-nossa-equipe{
-    width: 120px;
+  .fotos-nossa-equipe {
+    width: 140px;
   }
 
 }

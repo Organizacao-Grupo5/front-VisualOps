@@ -6,75 +6,82 @@ btPlano.addEventListener("click", mostrarOpcoes);
 
 const tela = window.innerWidth;
 
+const divPlanos = document.getElementsByClassName("div-planos")[0];
+
 function mostrarOpcoes() {
+    const plano1 = document.getElementById("plano1");
+    const plano2 = document.getElementById("plano2");
+    const plano3 = document.getElementById("plano3");
+
+    const listaPlanos = [plano1, plano2, plano3];
+
     if (tela > 600) {
 
-        const plano1 = document.getElementById("plano1");
-        const plano2 = document.getElementById("plano2");
-        const plano3 = document.getElementById("plano3");
-    
-        const listaPlanos = [plano1, plano2, plano3];
-    
-        plano1.style.top = "100px";
-        plano1.style.visibility = "hidden";
-        plano1.style.opacity = 0;
-    
-        plano3.style.top = "100px";
-        plano3.style.visibility = "hidden";
-        plano3.style.opacity = 0;
-    
-    
         if (plano2.style.visibility === "visible") {
-            plano3.style.left = "calc(40vw - 15px)"
+
+            plano2.style.top = "0"
+            plano2.style.opacity = 0;
+            plano2.style.visibility = "hidden";
+            
+            plano1.style.top = "0";
+            plano1.style.right = "-80px";
+            plano1.style.opacity = 0;
+            plano1.style.visibility = "hidden";
+            
+            plano3.style.top = "0";
+            plano3.style.left = "-80px"
             plano3.style.opacity = 0;
             plano3.style.visibility = "hidden";
-            setTimeout(()=> {
-                plano1.style.left = "calc(40vw - 15px)";
-                plano1.style.opacity = 0;
-                plano1.style.visibility = "hidden";
+
+            btPlano.style.visibility = "visible";
+            setTimeout(() => {
+                plano1.style.display = "none";
+                plano2.style.display = "none";
+                plano3.style.display = "none";
+
+                btPlano.style.display = "block";
+                btPlano.style.opacity = 1;
             }, 100);
-            setTimeout(()=> {
-                plano2.style.top = "120px"
-                plano2.style.opacity = 0;
-                plano2.style.visibility = "hidden";
-            }, 150);
         } else {
-            plano2.style.opacity = 1;
-            plano2.style.visibility = "visible";
-            plano2.style.top = "100px"
+            
+            plano1.style.right = "-80px";            
+            plano3.style.left = "-80px";
+            
+            btPlano.style.display = "none";
+            btPlano.style.opacity = 0;
+            btPlano.style.visibility = "hidden";
+            
+            plano1.style.display = "block";
+            plano2.style.display = "block";
+            plano3.style.display = "block";
             setTimeout(()=> {
-                plano1.style.opacity = 1;
+                
+                plano2.style.visibility = "visible";
+                plano2.style.opacity = 1;
+                plano2.style.top = "-22px"
+                
                 plano1.style.visibility = "visible";
-                plano1.style.left = "calc(40vw - 125px)";
-            }, 100);
-            setTimeout(()=> {
-                plano3.style.opacity = 1;
+                plano1.style.opacity = 1;
+                plano1.style.right = "10px";
+                plano1.style.top = "10px";
+                
                 plano3.style.visibility = "visible";
-                plano3.style.left = "calc(40vw + 95px)";
-            }, 170);
-    
-            listaPlanos.forEach(plano => {
-                plano.addEventListener("click", () => {
-                    btPlano.innerHTML = plano.innerHTML;
-                })
-            });
+                plano3.style.opacity = 1;
+                plano3.style.left = "10px";
+                plano3.style.top = "10px";
+            }, 100);
+            
         }
     } else {
-        const plano1 = document.getElementById("plano1");
-        const plano2 = document.getElementById("plano2");
-        const plano3 = document.getElementById("plano3");
-    
-        const listaPlanos = [plano1, plano2, plano3];
-    
         plano1.style.top = "324px";
         plano1.style.visibility = "hidden";
         plano1.style.opacity = 0;
-    
+        
         plano3.style.top = "324px";
         plano3.style.visibility = "hidden";
         plano3.style.opacity = 0;
-    
-    
+        
+        
         if (plano2.style.visibility === "visible") {
             btPlano.style.visibility = "visible";
             plano3.style.left = "calc(40vw - 10px)";
@@ -105,16 +112,17 @@ function mostrarOpcoes() {
                 plano3.style.visibility = "visible";
                 plano3.style.left = "calc(40vw + 125px)";
             }, 170);
-    
-            listaPlanos.forEach(plano => {
-                plano.addEventListener("click", () => {
-                    btPlano.style.visibility = "visible";
-                    btPlano.innerHTML = plano.innerHTML;
-                    mostrarOpcoes();
-                })
-            });
+            
         }
     }
+    listaPlanos.forEach(plano => {
+        plano.addEventListener("click", () => {
+            if (btPlano.style.visibility == "hidden") {
+                mostrarOpcoes();
+                btPlano.innerHTML = plano.innerHTML;
+            }
+        })
+    });
 }
 
 
@@ -182,6 +190,7 @@ function visualizarSenha() {
 
 }
 
+let statusPage = "pessoal";
 
 function cadastrar() {
     // if (!validarCampos()) return false;
@@ -196,7 +205,7 @@ function cadastrar() {
     const complemento = ipt_complemento;
 
     if (tela > 720) {
-        const dadosPessoais = document.getElementsByClassName("dados-pessoais");
+        const dadosPessoais = document.getElementsByClassName("esconder");
         for (let i = 0; i < dadosPessoais.length; i++) {
             dadosPessoais[i].style.display = "none";
         }
@@ -204,6 +213,10 @@ function cadastrar() {
         for (let i = 0; i < dadosEndereco.length; i++) {
             dadosEndereco[i].style.display = "grid";            
         }
+        btPlano.style.display = "block";
+        divPlanos.style.display = "flex";
+
+        statusPage = "endereço";
     }
 
     fetch("/usuarios/cadastrar", {

@@ -137,50 +137,45 @@ function mudarVisibilidade() {
 let mensagem = idMensagem;
 const divMsg = document.querySelector(".div-mensagem");
 
+// const estado = ipt_estado.value;
+//     const cep = ipt_cep;
+//     const numero = ipt_numero;
+//     const complemento = ipt_complemento;
+// else if (btPlano.value === "Escolha um plano") {
+//     divMsg.style.display = 'block';
+//     mensagem.innerHTML = 'Não é possivel cadastrar sem escolher um plano.'
+//     validacaoCampos = false;
+// }
+
 function validarCampos() {
-    const inputs = document.querySelectorAll('input');
+    const nome = ipt_nome.value;
+    const email = ipt_email.value;
+    const senha = ipt_senha.value;
+    const identificacao = ipt_identificacao.value;
+    
     let validacaoCampos = true;
     divMsg.style.display = "none"
     
-    inputs.forEach(input => {
-
-        if (!validacaoCampos) return;
-        var nomeInput = input.id;
-        nomeInput = nomeInput.replace("ipt_", '')
-
-        if (input.value.trim() === '' &&
-            input.id !== "ipt_complemento") {
-            divMsg.style.display = 'block';
-            mensagem.innerHTML = `O campo ${nomeInput} está vazio.`
-            validacaoCampos = false;
-            return;
-        } else if (input.id === "ipt_email" &&
-                !(input.value.includes("@hotmail.com") || 
-                input.value.includes("@gmail.com") || 
-                input.value.includes("@outlook.com") || 
-                input.value.includes("@sptech.school"))) {
-            divMsg.style.display = 'block';
-            mensagem.innerHTML = `Esse Email é inválido.`
-            validacaoCampos = false;
-            return;
-        } else if (input.id === "ipt_senha" && 
-                !new RegExp("^(?=.*\\d)(?=.*[^\\w\\s])(?=.*[A-Z])(?=.*[a-z]).*$").test(input.value)) {
-            divMsg.style.display = 'block';
-            mensagem.innerHTML = 'A Senha deve conter letras MAIÚSCULAS, minúsculas, números e símbolos'
-            validacaoCampos = false;
-            return;
-        } else if (btPlano.value === "Escolha um plano") {
-            divMsg.style.display = 'block';
-            mensagem.innerHTML = 'Não é possivel cadastrar sem escolher um plano.'
-            validacaoCampos = false;
-            return;
-        }
-        return;
-
-    });
-
+    if (nome.trim() === '' ||
+    email.trim() === '' ||
+    senha.trim() === '' ||
+    identificacao.trim() === '') {
+        divMsg.style.display = 'block';
+        mensagem.innerHTML = `Os campos não podem estar vazio.`
+        validacaoCampos = false;
+    } else if (!(email.includes("@hotmail.com") || 
+            email.includes("@gmail.com") || 
+            email.includes("@outlook.com") || 
+            email.includes("@sptech.school"))) {
+        divMsg.style.display = 'block';
+        mensagem.innerHTML = `Esse Email é inválido.`
+        validacaoCampos = false;
+    } else if (!new RegExp("^(?=.*\\d)(?=.*[^\\w\\s])(?=.*[A-Z])(?=.*[a-z]).*$").test(senha)) {
+        divMsg.style.display = 'block';
+        mensagem.innerHTML = 'A Senha deve conter letras MAIÚSCULAS, minúsculas, números e símbolos'
+        validacaoCampos = false;
+    } 
     return validacaoCampos;
-
 }
 
 function visualizarSenha() {
@@ -189,7 +184,7 @@ function visualizarSenha() {
 
 
 function cadastrar() {
-    if (!validarCampos()) return false;
+    // if (!validarCampos()) return false;
 
     const nome = ipt_nome.value;
     const email = ipt_email.value;
@@ -200,8 +195,17 @@ function cadastrar() {
     const numero = ipt_numero;
     const complemento = ipt_complemento;
 
-    if (tela > 720) window.location = "cadastrarEndereco.js";
-  
+    if (tela > 720) {
+        const dadosPessoais = document.getElementsByClassName("dados-pessoais");
+        for (let i = 0; i < dadosPessoais.length; i++) {
+            dadosPessoais[i].style.display = "none";
+        }
+        const dadosEndereco = document.getElementsByClassName("esconder-endereco");
+        for (let i = 0; i < dadosEndereco.length; i++) {
+            dadosEndereco[i].style.display = "grid";            
+        }
+    }
+
     fetch("/usuarios/cadastrar", {
         method: "POST",
         headers: {

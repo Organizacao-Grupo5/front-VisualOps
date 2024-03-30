@@ -103,7 +103,7 @@ main > .area-cadastro > .dados-cadastros > .area-titulo {
     width: 100%;
 }
 
-main > .area-cadastro > .dados-cadastros > .area-titulo > h1 {
+main > .area-cadastro > .dados-cadastros > h1 {
     font-size: 40px;
 }
 
@@ -132,18 +132,18 @@ main > .area-cadastro > .dados-cadastros > div > .bt-plano {
     transition: cubic-bezier(0.57, 0.52, 0, 1.5) .5s;
 }
 
-main > .area-cadastro > .dados-cadastros > .dados-pessoais {
+main > .area-cadastro > .dados-cadastros > div {
     width: 80%;
 }
 
-main > .area-cadastro > .dados-cadastros > .dados-pessoais > label {
+main > .area-cadastro > .dados-cadastros > div > label {
     display: grid;
     margin: 10px 0;
     font-size: 19px;
     font-weight: 800;
 }
 
-main > .area-cadastro > .dados-cadastros > .dados-pessoais > label > input {
+main > .area-cadastro > .dados-cadastros > div > label > input {
     padding: 9px;
     font-size: 15px;
     border: 2px solid #416ae5;

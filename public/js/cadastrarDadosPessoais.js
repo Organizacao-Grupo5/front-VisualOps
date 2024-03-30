@@ -125,11 +125,11 @@ olhoSenha.addEventListener("click", mudarVisibilidade);
 function mudarVisibilidade() {
     const campoSenha = document.getElementById("ipt_senha");
     if (campoSenha.type === "password") {
-        olhoSenha.innerHTML = "visibility";
+        olhoSenha.innerHTML = "visibility_off";
         campoSenha.type = "text";
     }
     else {
-        olhoSenha.innerHTML = "visibility_off"
+        olhoSenha.innerHTML = "visibility";
         campoSenha.type = "password";
     }
 }
@@ -188,7 +188,6 @@ function visualizarSenha() {
 }
 
 
-
 function cadastrar() {
     if (!validarCampos()) return false;
 
@@ -200,6 +199,8 @@ function cadastrar() {
     const cep = ipt_cep;
     const numero = ipt_numero;
     const complemento = ipt_complemento;
+
+    if (tela > 720) window.location = "cadastrarEndereco.js";
   
     fetch("/usuarios/cadastrar", {
         method: "POST",

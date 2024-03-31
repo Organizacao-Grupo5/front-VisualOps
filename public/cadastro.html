@@ -3,13 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="">
     <title>Cadastro | VisualOps</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
     <link rel="stylesheet" href="css/cadastro.css">
+
+    <script src="https://unpkg.com/jwt-decode@3.1.2/build/jwt-decode.js"></script>
+
+    <script src="https://accounts.google.com/gsi/client" async></script>
+    
 </head>
 <body>
+    <script src="js/cadastrar.js"></script>
+    <script src="js/viaCep.js"></script>
+    <script src="js/cadastrarGoogleSlack.js"></script>    
+    
     <div class="div-mensagem">
         <span id="idMensagem"></span>
     </div>
@@ -51,22 +61,22 @@
 
                 <h1 class="esconder-endereco">Endereço</h1>
 
-                <div class="esconder-endereco formulario">
+                <div class="esconder-endereco">
                     <label for="ipt_cep">
                         CEP<br>
                         <input type="text" id="ipt_cep" onblur="pesquisacep(this.value)" placeholder="xxxxx-xxx">
                     </label>
                     <label for="ipt_estado">
                         Estado<br>
-                        <input type="text" id="ipt_estado" placeholder="Ex: São Paulo">
+                        <input type="text" id="ipt_estado" placeholder="ex: São Paulo">
                     </label>
                     <label for="ipt_numero">
                         Número<br>
-                        <input type="text" id="ipt_numero" placeholder="Ex: 000">
+                        <input type="text" id="ipt_numero" placeholder="ex: 000">
                     </label>
                     <label for="ipt_complemento">
                         Complemento<br>
-                        <input type="text" id="ipt_complemento" placeholder="Ex: torre 1 apartamento 003">
+                        <input type="text" id="ipt_complemento" placeholder="ex: torre 1 apartamento 003">
                     </label>
                 </div>
                 <div class="div-planos">
@@ -82,7 +92,7 @@
                         <img src="assets/img/slack.png" alt="imagem slack">
                         SLACK
                     </button>
-                    <button class="btn-bottom">
+                    <button id="btGoogle" class="btn-bottom bt-google">
                         <img src="./assets/img/google.png" alt="imagem google">
                         GOOGLE
                     </button>
@@ -97,7 +107,6 @@
         <a href="index.html" class="imagem-logo"><img src="assets/img/logofundo.png" alt="imagem_logo">VisualOps</a>
     </main>
     <div class="fio-direito"></div>
+
 </body>
-<script src="js/cadastrar.js"></script>
-<script src="js/viaCep.js"></script>
 </html>

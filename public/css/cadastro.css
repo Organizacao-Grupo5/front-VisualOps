@@ -154,7 +154,7 @@ main > .area-cadastro > .dados-cadastros > h1 {
     transition: cubic-bezier(0.57, 0.52, 0, 1.5) .5s;
 }
 
-main > .area-cadastro > .dados-cadastros > .formulario {
+main > .area-cadastro > .dados-cadastros > div {
     width: 80%;
 }
 

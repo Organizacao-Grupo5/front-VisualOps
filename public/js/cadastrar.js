@@ -1,12 +1,16 @@
 window.onload;
 
-const btPlano = document.getElementById("btPlano");
-
-btPlano.addEventListener("click", mostrarOpcoes); 
-
 const tela = window.innerWidth;
 
+const olhoSenha = document.getElementById("olho");
+olhoSenha.addEventListener("click", mudarVisibilidade);
+
+const btPlano = document.getElementById("btPlano");
+btPlano.addEventListener("click", mostrarOpcoes); 
+
 const divPlanos = document.getElementsByClassName("div-planos")[0];
+
+let statusPage = "pessoal";
 
 function mostrarOpcoes() {
     const plano1 = document.getElementById("plano1");
@@ -125,11 +129,6 @@ function mostrarOpcoes() {
     });
 }
 
-
-const olhoSenha = document.getElementById("olho");
-
-olhoSenha.addEventListener("click", mudarVisibilidade);
-
 function mudarVisibilidade() {
     const campoSenha = document.getElementById("ipt_senha");
     if (campoSenha.type === "password") {
@@ -142,69 +141,76 @@ function mudarVisibilidade() {
     }
 }
 
-let mensagem = idMensagem;
-const divMsg = document.querySelector(".div-mensagem");
+function mostrarMensagem(newMensagem) {
+    const divMsg = document.querySelector(".div-mensagem");
+    divMsg.style.display = 'block';
 
-// const estado = ipt_estado.value;
-//     const cep = ipt_cep;
-//     const numero = ipt_numero;
-//     const complemento = ipt_complemento;
-// else if (btPlano.value === "Escolha um plano") {
-//     divMsg.style.display = 'block';
-//     mensagem.innerHTML = 'Não é possivel cadastrar sem escolher um plano.'
-//     validacaoCampos = false;
-// }
+    let mensagem = idMensagem;
 
-function validarCampos() {
-    const nome = ipt_nome.value;
-    const email = ipt_email.value;
-    const senha = ipt_senha.value;
-    const identificacao = ipt_identificacao.value;
+    mensagem.innerHTML = newMensagem;
     
+    setTimeout(() => {
+        divMsg.style.display = 'none';
+    }, 3000)
+}
+
+function validarCampos(listaCampos) {
+
     let validacaoCampos = true;
-    divMsg.style.display = "none"
     
-    if (nome.trim() === '' ||
-    email.trim() === '' ||
-    senha.trim() === '' ||
-    identificacao.trim() === '') {
-        divMsg.style.display = 'block';
-        mensagem.innerHTML = `Os campos não podem estar vazio.`
-        validacaoCampos = false;
-    } else if (!(email.includes("@hotmail.com") || 
-            email.includes("@gmail.com") || 
-            email.includes("@outlook.com") || 
-            email.includes("@sptech.school"))) {
-        divMsg.style.display = 'block';
-        mensagem.innerHTML = `Esse Email é inválido.`
-        validacaoCampos = false;
-    } else if (!new RegExp("^(?=.*\\d)(?=.*[^\\w\\s])(?=.*[A-Z])(?=.*[a-z]).*$").test(senha)) {
-        divMsg.style.display = 'block';
-        mensagem.innerHTML = 'A Senha deve conter letras MAIÚSCULAS, minúsculas, números e símbolos'
-        validacaoCampos = false;
-    } 
-    return validacaoCampos;
+    for(i = 0; i < listaCampos.length; i++) {
+    
+        if (listaCampos[i].value.trim() === '' &&
+            listaCampos[i].id !== "ipt_complemento" && 
+            listaCampos[i].id !== "btPlano") {
+            console.log(listaCampos[i]);
+            mostrarMensagem(`Os campos não podem estar vazios.`);
+            validacaoCampos = false;
+            break;
+        } else if (listaCampos[i].id === "ipt_email" && 
+                !(listaCampos[i].value.includes("@hotmail.com") || 
+                listaCampos[i].value.includes("@gmail.com") || 
+                listaCampos[i].value.includes("@outlook.com") || 
+                listaCampos[i].value.includes("@sptech.school"))) {
+            mostrarMensagem(`Esse Email é inválido.`)
+            validacaoCampos = false;
+            break;
+        } else if (listaCampos[i].id === "ipt_senha" &&
+                !new RegExp("^(?=.*\\d)(?=.*[^\\w\\s])(?=.*[A-Z])(?=.*[a-z]).*$").test(listaCampos[i].value)) {
+            mostrarMensagem('A Senha deve conter letras MAIÚSCULAS, minúsculas, números e símbolos');
+            validacaoCampos = false;
+            break;
+        } else if (listaCampos[i].innerHTML === "Escolha um plano") {
+            mostrarMensagem('Não é possivel cadastrar-se sem escolher um plano.');
+            validacaoCampos = false;
+            break;
+        }
+    }
+    return validacaoCampos;    
 }
 
-function visualizarSenha() {
-
-}
-
-let statusPage = "pessoal";
 
 function cadastrar() {
-    // if (!validarCampos()) return false;
-
-    const nome = ipt_nome.value;
-    const email = ipt_email.value;
-    const senha = ipt_senha.value;
-    const identificacao = ipt_identificacao.value;
-    const estado = ipt_estado.value;
-    const cep = ipt_cep;
-    const numero = ipt_numero;
-    const complemento = ipt_complemento;
-
+    
     if (tela > 720) {
+        let listaCampos = [];
+
+        if (statusPage === "pessoal") {
+            const nome = ipt_nome;
+            const email = ipt_email;
+            const senha = ipt_senha;
+            const identificacao = ipt_identificacao;
+            listaCampos.push(nome, email, senha, identificacao);
+        } else {
+            const estado = ipt_estado;
+            const cep = ipt_cep;
+            const numero = ipt_numero;
+            const complemento = ipt_complemento;
+            listaCampos.push(estado, cep, numero, complemento, btPlano);
+        }    
+
+        if (!validarCampos(listaCampos)) return false;
+
         const dadosPessoais = document.getElementsByClassName("esconder");
         for (let i = 0; i < dadosPessoais.length; i++) {
             dadosPessoais[i].style.display = "none";
@@ -217,6 +223,8 @@ function cadastrar() {
         divPlanos.style.display = "flex";
 
         statusPage = "endereço";
+    } else {
+
     }
 
     fetch("/usuarios/cadastrar", {

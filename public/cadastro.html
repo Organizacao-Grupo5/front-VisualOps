@@ -52,13 +52,13 @@
                 <h1 class="esconder-endereco">Endereço</h1>
 
                 <div class="esconder-endereco formulario">
+                    <label for="ipt_cep">
+                        CEP<br>
+                        <input type="text" id="ipt_cep" onblur="pesquisacep(this.value)" placeholder="xxxxx-xxx">
+                    </label>
                     <label for="ipt_estado">
                         Estado<br>
                         <input type="text" id="ipt_estado" placeholder="Ex: São Paulo">
-                    </label>
-                    <label for="ipt_cep">
-                        CEP<br>
-                        <input type="text" id="ipt_cep" placeholder="xxxxx-xxx">
                     </label>
                     <label for="ipt_numero">
                         Número<br>
@@ -70,7 +70,7 @@
                     </label>
                 </div>
                 <div class="div-planos">
-                    <button id="btPlano" class="bt-plano"> Escolha um plano</button>
+                    <button id="btPlano" class="bt-plano">Escolha um plano</button>
                     <button class="pl" id="plano1">Plano Freelancer</button>
                     <button class="pl" id="plano2">Plano Empresarial</button>
                     <button class="pl" id="plano3">Plano Corporativo</button>
@@ -99,4 +99,5 @@
     <div class="fio-direito"></div>
 </body>
 <script src="js/cadastrar.js"></script>
+<script src="js/viaCep.js"></script>
 </html>

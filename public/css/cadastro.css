@@ -177,6 +177,8 @@ main > .area-cadastro > .dados-cadastros > div > label > input {
 .olho {
     cursor: pointer;
     user-select: none;
+    background-color: transparent;
+    border: none;
 }
 
 .row2 {

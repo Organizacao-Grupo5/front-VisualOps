@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-signin-client_id" content="">
     <title>Cadastro | VisualOps</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -51,7 +50,7 @@
                     </label>
                     <label for="ipt_senha" class="lbl-senha">
                         Senha<br>
-                        <input type="password" id="ipt_senha" placeholder="ex: Visu@lOp5" class="row2"><span class="material-symbols-outlined olho row2" id="olho">visibility</span>
+                        <input type="password" id="ipt_senha" placeholder="ex: Visu@lOp5" class="row2"><button class="material-symbols-outlined olho row2" id="olho" onclick="mudarVisibilidade()">visibility</button>
                     </label>
                     <label for="ipt_identificacao">
                         CPF/CNJP<br>
@@ -88,7 +87,7 @@
                 <button class="btn-cadastrar btn-bottom" onclick="cadastrar()">CADASTRAR</button>
                 <span class="esconder-ou-desk esconder">OU</span>
                 <section class="slack-google esconder">
-                    <button class="btn-slack btn-bottom">
+                    <button class="btn-slack btn-bottom" id="btSlack">
                         <img src="assets/img/slack.png" alt="imagem slack">
                         SLACK
                     </button>

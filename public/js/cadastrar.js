@@ -1,14 +1,10 @@
-window.onload;
+const btPlano = 0;
 
 const tela = window.innerWidth;
 
-const olhoSenha = document.getElementById("olho");
-olhoSenha.addEventListener("click", mudarVisibilidade);
 
-const btPlano = document.getElementById("btPlano");
-btPlano.addEventListener("click", mostrarOpcoes); 
 
-const divPlanos = document.getElementsByClassName("div-planos")[0];
+const divPlanos = 0;
 
 let statusPage = "pessoal";
 
@@ -131,12 +127,13 @@ function mostrarOpcoes() {
 
 function mudarVisibilidade() {
     const campoSenha = document.getElementById("ipt_senha");
+    const olho = document.getElementById("olho");
     if (campoSenha.type === "password") {
-        olhoSenha.innerHTML = "visibility_off";
+        olho.innerHTML = "visibility_off";
         campoSenha.type = "text";
     }
     else {
-        olhoSenha.innerHTML = "visibility";
+        olho.innerHTML = "visibility";
         campoSenha.type = "password";
     }
 }
@@ -219,7 +216,11 @@ function cadastrar() {
         for (let i = 0; i < dadosEndereco.length; i++) {
             dadosEndereco[i].style.display = "grid";            
         }
+        btPlano.document.getElementById("btPlano");
+        btPlano.addEventListener("click", mostrarOpcoes); 
         btPlano.style.display = "block";
+        
+        divPlanos = document.getElementsByClassName("div-planos")[0];
         divPlanos.style.display = "flex";
 
         statusPage = "endereço";

@@ -1,16 +1,4 @@
-const Slack = require("@slack/bolt");
 require("dotenv").config();
-
-const app = new Slack.App({
-    signingSecret: process.env.SLACK_SIGNING_SECRET,
-    token: process.env.SLACK_BOT_TOKEN
-});
-
-await app.client.chat.postMessage({
-    token: process.env.SLACK_BOT_TOKEN,
-    channel: process.env.SLACK_CHANNEL,
-    text: "This is a test."
-});
 
 async function sendMessage(id, token, message) {
     try {
@@ -41,4 +29,4 @@ async function sendMessage(id, token, message) {
     }
 }
 
-module.exports = app, sendMessage();
+module.exports = { sendMessage };

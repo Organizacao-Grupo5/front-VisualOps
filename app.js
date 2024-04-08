@@ -6,7 +6,6 @@ var PORTA = 8080;
 var app = express();
 
 const slackRouter = require("./src/routes/slack");
-const { env } = require("process");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));

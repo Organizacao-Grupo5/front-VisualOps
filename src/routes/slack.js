@@ -1,10 +1,13 @@
 const express = require("express");
 const router = express.Router();
 require("dotenv").config();
+const appMessage = require("../utils/sendMessage.js");
 
 router.get('/auth', (req, res) => {
     res.redirect(`https://slack.com/oauth/v2/authorize?client_id=${process.env.SLACK_CLIENT_ID}&user_scope=${process.env.SLACK_SCOPE}&redirect_uri=${encodeURIComponent(process.env.SLACK_REDIRECT_URI)}`);
 });
+
+
 
 router.get('/callback', async (req, res) => {
     try {
@@ -26,9 +29,7 @@ router.get('/callback', async (req, res) => {
 
             const userResponse = await fetch(`https://slack.com/api/users.profile.get`, {
                 method: "GET",
-                headers: {
-                Authorization: `Bearer ${tokenAccess}`,
-                },
+                headers: { Authorization: `Bearer ${tokenAccess}`},
             });
 
             const userData = await userResponse.json();
@@ -41,6 +42,8 @@ router.get('/callback', async (req, res) => {
             console.log(name);
             console.log(id);
             console.log(email);  
+
+            console.log("CONSOLE APPMENSAGEM ", appMessage.listarChats(tokenAccess));
 
         } else {
             console.error("Erro ao obter token de acesso: ", tokenData.error);

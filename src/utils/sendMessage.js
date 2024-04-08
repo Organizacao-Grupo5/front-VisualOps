@@ -1,12 +1,14 @@
 require("dotenv").config();
 
-async function sendMessage(id, token, message) {
+const botToken = process.env.SLACK_BOT_TOKEN;
+
+async function sendMessage(id, message) {
     try {
         const response = await fetch('https://slack.com/api/chat.postMessage', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${botToken}`
             },
             body: JSON.stringify({
                 channel: id,

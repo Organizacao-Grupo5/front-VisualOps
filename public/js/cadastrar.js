@@ -157,7 +157,7 @@ function validarCampos(listaCampos) {
     
     for(i = 0; i < listaCampos.length; i++) {
     
-        if (listaCampos[i].value.trim() === '' &&
+        if (listaCampos[i].trim() === '' &&
             listaCampos[i].id !== "ipt_complemento" && 
             listaCampos[i].id !== "btPlano") {
             console.log(listaCampos[i]);
@@ -165,15 +165,15 @@ function validarCampos(listaCampos) {
             validacaoCampos = false;
             break;
         } else if (listaCampos[i].id === "ipt_email" && 
-                !(listaCampos[i].value.includes("@hotmail.com") || 
-                listaCampos[i].value.includes("@gmail.com") || 
-                listaCampos[i].value.includes("@outlook.com") || 
-                listaCampos[i].value.includes("@sptech.school"))) {
+                !(listaCampos[i].includes("@hotmail.com") || 
+                listaCampos[i].includes("@gmail.com") || 
+                listaCampos[i].includes("@outlook.com") || 
+                listaCampos[i].includes("@sptech.school"))) {
             mostrarMensagem(`Esse Email é inválido.`)
             validacaoCampos = false;
             break;
         } else if (listaCampos[i].id === "ipt_senha" &&
-                !new RegExp("^(?=.*\\d)(?=.*[^\\w\\s])(?=.*[A-Z])(?=.*[a-z]).*$").test(listaCampos[i].value)) {
+                !new RegExp("^(?=.*\\d)(?=.*[^\\w\\s])(?=.*[A-Z])(?=.*[a-z]).*$").test(listaCampos[i])) {
             mostrarMensagem('A Senha deve conter letras MAIÚSCULAS, minúsculas, números e símbolos');
             validacaoCampos = false;
             break;
@@ -186,47 +186,23 @@ function validarCampos(listaCampos) {
     return validacaoCampos;    
 }
 
-
 function cadastrar() {
     
-    if (tela > 720) {
-        let listaCampos = [];
+    const listaCampos = [];
 
-        if (statusPage === "pessoal") {
-            const nome = ipt_nome;
-            const email = ipt_email;
-            const senha = ipt_senha;
-            const identificacao = ipt_identificacao;
-            listaCampos.push(nome, email, senha, identificacao);
-        } else {
-            const estado = ipt_estado;
-            const cep = ipt_cep;
-            const numero = ipt_numero;
-            const complemento = ipt_complemento;
-            listaCampos.push(estado, cep, numero, complemento, btPlano);
-        }    
+    const nome = ipt_nome.value;
+    const email = ipt_email.value;
+    const senha = ipt_senha.value;
+    // const identificacao = ipt_identificacao.value;
+    const clienteTipo = verficarRadio();
+    const estado = ipt_estado.value;
+    const cep = ipt_cep.value;
+    const numero = ipt_numero.value;
+    const complemento = ipt_complemento.value;
 
-        if (!validarCampos(listaCampos)) return false;
+    listaCampos.push(nome, email, senha, clienteTipo, estado, cep, numero, complemento);
 
-        const dadosPessoais = document.getElementsByClassName("esconder");
-        for (let i = 0; i < dadosPessoais.length; i++) {
-            dadosPessoais[i].style.display = "none";
-        }
-        const dadosEndereco = document.getElementsByClassName("esconder-endereco");
-        for (let i = 0; i < dadosEndereco.length; i++) {
-            dadosEndereco[i].style.display = "grid";            
-        }
-        btPlano.document.getElementById("btPlano");
-        btPlano.addEventListener("click", mostrarOpcoes); 
-        btPlano.style.display = "block";
-        
-        divPlanos = document.getElementsByClassName("div-planos")[0];
-        divPlanos.style.display = "flex";
-
-        statusPage = "endereço";
-    } else {
-
-    }
+    if (!validarCampos(listaCampos)) return false;
 
     fetch("/usuarios/cadastrar", {
         method: "POST",
@@ -266,4 +242,13 @@ function cadastrar() {
     });
     return false;
 }
+
+function verficarRadio() {
+    const radios = document.getElementsByName('tipoCliente');
+    
+    for (let i = 0; i < radios.length; i++) {
+        if (radios[i].checked) return radio.value;   
+    }
+    return '';
+} 
 

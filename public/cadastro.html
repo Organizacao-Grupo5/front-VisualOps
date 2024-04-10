@@ -23,7 +23,7 @@
         <span id="idMensagem"></span>
     </div>
     <button onclick="voltar()" class="material-symbols-outlined seta">navigate_before</button>
-    <div class="fio-esquerdo"></div>
+    <div class="fio-esquerdo pos-fio"></div>
     <main>
         <div class="area-cadastro">
             <section class="slack-google-mobile">
@@ -39,7 +39,11 @@
             <span class="esconder-ou-mobile">OU</span>
             <div class="dados-cadastros formulario">
                 <h1 class="esconder">Cadastre-se</h1>
-                <div class="esconder">
+                <div class="campo-radios">
+                    <label for="radio_freelancer">Freelancer<input type="radio" name="tipo" id="radio_freelancer" value="freelancer"></label>
+                    <label for="radio_empresa">Empresa<input type="radio" name="tipo" id="radio_empresa" value="empresa"></label>
+                </div>
+                <div class="campo-dados esconder">
                     <label for="ipt_nome">
                         Nome<br>
                         <input type="text" id="ipt_nome" placeholder="Nome Completo">
@@ -48,19 +52,14 @@
                         Email<br>
                         <input type="text" id="ipt_email" placeholder="email@exemplo.com">
                     </label>
-                    <label for="ipt_senha" class="lbl-senha">
-                        Senha<br>
-                        <input type="password" id="ipt_senha" placeholder="ex: Visu@lOp5" class="row2"><button class="material-symbols-outlined olho row2" id="olho" onclick="mudarVisibilidade()">visibility</button>
-                    </label>
                     <label for="ipt_identificacao">
                         CPF/CNJP<br>
                         <input type="text" id="ipt_identificacao" placeholder="Digite seu CPF ou CNPJ">
                     </label>
-                </div>
-
-                <h1 class="esconder-endereco">Endereço</h1>
-
-                <div class="esconder-endereco">
+                    <label for="ipt_senha" class="lbl-senha">
+                        Senha<br>
+                        <input type="password" id="ipt_senha" placeholder="ex: Visu@lOp5" class="row2"><button class="material-symbols-outlined olho row2" id="olho" onclick="mudarVisibilidade()">visibility</button>
+                    </label>
                     <label for="ipt_cep">
                         CEP<br>
                         <input type="text" id="ipt_cep" onblur="pesquisacep(this.value)" placeholder="xxxxx-xxx">
@@ -78,26 +77,29 @@
                         <input type="text" id="ipt_complemento" placeholder="ex: torre 1 apartamento 003">
                     </label>
                 </div>
+
                 <div class="div-planos">
                     <button id="btPlano" class="bt-plano">Escolha um plano</button>
                     <button class="pl" id="plano1">Plano Freelancer</button>
                     <button class="pl" id="plano2">Plano Empresarial</button>
                     <button class="pl" id="plano3">Plano Corporativo</button>
                 </div>
-                <button class="btn-cadastrar btn-bottom" onclick="cadastrar()">CADASTRAR</button>
-                <span class="esconder-ou-desk esconder">OU</span>
-                <section class="slack-google esconder">
-                    <button class="btn-slack btn-bottom" id="btSlack">
-                        <img src="assets/img/slack.png" alt="imagem slack">
-                        SLACK
-                    </button>
-                    <button id="btGoogle" class="btn-bottom bt-google">
-                        <img src="./assets/img/google.png" alt="imagem google">
-                        GOOGLE
-                    </button>
-                </section>
-                <span class="esconder">já é cadastrado?</span>
-                <a href="login.html" class="btn-login btn-bottom esconder">LOGIN</a>
+                <div class="campo-btns">
+                    <button class="btn-cadastrar btn-bottom" onclick="cadastrar()">CADASTRAR</button>
+                    <section class="slack-google esconder">
+                        <button class="btn-slack btn-bottom" id="btSlack">
+                            <img src="assets/img/slack.png" alt="imagem slack">
+                            SLACK
+                        </button>
+                        <span class="esconder-ou-desk esconder">OU</span>
+                        <button id="btGoogle" class="btn-bottom bt-google">
+                            <img src="./assets/img/google.png" alt="imagem google">
+                            GOOGLE
+                        </button>
+                    </section>
+                    <span class="esconder">já é cadastrado?</span>
+                    <a href="login.html" class="btn-login btn-bottom esconder">LOGIN</a>
+                </div>
             </div>
             <a href="index.html" class="side-imagem">
                 <img src="assets/img/logofundo.png" alt="logo">
@@ -105,7 +107,7 @@
         </div>
         <a href="index.html" class="imagem-logo"><img src="assets/img/logofundo.png" alt="imagem_logo">VisualOps</a>
     </main>
-    <div class="fio-direito"></div>
+    <div class="fio-direito pos-fio"></div>
 
 </body>
 </html>

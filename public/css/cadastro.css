@@ -40,28 +40,40 @@ body, html {
     color: white;
     border: none;
     background-color: transparent;
+    z-index: 1;
 }
 
-.fio-esquerdo, .fio-direito {
+.pos-fio {
     background-image: url("../assets/img/fios.png");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 50vw;
     background-position: center;
+    position: absolute;
     height: 100%;
     width: 30%;
 }
 
+.fio-direito {
+    left: 0px;
+}
+
+.fio-esquerdo {
+    right: 0px;
+    transform: scaleY(-1);
+}
+
 main {
-    width: 70%;
+    width: 80%;
     display: flex;
+    margin: 0 auto;
     flex-direction: column-reverse;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
 }
 
 main > .area-cadastro {
-    width: 130%;
-    height: 75%;
+    width: 100%;
+    height: 80%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -72,22 +84,18 @@ main > .area-cadastro {
 }
 
 main > .area-cadastro > .dados-cadastros {
-    width: 54%;
+    width: 57%;
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .imagem-logo {
     background-color: transparent;
     display: flex;
     align-items: center;
-    height: 75px;
     color: white;
     font-size: 30px;
     font-weight: 700;
-    margin-top: -25px;
-    margin-bottom: 10px;
     transition: ease .3s;
 }
 
@@ -96,7 +104,8 @@ main > .area-cadastro > .dados-cadastros {
 }
 
 .imagem-logo > img {
-    width: 100px;
+    width: 45px;
+    margin-right: 10px;
 }
 
 a {
@@ -114,6 +123,27 @@ main > .area-cadastro > .dados-cadastros > .area-titulo {
 main > .area-cadastro > .dados-cadastros > h1 {
     font-size: 40px;
 }
+
+.campo-radios {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: 10px 0;    
+}
+
+.campo-radios > label {
+    display: flex;
+    align-items: baseline;
+    width: 200px;
+    color: black;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.campo-radios > label > input {
+    margin-left: 5px;
+}
+
 
 .div-planos {
     display: none;
@@ -154,18 +184,21 @@ main > .area-cadastro > .dados-cadastros > h1 {
     transition: cubic-bezier(0.57, 0.52, 0, 1.5) .5s;
 }
 
-main > .area-cadastro > .dados-cadastros > div {
-    width: 80%;
+main > .area-cadastro > .dados-cadastros > .campo-dados {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 30px;
+    height: 300px;
 }
 
-main > .area-cadastro > .dados-cadastros > div > label {
+main > .area-cadastro > .dados-cadastros > .campo-dados > label {
     display: grid;
-    margin: 10px 0;
     font-size: 19px;
     font-weight: 800;
+    width: 40%;
 }
 
-main > .area-cadastro > .dados-cadastros > div > label > input {
+main > .area-cadastro > .dados-cadastros > .campo-dados > label > input {
     padding: 9px;
     font-size: 15px;
     border: 2px solid #416ae5;
@@ -179,6 +212,7 @@ main > .area-cadastro > .dados-cadastros > div > label > input {
     user-select: none;
     background-color: transparent;
     border: none;
+    margin-left: 3px;
 }
 
 .row2 {
@@ -192,6 +226,13 @@ main > .area-cadastro > .dados-cadastros > div > label > input {
     align-items: center;
 }
 
+
+.campo-btns {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 .btn-login {
     color: black;
@@ -224,8 +265,8 @@ button > img {
 .btn-cadastrar {
     background-color: black;
     color: white;
-    border: black;
-    margin-top: 10px;
+    border-color: black;
+    margin: 20px 0;
 }
 
 .slack-google {
@@ -246,7 +287,7 @@ span {
     display: block;
     font-weight: 600;
     color: gray;
-    margin: 10px;
+    margin: 5px 0;
 }
 
 .side-imagem {
@@ -256,13 +297,16 @@ span {
     background-position: center;
     background-size: cover;
     border-radius: 18px;
-    box-shadow: 0px 0px 10px  black;
+    box-shadow: 0px 0px 8px  black;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .side-imagem > img {
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 75%;
     opacity: 0.16;
     transition: ease 1.2s;
 }

@@ -2,8 +2,6 @@ const btPlano = 0;
 
 const tela = window.innerWidth;
 
-
-
 const divPlanos = 0;
 
 let statusPage = "pessoal";
@@ -149,6 +147,18 @@ function mostrarMensagem(newMensagem) {
     setTimeout(() => {
         divMsg.style.display = 'none';
     }, 3000)
+}
+
+function mudarEstilo(event) {
+    let campoNome = document.getElementById('campo_nome');
+
+    if (event.value === 'empresa') {
+        campoNome.children[0].innerHTML = 'Nome Fantasia';
+        campoNome.children[1].placeholder = 'Nome fantasia';
+    } else {
+        campoNome.children[0].innerHTML = 'Nome';
+        campoNome.children[1].placeholder = 'Nome completo';
+    }
 }
 
 function validarCampos(listaCampos) {

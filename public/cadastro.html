@@ -40,41 +40,41 @@
             <div class="dados-cadastros formulario">
                 <h1 class="esconder">Cadastre-se</h1>
                 <div class="campo-radios">
-                    <label for="radio_freelancer">Freelancer<input type="radio" name="tipoCliente" id="radio_freelancer" value="freelancer"></label>
-                    <label for="radio_empresa">Empresa<input type="radio" name="tipoCliente" id="radio_empresa" value="empresa" checked></label>
+                    <label for="radio_freelancer">Freelancer<input type="radio" name="tipoCliente" id="radio_freelancer" onclick="mudarEstilo(this)" value="freelancer"></label>
+                    <label for="radio_empresa">Empresa<input type="radio" name="tipoCliente" id="radio_empresa" onclick="mudarEstilo(this)" value="empresa" checked></label>
                 </div>
                 <div class="campo-dados esconder">
-                    <label for="ipt_nome">
-                        Nome<br>
-                        <input type="text" id="ipt_nome" placeholder="Nome Completo">
+                    <label for="ipt_nome" id="campo_nome">
+                        <p>Nome Fantasia</p>
+                        <input type="text" id="ipt_nome" placeholder="Nome fantasia">
                     </label>
                     <label for="ipt_email">
-                        Email<br>
-                        <input type="text" id="ipt_email" placeholder="email@exemplo.com">
+                        <p id="campo_email">Email</p>
+                        <input type="text" placeholder="email@exemplo.com">
                     </label>
                     <label for="ipt_senha" class="lbl-senha">
-                        Senha<br>
-                        <input type="password" id="ipt_senha" placeholder="ex: Visu@lOp5" class="row2"><button class="material-symbols-outlined olho row2" id="olho" onclick="mudarVisibilidade()">visibility</button>
+                        <p>Senha</p>
+                        <input type="password" id="ipt_senha" placeholder="Visu@lOp5" class="row2"><button class="material-symbols-outlined olho row2" id="olho" onclick="mudarVisibilidade()">visibility</button>
                     </label>
                     <label for="ipt_identificacao">
-                        CPF/CNJP<br>
-                        <input type="text" id="ipt_identificacao" placeholder="Digite seu CPF ou CNPJ">
+                        <p>CNJP</p>
+                        <input type="text" id="ipt_identificacao" placeholder="xx.xxx.xxx/xxxx-xx">
                     </label>
                     <label for="ipt_cep">
-                        CEP<br>
+                        <p>CEP</p>
                         <input type="text" id="ipt_cep" onblur="pesquisacep(this.value)" placeholder="xxxxx-xxx">
                     </label>
                     <label for="ipt_estado">
-                        Estado<br>
-                        <input type="text" id="ipt_estado" placeholder="ex: São Paulo">
+                        <p>Estado</p>
+                        <input type="text" id="ipt_estado" placeholder="UF">
                     </label>
                     <label for="ipt_numero">
-                        Número<br>
-                        <input type="text" id="ipt_numero" placeholder="ex: 000">
+                        <p>Número</p>
+                        <input type="text" id="ipt_numero" placeholder="xxx">
                     </label>
                     <label for="ipt_complemento">
-                        Complemento<br>
-                        <input type="text" id="ipt_complemento" placeholder="ex: torre 1 apartamento 003">
+                        <p>Complemento...</p>
+                        <input type="text" id="ipt_complemento" placeholder="Complemento">
                     </label>
                 </div>
 

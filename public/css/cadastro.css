@@ -198,7 +198,7 @@ main > .area-cadastro > .dados-cadastros > .campo-dados > label {
 
 main > .area-cadastro > .dados-cadastros > .campo-dados > label > input {
     padding: 12px;
-    font-size: 15px;
+    font-size: 20px;
     border: 2px solid #416ae5;
     outline: #416ae5;
     box-shadow: 0px 0px 3px #416ae5;
@@ -207,9 +207,12 @@ main > .area-cadastro > .dados-cadastros > .campo-dados > label > input {
 .olho {
     cursor: pointer;
     user-select: none;
+    position: relative;
+    right: 40px;
     background-color: transparent;
     border: none;
     margin-left: 3px;
+    font-size: 27px;
 }
 
 .row2 {
@@ -285,7 +288,7 @@ span {
     display: block;
     font-weight: 600;
     color: gray;
-    margin: 0 5px;
+    margin: 10px;
 }
 
 .side-imagem > img {
@@ -336,6 +339,7 @@ span {
         width: 57%;
         display: flex;
         flex-direction: column;
+        align-items: start;
     }
     
     .imagem-logo {
@@ -440,6 +444,7 @@ span {
         flex-wrap: wrap;
         gap: 10px 30px;
         height: 300px;
+        width: 90%;
     }
     
     main > .area-cadastro > .dados-cadastros > .campo-dados > label {
@@ -479,7 +484,7 @@ span {
     
     
     .campo-btns {
-        width: 90%;
+        width: 85%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -540,7 +545,7 @@ span {
         display: block;
         font-weight: 600;
         color: gray;
-        margin: 5px 0;
+        margin: 10px;
     }
     
     .side-imagem {

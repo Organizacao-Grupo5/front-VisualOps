@@ -12,10 +12,9 @@
 body, html {
     background-color: black;
     width: 100vw;
-    height: 100%;
     display: flex;
     justify-content: space-between;
-    overflow-x: hidden;
+    overflow-X: hidden;
 }
 
 .div-mensagem {
@@ -36,7 +35,7 @@ body, html {
     position: absolute;
     left: 5px;
     top: 10px;
-    font-size: 30px;
+    font-size: 40px;
     color: white;
     border: none;
     background-color: transparent;
@@ -46,11 +45,11 @@ body, html {
 .pos-fio {
     background-image: url("../assets/img/fios.png");
     background-repeat: no-repeat;
-    background-size: 35vw;
+    background-size: cover;
     background-position: center;
-    position: absolute;
+    position: fixed;
     height: 100%;
-    width: 30%;
+    width: 35%;
 }
 
 .fio-direito {
@@ -65,18 +64,14 @@ body, html {
 main {
     width: 80%;
     display: flex;
-    margin: 0 auto;
-    flex-direction: column-reverse;
+    margin: 80px auto;
+    flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
 }
 
 main > .area-cadastro {
     width: 100%;
-    height: 80%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     padding: 30px;
     background-color: white;
     border-radius: 20px;
@@ -84,9 +79,9 @@ main > .area-cadastro {
 }
 
 main > .area-cadastro > .dados-cadastros {
-    width: 57%;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .imagem-logo {
@@ -94,8 +89,9 @@ main > .area-cadastro > .dados-cadastros {
     display: flex;
     align-items: center;
     color: white;
-    font-size: 30px;
+    font-size: 35px;
     font-weight: 700;
+    margin-top: 20px;
     transition: ease .3s;
 }
 
@@ -104,7 +100,7 @@ main > .area-cadastro > .dados-cadastros {
 }
 
 .imagem-logo > img {
-    width: 45px;
+    width: 55px;
     margin-right: 10px;
 }
 
@@ -114,34 +110,37 @@ a {
 
 main > .area-cadastro > .dados-cadastros > .area-titulo {
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
     width: 100%;
 }
 
 main > .area-cadastro > .dados-cadastros > h1 {
-    font-size: 40px;
+    font-size: 45px;
 }
 
 .campo-radios {
     display: flex;
     justify-content: space-between;
-    width: 80%;
-    margin: 10px 0;    
+    flex-direction: column;
+    margin: 40px 0;
+    height: 80px;    
 }
 
 .campo-radios > label {
     display: flex;
+    justify-content: space-between;
     align-items: baseline;
-    width: 200px;
+    width: 100%;
     color: black;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 30px;
 }
 
 .campo-radios > label > input {
-    margin-left: 5px;
+    width: 20px;
+    height: 20px;
+    margin-left: 7px;
 }
 
 
@@ -186,23 +185,21 @@ main > .area-cadastro > .dados-cadastros > h1 {
 
 main > .area-cadastro > .dados-cadastros > .campo-dados {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px 30px;
-    height: 300px;
+    flex-direction: column;
+    gap: 25px 0;
+    width: 80%;
 }
 
 main > .area-cadastro > .dados-cadastros > .campo-dados > label {
     display: grid;
     font-size: 19px;
     font-weight: 800;
-    width: 40%;
 }
 
 main > .area-cadastro > .dados-cadastros > .campo-dados > label > input {
-    padding: 9px;
+    padding: 12px;
     font-size: 15px;
     border: 2px solid #416ae5;
-    min-width: 95px;
     outline: #416ae5;
     box-shadow: 0px 0px 3px #416ae5;
 }
@@ -242,7 +239,7 @@ main > .area-cadastro > .dados-cadastros > .campo-dados > label > input {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 250px;
+    width: 80%;
     padding: 10px;
     font-size: 17px;
     font-weight: 700;
@@ -266,12 +263,13 @@ button > img {
     background-color: black;
     color: white;
     border-color: black;
-    margin: 20px 0;
+    margin: 30px 0;
 }
 
 .slack-google {
     width: 90%;
     display: flex;
+    align-items: center;
     justify-content: space-around;
 }
 
@@ -287,32 +285,11 @@ span {
     display: block;
     font-weight: 600;
     color: gray;
-    margin: 5px 0;
-}
-
-.side-imagem {
-    width: 43%;
-    height: 100%;
-    background-image: url('../assets/img/imagem-cadastro.png');
-    background-position: center;
-    background-size: cover;
-    border-radius: 18px;
-    box-shadow: 0px 0px 8px  black;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin: 0 5px;
 }
 
 .side-imagem > img {
-    width: 90%;
-    height: 75%;
-    opacity: 0.16;
-    transition: ease 1.2s;
-}
-
-.side-imagem:hover > img {
-    opacity: 0.4;
+    display: none;
 } 
 
 
@@ -331,19 +308,8 @@ span {
 .esconder-ou-mobile{
     display: none;
 }
- 
 
-@media (max-width: 600px) {
-
- body, html {
-    height: 180vh;
- }
-
- main {
-    flex-direction: column;
- }
-
-.imagem-logo {
+/* .imagem-logo {
     margin-top: 15px;
     margin-bottom: unset;
 }
@@ -362,9 +328,9 @@ span {
     transition: cubic-bezier(0.57, 0.52, 0, 1.5) .5s;
 }
 
- span{
+span {
     margin: 10px;
- }
+}
 
 .esconder-endereco{
     display: block;
@@ -394,12 +360,6 @@ main > .area-cadastro > .dados-cadastros > div > label > input{
     width: 55vw;
 }
 
-main > .area-cadastro{
-    width: 100%;
-    height: unset;
-    flex-direction: column;
-}
-
 .slack-google{
     display: none;
 }
@@ -425,6 +385,279 @@ button, .btn-login {
 
 button img{
     width: 25%;
-}
+} */
+ 
 
+@media (min-width: 600px) {
+    
+    main {
+        width: 80%;
+        display: flex;
+        margin: 0 auto;
+        flex-direction: column-reverse;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    
+    main > .area-cadastro {
+        width: 100%;
+        height: 80%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 30px;
+        background-color: white;
+        border-radius: 20px;
+        z-index: 1;
+    }
+    
+    main > .area-cadastro > .dados-cadastros {
+        width: 57%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .imagem-logo {
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        color: white;
+        font-size: 30px;
+        font-weight: 700;
+        transition: ease .3s;
+    }
+    
+    .imagem-logo:hover {
+        scale: 1.05;
+    }
+    
+    .imagem-logo > img {
+        width: 45px;
+        margin-right: 10px;
+    }
+    
+    a {
+        text-decoration: none;
+    }
+    
+    main > .area-cadastro > .dados-cadastros > .area-titulo {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 100%;
+    }
+    
+    main > .area-cadastro > .dados-cadastros > h1 {
+        font-size: 40px;
+    }
+    
+    .campo-radios {
+        display: flex;
+        justify-content: space-between;
+        width: 80%;
+        margin: 10px 0;    
+    }
+    
+    .campo-radios > label {
+        display: flex;
+        align-items: baseline;
+        width: 200px;
+        color: black;
+        font-weight: 600;
+        font-size: 18px;
+    }
+    
+    .campo-radios > label > input {
+        margin-left: 5px;
+    }
+    
+    
+    .div-planos {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        width: 90%;
+    }
+    
+    .div-planos > button{
+        background-color: white;
+        border: 2px solid #416ae5;
+        color: black;
+        font-weight: 700;
+        margin: 20px 0 ;
+    }
+    
+    .bt-plano {
+        display: none;
+        box-shadow: 0px 0px 3px #44a5ff;
+        overlay: none;
+        border-radius: 6px;
+        height: 35px;
+        width: 140px;
+        font-size: 15px;
+        transition: ease 3s;
+    }
+    
+    .pl {
+        display: none;
+        visibility: hidden;
+        opacity: 0;
+        position: relative;
+        width: 100px;
+        border-radius: 5px;
+        padding: 3.5px 2px;
+        box-shadow: 0px 0px 2px #416ae5;
+        z-index: 2;
+        transition: cubic-bezier(0.57, 0.52, 0, 1.5) .5s;
+    }
+    
+    main > .area-cadastro > .dados-cadastros > .campo-dados {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 30px;
+        height: 300px;
+    }
+    
+    main > .area-cadastro > .dados-cadastros > .campo-dados > label {
+        display: grid;
+        font-size: 19px;
+        font-weight: 800;
+        width: 40%;
+    }
+    
+    main > .area-cadastro > .dados-cadastros > .campo-dados > label > input {
+        padding: 9px;
+        font-size: 15px;
+        border: 2px solid #416ae5;
+        min-width: 95px;
+        outline: #416ae5;
+        box-shadow: 0px 0px 3px #416ae5;
+    }
+    
+    .olho {
+        cursor: pointer;
+        user-select: none;
+        background-color: transparent;
+        border: none;
+        margin-left: 3px;
+    }
+    
+    .row2 {
+        grid-row: 2;
+    }
+    
+    .lbl-senha {
+        display: grid;
+        grid-template-rows: auto auto;
+        grid-template-columns: auto 0px;
+        align-items: center;
+    }
+    
+    
+    .campo-btns {
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn-login {
+        color: black;
+    }
+    
+    .btn-bottom {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 250px;
+        padding: 10px;
+        font-size: 17px;
+        font-weight: 700;
+        background-color: white;
+        border: 2px #416ae5 solid;
+        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.582);
+    }
+    
+    button:hover, .btn-login:hover {
+        scale: 1.05;
+        transition: ease .4s;
+        cursor: pointer;    
+    }
+    
+    button > img {
+        width: 20px;
+        margin-right: 10px;
+    }
+    
+    .btn-cadastrar {
+        background-color: black;
+        color: white;
+        border-color: black;
+        margin: 20px 0;
+    }
+    
+    .slack-google {
+        width: 90%;
+        display: flex;
+        justify-content: space-around;
+    }
+    
+    .slack-google > button {
+        width: 190px;
+    }
+    
+    .btn-slack > img {
+        margin-left: -20px;
+    }
+    
+    span {
+        display: block;
+        font-weight: 600;
+        color: gray;
+        margin: 5px 0;
+    }
+    
+    .side-imagem {
+        width: 43%;
+        height: 100%;
+        background-image: url('../assets/img/imagem-cadastro.png');
+        background-position: center;
+        background-size: cover;
+        border-radius: 18px;
+        box-shadow: 0px 0px 8px  black;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .side-imagem > img {
+        width: 90%;
+        height: 75%;
+        opacity: 0.16;
+        transition: ease 1.2s;
+    }
+    
+    .side-imagem:hover > img {
+        opacity: 0.4;
+    } 
+    
+    
+    /*Começo do código do Guilherme*/
+    
+     .esconder-endereco{
+        display: none;
+     }
+    
+    
+    
+     .slack-google-mobile{
+        display: none;
+    }
+    
+    .esconder-ou-mobile{
+        display: none;
+    }
+        
 }

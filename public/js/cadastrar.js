@@ -194,7 +194,7 @@ function cadastrar() {
     const email = ipt_email.value;
     const senha = ipt_senha.value;
     // const identificacao = ipt_identificacao.value;
-    const clienteTipo = verficarRadio();
+    const clienteTipo = verficarRadio(); 
     const estado = ipt_estado.value;
     const cep = ipt_cep.value;
     const numero = ipt_numero.value;

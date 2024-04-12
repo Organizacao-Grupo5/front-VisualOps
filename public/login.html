@@ -13,20 +13,10 @@
     <div class="div-mensagem">
         <span id="idMensagem"></span>
     </div>
+    <button onclick="voltar()" class="material-symbols-outlined seta">navigate_before</button>
     <div class="fio-esquerdo"></div>
     <main>
         <div class="area-login">
-            <!-- <section class="slack-google-mobile">
-                <button class="btn-slack">
-                    <img src="assets/img/slack.png" alt="imagem slack">
-                    SLACK
-                </button>
-                <button>
-                    <img src="./assets/img/google.png" alt="imagem google">
-                    GOOGLE
-                </button>
-            </section> -->
-            <span class="esconder-ou-mobile">OU</span>
             <div class="dados-login">
                 <h1>Bem-vindo!</h1>
                 <div>
@@ -35,31 +25,35 @@
                         <input type="text" id="ipt_email" placeholder="Digite aqui seu email">
                     </label>
                     <label for="ipt_senha" class="lbl-senha">
-                        Senha<br>
-                        <input type="password" id="ipt_senha" placeholder="Digite sua senha" class="row2"><span class="material-symbols-outlined olho row2" id="olho">visibility_off</span>
+                        Senha
+                        <input type="password" id="ipt_senha" placeholder="Digite sua senha" class="row2"><button class="material-symbols-outlined olho row2" id="olho" onclick="mudarVisibilidade()">visibility</button>
                     </label>
                 </div>
 
-                <button class="btn-login" onclick="entrar()">LOGIN</button>
-                <span class="esconder-ou-desk">OU</span>
-                <section class="slack-google">
-                    <button class="btn-slack">
-                        <img src="assets/img/slack.png" alt="imagem slack">
-                        SLACK
-                    </button>
-                    <button>
-                        <img src="./assets/img/google.png" alt="imagem google">
-                        GOOGLE
-                    </button>
-                </section>
-                <span>já é cadastrado?</span>
-                <a class="btn-cadastrar" href="cadastro.html">CADASTRAR</a>
+                <div class="campo-btns">
+                    <button class="btn-login btn-bottom" onclick="entrar()">LOGIN</button>
+                    <span class="esconder-ou-desk">OU</span>
+                    <section class="slack-google">
+                        <button class="btn-slack btn-bottom">
+                            <img src="assets/img/slack.png" alt="imagem slack">
+                            SLACK
+                        </button>
+                        <button class="btn-bottom">
+                            <img src="./assets/img/google.png" alt="imagem google">
+                            GOOGLE
+                        </button>
+                    </section>
+                    <span>já é cadastrado?</span>
+                    <a class="btn-cadastrar btn-bottom" href="cadastro.html">CADASTRAR</a>
+                </div>
             </div>
             <a href="index.html" class="side-imagem">
                 <img src="assets/img/logofundo.png" alt="logo">
             </a>
         </div>
-        <a href="index.html" class="imagem-logo"></a>
+        <a href="index.html" class="imagem-logo">
+            <img src="assets/img/logofundo.png" alt="imagem_logo">VisualOps
+        </a>
     </main>
     <div class="fio-direito"></div>
 </body>

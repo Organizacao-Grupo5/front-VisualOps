@@ -161,36 +161,85 @@ function mudarEstilo(event) {
     }
 }
 
+function modificarCnpj(event) {
+
+    let input = event.value;
+
+    input = input.replace(/\D/g, '');
+    
+    let cnpj = '';
+    
+    for ( let i = 0; i < input.length; i++ ) {
+            
+        if ( i < 14 ) {
+            
+            if ( i === 2 || i === 5 ) {
+                
+                cnpj += '.';
+                
+            } else if ( i === 8 ) {
+                
+                cnpj += '/';
+                
+            } else if ( i === 12) {
+                
+                cnpj += '-';
+                
+            }
+            
+            cnpj += input[i];
+
+        }
+            
+    }
+    
+    event.value = cnpj;
+}
+
 function validarCampos(listaCampos) {
 
     let validacaoCampos = true;
     
     for(i = 0; i < listaCampos.length; i++) {
     
-        if (listaCampos[i].trim() === '' &&
-            listaCampos[i].id !== "ipt_complemento" && 
-            listaCampos[i].id !== "btPlano") {
+        if (
+            listaCampos[i].trim() === '' && 
+            listaCampos[i].id !== "ipt_complemento" &&
+            listaCampos[i].id !== "btPlano"
+        ) {
+
             console.log(listaCampos[i]);
             mostrarMensagem(`Os campos não podem estar vazios.`);
             validacaoCampos = false;
             break;
-        } else if (listaCampos[i].id === "ipt_email" && 
-                !(listaCampos[i].includes("@hotmail.com") || 
-                listaCampos[i].includes("@gmail.com") || 
-                listaCampos[i].includes("@outlook.com") || 
-                listaCampos[i].includes("@sptech.school"))) {
+        
+        } else if (
+            listaCampos[i].id === "ipt_email" && 
+            !(listaCampos[i].includes("@hotmail.com") || 
+            listaCampos[i].includes("@gmail.com") || 
+            listaCampos[i].includes("@outlook.com") || 
+            listaCampos[i].includes("@sptech.school"))
+            ) {
+                
             mostrarMensagem(`Esse Email é inválido.`)
             validacaoCampos = false;
             break;
-        } else if (listaCampos[i].id === "ipt_senha" &&
-                !new RegExp("^(?=.*\\d)(?=.*[^\\w\\s])(?=.*[A-Z])(?=.*[a-z]).*$").test(listaCampos[i])) {
+
+        } else if (
+            listaCampos[i].id === "ipt_senha" &&
+            !new RegExp("^(?=.*\\d)(?=.*[^\\w\\s])(?=.*[A-Z])(?=.*[a-z]).*$").test(listaCampos[i])
+            ) {
+
             mostrarMensagem('A Senha deve conter letras MAIÚSCULAS, minúsculas, números e símbolos');
             validacaoCampos = false;
             break;
+
         } else if (listaCampos[i].innerHTML === "Escolha um plano") {
+            
             mostrarMensagem('Não é possivel cadastrar-se sem escolher um plano.');
             validacaoCampos = false;
             break;
+            
         }
     }
     return validacaoCampos;    

@@ -152,6 +152,14 @@ function mostrarMensagem(newMensagem) {
 function mudarEstilo(event) {
     let campoNome = document.getElementById('campo_nome');
 
+    let divCampo = document.querySelector('.campo-dados');
+
+    for (let i = 0; i < divCampo.children.length; i++) {
+        
+        divCampo.children[i].children[1].value = '';
+        
+    }
+
     if (event.value === 'empresa') {
         campoNome.children[0].innerHTML = 'Nome Fantasia';
         campoNome.children[1].placeholder = 'Nome fantasia';
@@ -194,6 +202,25 @@ function modificarCnpj(event) {
     }
     
     event.value = cnpj;
+}
+
+function modificarNumero(obj) {
+
+    let input = obj.value;
+    
+    let newInput = '';
+    
+    for ( let i = 0; i < input.length; i++ ) {
+            
+        if ( i < 6 ) {
+            
+            newInput += input[i];
+
+        }
+            
+    }
+    
+    obj.value = newInput;
 }
 
 function validarCampos(listaCampos) {
@@ -239,10 +266,56 @@ function validarCampos(listaCampos) {
             mostrarMensagem('Não é possivel cadastrar-se sem escolher um plano.');
             validacaoCampos = false;
             break;
-            
+
         }
     }
     return validacaoCampos;    
+}
+
+function validarUf(obj) {
+
+    let input = obj.value;
+
+    let newInput = ''; 
+
+    for (let i = 0; i < input.length; i++) {
+        
+        if ( i < 4 ) {
+
+            newInput += input[i];
+            
+        }
+        
+    }
+
+    obj.value = newInput;
+
+}
+
+function verificarCep(obj) {
+
+    let input = obj.value;
+
+    input = input.replace(/\D/, '');
+
+    let newInput = '';
+
+    for ( let i = 0; i < input.length; i++ ) {
+        
+        if ( i < 8 ) {
+            
+            if ( i === 7 ) {
+                newInput += '-';
+            }
+            
+            newInput += input[i];
+        
+        }
+    
+    }
+
+    obj.value = newInput;
+
 }
 
 function cadastrar() {

@@ -62,15 +62,15 @@
                     </label>
                     <label for="ipt_cep">
                         <p>CEP</p>
-                        <input type="text" id="ipt_cep" onblur="pesquisacep(this.value)" placeholder="xxxxx-xxx">
+                        <input type="text" id="ipt_cep" onblur="pesquisacep(this.value)" oninput="verificarCep(this)" placeholder="xxxxx-xxx">
                     </label>
                     <label for="ipt_estado">
                         <p>Estado</p>
-                        <input type="text" id="ipt_estado" placeholder="UF">
+                        <input type="text" id="ipt_estado" placeholder="UF" oninput="validarUf(this)">
                     </label>
                     <label for="ipt_numero">
                         <p>Número</p>
-                        <input type="text" id="ipt_numero" placeholder="xxx">
+                        <input type="text" id="ipt_numero" placeholder="xxx" oninput="modificarNumero(this)">
                     </label>
                     <label for="ipt_complemento">
                         <p>Complemento...</p>

@@ -28,15 +28,15 @@ async function callback(req, res) {
             const id = tokenData.authed_user.id;
             const email = userData.profile.email;
 
-            const body = {
+            const objetoSlack = {
                 Nome: name,
                 Email: email,
                 Id: id
             };
 
-            verificarUsuarioSlack(body);
+            verificarUsuarioSlack(objetoSlack);
 
-            console.log( 'Tudo funcionou corretamente!!\nInformações: ' + body );
+            console.log( 'Tudo funcionou corretamente!!\nInformações: ' + objetoSlack );
 
         } else {
             console.error("Erro ao obter token de acesso: ", tokenData.error);
@@ -50,13 +50,59 @@ async function callback(req, res) {
     
 }
 
-function verificarUsuarioSlack(obj) {
+function credentialResponse(response) {
+ 
+    try {
+        
+        const credential = jwt_decode(response.credential);
+
+        const objetoGoogle = {
+            Nome: credential.name,
+            Email: credential.email,
+            Id: credential.sub
+        };
+
+        verificarUsuario(objetoGoogle);
+
+        console.log( 'Tudo funcionou corretamente!!\nInformações: ' + objetoGoogle );
+
+    } catch (error) {
+
+        console.error('Erro ao decodificar o token JWT: ', error);
+        throw new Error('Erro ao decodificar o token JWT');
     
-    let listaUsuario;
+    }
+
+}
+
+function entrar(req, res) {
 
     try {
         
-        listaUsuario = usuario.listar();
+        google.accounts.id.initialize({
+            client_id: "922098160989-41dl6iquosgboclmnllal5v4krnlrl4g.apps.googleusercontent.com",
+            callback: credentialResponse
+        });
+        google.accounts.id.prompt();
+
+        res.status(200).send('Autenticação iniciada.');
+    
+    } catch (error) {
+        
+        console.error('Erro ao inciar a autenticação: ', error);
+        res.status(500).send('Erro ao iniciar a autenticação.');
+
+    }
+
+}
+
+function verificarUsuarioSlack(obj) {
+    
+    let listaUsuario = [];
+
+    try {
+        
+        listaUsuario.push(usuario.listar());
 
     } catch (error) {
         
@@ -80,15 +126,15 @@ function verificarUsuarioSlack(obj) {
 
     try {
         
-        usuario.cadastrarSlack(obj);
+        usuario.cadastrarAdicional(obj);
         window.location = '../../adicionais.html'
 
     } catch (error) {
         
-        console.error('Erro aconteceu ao cadastrar o usuário autenticado pelo Slack: '+ error);
+        console.error('Erro aconteceu ao cadastrar o usuário autenticado: '+ error);
 
     }
 
 }
 
-module.exports = { callback };
+module.exports = { callback, entrar };

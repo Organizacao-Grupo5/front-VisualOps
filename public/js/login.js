@@ -1,15 +1,12 @@
-const olhoSenha = document.getElementById("olho");
-
-olhoSenha.addEventListener("click", mudarVisibilidade);
-
 function mudarVisibilidade() {
     const campoSenha = document.getElementById("ipt_senha");
+    const olho = document.getElementById("olho");
     if (campoSenha.type === "password") {
-        olhoSenha.innerHTML = "visibility";
+        olho.innerHTML = "visibility_off";
         campoSenha.type = "text";
     }
     else {
-        olhoSenha.innerHTML = "visibility_off"
+        olho.innerHTML = "visibility";
         campoSenha.type = "password";
     }
 }

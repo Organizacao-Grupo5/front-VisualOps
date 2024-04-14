@@ -128,6 +128,7 @@ section{
     display: flex;
     align-items: center;
     flex-direction: column;
+    justify-content: space-around; /*Adição do Guilherme*/
 }
 
 .dashboard-content nav{
@@ -327,10 +328,71 @@ section{
 
 /*Código do Guilherme*/
 
-.chart-content{
+.name-chart-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 94.55%;
-    height: 89%;
-    background-color: purple;
+    height: 83%;
+}
+
+.name-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    width: 15%;
+    height: 4%;
+}
+
+.chart-content{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 95%;
+}
+
+.graficos1-content{
+    width: 43%;
+    height: 96%;
+    background-color: white;
+}
+
+.graficos2e3-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 54%;
+    height: 96%;
+}
+
+.graficos2-content{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 50%;
+}
+
+.graficos3-content{
+    display: flex;
+    width: 100%;
+    height: 47%;
+    background-color: white;
+}
+
+.graficos2_1-content{
+    display: flex;
+    width: 57%;
+    height: 100%;
+    background-color: white;
+}
+
+.graficos2_2-content{
+    display: flex;
+    width: 41.5%;
+    height: 100%;
+    background-color: white;
 }
 
 /*Código do Guilherme*/

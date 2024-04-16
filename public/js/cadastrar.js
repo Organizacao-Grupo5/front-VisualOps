@@ -26,25 +26,25 @@ function mostrarMensagem(newMensagem) {
     }, 3000)
 }
 
-function mudarEstilo(event) {
-    let campoNome = document.getElementById('campo_nome');
+// function mudarEstilo(event) {
+//     let campoNome = document.getElementById('campo_nome');
 
-    let divCampo = document.querySelector('.campo-dados');
+//     let divCampo = document.querySelector('.campo-dados');
 
-    for (let i = 0; i < divCampo.children.length; i++) {
+//     for (let i = 0; i < divCampo.children.length; i++) {
         
-        divCampo.children[i].children[1].value = '';
+//         divCampo.children[i].children[1].value = '';
         
-    }
+//     }
 
-    if (event.value === 'empresa') {
-        campoNome.children[0].innerHTML = 'Nome Fantasia';
-        campoNome.children[1].placeholder = 'Nome fantasia';
-    } else {
-        campoNome.children[0].innerHTML = 'Nome';
-        campoNome.children[1].placeholder = 'Nome completo';
-    }
-}
+//     if (event.value === 'empresa') {
+//         campoNome.children[0].innerHTML = 'Nome Completo';
+//         campoNome.children[1].placeholder = 'Nome Completo';
+//     } else {
+//         campoNome.children[0].innerHTML = 'Nome Completo';
+//         campoNome.children[1].placeholder = 'Nome completo';
+//     }
+// }
 
 function modificarCnpj(event) {
 
@@ -259,4 +259,8 @@ function verficarRadio() {
     }
     return '';
 } 
+
+function voltar(){
+    window.location = "index.html";
+}
 

@@ -17,7 +17,7 @@
 <body>
     <script src="js/cadastrar.js"></script>
     <script src="js/viaCep.js"></script>
-    <script src="js/GoogleSlack.js"></script>    
+    <!-- <script src="js/GoogleSlack.js"></script>     -->
     
     <div class="div-mensagem">
         <span id="idMensagem"></span>
@@ -40,13 +40,14 @@
             <div class="dados-cadastros formulario">
                 <h1 class="esconder">Cadastre-se</h1>
                 <div class="campo-radios">
+                    <!-- Função "mudarEstilo()" comentada e arrumar para validação de cargo/tipo -->
                     <label for="radio_freelancer">Freelancer<input type="radio" name="tipoCliente" id="radio_freelancer" onclick="mudarEstilo(this)" value="freelancer"></label>
                     <label for="radio_empresa">Empresa<input type="radio" name="tipoCliente" id="radio_empresa" onclick="mudarEstilo(this)" value="empresa" checked></label>
                 </div>
                 <div class="campo-dados esconder">
                     <label for="ipt_nome" id="campo_nome">
-                        <p>Nome Fantasia</p>
-                        <input type="text" id="ipt_nome" placeholder="Nome fantasia">
+                        <p>Nome</p>
+                        <input type="text" id="ipt_nome" placeholder="Nome">
                     </label>
                     <label for="ipt_email">
                         <p id="campo_email">Email</p>

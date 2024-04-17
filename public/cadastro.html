@@ -17,7 +17,7 @@
 <body>
     <script src="js/cadastrar.js"></script>
     <script src="js/viaCep.js"></script>
-    <!-- <script src="js/GoogleSlack.js"></script>     -->
+    <script src="js/GoogleSlack.js"></script>    
     
     <div class="div-mensagem">
         <span id="idMensagem"></span>
@@ -26,23 +26,11 @@
     <div class="fio-esquerdo pos-fio"></div>
     <main>
         <div class="area-cadastro">
-            <section class="slack-google-mobile">
-                <button class="btn-slack">
-                    <img src="assets/img/slack.png" alt="imagem slack">
-                    SLACK
-                </button>
-                <button>
-                    <img src="./assets/img/google.png" alt="imagem google">
-                    GOOGLE
-                </button>
-            </section>
-            <span class="esconder-ou-mobile">OU</span>
             <div class="dados-cadastros formulario">
                 <h1 class="esconder">Cadastre-se</h1>
                 <div class="campo-radios">
-                    <!-- Função "mudarEstilo()" comentada e arrumar para validação de cargo/tipo -->
-                    <label for="radio_freelancer">Freelancer<input type="radio" name="tipoCliente" id="radio_freelancer" onclick="mudarEstilo(this)" value="freelancer"></label>
-                    <label for="radio_empresa">Empresa<input type="radio" name="tipoCliente" id="radio_empresa" onclick="mudarEstilo(this)" value="empresa" checked></label>
+                    <label for="radio_freelancer">Freelancer<input type="radio" name="tipoCliente" id="radio_freelancer" value="freelancer"></label>
+                    <label for="radio_empresa">Empresa<input type="radio" name="tipoCliente" id="radio_empresa" value="empresa" checked></label>
                 </div>
                 <div class="campo-dados esconder">
                     <label for="ipt_nome" id="campo_nome">
@@ -50,8 +38,8 @@
                         <input type="text" id="ipt_nome" placeholder="Nome">
                     </label>
                     <label for="ipt_email">
-                        <p id="campo_email">Email</p>
-                        <input type="text" placeholder="email@exemplo.com">
+                        <p>Email</p>
+                        <input type="text" id="ipt_email" placeholder="email@exemplo.com">
                     </label>
                     <label for="ipt_senha" class="lbl-senha">
                         <p>Senha</p>

@@ -26,26 +26,6 @@ function mostrarMensagem(newMensagem) {
     }, 3000)
 }
 
-// function mudarEstilo(event) {
-//     let campoNome = document.getElementById('campo_nome');
-
-//     let divCampo = document.querySelector('.campo-dados');
-
-//     for (let i = 0; i < divCampo.children.length; i++) {
-        
-//         divCampo.children[i].children[1].value = '';
-        
-//     }
-
-//     if (event.value === 'empresa') {
-//         campoNome.children[0].innerHTML = 'Nome Completo';
-//         campoNome.children[1].placeholder = 'Nome Completo';
-//     } else {
-//         campoNome.children[0].innerHTML = 'Nome Completo';
-//         campoNome.children[1].placeholder = 'Nome completo';
-//     }
-// }
-
 function modificarCnpj(event) {
 
     let input = event.value;
@@ -181,7 +161,7 @@ function verificarCep(obj) {
         
         if ( i < 8 ) {
             
-            if ( i === 7 ) {
+            if ( i === 5 ) {
                 newInput += '-';
             }
             
@@ -255,7 +235,7 @@ function verficarRadio() {
     const radios = document.getElementsByName('tipoCliente');
     
     for (let i = 0; i < radios.length; i++) {
-        if (radios[i].checked) return radio.value;   
+        if (radios[i].checked) return radios.value;   
     }
     return '';
 } 

@@ -86,3 +86,7 @@ function entrar() {
     
     return false;
 }
+
+function voltar(){
+    window.location = "index.html";
+}

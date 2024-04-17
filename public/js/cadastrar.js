@@ -80,6 +80,10 @@ function modificarNumero(obj) {
     obj.value = newInput;
 }
 
+function retornarObjEndereco(obj) {
+    if (obj) return obj;
+}
+
 function validarCampos(listaCampos) {
 
     let validacaoCampos = true;
@@ -243,4 +247,3 @@ function verficarRadio() {
 function voltar(){
     window.location = "index.html";
 }
-

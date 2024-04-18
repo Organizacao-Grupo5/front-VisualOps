@@ -1,13 +1,14 @@
 const first = document.getElementById("chart_1");
-
+const second = document.getElementById("chart_2");
 
 const label = {
     first: ['Baixo', 'Médio', 'Alto'],
+    second: []
 }
 
 const dataset = {
     first: [{
-        label: 'Desempenho dos computadores semanalmente.',
+        label: 'Desempenho dos computadores diariamente.',
         data: [75, 29, 103],
         backgroundColor: [
             '#F2274C',

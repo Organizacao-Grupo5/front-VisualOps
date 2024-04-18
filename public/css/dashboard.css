@@ -354,11 +354,15 @@ section{
 }
 
 .graficos1-content{
+    background-color: white;
+    
     width: 43%;
     height: 96%;
-    background-color: white;
+
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .graficos2e3-content{
@@ -385,8 +389,13 @@ section{
 
 .graficos2_1-content{
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
     width: 57%;
     height: 100%;
+    
     background-color: white;
 }
 

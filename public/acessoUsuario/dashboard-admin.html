@@ -10,8 +10,9 @@
 
     <script src="https://kit.fontawesome.com/265fd07209.js" crossorigin="anonymous"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chart.piecelabel.js/0.14.0/Chart.PieceLabel.min.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 </head>
 
 <body>
@@ -97,7 +98,27 @@
                                 <canvas id="chart_2"></canvas>
                             </div>
                             <div class="graficos2_2-content">
-
+                                <h4>Componentes de hoje em comparação a semana anterior</h4>
+                                <div class="lista_comparacao">
+                                    <ul>
+                                        <li>CPU - <span class="atual_cpu">54 C°</span></li>
+                                        <li>RAM - <span class="atual_ram">37 C°</span></li>
+                                        <li>GPU - <span class="atual_gpu">48 C°</span></li>
+                                        <li>HDD - <span class="atual_hdd">35 C°</span></li>
+                                    </ul>
+                                    <span class="separador"></span>
+                                    <ul>
+                                        <li>CPU - <span class="anterior_cpu">50 C°</span></li>
+                                        <li>RAM - <span class="anterior_ram">35 C°</span></li>
+                                        <li>GPU - <span class="anterior_gpu">39 C°</span></li>
+                                        <li>HDD - <span class="anterior_hdd">33 C°</span></li>
+                                    </ul>
+                                </div>
+                                <div class="titulos_status">
+                                    <p><span class="status_quente"></span>Quente</p>
+                                    <p><span class="status_medio"></span>Medio</p>
+                                    <p><span class="status_normal"></span>Normal</p>
+                                </div>
                             </div>
                         </div>
                         <div class="graficos3-content">

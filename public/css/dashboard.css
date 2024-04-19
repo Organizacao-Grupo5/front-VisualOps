@@ -399,11 +399,141 @@ section{
     background-color: white;
 }
 
+.graficos2_1-content > h3 {
+    margin-bottom: 10px;
+}
+
 .graficos2_2-content{
     display: flex;
+    flex-direction: column;
+    align-items: center;
+
     width: 41.5%;
     height: 100%;
+    
     background-color: white;
+}
+
+.graficos2_2-content > h4 {
+    text-align: center;
+
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.lista_comparacao {
+    display: flex;
+    justify-content: space-between;
+
+    width: 85%;
+    height: 40%;
+}
+
+.lista_comparacao > ul {
+    height: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    list-style: none;
+}
+
+.lista_comparacao > ul > li {
+    transition: ease .4s;
+}
+
+.lista_comparacao > ul > li > span {
+    font-weight: 600;
+}
+
+.lista_comparacao > ul > li:hover {
+
+    font-weight: 600;
+
+    cursor: pointer;
+    
+    transform: scale(1.1);
+}
+
+
+.atual_cpu {
+    color: #F2274C;
+}
+
+.atual_ram {
+    color: #9450F2;
+}
+
+.atual_gpu {
+    color: #F2274C;
+}
+
+.atual_hdd {
+    color: #9450F2;
+}
+
+.anterior_cpu {
+    color: #F2274C;
+}
+
+.anterior_ram {
+    color: #9450F2;
+}
+
+.anterior_gpu {
+    color: #F2AB27;
+}
+
+.anterior_hdd {
+    color: #9450F2;
+}
+
+
+.separador {
+
+    height: 100%;
+    width: 2px;
+
+    background-color: black;
+
+}
+
+.titulos_status {
+    display: flex;
+    justify-content: space-evenly;
+
+    margin-top: 17px;
+
+    width: 100%;
+}
+
+.titulos_status > p {
+    display: flex;
+    align-items: center;
+}
+
+.titulos_status > p > span {
+    display: block;
+
+    width: 12px;
+    height: 12px;
+
+    margin-right: 4px;
+
+    border-radius: 2px;
+}
+
+.status_quente {    
+    background-color: #F2274C;
+}
+
+.status_medio {
+    background-color: #F2AB27;
+}
+
+.status_normal {
+    background-color: #9450F2;
 }
 
 /*Código do Guilherme*/

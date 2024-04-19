@@ -3,7 +3,7 @@ const second = document.getElementById("chart_2");
 
 const label = {
     first: ['Baixo', 'Médio', 'Alto'],
-    second: []
+    second: ['CPU', 'GPU', 'RAM', 'HHD'],
 }
 
 const dataset = {
@@ -16,13 +16,24 @@ const dataset = {
             '#9450F2'
         ],
         hoverOffset: 15
-    }]
+    }],
+    second: [{
+        label: 'Hardwares Prejudicados por Dia',
+        data: [30, 25, 33, 28],
+        backgroundColor: '#F2AB27',
+        hoverBackgroundColor: '#F2274C',
+        borderRadius: 5
+    }],
 };
 
 const datas = {
     toFirst: {
         labels: label.first,
         datasets: dataset.first,
+    },
+    toSecond: {
+        labels: label.second,
+        datasets: dataset.second
     }
 }
 
@@ -35,7 +46,42 @@ new Chart(first, {
             y: {
                 display: false,
                 beginAtZero: true
-            }
+            },
+        },
+        tooltips: {
+            enabled: false
+        },
+        pieceLabel: {
+            mode: 'value'
+        },
+        responsive: true,
+        legend: {
+            position: 'bottom',
+        },
+        title: {
+            display: true,
+            text: 'Idades',
+            fontSize: 20
+        },
+    }
+});
+
+new Chart(second, {
+    type: 'bar',
+    data: datas.toSecond,
+    options: {
+        scales: {  
+            x: {
+                grid: {
+                    display: false
+                },
+            },
+            y: {
+                beginAtZero: true,
+            },
+        },
+        onClick: (event) => {
+            alert("clicou");
         }
     }
-})
+});

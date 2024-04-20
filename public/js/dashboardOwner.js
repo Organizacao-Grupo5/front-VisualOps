@@ -42,6 +42,7 @@ new Chart(first, {
     data: datas.toFirst,
     plugins: [ChartDataLabels],
     options: {
+        maintainAspectRatio: false,
         indexAxis: 'y',
         scales: {
             y: {
@@ -59,14 +60,22 @@ new Chart(first, {
                     size: 23,
                 },
                 formatter: function(value) {
-                    return value + " Pcs";
+                    return value + " PCs";
                 }
             }
         },
+        onHover: (event, chartElements) => {
+            if (chartElements.length > 0) {
+                event.native.target.style.cursor = 'pointer';
+            } else {
+                event.native.target.style.cursor = 'default'
+            }
+        },
         onClick: (event, context) => {
-            const index = context[0].index;
-            const label = label.first[index];
-            alert('clicou valor' + label);
+            const index = context[0].index;            
+            const labels = label.first[index];
+            console.log("label " + labels);
+            alert('clicou valor ' + labels);
         }
     },
         
@@ -85,6 +94,13 @@ new Chart(second, {
             y: {
                 beginAtZero: true,
             },
+        },
+        onHover: (event, chartElements) => {
+            if (chartElements.length > 0) {
+                event.native.target.style.cursor = 'pointer';
+            } else {
+                event.native.target.style.cursor = 'default'
+            }
         },
         onClick: (event) => {
             alert("clicou");

@@ -355,19 +355,25 @@ section{
 
 .graficos1-content{
     background-color: white;
-    
+
     width: 43%;
     height: 96%;
 
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     flex-direction: column;
 }
 
-.graficos1-content > canvas, #chart_1 {
-    height: 200px;
-    width: 200px;
+.graficos1-content > h3 {
+    text-align: center;
+
+    width: 80%;
+}
+
+.chart_first {
+    height: 80%;
+    width: 100%;
 }
 
 .graficos2e3-content{
@@ -398,9 +404,11 @@ section{
     justify-content: center;
     align-items: center;
 
-    width: 57%;
+    width: 56%;
     height: 100%;
     
+    padding: 5px;
+
     background-color: white;
 }
 
@@ -408,15 +416,39 @@ section{
     margin-bottom: 10px;
 }
 
-.graficos2_2-content{
+.graficos2_2-content {
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    width: 41.5%;
+    width: 43%;
     height: 100%;
     
     background-color: white;
+}
+
+.graficos2_2-content > h3 {
+    text-align: center;
+
+    margin: 10px 0 5px 0;
+
+    width: 100%;
+}
+
+.campo_componetes {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+}
+
+.campo_componetes > i {
+    margin: 0 5px;
+
+    font-size: 20px;
+
+    transition: .3s ease;
 }
 
 .graficos2_2-content > h4 {
@@ -430,11 +462,13 @@ section{
     display: flex;
     justify-content: space-between;
 
+    margin-top: 10px;
+
     width: 85%;
     height: 40%;
 }
 
-.lista_comparacao > ul {
+.lista_comparacao > div {
     height: 100%;
     
     display: flex;
@@ -499,32 +533,26 @@ section{
 
     height: 100%;
     width: 2px;
-
+    
     background-color: black;
-
+    
 }
 
 .titulos_status {
     display: flex;
     justify-content: space-evenly;
-
+    
     margin-top: 17px;
-
+    
     width: 100%;
 }
 
-.titulos_status > p {
-    display: flex;
-    align-items: center;
-}
 
 .titulos_status > p > span {
     display: block;
 
-    width: 12px;
-    height: 12px;
-
-    margin-right: 4px;
+    width: 100%;
+    height: 2px;
 
     border-radius: 2px;
 }

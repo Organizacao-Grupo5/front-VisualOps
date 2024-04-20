@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DASHBOARD | VISUALOPS</title>
     
-    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/dashboardOwner.css">
 
     <script src="https://kit.fontawesome.com/265fd07209.js" crossorigin="anonymous"></script>
 
@@ -90,8 +90,10 @@
                 </div>
                 <div class="chart-content">
                     <div class="graficos1-content">
-                        <h3>Quantidade de Computadores por Desempenho Dirio</h3>
-                        <canvas id="chart_1"></canvas>
+                        <h3>Quantidade de Computadores por Desempenho Mensal</h3>
+                        <div class="chart_first">
+                            <canvas id="chart_1"></canvas>
+                        </div>
                     </div>
                     <div class="graficos2e3-content">
                         <div class="graficos2-content">
@@ -100,26 +102,31 @@
                                 <canvas id="chart_2"></canvas>
                             </div>
                             <div class="graficos2_2-content">
-                                <h4>Componentes de hoje em comparação a semana anterior</h4>
+                                <h3>Quantidade componentes</h3>
+                                <div class="campo_componetes">
+                                    <i class="fa-solid fa-angle-left"></i>
+                                    <h3>Desempenho</h3>
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </div>
                                 <div class="lista_comparacao">
-                                    <ul>
-                                        <li>CPU - <span class="atual_cpu">54 C°</span></li>
-                                        <li>RAM - <span class="atual_ram">37 C°</span></li>
-                                        <li>GPU - <span class="atual_gpu">48 C°</span></li>
-                                        <li>HDD - <span class="atual_hdd">35 C°</span></li>
-                                    </ul>
-                                    <span class="separador"></span>
-                                    <ul>
-                                        <li>CPU - <span class="anterior_cpu">50 C°</span></li>
-                                        <li>RAM - <span class="anterior_ram">35 C°</span></li>
-                                        <li>GPU - <span class="anterior_gpu">39 C°</span></li>
-                                        <li>HDD - <span class="anterior_hdd">33 C°</span></li>
-                                    </ul>
+                                    <div>
+                                        <ul>
+                                            <li>CPU -</li>
+                                            <li>GPU -</li>
+                                            <li>RAM -</li>
+                                            <li>HDD -</li>
+                                        </ul>
+                                    </div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    
                                 </div>
                                 <div class="titulos_status">
-                                    <p><span class="status_quente"></span>Quente</p>
-                                    <p><span class="status_medio"></span>Medio</p>
-                                    <p><span class="status_normal"></span>Normal</p>
+                                    <img src="../assets/img/logofundo.png" alt="" width="20px">
+                                    <p><span class="status_quente"></span>RUIM</p>
+                                    <p><span class="status_medio"></span>MÉDIO</p>
+                                    <p><span class="status_normal"></span>BOM</p>
                                 </div>
                             </div>
                         </div>
@@ -134,5 +141,5 @@
 </body>
 
 </html>
-<script src="../js/dashboard.js"></script>
+<script src="../js/dashboardOwner.js"></script>
 <script src="../js/minMax.js" ></script>

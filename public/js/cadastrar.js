@@ -196,40 +196,24 @@ function cadastrar() {
 
     if (!validarCampos(listaCampos)) return false;
 
-    fetch("/usuario/cadastrar", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            nomeJSON: nome,
-            emailJSON: email,
-            senhaJSON: senha,
-            // fkPlanoJSON: idPlano,
-            // fkCargosJSON: idCargos,
-            clienteTipoJSON: clienteTipo,
-            estadoJSON: estado,
-            cepJSON: cep,
-            numeroJSON: numero,
-            complementoJSON: complemento
-        }),
-    }).then(resposta => {
-        console.log("resposta: ", resposta);
+    const nomeCargo = criarCargo(clienteTipo);
+    console.log(nomeCargo);
 
-        if (resposta.ok) {
-            mostrarMensagem("Cadastro realizado com sucesso!");
+    const idCargos = selecionarCargo(nomeCargo);
+    console.log(idCargos);
 
-            setTimeout(() => {
-                window.location = "index.html";
-            }, "1500");
-        } else {
-            mostrarMensagem("Não foi possivel realizar o seu cadastro, por favor tente novamente!");
-            throw "Houve um erro ao tentar realizar o cadastro!"
-        }
-    }).catch(resposta => {
-        console.log('#ERRO: ', resposta);
-    });
-    return false;
+    const body = {  nomeJSON: nome,
+        emailJSON: email,
+        senhaJSON: senha,
+        // fkPlanoJSON: idPlano,
+        fkCargosJSON: idCargos,
+        clienteTipoJSON: clienteTipo,
+        estadoJSON: estado,
+        cepJSON: cep,
+        numeroJSON: numero,
+        complementoJSON: complemento
+    }
+        cadastrarUsuario(body);
 }
 
 function verficarRadio() {
@@ -243,4 +227,67 @@ function verficarRadio() {
 
 function voltar(){
     window.location = "index.html";
+}
+
+function cadastrarUsuario(body){
+    fetch("/usuario/cadastrar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            body
+        }),
+    }).then(resposta => {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+            mostrarMensagem("Cadastro realizado com sucesso!");
+
+            setTimeout(() => {
+                window.location = "login.html";
+            }, "1500");
+        } else {
+            mostrarMensagem("Não foi possivel realizar o seu cadastro, por favor tente novamente!");
+            throw "Houve um erro ao tentar realizar o cadastro!"
+        }
+    }).catch(resposta => {
+        console.log('#ERRO: ', resposta);
+    });
+    return false;
+}
+
+function criarCargo(body){
+    fetch("/cargo/criar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            body
+        }),
+    }).then(resposta => {
+        console.log("resposta: ", resposta);
+
+    }).catch(resposta => {
+        console.log('#ERRO: ', resposta);
+    });
+    return false;
+}
+
+function selecionarCargo(nomeCargo){
+    fetch(`/cargo/selecionar/${nomeCargo}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+        .then(function (resposta) {
+            console.log("Dados recebidos: ", JSON.stringify(resposta));
+        })
+
+        .catch(function (erro) {
+            console.error('Erro desconhecido na API.');
+        }
+        );
 }

@@ -4,7 +4,7 @@ function cadastrar(req, res) {
     var nome = req.body.nomeJSON;
     var email = req.body.emailJSON;
     var senha = req.body.senhaJSON;
-    var fkPlano = req.body.fkPlanoJSON;
+    // var fkPlano = req.body.fkPlanoJSON;
     var fkCargos = req.body.fkCargosJSON;
 
     if (nome == undefined) {
@@ -19,15 +19,15 @@ function cadastrar(req, res) {
         res.status(400).send("Sua senha está undefined!");
     }
 
-    if (fkPlano == undefined) {
-        res.status(400).send("fkPlano está undefined!");
-    }
+    // if (fkPlano == undefined) {
+    //     res.status(400).send("fkPlano está undefined!");
+    // }
 
     if (fkCargos == undefined) {
         res.status(400).send("fkCargos está undefined!");
     }
 
-    usuarioModel.cadastrar(nome, email, senha, fkPlano, fkCargos).then(function (resposta) {
+    usuarioModel.cadastrar(nome, email, senha, fkCargos).then(function (resposta) {
         res.status(200).send("Cadastro criado com sucesso");
     }).catch(function (erro) {
         res.status(500).json(erro.sqlMessage);

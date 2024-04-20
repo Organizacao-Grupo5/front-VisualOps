@@ -28,27 +28,26 @@ CREATE TABLE usuario (
     nome VARCHAR(60) NOT NULL,
     email VARCHAR(60) NOT NULL,
     senha VARCHAR(45) NOT NULL,
-    fkPlano INT NOT NULL,
+    fkPlano INT,
         CONSTRAINT fkPlanoUsuario FOREIGN KEY (fkPlano) REFERENCES plano(idPlano),
     fkCargos INT NOT NULL,
-        CONSTRAINT fkCargosUsuario FOREIGN KEY (cargos) REFERENCES cargos(idCargos)
-);
-
-CREATE TABLE identificacao (
-    idIdentificacao INT PRIMARY KEY AUTO_INCREMENT,
-    cpf/cnpj VARCHAR(18) NOT NULL,
-    fkUsuario INT NOT NULL,
-        CONSTRAINT fkUsuarioIdentificacao FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario),
-    fkEmpresa INT NOT NULL,
-        CONSTRAINT fkEmpresaIdenficacao FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
+        CONSTRAINT fkCargosUsuario FOREIGN KEY (fkcargos) REFERENCES cargos(idCargos)
 );
 
 CREATE TABLE empresa (
     idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(50),
     fkEndereco INT NOT NULL,
-        CONSTRAINT fkEnderecoEmpresa FOREIGN KEY (fkEndereco) REFERENCES endereco(idEndereco),
-    
+        CONSTRAINT fkEnderecoEmpresa FOREIGN KEY (fkEndereco) REFERENCES endereco(idEndereco)
+);
+
+CREATE TABLE identificacao (
+    idIdentificacao INT PRIMARY KEY AUTO_INCREMENT,
+    cpf_cnpj VARCHAR(18) NOT NULL,
+    fkUsuario INT NOT NULL,
+        CONSTRAINT fkUsuarioIdentificacao FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario),
+    fkEmpresa INT NOT NULL,
+        CONSTRAINT fkEmpresaIdenficacao FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
 );
 
 CREATE TABLE contato (
@@ -110,7 +109,7 @@ CREATE TABLE captura(
     idCaptura INT AUTO_INCREMENT,
     captura VARCHAR(45) NOT NULL,
     unidadeMedida VARCHAR(5) NOT NULL,
-    dataCaptura DATETIME NOT NULL
+    dataCaptura DATETIME NOT NULL,
     fkComponente INT NOT NULL,
         CONSTRAINT fkComponenteCaptura FOREIGN KEY (fkComponente) REFERENCES componente(fkComponente),
     PRIMARY KEY (idCaptura, fkComponente)

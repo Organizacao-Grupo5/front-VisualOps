@@ -7,6 +7,7 @@ var app = express();
 
 var usuarioRouter = require("./src/routes/usuario");
 const slackRouter = require("./src/routes/GoogleSlackRoute");
+const cargoRouter = require("./src/routes/cargo");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));

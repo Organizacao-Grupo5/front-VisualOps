@@ -40,6 +40,7 @@ const datas = {
 new Chart(first, {
     type: 'pie',
     data: datas.toFirst,
+    plugins: [ChartDataLabels],
     options: {
         indexAxis: 'y',
         scales: {
@@ -48,22 +49,27 @@ new Chart(first, {
                 beginAtZero: true
             },
         },
-        tooltips: {
-            enabled: false
+        plugins: {
+            datalabels: {
+                color: 'white',
+                anchor: 'center',
+                align: 'start',
+                offset: -90,
+                font: {
+                    size: 23,
+                },
+                formatter: function(value) {
+                    return value + " Pcs";
+                }
+            }
         },
-        pieceLabel: {
-            mode: 'value'
-        },
-        responsive: true,
-        legend: {
-            position: 'bottom',
-        },
-        title: {
-            display: true,
-            text: 'Idades',
-            fontSize: 20
-        },
-    }
+        onClick: (event, context) => {
+            const index = context[0].index;
+            const label = label.first[index];
+            alert('clicou valor' + label);
+        }
+    },
+        
 });
 
 new Chart(second, {

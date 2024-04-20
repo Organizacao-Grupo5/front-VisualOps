@@ -365,6 +365,11 @@ section{
     flex-direction: column;
 }
 
+.graficos1-content > canvas, #chart_1 {
+    height: 200px;
+    width: 200px;
+}
+
 .graficos2e3-content{
     display: flex;
     flex-direction: column;

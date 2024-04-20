@@ -6,7 +6,6 @@ CREATE TABLE usuario (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(60) NOT NULL,
     cpf VARCHAR(14),
-    ativo BOOLEAN NOT NULL,
     email VARCHAR(60) NOT NULL,
     senha VARCHAR(45) NOT NULL,
     fkPlano INT NOT NULL,

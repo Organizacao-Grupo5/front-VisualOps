@@ -8,7 +8,7 @@ var app = express();
 
 var usuarioRouter = require("./src/routes/usuario");
 
-// const slackRouter = require("./src/routes/GoogleSlackRoute");
+const slackRouter = require("./src/routes/GoogleSlackRoute");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
@@ -16,7 +16,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cors());
 
-// app.use(slackRouter);
+app.use(slackRouter);
 app.use("/usuario", usuarioRouter);
 
 app.listen(PORTA, function () {

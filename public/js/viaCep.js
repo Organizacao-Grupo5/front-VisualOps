@@ -64,7 +64,6 @@ function extenderUf(uf) {
 function meu_callback(conteudo) {
     if (!("erro" in conteudo)) {
         document.getElementById('ipt_estado').value=(extenderUf(conteudo.uf));
-        console.log("aparece alguma coisa");
         retornarObjEndereco(conteudo);       
     }
 }

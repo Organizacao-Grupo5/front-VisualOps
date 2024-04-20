@@ -1,4 +1,4 @@
-const usuario = require( '../model/usuarioModel' )
+const usuario = require( '../models/usuarioModel' )
 
 async function callback(req, res) {
     

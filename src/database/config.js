@@ -27,22 +27,23 @@ var mySqlConfig = {
 
 function executar(instrucao) {
     // VERIFICA A VARIÁVEL DE AMBIENTE SETADA EM app.js
-    if (process.env.AMBIENTE_PROCESSO == "producao") {
-        return new Promise(function (resolve, reject) {
-            sql.connect(sqlServerConfig).then(function () {
-                return sql.query(instrucao);
-            }).then(function (resultados) {
-                console.log(resultados);
-                resolve(resultados.recordset);
-            }).catch(function (erro) {
-                reject(erro);
-                console.log('ERRO: ', erro);
-            });
-            sql.on('error', function (erro) {
-                return ("ERRO NO SQL SERVER (Azure): ", erro);
-            });
-        });
-    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+    // if (process.env.AMBIENTE_PROCESSO == "producao") {
+    //     return new Promise(function (resolve, reject) {
+    //         sql.connect(sqlServerConfig).then(function () {
+    //             return sql.query(instrucao);
+    //         }).then(function (resultados) {
+    //             console.log(resultados);
+    //             resolve(resultados.recordset);
+    //         }).catch(function (erro) {
+    //             reject(erro);
+    //             console.log('ERRO: ', erro);
+    //         });
+    //         sql.on('error', function (erro) {
+    //             return ("ERRO NO SQL SERVER (Azure): ", erro);
+    //         });
+    //     });
+    // } 
+//  if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         return new Promise(function (resolve, reject) {
             var conexao = mysql.createConnection(mySqlConfig);
             conexao.connect();
@@ -58,12 +59,12 @@ function executar(instrucao) {
                 return ("ERRO NO MySQL WORKBENCH: ", erro.sqlMessage);
             });
         });
-    } else {
-        return new Promise(function (resolve, reject) {
-            console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-            reject("AMBIENTE NÃO CONFIGURADO EM app.js")
-        });
-    }
+    // else {
+    //     return new Promise(function (resolve, reject) {
+    //         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+    //         reject("AMBIENTE NÃO CONFIGURADO EM app.js")
+    //     });
+    // }
 }
 
 module.exports = {

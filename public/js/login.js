@@ -44,16 +44,20 @@ function validarCampo() {
 }
 
 function entrar() {
+
+    var email = input_email.value;
+    var senha = input_senha.value;
     
     if (!validarCampo()) return false;
     
-    fetch("usuarios/autenticar", {
+    fetch("/usuario/autenticar", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            emailJSON: email
+            emailJSON: email,
+            senhaJSON: senha
         })
     }).then(resposta => {
         console.log("tentando logar.");
@@ -69,7 +73,7 @@ function entrar() {
                 sessionStorage.IdUsuario = json.id;
 
                 setTimeout(() => {
-                    window.location = ""
+                    window.location = "./index.html"
                 }, 1000);
             });
         } else {

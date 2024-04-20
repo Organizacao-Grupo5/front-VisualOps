@@ -192,11 +192,11 @@ function cadastrar() {
     const numero = ipt_numero.value;
     const complemento = ipt_complemento.value;
 
-    listaCampos.push(nome, email, senha, clienteTipo, estado, cep, numero, complemento);
+    listaCampos.push(nome, email, senha, estado, cep, numero);
 
     if (!validarCampos(listaCampos)) return false;
 
-    fetch("/usuarios/cadastrar", {
+    fetch("/usuario/cadastrar", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -205,7 +205,9 @@ function cadastrar() {
             nomeJSON: nome,
             emailJSON: email,
             senhaJSON: senha,
-            identificacaoJSON: identificacao,
+            // fkPlanoJSON: idPlano,
+            // fkCargosJSON: idCargos,
+            clienteTipoJSON: clienteTipo,
             estadoJSON: estado,
             cepJSON: cep,
             numeroJSON: numero,
@@ -215,18 +217,13 @@ function cadastrar() {
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-            divMsg.style.display = "block";
-            mensagem.innerHTML = "Cadastro realizado com sucesso!"
+            mostrarMensagem("Cadastro realizado com sucesso!");
 
             setTimeout(() => {
                 window.location = "index.html";
             }, "1500");
         } else {
-            divMsg.style.display = "block";
-            mensagem.innerHTML = "Não foi possivel realizar o seu cadastro, por favor tente novamente!"
-            setTimeout(() => {
-                divMsg.style.display = "none";;
-            }, "1500");
+            mostrarMensagem("Não foi possivel realizar o seu cadastro, por favor tente novamente!");
             throw "Houve um erro ao tentar realizar o cadastro!"
         }
     }).catch(resposta => {

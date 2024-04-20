@@ -1,17 +1,12 @@
-var cadastroModel = require("../models/cadastroModel");
+var usuarioModel = require("../models/usuarioModel");
 
 function cadastrar(req, res) {
-    var nome = req.body.nomeServer;
-    var Status = req.body.StatusServer;
-    var email = req.body.emailServer;
-    var senha = req.body.senhaServer;
+    var nome = req.body.nomeJSON;
+    var email = req.body.emailJSON;
+    var senha = req.body.senhaJSON;
 
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
-    }
-
-    if (Status == undefined) {
-        res.status(400).send("Seu sobrenome está undefined!");
     }
 
     if (email == undefined) {
@@ -22,7 +17,7 @@ function cadastrar(req, res) {
         res.status(400).send("Sua senha está undefined!");
     }
 
-    cadastroModel.cadastrar(nome, Status, email, senha).then(function (resposta) {
+    usuarioModel.cadastrar(nome, email, senha).then(function (resposta) {
         res.status(200).send("Cadastro criado com sucesso");
     }).catch(function (erro) {
         res.status(500).json(erro.sqlMessage);

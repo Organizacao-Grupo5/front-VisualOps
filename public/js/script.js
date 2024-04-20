@@ -90,7 +90,7 @@ const carrosselEquipe = document.getElementById("id_carrossel_equipe");
 
 cardClaudio.addEventListener("click", () => {
     if (tela > 1040 || tela < 710) {
-        carrosselEquipe.style.marginLeft = "117%";
+        carrosselEquipe.style.marginLeft = "30%";
         carrosselEquipe.style.marginRight = "0";
         ocultaCardEquipe(cardGuilherme);
         exporCardEquipe(cardDiego);
@@ -104,7 +104,7 @@ cardClaudio.addEventListener("click", () => {
 cardGuilherme.addEventListener("click", () => {
     if (tela > 1040 || tela < 710) {
         carrosselEquipe.style.marginLeft = "0";
-        carrosselEquipe.style.marginRight = "0";
+        carrosselEquipe.style.marginRight = "50%";
         ocultaCardEquipe(cardClaudio);
         ocultaCardEquipe(cardDiego);
         exporCardEquipe(cardJulia);
@@ -116,7 +116,7 @@ cardGuilherme.addEventListener("click", () => {
 
 cardDiego.addEventListener("click", () => {
     if (tela > 1040 || tela < 710) { 
-        carrosselEquipe.style.marginLeft = "117%";
+        carrosselEquipe.style.marginLeft = "30%";
         carrosselEquipe.style.marginRight = "0";
         ocultaCardEquipe(cardGuilherme);
         exporCardEquipe(cardClaudio);
@@ -131,7 +131,7 @@ cardJulia.addEventListener("click", () => {
     if (tela > 1040 || tela < 710) {
     
         carrosselEquipe.style.marginLeft = "0";
-        carrosselEquipe.style.marginRight = "0";
+        carrosselEquipe.style.marginRight = "50%";
         exporCardEquipe(cardGuilherme);
         ocultaCardEquipe(cardClaudio);
         ocultaCardEquipe(cardDiego);

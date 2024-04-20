@@ -201,6 +201,7 @@ function cadastrar() {
 
     const idCargos = selecionarCargo(nomeCargo);
     console.log(idCargos);
+    .
 
     const body = {  nomeJSON: nome,
         emailJSON: email,

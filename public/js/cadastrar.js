@@ -86,36 +86,31 @@ function retornarObjEndereco(obj) {
 
 function validarCampos(listaCampos) {
 
-    let validacaoCampos = true;
-    
+    let validacaoCampos = true;    
+
     for(i = 0; i < listaCampos.length; i++) {
     
-        if (listaCampos[i].value.trim() === '' &&
-            listaCampos[i].id !== "ipt_complemento" && 
-            listaCampos[i].id !== "btPlano") {
+        if (listaCampos[i].trim() === '') {
             console.log(listaCampos[i]);
             mostrarMensagem(`Os campos não podem estar vazios.`);
             validacaoCampos = false;
             break;
-        } else if (listaCampos[i].id === "ipt_email" && 
-                !(listaCampos[i].value.includes("@hotmail.com") || 
-                listaCampos[i].value.includes("@gmail.com") || 
-                listaCampos[i].value.includes("@outlook.com") || 
-                listaCampos[i].value.includes("@sptech.school"))) {
+        } else if (listaCampos[1] && 
+                !(listaCampos[1].includes("@hotmail.com") || 
+                listaCampos[1].includes("@gmail.com") || 
+                listaCampos[1].includes("@outlook.com") || 
+                listaCampos[1].includes("@sptech.school"))) {
             mostrarMensagem(`Esse Email é inválido.`)
             validacaoCampos = false;
             break;
-        } else if (listaCampos[i].id === "ipt_senha" &&
-                !new RegExp("^(?=.*\\d)(?=.*[^\\w\\s])(?=.*[A-Z])(?=.*[a-z]).*$").test(listaCampos[i].value)) {
+        } else if (listaCampos[2] &&
+                !new RegExp("^(?=.*\\d)(?=.*[^\\w\\s])(?=.*[A-Z])(?=.*[a-z]).*$").test(listaCampos[2])) {
             mostrarMensagem('A Senha deve conter letras MAIÚSCULAS, minúsculas, números e símbolos');
-            validacaoCampos = false;
-            break;
-        } else if (listaCampos[i].innerHTML === "Escolha um plano") {
-            mostrarMensagem('Não é possivel cadastrar-se sem escolher um plano.');
             validacaoCampos = false;
             break;
         }
     }
+
     return validacaoCampos;    
 }
 

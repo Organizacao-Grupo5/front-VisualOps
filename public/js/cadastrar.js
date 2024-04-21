@@ -250,10 +250,10 @@ function cadastrar() {
     if (!validarCampos(listaCampos)) return false;
 
     const nomeCargo = criarCargo(clienteTipo);
-    console.log(nomeCargo);
+    console.log("NOME CARGO: " + nomeCargo);
 
     const idCargos = selecionarCargo(nomeCargo);
-    console.log(idCargos);
+    console.log("IDCARGO: "+ idCargos);
 
     const body = {  nomeJSON: nome,
         emailJSON: email,
@@ -273,7 +273,10 @@ function verficarRadio() {
     const radios = document.getElementsByName('tipoCliente');
     
     for (let i = 0; i < radios.length; i++) {
-        if (radios[i].checked) return radios.value;   
+        if (radios[i].checked) {
+            console.log(radios[i].value)
+            return radios[i].value;
+        }   
     }
     return '';
 } 

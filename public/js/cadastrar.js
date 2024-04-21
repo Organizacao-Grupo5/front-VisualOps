@@ -220,7 +220,7 @@ function verficarRadio() {
     const radios = document.getElementsByName('tipoCliente');
     
     for (let i = 0; i < radios.length; i++) {
-        if (radios[i].checked) return radios.value;   
+        if (radios[i].checked) return radios[i].value;   
     }
     return '';
 } 

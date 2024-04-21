@@ -2,7 +2,7 @@ var cargoModel = require("../models/cargoModel");
 
 function criar(req, res) {
     var nomeCargo = req.body.nomeJSON;
-
+    console.log("função criar controller");
     if (nomeCargo == undefined) {
         res.status(400).send("Seu nome está undefined!");
     }

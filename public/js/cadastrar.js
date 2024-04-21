@@ -195,13 +195,12 @@ function cadastrar() {
     listaCampos.push(nome, email, senha, estado, cep, numero);
 
     if (!validarCampos(listaCampos)) return false;
-
+    console.log(clienteTipo);
     const nomeCargo = criarCargo(clienteTipo);
-    console.log(nomeCargo);
+    console.log("NOME CARGO:" + nomeCargo);
 
     const idCargos = selecionarCargo(nomeCargo);
-    console.log(idCargos);
-    .
+    console.log('ID CARGO ' + idCargos);
 
     const body = {  nomeJSON: nome,
         emailJSON: email,
@@ -258,17 +257,18 @@ function cadastrarUsuario(body){
     return false;
 }
 
-function criarCargo(body){
+function criarCargo(nomeCargo){
     fetch("/cargo/criar", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            body
+            nomeJSON: nomeCargo
         }),
     }).then(resposta => {
         console.log("resposta: ", resposta);
+        console.log(nomeCargo);
 
     }).catch(resposta => {
         console.log('#ERRO: ', resposta);

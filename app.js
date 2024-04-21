@@ -16,6 +16,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 app.use(slackRouter);
 app.use("/usuario", usuarioRouter);
+app.use("/cargo", cargoRouter);
 
 app.listen(PORTA, function () {
     console.log(`Visualização é http://localhost:${PORTA}`)

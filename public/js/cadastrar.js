@@ -1,129 +1,4 @@
-const btPlano = 0;
-
 const tela = window.innerWidth;
-
-
-
-const divPlanos = 0;
-
-let statusPage = "pessoal";
-
-function mostrarOpcoes() {
-    const plano1 = document.getElementById("plano1");
-    const plano2 = document.getElementById("plano2");
-    const plano3 = document.getElementById("plano3");
-
-    const listaPlanos = [plano1, plano2, plano3];
-
-    if (tela > 600) {
-
-        if (plano2.style.visibility === "visible") {
-
-            plano2.style.top = "0"
-            plano2.style.opacity = 0;
-            plano2.style.visibility = "hidden";
-            
-            plano1.style.top = "0";
-            plano1.style.right = "-80px";
-            plano1.style.opacity = 0;
-            plano1.style.visibility = "hidden";
-            
-            plano3.style.top = "0";
-            plano3.style.left = "-80px"
-            plano3.style.opacity = 0;
-            plano3.style.visibility = "hidden";
-
-            btPlano.style.visibility = "visible";
-            setTimeout(() => {
-                plano1.style.display = "none";
-                plano2.style.display = "none";
-                plano3.style.display = "none";
-
-                btPlano.style.display = "block";
-                btPlano.style.opacity = 1;
-            }, 100);
-        } else {
-            
-            plano1.style.right = "-80px";            
-            plano3.style.left = "-80px";
-            
-            btPlano.style.display = "none";
-            btPlano.style.opacity = 0;
-            btPlano.style.visibility = "hidden";
-            
-            plano1.style.display = "block";
-            plano2.style.display = "block";
-            plano3.style.display = "block";
-            setTimeout(()=> {
-                
-                plano2.style.visibility = "visible";
-                plano2.style.opacity = 1;
-                plano2.style.top = "-22px"
-                
-                plano1.style.visibility = "visible";
-                plano1.style.opacity = 1;
-                plano1.style.right = "10px";
-                plano1.style.top = "10px";
-                
-                plano3.style.visibility = "visible";
-                plano3.style.opacity = 1;
-                plano3.style.left = "10px";
-                plano3.style.top = "10px";
-            }, 100);
-            
-        }
-    } else {
-        plano1.style.top = "324px";
-        plano1.style.visibility = "hidden";
-        plano1.style.opacity = 0;
-        
-        plano3.style.top = "324px";
-        plano3.style.visibility = "hidden";
-        plano3.style.opacity = 0;
-        
-        
-        if (plano2.style.visibility === "visible") {
-            btPlano.style.visibility = "visible";
-            plano3.style.left = "calc(40vw - 10px)";
-            plano3.style.opacity = 0;
-            plano3.style.visibility = "hidden";
-            setTimeout(()=> {
-                plano1.style.left = "calc(40vw + 20px)";
-                plano1.style.opacity = 0;
-                plano1.style.visibility = "hidden";
-            }, 100);
-            setTimeout(()=> {
-                plano2.style.top = "324px"
-                plano2.style.opacity = 0;
-                plano2.style.visibility = "hidden";
-            }, 150);
-        } else {
-            btPlano.style.visibility = "hidden";
-            plano2.style.opacity = 1;
-            plano2.style.visibility = "visible";
-            plano2.style.top = "324px"
-            setTimeout(()=> {
-                plano1.style.opacity = 1;
-                plano1.style.visibility = "visible";
-                plano1.style.left = "calc(40vw - 105px)";
-            }, 100);
-            setTimeout(()=> {
-                plano3.style.opacity = 1;
-                plano3.style.visibility = "visible";
-                plano3.style.left = "calc(40vw + 125px)";
-            }, 170);
-            
-        }
-    }
-    listaPlanos.forEach(plano => {
-        plano.addEventListener("click", () => {
-            if (btPlano.style.visibility == "hidden") {
-                mostrarOpcoes();
-                btPlano.innerHTML = plano.innerHTML;
-            }
-        })
-    });
-}
 
 function mudarVisibilidade() {
     const campoSenha = document.getElementById("ipt_senha");
@@ -149,6 +24,64 @@ function mostrarMensagem(newMensagem) {
     setTimeout(() => {
         divMsg.style.display = 'none';
     }, 3000)
+}
+
+function modificarCnpj(event) {
+
+    let input = event.value;
+
+    input = input.replace(/\D/g, '');
+    
+    let cnpj = '';
+    
+    for ( let i = 0; i < input.length; i++ ) {
+            
+        if ( i < 14 ) {
+            
+            if ( i === 2 || i === 5 ) {
+                
+                cnpj += '.';
+                
+            } else if ( i === 8 ) {
+                
+                cnpj += '/';
+                
+            } else if ( i === 12) {
+                
+                cnpj += '-';
+                
+            }
+            
+            cnpj += input[i];
+
+        }
+            
+    }
+    
+    event.value = cnpj;
+}
+
+function modificarNumero(obj) {
+
+    let input = obj.value;
+    
+    let newInput = '';
+    
+    for ( let i = 0; i < input.length; i++ ) {
+            
+        if ( i < 6 ) {
+            
+            newInput += input[i];
+
+        }
+            
+    }
+    
+    obj.value = newInput;
+}
+
+function retornarObjEndereco(obj) {
+    if (obj) return obj;
 }
 
 function validarCampos(listaCampos) {
@@ -232,7 +165,7 @@ function verificarCep(obj) {
 
 }
 
-function cadastrar() {
+async function cadastrar() {
     
     const listaCampos = [];
 
@@ -249,18 +182,15 @@ function cadastrar() {
 
     if (!validarCampos(listaCampos)) return false;
 
-    const nomeCargo = criarCargo(clienteTipo);
-    console.log("NOME CARGO: " + nomeCargo);
+    await criarCargo(clienteTipo);
 
-    const idCargos = selecionarCargo(nomeCargo);
-    console.log("IDCARGO: "+ idCargos);
+    const idCargos = await selecionarCargo(clienteTipo);
 
     const body = {  nomeJSON: nome,
         emailJSON: email,
         senhaJSON: senha,
         // fkPlanoJSON: idPlano,
         fkCargosJSON: idCargos,
-        clienteTipoJSON: clienteTipo,
         estadoJSON: estado,
         cepJSON: cep,
         numeroJSON: numero,
@@ -273,10 +203,7 @@ function verficarRadio() {
     const radios = document.getElementsByName('tipoCliente');
     
     for (let i = 0; i < radios.length; i++) {
-        if (radios[i].checked) {
-            console.log(radios[i].value)
-            return radios[i].value;
-        }   
+        if (radios[i].checked) return radios[i].value;   
     }
     return '';
 } 
@@ -285,15 +212,13 @@ function voltar(){
     window.location = "index.html";
 }
 
-function cadastrarUsuario(body){
+function cadastrarUsuario(corpo){
     fetch("/usuario/cadastrar", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-            body
-        }),
+        body: JSON.stringify(corpo),
     }).then(resposta => {
         console.log("resposta: ", resposta);
 
@@ -313,37 +238,70 @@ function cadastrarUsuario(body){
     return false;
 }
 
-function criarCargo(body){
-    fetch("/cargo/criar", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            body
-        }),
-    }).then(resposta => {
-        console.log("resposta: ", resposta);
+async function criarCargo(nomeCargo) {
 
-    }).catch(resposta => {
-        console.log('#ERRO: ', resposta);
-    });
-    return false;
-}
-
-function selecionarCargo(nomeCargo){
-    fetch(`/cargo/selecionar/${nomeCargo}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    })
-        .then(function (resposta) {
-            console.log("Dados recebidos: ", JSON.stringify(resposta));
+    try {
+        const response = await fetch("/cargo/criar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nomeJSON: nomeCargo
+            }),
         })
 
-        .catch(function (erro) {
-            console.error('Erro desconhecido na API.');
+        if (response.ok) {
+            const dados = await response.json();
+            console.log("RESPOSTA JSON: ", dados);
+            
+            return true;
+
+        } else if (response.status == 409) {
+            const dados = await response.json();
+            console.log("RESPOSTA JSON: ", dados);
+            
+            return false;
+
+        } else {
+            console.error("Falha ao criar o cargo.");
+
+            throw new Error("Houve um erro ao tentar criar o cargo!");
+        
         }
-        );
-}
+
+    } catch (error) {
+        console.log("#ERRO: ", error);
+
+        throw error;
+
+    }
+};
+
+async function selecionarCargo(nomeCargo) {
+
+    try {
+        const response = await fetch(`/cargo/selecionar/${nomeCargo}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        if (response.ok) {
+            const dados = await response.json();
+            console.log("RESPOSTA JSON: ", dados);
+
+            return dados.idCargos;
+        } else {
+            console.error("Erro ao selecionar cargo.");
+
+            throw new Error("Hoveu um erro ao tentar selecionar o cargo!")
+        }
+
+    } catch (error) {
+        console.log("Erro desconhecido na API.", error);
+
+        throw error;
+    }
+};

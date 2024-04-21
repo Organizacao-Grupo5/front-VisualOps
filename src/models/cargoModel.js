@@ -1,17 +1,16 @@
 var database = require("../database/config");
 
 function criar(nomeCargo) {
-    var instrucao = `
-        INSERT INTO cargos (nome) VALUES ('${nomeCargo}');
-    `;
+    var instrucao = `INSERT INTO cargos (nome) VALUES ('${nomeCargo}')`;
+    
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
 
 function selecionar(nomeCargo){
-    var instrucao = `
-    select idCargos from cargos where nome = '${nomeCargo}';
-    `;
+    var instrucao = `SELECT idCargos FROM cargos WHERE nome = '${nomeCargo}' LIMIT 1`;
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
 

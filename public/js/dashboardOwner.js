@@ -72,10 +72,9 @@ new Chart(first, {
             }
         },
         onClick: (event, context) => {
-            const index = context[0].index;            
+            const index = context[0].index;
             const labels = label.first[index];
-            console.log("label " + labels);
-            alert('clicou valor ' + labels);
+            alert("clicou valor " + labels);
         }
     },
         

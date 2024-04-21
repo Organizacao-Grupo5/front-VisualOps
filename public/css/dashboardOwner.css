@@ -1,4 +1,3 @@
-
 :root{
     --cor-destaque: #00000;
 }
@@ -128,7 +127,7 @@ section{
     display: flex;
     align-items: center;
     flex-direction: column;
-    justify-content: space-around; /*Adição do Guilherme*/
+    justify-content: space-around; /*AdiÃ§Ã£o do Guilherme*/
 }
 
 .dashboard-content nav{
@@ -326,7 +325,7 @@ section{
 @keyframes slide-in-top{0%{transform:translateY(-1000px);opacity:0}100%{transform:translateY(0);opacity:1}}
 
 
-/*Código do Guilherme*/
+/*código do Guilherme*/
 
 .name-chart-content{
     display: flex;
@@ -380,6 +379,7 @@ section{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    
     width: 54%;
     height: 96%;
 }
@@ -387,14 +387,17 @@ section{
 .graficos2-content{
     display: flex;
     justify-content: space-between;
+    
     width: 100%;
     height: 50%;
 }
 
 .graficos3-content{
     display: flex;
+    
     width: 100%;
     height: 47%;
+    
     background-color: white;
 }
 
@@ -451,24 +454,17 @@ section{
     transition: .3s ease;
 }
 
-.graficos2_2-content > h4 {
-    text-align: center;
-
-    margin-top: 20px;
-    margin-bottom: 30px;
-}
-
 .lista_comparacao {
     display: flex;
     justify-content: space-between;
 
     margin-top: 10px;
 
-    width: 85%;
+    width: 90%;
     height: 40%;
 }
 
-.lista_comparacao > div {
+.lista_comparacao > div > ul {
     height: 100%;
     
     display: flex;
@@ -478,15 +474,15 @@ section{
     list-style: none;
 }
 
-.lista_comparacao > ul > li {
+.lista_comparacao > div > ul > li {
     transition: ease .4s;
 }
 
-.lista_comparacao > ul > li > span {
+.lista_comparacao > div > ul > li > span {
     font-weight: 600;
 }
 
-.lista_comparacao > ul > li:hover {
+.lista_comparacao > div > ul > li:hover {
 
     font-weight: 600;
 
@@ -495,47 +491,8 @@ section{
     transform: scale(1.1);
 }
 
-
 .atual_cpu {
     color: #F2274C;
-}
-
-.atual_ram {
-    color: #9450F2;
-}
-
-.atual_gpu {
-    color: #F2274C;
-}
-
-.atual_hdd {
-    color: #9450F2;
-}
-
-.anterior_cpu {
-    color: #F2274C;
-}
-
-.anterior_ram {
-    color: #9450F2;
-}
-
-.anterior_gpu {
-    color: #F2AB27;
-}
-
-.anterior_hdd {
-    color: #9450F2;
-}
-
-
-.separador {
-
-    height: 100%;
-    width: 2px;
-    
-    background-color: black;
-    
 }
 
 .titulos_status {
@@ -546,7 +503,6 @@ section{
     
     width: 100%;
 }
-
 
 .titulos_status > p > span {
     display: block;
@@ -569,4 +525,4 @@ section{
     background-color: #9450F2;
 }
 
-/*Código do Guilherme*/
+/*código do Guilherme*/

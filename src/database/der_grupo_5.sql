@@ -2,6 +2,21 @@ CREATE DATABASE der_grupo_5;
 
 USE der_grupo_5;
 
+<<<<<<< HEAD
+CREATE TABLE usuario (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(60) NOT NULL,
+    cpf VARCHAR(14),
+    email VARCHAR(60) NOT NULL,
+    senha VARCHAR(45) NOT NULL,
+    fkPlano INT NOT NULL,
+        CONSTRAINT fkPlanoUsuario FOREIGN KEY  (fkPlano) REFERENCES plano(id),
+    cargos INT NOT NULL,
+        CONSTRAINT fkCargosUsuario FOREIGN KEY (cargos) REFERENCES cargos(id)
+);
+
+=======
+>>>>>>> ad191f8d53f94f0a96ae5cd76b9589b1826f1441
 CREATE TABLE cargos (
     idCargos INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(45) NOT NULL

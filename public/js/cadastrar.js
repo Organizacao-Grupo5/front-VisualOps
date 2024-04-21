@@ -1,4 +1,129 @@
+const btPlano = 0;
+
 const tela = window.innerWidth;
+
+
+
+const divPlanos = 0;
+
+let statusPage = "pessoal";
+
+function mostrarOpcoes() {
+    const plano1 = document.getElementById("plano1");
+    const plano2 = document.getElementById("plano2");
+    const plano3 = document.getElementById("plano3");
+
+    const listaPlanos = [plano1, plano2, plano3];
+
+    if (tela > 600) {
+
+        if (plano2.style.visibility === "visible") {
+
+            plano2.style.top = "0"
+            plano2.style.opacity = 0;
+            plano2.style.visibility = "hidden";
+            
+            plano1.style.top = "0";
+            plano1.style.right = "-80px";
+            plano1.style.opacity = 0;
+            plano1.style.visibility = "hidden";
+            
+            plano3.style.top = "0";
+            plano3.style.left = "-80px"
+            plano3.style.opacity = 0;
+            plano3.style.visibility = "hidden";
+
+            btPlano.style.visibility = "visible";
+            setTimeout(() => {
+                plano1.style.display = "none";
+                plano2.style.display = "none";
+                plano3.style.display = "none";
+
+                btPlano.style.display = "block";
+                btPlano.style.opacity = 1;
+            }, 100);
+        } else {
+            
+            plano1.style.right = "-80px";            
+            plano3.style.left = "-80px";
+            
+            btPlano.style.display = "none";
+            btPlano.style.opacity = 0;
+            btPlano.style.visibility = "hidden";
+            
+            plano1.style.display = "block";
+            plano2.style.display = "block";
+            plano3.style.display = "block";
+            setTimeout(()=> {
+                
+                plano2.style.visibility = "visible";
+                plano2.style.opacity = 1;
+                plano2.style.top = "-22px"
+                
+                plano1.style.visibility = "visible";
+                plano1.style.opacity = 1;
+                plano1.style.right = "10px";
+                plano1.style.top = "10px";
+                
+                plano3.style.visibility = "visible";
+                plano3.style.opacity = 1;
+                plano3.style.left = "10px";
+                plano3.style.top = "10px";
+            }, 100);
+            
+        }
+    } else {
+        plano1.style.top = "324px";
+        plano1.style.visibility = "hidden";
+        plano1.style.opacity = 0;
+        
+        plano3.style.top = "324px";
+        plano3.style.visibility = "hidden";
+        plano3.style.opacity = 0;
+        
+        
+        if (plano2.style.visibility === "visible") {
+            btPlano.style.visibility = "visible";
+            plano3.style.left = "calc(40vw - 10px)";
+            plano3.style.opacity = 0;
+            plano3.style.visibility = "hidden";
+            setTimeout(()=> {
+                plano1.style.left = "calc(40vw + 20px)";
+                plano1.style.opacity = 0;
+                plano1.style.visibility = "hidden";
+            }, 100);
+            setTimeout(()=> {
+                plano2.style.top = "324px"
+                plano2.style.opacity = 0;
+                plano2.style.visibility = "hidden";
+            }, 150);
+        } else {
+            btPlano.style.visibility = "hidden";
+            plano2.style.opacity = 1;
+            plano2.style.visibility = "visible";
+            plano2.style.top = "324px"
+            setTimeout(()=> {
+                plano1.style.opacity = 1;
+                plano1.style.visibility = "visible";
+                plano1.style.left = "calc(40vw - 105px)";
+            }, 100);
+            setTimeout(()=> {
+                plano3.style.opacity = 1;
+                plano3.style.visibility = "visible";
+                plano3.style.left = "calc(40vw + 125px)";
+            }, 170);
+            
+        }
+    }
+    listaPlanos.forEach(plano => {
+        plano.addEventListener("click", () => {
+            if (btPlano.style.visibility == "hidden") {
+                mostrarOpcoes();
+                btPlano.innerHTML = plano.innerHTML;
+            }
+        })
+    });
+}
 
 function mudarVisibilidade() {
     const campoSenha = document.getElementById("ipt_senha");
@@ -26,108 +151,36 @@ function mostrarMensagem(newMensagem) {
     }, 3000)
 }
 
-function modificarCnpj(event) {
-
-    let input = event.value;
-
-    input = input.replace(/\D/g, '');
-    
-    let cnpj = '';
-    
-    for ( let i = 0; i < input.length; i++ ) {
-            
-        if ( i < 14 ) {
-            
-            if ( i === 2 || i === 5 ) {
-                
-                cnpj += '.';
-                
-            } else if ( i === 8 ) {
-                
-                cnpj += '/';
-                
-            } else if ( i === 12) {
-                
-                cnpj += '-';
-                
-            }
-            
-            cnpj += input[i];
-
-        }
-            
-    }
-    
-    event.value = cnpj;
-}
-
-function modificarNumero(obj) {
-
-    let input = obj.value;
-    
-    let newInput = '';
-    
-    for ( let i = 0; i < input.length; i++ ) {
-            
-        if ( i < 6 ) {
-            
-            newInput += input[i];
-
-        }
-            
-    }
-    
-    obj.value = newInput;
-}
-
-function retornarObjEndereco(obj) {
-    if (obj) return obj;
-}
-
 function validarCampos(listaCampos) {
 
     let validacaoCampos = true;
     
     for(i = 0; i < listaCampos.length; i++) {
     
-        if (
-            listaCampos[i].trim() === '' && 
-            listaCampos[i].id !== "ipt_complemento" &&
-            listaCampos[i].id !== "btPlano"
-        ) {
-
+        if (listaCampos[i].value.trim() === '' &&
+            listaCampos[i].id !== "ipt_complemento" && 
+            listaCampos[i].id !== "btPlano") {
             console.log(listaCampos[i]);
             mostrarMensagem(`Os campos não podem estar vazios.`);
             validacaoCampos = false;
             break;
-        
-        } else if (
-            listaCampos[i].id === "ipt_email" && 
-            !(listaCampos[i].includes("@hotmail.com") || 
-            listaCampos[i].includes("@gmail.com") || 
-            listaCampos[i].includes("@outlook.com") || 
-            listaCampos[i].includes("@sptech.school"))
-            ) {
-                
+        } else if (listaCampos[i].id === "ipt_email" && 
+                !(listaCampos[i].value.includes("@hotmail.com") || 
+                listaCampos[i].value.includes("@gmail.com") || 
+                listaCampos[i].value.includes("@outlook.com") || 
+                listaCampos[i].value.includes("@sptech.school"))) {
             mostrarMensagem(`Esse Email é inválido.`)
             validacaoCampos = false;
             break;
-
-        } else if (
-            listaCampos[i].id === "ipt_senha" &&
-            !new RegExp("^(?=.*\\d)(?=.*[^\\w\\s])(?=.*[A-Z])(?=.*[a-z]).*$").test(listaCampos[i])
-            ) {
-
+        } else if (listaCampos[i].id === "ipt_senha" &&
+                !new RegExp("^(?=.*\\d)(?=.*[^\\w\\s])(?=.*[A-Z])(?=.*[a-z]).*$").test(listaCampos[i].value)) {
             mostrarMensagem('A Senha deve conter letras MAIÚSCULAS, minúsculas, números e símbolos');
             validacaoCampos = false;
             break;
-
         } else if (listaCampos[i].innerHTML === "Escolha um plano") {
-            
             mostrarMensagem('Não é possivel cadastrar-se sem escolher um plano.');
             validacaoCampos = false;
             break;
-
         }
     }
     return validacaoCampos;    
@@ -200,7 +253,11 @@ function cadastrar() {
     console.log("NOME CARGO:" + nomeCargo);
 
     const idCargos = selecionarCargo(nomeCargo);
+<<<<<<< HEAD
     console.log('ID CARGO ' + idCargos);
+=======
+    console.log(idCargos);
+>>>>>>> 04fe716aa01c59fd39706c3cf7223512543a0d43
 
     const body = {  nomeJSON: nome,
         emailJSON: email,

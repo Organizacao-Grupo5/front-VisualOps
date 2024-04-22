@@ -355,7 +355,7 @@ section{
 .graficos1-content{
     background-color: white;
 
-    width: 43%;
+    width: 40%;
     height: 96%;
 
     display: flex;
@@ -380,7 +380,7 @@ section{
     flex-direction: column;
     justify-content: space-between;
     
-    width: 54%;
+    width: 57%;
     height: 96%;
 }
 
@@ -396,7 +396,7 @@ section{
     display: flex;
     
     width: 100%;
-    height: 47%;
+    height: 48%;
     
     background-color: white;
 }
@@ -407,7 +407,7 @@ section{
     justify-content: center;
     align-items: center;
 
-    width: 56%;
+    width: 54.5%;
     height: 100%;
     
     padding: 5px;
@@ -424,7 +424,7 @@ section{
     flex-direction: column;
     align-items: center;
 
-    width: 43%;
+    width: 44%;
     height: 100%;
     
     background-color: white;
@@ -454,6 +454,16 @@ section{
     transition: .3s ease;
 }
 
+.info_componentes {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+}
+
 .lista_comparacao {
     display: flex;
     flex-direction: column;
@@ -470,10 +480,10 @@ section{
     list-style: none;
 
     display: flex;
+    align-items: center;
 }
 
 .lista_comparacao > li > .componente {
-    height: 35px;
     width: 52px;
 }
 
@@ -484,31 +494,30 @@ section{
     width: 76%;
 }
 
-.lista_comparacao > li > .colunas_status > .col_ruim {
+.lista_comparacao > li > .colunas_status > div {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
 
-    border: 2px solid red;
+    font-weight: 600;
+}
+
+.lista_comparacao > li > .colunas_status > .col_ruim {
+    color: #F2274C;
 
     width: 50px;
     height: 30px;
 }
 
 .lista_comparacao > li > .colunas_status > .col_medio {
-    display: flex;
-    justify-content: space-between;
-
-    border: 2px solid yellow;
+    color: #F2AB27;
 
     width: 50px;
     height: 30px;
 }
 
 .lista_comparacao > li > .colunas_status > .col_bom {
-    display: flex;
-    justify-content: space-between;
-
-    border: 2px solid green;
+    color: #9450F2;
 
     width: 50px;
     height: 30px;
@@ -516,15 +525,16 @@ section{
 
 .titulos_status {
     display: flex;
-    
-    margin-top: 17px;
+    align-items: center;
+
+    margin: 15px 0;
     
     width: 100%;
 }
 
 .titulos_status > img {
-    width: 40px;
-    margin: 0 15px;
+    width: 30px;
+    margin: 0 20px;
 }
 
 .status {

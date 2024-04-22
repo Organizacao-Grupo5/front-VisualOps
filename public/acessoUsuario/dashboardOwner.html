@@ -108,51 +108,57 @@
                                     <h3>Desempenho</h3>
                                     <i class="fa-solid fa-angle-right"></i>
                                 </div>
-                                <ul class="lista_comparacao">
-                                    <li>
-                                        <div class="componente">CPU -</div>
-                                        <div class="colunas_status">
-                                            <div class="col_ruim"></div>
-                                            <div class="col_medio"></div>
-                                            <div class="col_bom"></div>
-                                        </div>    
-                                    </li>
-                                    <li>
-                                        <div class="componente">GPU -</div>
-                                        <div class="colunas_status">
-                                            <div class="col_ruim"></div>
-                                            <div class="col_medio"></div>
-                                            <div class="col_bom"></div>
-                                        </div>    
-                                    </li>
-                                    <li>
-                                        <div class="componente">RAM -</div>
-                                        <div class="colunas_status">
-                                            <div class="col_ruim"></div>
-                                            <div class="col_medio"></div>
-                                            <div class="col_bom"></div>
-                                        </div>    
-                                    </li>
-                                    <li>
-                                        <div class="componente">HDD -</div>
-                                        <div class="colunas_status">
-                                            <div class="col_ruim"></div>
-                                            <div class="col_medio"></div>
-                                            <div class="col_bom"></div>
-                                        </div>    
-                                    </li>
-                                </ul>
-                                <div class="titulos_status">
-                                    <img src="../assets/img/logofundo-roxo.png" alt="">
-                                    <div class="status">
-                                        <p><span class="status_quente"></span>RUIM</p>
-                                        <p><span class="status_medio"></span>MÉDIO</p>
-                                        <p><span class="status_normal"></span>BOM</p>
+                                <div class="info_componentes">    
+                                    <ul class="lista_comparacao">
+                                        <li>
+                                            <div class="componente">CPU -</div>
+                                            <div class="colunas_status">
+                                                <div class="col_ruim">10</div>
+                                                <div class="col_medio">7</div>
+                                                <div class="col_bom">23</div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="componente">GPU -</div>
+                                            <div class="colunas_status">
+                                                <div class="col_ruim">17</div>
+                                                <div class="col_medio">10</div>
+                                                <div class="col_bom">3</div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="componente">RAM -</div>
+                                            <div class="colunas_status">
+                                                <div class="col_ruim"></div>
+                                                <div class="col_medio"></div>
+                                                <div class="col_bom"></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="componente">HDD -</div>
+                                            <div class="colunas_status">
+                                                <div class="col_ruim"></div>
+                                                <div class="col_medio"></div>
+                                                <div class="col_bom"></div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="titulos_status">
+                                        <img src="../assets/img/logofundo-roxo.png" alt="">
+                                        <div class="status">
+                                            <p><span class="status_quente"></span>RUIM</p>
+                                            <p><span class="status_medio"></span>MÉDIO</p>
+                                            <p><span class="status_normal"></span>BOM</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="graficos3-content">
+                        <div class="graficos3-content" style="display: flex;">
+                            <div class="chart-horizontal" style="height: 100%;">
+                                <canvas id="chart_horizontal" style="height: 200px;"></canvas>
+                            </div>
+                            <div></div>
 
                         </div>
                     </div>

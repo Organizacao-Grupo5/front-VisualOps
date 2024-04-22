@@ -1,14 +1,16 @@
 const first = document.getElementById("chart_1");
 const second = document.getElementById("chart_2");
+const third = document.getElementById("chart_horizontal");
 
 const label = {
     first: ['Baixo', 'Médio', 'Alto'],
     second: ['CPU', 'GPU', 'RAM', 'HHD'],
+    third: ['Mês', 'Semana', 'Dia'],
 }
 
 const dataset = {
     first: [{
-        label: 'Desempenho dos computadores diariamente.',
+        label: 'Desempenho dos computadores diariamente',
         data: [75, 29, 103],
         backgroundColor: [
             '#F2274C',
@@ -24,6 +26,17 @@ const dataset = {
         hoverBackgroundColor: '#F2274C',
         borderRadius: 5
     }],
+    third: [{
+        label: 'Hístorico Componente',
+        data: [37, 43, 30],
+        backgroundColor: [
+            '#9450F2',
+            '#9450F2',
+            '#9450F2',
+        ],
+        hoverBackgroundColor: '#9455E2',
+        borderRadius:5
+    }]
 };
 
 const datas = {
@@ -34,6 +47,10 @@ const datas = {
     toSecond: {
         labels: label.second,
         datasets: dataset.second
+    },
+    toThird: {
+        labels: label.third,
+        datasets: dataset.third
     }
 }
 
@@ -104,5 +121,13 @@ new Chart(second, {
         onClick: (event) => {
             alert("clicou");
         }
+    }
+});
+
+new Chart(third, {
+    type: 'bar',
+    data: datas.toThird,
+    options: {
+        indexAxis: 'y',
     }
 });

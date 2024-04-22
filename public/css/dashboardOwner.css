@@ -456,55 +456,85 @@ section{
 
 .lista_comparacao {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
 
-    margin-top: 10px;
+    margin-top: 15px;
 
     width: 90%;
     height: 40%;
 }
 
-.lista_comparacao > div > ul {
-    height: 100%;
-    
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+.lista_comparacao > li {
+    width: 100%;
 
     list-style: none;
+
+    display: flex;
 }
 
-.lista_comparacao > div > ul > li {
-    transition: ease .4s;
+.lista_comparacao > li > .componente {
+    height: 35px;
+    width: 52px;
 }
 
-.lista_comparacao > div > ul > li > span {
-    font-weight: 600;
+.lista_comparacao > li > .colunas_status {
+    display: flex;
+    justify-content: space-between;
+
+    width: 76%;
 }
 
-.lista_comparacao > div > ul > li:hover {
+.lista_comparacao > li > .colunas_status > .col_ruim {
+    display: flex;
+    justify-content: space-between;
 
-    font-weight: 600;
+    border: 2px solid red;
 
-    cursor: pointer;
-    
-    transform: scale(1.1);
+    width: 50px;
+    height: 30px;
 }
 
-.atual_cpu {
-    color: #F2274C;
+.lista_comparacao > li > .colunas_status > .col_medio {
+    display: flex;
+    justify-content: space-between;
+
+    border: 2px solid yellow;
+
+    width: 50px;
+    height: 30px;
+}
+
+.lista_comparacao > li > .colunas_status > .col_bom {
+    display: flex;
+    justify-content: space-between;
+
+    border: 2px solid green;
+
+    width: 50px;
+    height: 30px;
 }
 
 .titulos_status {
     display: flex;
-    justify-content: space-evenly;
     
     margin-top: 17px;
     
     width: 100%;
 }
 
-.titulos_status > p > span {
+.titulos_status > img {
+    width: 40px;
+    margin: 0 15px;
+}
+
+.status {
+    display: flex;
+    justify-content: space-between;
+        
+    width: 65%;
+}
+
+.status > p > span {
     display: block;
 
     width: 100%;

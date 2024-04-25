@@ -27,7 +27,7 @@ const dataset = {
         borderRadius: 5
     }],
     third: [{
-        label: 'Quantidade Componente por Uso',
+        label: 'Usabilidade Diária',
         data: [37, 43, 20, 47, 13, 30, 33, 23, 40, 27, 23, 32, 26, 25, 32, 31, 40, 32, 33, 23, 40, 27, 23, 32, 26, 25, 32, 31, 40, 32],
         backgroundColor: '#9455E2',
         borderColor: '#9455E2',

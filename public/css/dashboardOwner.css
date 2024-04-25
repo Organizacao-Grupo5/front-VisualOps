@@ -394,14 +394,22 @@ section{
 
 .graficos3-content{
     display: flex;
+    align-items: center;
     
     width: 100%;
     height: 48%;
+
+    padding: 0  10px;
     
     background-color: white;
 }
 
-.graficos2_1-content{
+.chart-horizontal {
+    height: 90%;
+    width: 47%;
+}
+
+.graficos2_1-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -417,6 +425,11 @@ section{
 
 .graficos2_1-content > h3 {
     margin-bottom: 10px;
+}
+
+.graficos2_1-content > .container_chart2 {
+    height: 85%;
+    width: 95%;
 }
 
 .graficos2_2-content {

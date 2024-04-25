@@ -5,7 +5,7 @@ const third = document.getElementById("chart_horizontal");
 const label = {
     first: ['Baixo', 'Médio', 'Alto'],
     second: ['CPU', 'GPU', 'RAM', 'HHD'],
-    third: ['Mês', 'Semana', 'Dia'],
+    third: [30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
 }
 
 const dataset = {
@@ -27,15 +27,12 @@ const dataset = {
         borderRadius: 5
     }],
     third: [{
-        label: 'Hístorico Componente',
-        data: [37, 43, 30],
-        backgroundColor: [
-            '#9450F2',
-            '#9450F2',
-            '#9450F2',
-        ],
+        label: 'Quantidade Componente por Uso',
+        data: [37, 43, 20, 47, 13, 30, 33, 23, 40, 27, 23, 32, 26, 25, 32, 31, 40, 32, 33, 23, 40, 27, 23, 32, 26, 25, 32, 31, 40, 32],
+        backgroundColor: '#9455E2',
+        borderColor: '#9455E2',
         hoverBackgroundColor: '#9455E2',
-        borderRadius:5
+        tension: 0.2,
     }]
 };
 
@@ -101,6 +98,8 @@ new Chart(second, {
     type: 'bar',
     data: datas.toSecond,
     options: {
+        maintainAspectRatio: false,
+        responsive: true,
         scales: {  
             x: {
                 grid: {
@@ -125,9 +124,67 @@ new Chart(second, {
 });
 
 new Chart(third, {
-    type: 'bar',
+    type: 'line',
     data: datas.toThird,
     options: {
-        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        elements: {
+            point: {
+                radius: function(context) {
+                    if (
+                        context.dataIndex == 0 ||
+                        context.dataIndex == 23 ||
+                        context.dataIndex == 29
+                    ) {
+                        return 5;
+                    } else {
+                        return 1;
+                    }
+                }
+            },
+        },
+        plugins: {
+            datalabels: {
+                onHover: (event, chartElements) => {
+                    if (chartElements.length > 0) {
+                        event.native.target.style.cursor = 'pointer';
+                    } else {
+                        event.native.target.style.cursor = 'default'
+                    }
+                },
+            }
+        }
     }
 });
+
+function verificarFormatter(value, context) {
+
+    if (
+    context.dataIndex == 0 ||
+    context.dataIndex == 22 || 
+    context.dataIndex == 29
+    ) {
+        if (value > 40) {
+            return value + ' ↓';
+        } else {
+            return value + ' ↑';
+        }
+    } else return '';
+}
+
+function verificarColor(context) {
+    const valor = context.dataset.data[context.dataIndex];
+
+    if (
+    context.dataIndex == 0 ||
+    context.dataIndex == 22 || 
+    context.dataIndex == 29
+    ) { 
+        if (valor > 40) {
+            return '#F2274C';
+        } else {
+            return '#9450F2';
+        } 
+    }
+}

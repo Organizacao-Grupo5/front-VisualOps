@@ -43,53 +43,53 @@ function validarCampo() {
 
 }
 
-// function entrar() {
+function entrar() {
 
-//     var email = input_email.value;
-//     var senha = input_senha.value;
+    var email = ipt_email.value;
+    var senha = ipt_senha.value;
     
-//     if (!validarCampo()) return false;
+    if (!validarCampo()) return false;
     
-//     fetch("/usuario/autenticar", {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify({
-//             emailJSON: email,
-//             senhaJSON: senha
-//         })
-//     }).then(resposta => {
-//         console.log("tentando logar.");
+    fetch("/usuario/autenticar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            emailJSON: email,
+            senhaJSON: senha
+        })
+    }).then(resposta => {
+        console.log("tentando logar.");
 
-//         if (resposta.ok) {
-//             console.log("Tudo certo com a requisição: "+ resposta)
+        if (resposta.ok) {
+            console.log("Tudo certo com a requisição: "+ resposta)
 
-//             resposta.json().then(json => {
-//                 console.log(json);
-//                 console.log(JSON.stringify(json));
-//                 sessionStorage.emailUsuario = json.email;
-//                 sessionStorage.nomeUsuario = json.nome;
-//                 sessionStorage.IdUsuario = json.id;
+            resposta.json().then(json => {
+                console.log(json);
+                console.log(JSON.stringify(json));
+                sessionStorage.emailUsuario = json.email;
+                sessionStorage.nomeUsuario = json.nome;
+                sessionStorage.IdUsuario = json.id;
 
-//                 setTimeout(() => {
-//                     window.location = "index.html"
-//                 }, 1000);
-//             });
-//         } else {
+                setTimeout(() => {
+                    window.location = "./index.html"
+                }, 1000);
+            });
+        } else {
 
-//             console.log("Houve um erro ao tentar realizar o login!");
+            console.log("Houve um erro ao tentar realizar o login!");
 
-//             resposta.text().then(texto => {
-//                 console.error(texto);
-//             });
-//         }
-//     }).catch(erro => {
-//         console.log(erro);
-//     })
+            resposta.text().then(texto => {
+                console.error(texto);
+            });
+        }
+    }).catch(erro => {
+        console.log(erro);
+    })
     
-//     return false;
-// }
+    return false;
+}
 
 function voltar(){
     window.location = "index.html";

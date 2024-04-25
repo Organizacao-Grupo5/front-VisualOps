@@ -406,6 +406,19 @@ section{
     background-color: white;
 }
 
+.header_graficos3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    height: max-content;
+}
+
+.header_graficos3 > i {
+    font-size: 20px;
+}
+
 .container_graficos3 {
     display: flex;
     justify-content: space-around;

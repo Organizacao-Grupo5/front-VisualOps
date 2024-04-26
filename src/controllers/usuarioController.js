@@ -6,6 +6,10 @@ function cadastrar(req, res) {
     var senha = req.body.senhaJSON;
     // var fkPlano = req.body.fkPlanoJSON;
     var fkCargos = req.body.fkCargosJSON;
+    var cep = req.body.cepJSON;
+    var logradouro = req.body.logradouroJSON;
+    var numero = req.body.numeroJSON;
+    var complemento = req.body.complementoJSON;
 
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
@@ -15,8 +19,18 @@ function cadastrar(req, res) {
         res.status(400).send("Sua senha está undefined!");
     } else if (fkCargos == undefined) {
         res.status(400).send("fkCargos está undefined!");
-    } else {
-        usuarioModel.cadastrar(nome, email, senha, fkCargos).then(function (resposta) {
+    } 
+    else if (cep == undefined) {
+        res.status(400).send("Seu CEP está undefined!");
+    } else if (logradouro == undefined) {
+        res.status(400).send("Seu logradouro está undefined!");
+    } else if (numero == undefined) {
+        res.status(400).send("Seu número está undefined!");
+    }else if (complemento == undefined) {
+        res.status(400).send("Seu complemento está undefined!");
+    }
+    else {
+        usuarioModel.cadastrar(nome, email, senha, fkCargos, cep, logradouro, numero, complemento).then(function (resposta) {
             res.status(200).send("Cadastro criado com sucesso");
         }).catch(function (erro) {
             res.status(500).json(erro.sqlMessage);

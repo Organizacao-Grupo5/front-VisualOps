@@ -41,6 +41,7 @@ function validarCampo() {
         return false;
     }
 
+    return true;
 }
 
 function entrar() {

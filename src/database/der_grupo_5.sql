@@ -18,7 +18,7 @@ CREATE TABLE plano (
 CREATE TABLE empresa (
     idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(50),
-    cnpj CHAR(14),
+    cnpj CHAR(14)
 );
 
 CREATE TABLE endereco (

@@ -84,27 +84,27 @@ function retornarObjEndereco(obj) {
     if (obj) return obj;
 }
 
-function validarCampos(listaCampos) {
+function validarCampos(LISTA_CAMPOS) {
 
     let validacaoCampos = true;    
 
-    for(i = 0; i < listaCampos.length; i++) {
+    for(i = 0; i < LISTA_CAMPOS.length; i++) {
     
-        if (listaCampos[i].trim() === '') {
-            console.log(listaCampos[i]);
+        if (LISTA_CAMPOS[i].trim() === '') {
+            console.log(LISTA_CAMPOS[i]);
             mostrarMensagem(`Os campos não podem estar vazios.`);
             validacaoCampos = false;
             break;
-        } else if (listaCampos[1] && 
-                !(listaCampos[1].includes("@hotmail.com") || 
-                listaCampos[1].includes("@gmail.com") || 
-                listaCampos[1].includes("@outlook.com") || 
-                listaCampos[1].includes("@sptech.school"))) {
+        } else if (LISTA_CAMPOS[1] && 
+                !(LISTA_CAMPOS[1].includes("@hotmail.com") || 
+                LISTA_CAMPOS[1].includes("@gmail.com") || 
+                LISTA_CAMPOS[1].includes("@outlook.com") || 
+                LISTA_CAMPOS[1].includes("@sptech.school"))) {
             mostrarMensagem(`Esse Email é inválido.`)
             validacaoCampos = false;
             break;
-        } else if (listaCampos[2] &&
-                !new RegExp("^(?=.*\\d)(?=.*[^\\w\\s])(?=.*[A-Z])(?=.*[a-z]).*$").test(listaCampos[2])) {
+        } else if (LISTA_CAMPOS[2] &&
+                !new RegExp("^(?=.*\\d)(?=.*[^\\w\\s])(?=.*[A-Z])(?=.*[a-z]).*$").test(LISTA_CAMPOS[2])) {
             mostrarMensagem('A Senha deve conter letras MAIÚSCULAS, minúsculas, números e símbolos');
             validacaoCampos = false;
             break;
@@ -162,36 +162,29 @@ function verificarCep(obj) {
 
 async function cadastrar() {
     
-    const listaCampos = [];
+    const LISTA_CAMPOS = [];
 
-    const nome = ipt_nome.value;
-    const email = ipt_email.value;
-    const senha = ipt_senha.value;
-    const clienteTipo = verficarRadio(); 
-    const estado = ipt_estado.value;
-    const cep = ipt_cep.value;
-    const numero = ipt_numero.value;
-    const complemento = ipt_complemento.value;
+    const NOME_USUARIO = ipt_nome.value;
+    const EMAIL = ipt_email.value;
+    const SENHA = ipt_senha.value;
+    const CLIENTE_TIPO = verficarRadio(); 
+    const ESTADO = ipt_estado.value;
+    const CEP = ipt_cep.value;
+    const NUMERO = ipt_numero.value;
+    const COMPLEMENTO = ipt_complemento.value;
 
-    listaCampos.push(nome, email, senha, estado, cep, numero);
+    LISTA_CAMPOS.push(NOME_USUARIO, EMAIL, SENHA, ESTADO, CEP, COMPLEMENTO);
 
-    if (!validarCampos(listaCampos)) return false;
+    if (!validarCampos(LISTA_CAMPOS)) return false;
 
-    await criarCargo(clienteTipo);
-
-    const idCargos = await selecionarCargo(clienteTipo);
-
-    const body = {  nomeJSON: nome,
-        emailJSON: email,
-        senhaJSON: senha,
-        // fkPlanoJSON: idPlano,
-        fkCargosJSON: idCargos,
-        estadoJSON: estado,
-        cepJSON: cep,
-        numeroJSON: numero,
-        complementoJSON: complemento
-    }
-        cadastrarUsuario(body);
+    
+    await criarCargo(CLIENTE_TIPO);
+    
+    const fkCargos = await selecionarCargo(CLIENTE_TIPO);
+    
+    sessionStorage.setItem(NOME_USUARIO, EMAIL, SENHA, CEP, NUMERO);
+    
+    cadastrarUsuario();
 }
 
 function verficarRadio() {
@@ -202,6 +195,8 @@ function verficarRadio() {
     }
     return '';
 } 
+
+
 
 function voltar(){
     window.location = "index.html";
@@ -300,3 +295,5 @@ async function selecionarCargo(nomeCargo) {
         throw error;
     }
 };
+
+module.exports =

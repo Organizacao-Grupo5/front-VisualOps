@@ -4,6 +4,7 @@ function cadastrar(req, res) {
     var nome = req.body.nomeJSON;
     var email = req.body.emailJSON;
     var senha = req.body.senhaJSON;
+    // var cnpj = req.body.cnpjJSON;
     // var fkPlano = req.body.fkPlanoJSON;
     var fkCargos = req.body.fkCargosJSON;
     var cep = req.body.cepJSON;

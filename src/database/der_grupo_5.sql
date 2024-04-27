@@ -15,6 +15,12 @@ CREATE TABLE plano (
     descricao VARCHAR(45) NOT NULL
 );
 
+CREATE TABLE empresa (
+    idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50),
+    cnpj CHAR(14)
+);
+
 CREATE TABLE endereco (
     idEndereco INT PRIMARY KEY AUTO_INCREMENT,
     cep CHAR(8) NOT NULL,
@@ -22,7 +28,9 @@ CREATE TABLE endereco (
     numero VARCHAR(4) NOT NULL,
     bairro VARCHAR(40) NOT NULL,
     estado VARCHAR(30) NOT NULL,
-    complemento VARCHAR(45)
+    complemento VARCHAR(45),
+    fkEmpresa INT NOT NULL,
+        CONSTRAINT fkEmpresaEndereco FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
 );
 
 CREATE TABLE usuario (
@@ -30,26 +38,12 @@ CREATE TABLE usuario (
     nome VARCHAR(60) NOT NULL,
     email VARCHAR(60) NOT NULL,
     senha VARCHAR(45) NOT NULL,
-    fkPlano INT,
-        CONSTRAINT fkPlanoUsuario FOREIGN KEY (fkPlano) REFERENCES plano(idPlano),
     fkCargos INT NOT NULL,
-        CONSTRAINT fkCargosUsuario FOREIGN KEY (fkcargos) REFERENCES cargos(idCargos)
-);
-
-CREATE TABLE empresa (
-    idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(50),
-    fkEndereco INT NOT NULL,
-        CONSTRAINT fkEnderecoEmpresa FOREIGN KEY (fkEndereco) REFERENCES endereco(idEndereco)
-);
-
-CREATE TABLE identificacao (
-    idIdentificacao INT PRIMARY KEY AUTO_INCREMENT,
-    cpf_cnpj VARCHAR(18) NOT NULL,
-    fkUsuario INT NOT NULL,
-        CONSTRAINT fkUsuarioIdentificacao FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario),
-    fkEmpresa INT NOT NULL,
-        CONSTRAINT fkEmpresaIdenficacao FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
+        CONSTRAINT fkCargosUsuario FOREIGN KEY (fkcargos) REFERENCES cargos(idCargos),
+    fkEmpresa INT NOT NULL, 
+        CONSTRAINT fkEmpresaUsuario FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa),
+    fkPlano INT NOT NULL,
+        CONSTRAINT fkPlanoEmpresaUsuario FOREIGN KEY (fkPlano) REFERENCES empresa(fkPlano)
 );
 
 CREATE TABLE contato (

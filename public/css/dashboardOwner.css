@@ -444,7 +444,7 @@ section{
     padding: 10px;
 
     border-radius: 10px;
-    background-color: #9450f29f;
+    background-color: #449ADE9f;
 }
 
 .container_kpi3 > span {
@@ -584,7 +584,7 @@ section{
 }
 
 .lista_comparacao > li > .colunas_status > .col_bom {
-    color: #9450F2;
+    color: #449ADE;
 
     width: 50px;
     height: 30px;

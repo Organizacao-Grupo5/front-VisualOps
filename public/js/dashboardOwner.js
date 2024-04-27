@@ -35,7 +35,7 @@ const label = {
 
 const dataset = {
     first: [{
-        label: 'Desempenho dos computadores diariamente',
+        label: 'Quantidade de Computadores por Desempenho Mensal',
         data: gerarLista(3),
         backgroundColor: [
             '#F2274C',
@@ -271,7 +271,7 @@ function totalGrafico1() {
         total += dados[i];
     }
 
-    return total;
+    document.getElementById('qtdTotal').innerHTML = total;
 }
 
 function moverRight() {

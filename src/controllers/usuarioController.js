@@ -11,6 +11,7 @@ function cadastrar(req, res) {
     var logradouro = req.body.logradouroJSON;
     var numero = req.body.numeroJSON;
     var complemento = req.body.complementoJSON;
+    
 
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");

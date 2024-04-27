@@ -384,6 +384,11 @@ section{
     width: 48%; 
 }
 
+.half-width .numero{
+  display: flex;
+  margin-right: 48px;
+}
+
 .spacing {
     margin-right: 120px; 
 }

@@ -206,7 +206,7 @@ function verificarColor(context) {
     context.dataIndex == 22 || 
     context.dataIndex == 29
     ) { 
-
+    
         mostrarKpi5(context.dataIndex, valor);
         if (valor > 40) {
             return '#F2274C';
@@ -246,9 +246,10 @@ background.addEventListener("click", () => {
 
 function mostrarKpi5(pos, valor) {
 
-    document.getElementsByClassName('relatorio')
-    for ( let i = 0; i < 3; i++ ) {
-
+    const listaDiv = document.getElementsByClassName('relatorio');
+    for ( let i = 0; i < listaDiv; i++ ) {
+        
+        if (i == pos) listaDiv[i].innerHTML = valor;
         
     }
 }

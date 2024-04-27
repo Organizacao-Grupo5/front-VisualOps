@@ -51,7 +51,7 @@ CREATE TABLE maquina (
     ipv4 VARCHAR(15) NOT NULL,
     fkUsuario INT NOT NULL,
         CONSTRAINT fkUsuarioMaquina FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario),
-    PRIMARY KEY (idMaquina, fkUsuario)
+    PRIMARY KEY (idMaquina, ipv4, fkUsuario)
 );
 
 CREATE TABLE alertas(

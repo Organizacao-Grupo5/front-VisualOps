@@ -247,6 +247,7 @@ section{
     margin-top: 35%;
 }
 
+
 .maximizar{
     height: 2.8%;
     width: 1.5%;
@@ -293,6 +294,7 @@ section{
     margin-left: 5%;
 }
 
+
 .nav-user-info{
     display: flex;
     align-items: center;
@@ -325,8 +327,6 @@ section{
 @keyframes slide-in-top{0%{transform:translateY(-1000px);opacity:0}100%{transform:translateY(0);opacity:1}}
 
 
-/*código do Guilherme*/
-
 .name-chart-content{
     display: flex;
     flex-direction: column;
@@ -344,15 +344,112 @@ section{
     height: 4%;
 }
 
-.chart-content{
+
+/* código Diego */
+.chart-content {
     display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-evenly; 
+    align-items: flex-start; 
     width: 100%;
     height: 95%;
-    background-color: white;
+    background-color: #293768; 
 }
 
+.chart-content label{
+    color: white;
+}
+.chart-content h2 {
+    padding: 20px;
+    color: white;
+}
+
+
+
+.profile-photo {
+    width: 130px; 
+    height: 130px; 
+    border-radius: 50%; 
+    background-color: lightgray; 
+    margin-bottom: 20px; 
+    align-self: center; 
+}
+
+
+.horizontal-spaced {
+    display: flex;
+    justify-content: space-between; 
+}
+
+.half-width {
+    width: 48%; 
+}
+
+.spacing {
+    margin-right: 120px; 
+}
+
+
+.profile-edit {
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start; 
+    justify-content: center;
+    width: 45%; 
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.address-info {
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start;
+    justify-content: center;
+    width: 45%; 
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.content-spacing {
+    margin-top: 30px; 
+}
+
+.chart-content input {
+    margin-bottom: 40px; 
+    padding: 8px; 
+    width: 100%; 
+    border: 1px solid #ccc; 
+    border-radius: 5px;
+}
+
+.button-att1, .button-att2 {
+    background-color: #449ADE;
+    width: 50%;
+    color: white; 
+    padding: 10px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+}
+
+.button-att1 {
+    margin-left: 25%;
+}
+
+.button-att2 {
+    margin-left: 25%;
+}
+
+.titulo-editar-perfl{
+    display: flex;
+    margin-left: 36%;
+}
+.titulo-informacoes-endereco{
+    display: flex;
+    margin-left: 20%;
+}
+/* código Diego */
+
+/*código do Guilherme*/
 /* .graficos1-content{
     background-color: white;
 

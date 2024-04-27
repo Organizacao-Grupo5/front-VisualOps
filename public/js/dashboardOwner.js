@@ -8,7 +8,7 @@ const colunas = document.getElementsByClassName('colunas_status');
 
 const mensagem = {
     inicial: `OLÁ USUÁRIO, É UM PRAZER TÊ-LO CONOSCO, SUA DASHBOARD PESSOAL FOI PROJETADA SER TODA INTERATIVA, PORÊM AINDA ESTAMOS EM DESENVOLVIMENTO...<br><br>EM BREVE ESTARÁ DISPONÍVEL.`,
-    charts: `FUNCIONALIDADE DESSA CHART AINDA NÂO DESENVOLVIDA`,
+    charts: `FUNCIONALIDADE DESSA CHART AINDA NÂO DESENVOLVIDA.`,
 }
 
 function geradorNumeros() {
@@ -27,11 +27,6 @@ function gerarLista(numero) {
     return list;
 }
 
-
-// maquinas de mais ips , verificar se o ip é o msm ip cadastrado
-
-// maquina na tabela de ip
-
 const label = {
     first: ['Baixo', 'Médio', 'Alto'],
     second: ['CPU', 'GPU', 'RAM', 'HHD'],
@@ -45,7 +40,7 @@ const dataset = {
         backgroundColor: [
             '#F2274C',
             '#F2AB27',
-            '#9450F2'
+            '#449ADE'
         ],
         hoverOffset: 15
     }],
@@ -59,9 +54,9 @@ const dataset = {
     third: [{
         label: 'Usabilidade Diária',
         data: gerarLista(30),
-        backgroundColor: '#9455E2',
-        borderColor: '#9455E2',
-        hoverBackgroundColor: '#9455E2',
+        backgroundColor: '#449ADE',
+        borderColor: '#449ADE',
+        hoverBackgroundColor: '#449ADE',
         tension: 0.2,
     }]
 };
@@ -211,10 +206,12 @@ function verificarColor(context) {
     context.dataIndex == 22 || 
     context.dataIndex == 29
     ) { 
+
+        mostrarKpi5(context.dataIndex, valor);
         if (valor > 40) {
             return '#F2274C';
         } else {
-            return '#9450F2';
+            return '#449ADE';
         } 
     }
 }
@@ -240,16 +237,24 @@ function aparecerPop(mensagem) {
 window.onload = () => {
     aparecerPop(mensagem.inicial);
     mostrarKpi4();
-    // totalGrafico1();
+    totalGrafico1();
 };
 
 background.addEventListener("click", () => {
     aparecerPop();
 });
 
+function mostrarKpi5(pos, valor) {
+
+    document.getElementsByClassName('relatorio')
+    for ( let i = 0; i < 3; i++ ) {
+
+        
+    }
+}
+
 function mostrarKpi4() {
     for (col in colunas) {
-        console.log(colunas[col].children);
         for (pos in colunas[col].children) {
             colunas[col].children[pos].innerText = geradorNumeros(1);
         }
@@ -257,9 +262,26 @@ function mostrarKpi4() {
 }
 
 function totalGrafico1() {
+    const dados = dataset.first[0].data;
 
-    // console.log(dataset.first.data);
+    const total = 0;
 
+    for (let i = 0; i < dados.length; i++) {
+        total += dados[i];
+    }
+
+    return total;
 }
 
+function moverRight() {
+
+    aparecerPop(mensagem.charts);
+    
+}    
+
+function moverLeft() {
+
+    aparecerPop(mensagem.charts);
+
+}
 

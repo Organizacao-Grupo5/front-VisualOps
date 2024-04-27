@@ -1,92 +1,19 @@
-window.onload = async () => {
-    const slctPlano = document.getElementById('slctPlano');
+// window.onload = async () => {
+//     const slctPlano = document.getElementById('slctPlano');
 
-    const listaPlanos = await selecioarPlano();
+//     const listaPlanos = await selecioarPlano();
 
-    console.log(listaPlanos);
+//     console.log(listaPlanos);
 
-    for (const pos in listaPlanos) {
-        if (Object.hasOwnProperty.call(listaPlanos, pos)) {
+//     for (const pos in listaPlanos) {
+//         if (Object.hasOwnProperty.call(listaPlanos, pos)) {
          
-            slctPlano.innerHTML += `<option value="${listaPlanos[pos].nome}" itemid="${listaPlanos[pos].id}"></option>`
-        };
-    }
-}
+//             slctPlano.innerHTML += `<option value="${listaPlanos[pos].nome}" itemid="${listaPlanos[pos].id}"></option>`
+//         };
+//     }
+// }
 
 const tela = window.innerWidth;
-
-function cadastrarUsuario(CARGO) {
-
-    fetch("/usuario/cadastrar", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            nome: localStorage.getItem(NOME_USUARIO),
-            email: localStorage.getItem(EMAIL),
-            senha: localStorage.getItem(SENHA),
-            cargo: CARGO
-        }),
-    }).then(resposta => {
-        console.log("resposta: ", resposta);
-
-        if (resposta.ok) {
-            const mensagem = "Cadastro realizado com sucesso!" 
-            mostrarMensagem(mensagem);
-
-            setTimeout(() => {
-                window.location = "login.html";
-            }, 1500);
-        } else {
-            const mensagem = "Não foi possivel realizar o seu cadastro, por favor tente novamente!" 
-            mostrarMensagem(mensagem);
-            
-            throw "Houve um erro ao tentar realizar o cadastro!"
-        }
-    }).catch(resposta => {
-        console.log('#ERRO: ', resposta);
-    });
-
-    return false;
-};
-
-function cadastrarEndereco() {
-
-    fetch("/endereco/cadastrar", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            cep: localStorage.getItem(CEP),
-            logradouro: localStorage.getItem(LOUGRADOURO),
-            numero: localStorage.getItem(NUMERO),
-            bairro: localStorage.getItem(BAIRRO),
-            estado: localStorage.getItem(ESTADO),
-            complemento: sessionStorage.getItem(COMPLEMENTO),
-            fkEmpresa: sessionStorage.getItem(CNPJ)
-        }),
-    }).then(resposta => {
-        console.log("resposta: ", resposta);
-
-        if (resposta.ok) {
-            const mensagem = "Cadastro realizado com sucesso!";
-            mostrarMensagem(mensagem);
-
-        } else {
-            const mensagem = "Não foi possivel cadastrar a empresa, por favor tente novamente!";
-            mostrarMensagem(mensagem);
-
-            throw "Houve um erro ao tentar realizar o cadastro!"
-        }
-    }).catch(resposta => {
-        console.log('#ERRO: ', resposta);
-    });
-
-    return false;
-};
-
 
 function voltar(){
     window.location = "index.html";
@@ -161,7 +88,7 @@ function modificarNumero(obj) {
     
     for ( let i = 0; i < input.length; i++ ) {
             
-        if ( i < 6 ) {
+        if ( i < 4 ) {
             
             newInput += input[i];
 
@@ -259,7 +186,7 @@ function cadastrar() {
     const COMPLEMENTO = ipt_complemento.value;
     
 
-    LISTA_CAMPOS.push(NOME_USUARIO, NOME_FANTASIA, PLANO.value, EMAIL, SENHA, ESTADO, CEP, COMPLEMENTO);
+    LISTA_CAMPOS.push(NOME_USUARIO, NOME_FANTASIA, PLANO.value, EMAIL, SENHA, LOUGRADOURO, CEP, NUMERO);
 
     if (!validarCampos(LISTA_CAMPOS)) return false;
     

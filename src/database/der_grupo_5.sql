@@ -1,3 +1,4 @@
+-- SQLBook: Code
 CREATE DATABASE der_grupo_5;
 
 USE der_grupo_5;
@@ -21,8 +22,8 @@ CREATE TABLE endereco (
     cep CHAR(8) NOT NULL,
     logradouro VARCHAR(60) NOT NULL,
     numero VARCHAR(4) NOT NULL,
-    bairro VARCHAR(40) NOT NULL,
-    estado VARCHAR(30) NOT NULL,
+    bairro VARCHAR(40),
+    estado VARCHAR(30),
     complemento VARCHAR(45),
     fkEmpresa INT NOT NULL,
         CONSTRAINT fkEmpresaEndereco FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
@@ -64,7 +65,7 @@ CREATE TABLE ipv4(
     fkUsuario INT NOT NULL,
         CONSTRAINT fkUsuarioMaquinaIPV4 FOREIGN KEY (fkUsuario) REFERENCES maquina(fkUsuario),
     PRIMARY KEY (idIpv4, fkMaquina, fkUsuario)
-    )
+    );
 
 CREATE TABLE alertas(
     idAlertas INT PRIMARY KEY AUTO_INCREMENT,

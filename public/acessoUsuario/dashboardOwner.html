@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DASHBOARD | VISUALOPS</title>
+    <title>Dashboard | VisualOps</title>
     
     <link rel="stylesheet" href="../css/dashboardOwner.css">
     <link rel="icon" href="../assets/favicon/logofundo-roxo.ico">
@@ -111,9 +111,9 @@
                             <div class="graficos2_2-content">
                                 <h3>Quantidade componentes por</h3>
                                 <div class="campo_componetes">
-                                    <i class="fa-solid fa-angle-left"></i>
+                                    <i onclick="moverLeft()" class="fa-solid fa-angle-left"></i>
                                     <h3>Desempenho</h3>
-                                    <i class="fa-solid fa-angle-right"></i>
+                                    <i onclick="moverRight()" class="fa-solid fa-angle-right"></i>
                                 </div>
                                 <div class="info_componentes">    
                                     <ul class="lista_comparacao">
@@ -163,9 +163,9 @@
                         </div>
                         <div class="graficos3-content">
                             <div class="header_graficos3">
-                                <i class="fa-solid fa-angle-left"></i>
+                                <i onclick="moverLeft()" class="fa-solid fa-angle-left"></i>
                                 <h2>CPU</h2>
-                                <i class="fa-solid fa-angle-right"></i>
+                                <i onclick="moverRight()" class="fa-solid fa-angle-right"></i>
                             </div>
                             <div class="container_graficos3">
                                 <div class="chart-horizontal">
@@ -173,10 +173,10 @@
                                 </div>
                                 <div class="container_kpi3">
                                     <span>Computador do <span id="funcionario">XXX</span></span>
-                                    <p>Atual - </p>
-                                    <p>Último Dia - </p>
-                                    <p>Últimos 7 Dias - </p>
-                                    <p>Últimos 30 Dias - </p>
+                                    <p>Atual - <span class="relatorio"></span></p>
+                                    <p>Último Dia - <span class="relatorio"></span></p>
+                                    <p>Últimos 7 Dias - <span class="relatorio"></span></p>
+                                    <p>Últimos 30 Dias - <span class="relatorio"></span></p>
                                 </div>
                             </div>
                         </div>

@@ -5,10 +5,11 @@ var PORTA = 8080;
 
 var app = express();
 
-const slackRouter = require("./src/routes/GoogleSlackRoute");
-var usuarioRouter = require("./src/routes/usuario");
+const empresaRouter = require("./src/routes/empresa");
 const enderecoRouter = require("./src/routes/endereco");
+const slackRouter = require("./src/routes/GoogleSlackRoute");
 const planoRouter = require("./src/routes/plano");
+const usuarioRouter = require("./src/routes/usuario");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
@@ -16,10 +17,11 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cors());
 
-app.use(slackRouter);
-app.use("/usuario", usuarioRouter);
+app.use("/empresa", empresaRouter);
 app.use("/endereco", enderecoRouter);
 app.use("/plano", planoRouter);
+app.use(slackRouter);
+app.use("/usuario", usuarioRouter);
 
 app.listen(PORTA, function () {
     console.log(`Visualização é http://localhost:${PORTA}`)

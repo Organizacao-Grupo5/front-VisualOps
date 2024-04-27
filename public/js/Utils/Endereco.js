@@ -6,13 +6,13 @@ function cadastrarEndereco() {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            cep: localStorage.getItem(CEP),
-            logradouro: localStorage.getItem(LOUGRADOURO),
-            numero: localStorage.getItem(NUMERO),
-            bairro: localStorage.getItem(BAIRRO),
-            estado: localStorage.getItem(ESTADO),
-            complemento: sessionStorage.getItem(COMPLEMENTO),
-            fkEmpresa: sessionStorage.getItem(CNPJ)
+            cep: localStorage.getItem('CEP'),
+            logradouro: localStorage.getItem('LOUGRADOURO'),
+            numero: localStorage.getItem('NUMERO'),
+            bairro: localStorage.getItem('BAIRRO'),
+            estado: localStorage.getItem('ESTADO'),
+            complemento: sessionStorage.getItem('COMPLEMENTO'),
+            fkEmpresa: sessionStorage.getItem('CNPJ')
         }),
     }).then(resposta => {
         console.log("resposta: ", resposta);

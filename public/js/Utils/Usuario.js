@@ -6,9 +6,9 @@ function cadastrarUsuario(CARGO) {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            nome: localStorage.getItem(NOME_USUARIO),
-            email: localStorage.getItem(EMAIL),
-            senha: localStorage.getItem(SENHA),
+            nome: localStorage.getItem('NOME_USUARIO'),
+            email: localStorage.getItem('EMAIL'),
+            senha: localStorage.getItem('SENHA'),
             cargo: CARGO
         }),
     }).then(resposta => {

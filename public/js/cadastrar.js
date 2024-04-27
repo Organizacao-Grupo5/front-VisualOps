@@ -114,16 +114,14 @@ function validarCampos(LISTA_CAMPOS) {
             mostrarMensagem(`Os campos não podem estar vazios.`);
             validacaoCampos = false;
             break;
-        } else if (LISTA_CAMPOS[1] && 
-                !(LISTA_CAMPOS[1].includes("@hotmail.com") || 
-                LISTA_CAMPOS[1].includes("@gmail.com") || 
-                LISTA_CAMPOS[1].includes("@outlook.com") || 
-                LISTA_CAMPOS[1].includes("@sptech.school"))) {
+        } else if (!(LISTA_CAMPOS[3].includes("@hotmail.com") || 
+                LISTA_CAMPOS[3].includes("@gmail.com") || 
+                LISTA_CAMPOS[3].includes("@outlook.com") || 
+                LISTA_CAMPOS[3].includes("@sptech.school"))) {
             mostrarMensagem(`Esse Email é inválido.`)
             validacaoCampos = false;
             break;
-        } else if (LISTA_CAMPOS[2] &&
-                !new RegExp("^(?=.*\\d)(?=.*[^\\w\\s])(?=.*[A-Z])(?=.*[a-z]).*$").test(LISTA_CAMPOS[2])) {
+        } else if (!new RegExp("^(?=.*\\d)(?=.*[^\\w\\s])(?=.*[A-Z])(?=.*[a-z]).*$").test(LISTA_CAMPOS[4])) {
             mostrarMensagem('A Senha deve conter letras MAIÚSCULAS, minúsculas, números e símbolos');
             validacaoCampos = false;
             break;
@@ -175,7 +173,7 @@ function cadastrar() {
 
     const NOME_USUARIO = ipt_nome.value;
     const NOME_FANTASIA = ipt_nomeFantasia.value;
-    const PLANO = slctPlano;
+    const PLANO = slctPlano.value;
     const EMAIL = ipt_email.value;
     const SENHA = ipt_senha.value;
     const CLIENTE_TIPO = verficarRadio(); 
@@ -186,7 +184,7 @@ function cadastrar() {
     const COMPLEMENTO = ipt_complemento.value;
     
 
-    LISTA_CAMPOS.push(NOME_USUARIO, NOME_FANTASIA, PLANO.value, EMAIL, SENHA, LOUGRADOURO, CEP, NUMERO);
+    LISTA_CAMPOS.push(NOME_USUARIO, NOME_FANTASIA, PLANO, EMAIL, SENHA, LOUGRADOURO, CEP, NUMERO);
 
     if (!validarCampos(LISTA_CAMPOS)) return false;
     
@@ -199,8 +197,7 @@ function cadastrar() {
     localStorage.setItem('NUMERO', NUMERO);
     localStorage.setItem('COMPLEMENTO', COMPLEMENTO);
     
-    // VERIFICAR ESSA FUNÇÂO DE CADASTRAR ENDERÇO
-    cadastrarEmpresa(NOME_FANTASIA, CNPJ, PLANO.itemid);
+    cadastrarEmpresa(NOME_FANTASIA, CNPJ, 1);
     cadastrarEndereco();
     cadastrarUsuario();
 }

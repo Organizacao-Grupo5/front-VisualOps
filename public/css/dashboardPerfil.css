@@ -74,10 +74,10 @@ section{
 .title-dash h1::after{
     content: "";
     position: absolute;
-    margin: 30px auto;
+    margin: 35px auto;
     width: 2.7%;
     display: block;
-    left: 3.2%;
+    left: 4.4%;
     top: 8%;
     background-color: #fff;
     height: 1px;
@@ -88,7 +88,7 @@ section{
 }
 
 .title h6{
-    font-size: 7px;
+    font-size: 6px;
     text-align: center;
 }
 .minimizar{

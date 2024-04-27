@@ -1,5 +1,5 @@
 const { cadastrarUsuario } = require("./Utils/Usuario");
-const { criarCargo, selecionarCargo } = require("./Utils/Cargos");
+const { cadastrarEmpresa } = require("./Utils/Empresa");
 
 
 const tela = window.innerWidth;
@@ -122,26 +122,6 @@ function validarCampos(LISTA_CAMPOS) {
     return validacaoCampos;    
 }
 
-function validarUf(obj) {
-
-    let input = obj.value;
-
-    let newInput = ''; 
-
-    for (let i = 0; i < input.length; i++) {
-        
-        if ( i < 4 ) {
-
-            newInput += input[i];
-            
-        }
-        
-    }
-
-    obj.value = newInput;
-
-}
-
 function verificarCep(obj) {
 
     let input = obj.value;
@@ -174,10 +154,11 @@ function verficarRadio() {
     for (let i = 0; i < radios.length; i++) {
         if (radios[i].checked) return radios[i].value;   
     }
+
     return '';
 } 
 
-async function cadastrar() {
+function cadastrar() {
     
     const LISTA_CAMPOS = [];
 
@@ -185,22 +166,20 @@ async function cadastrar() {
     const EMAIL = ipt_email.value;
     const SENHA = ipt_senha.value;
     const CLIENTE_TIPO = verficarRadio(); 
-    const ESTADO = ipt_estado.value;
+    const CNPJ = ipt_identificacao.value;
+    const LOUGRADOURO = ipt_logradouro.value;
     const CEP = ipt_cep.value;
     const NUMERO = ipt_numero.value;
     const COMPLEMENTO = ipt_complemento.value;
+    
 
     LISTA_CAMPOS.push(NOME_USUARIO, EMAIL, SENHA, ESTADO, CEP, COMPLEMENTO);
 
     if (!validarCampos(LISTA_CAMPOS)) return false;
-
-    
-    await criarCargo(CLIENTE_TIPO);
-    
-    const fkCargos = await selecionarCargo(CLIENTE_TIPO);
     
     sessionStorage.setItem(NOME_USUARIO, EMAIL, SENHA, CEP, NUMERO);
     
-    cadastrarUsuario();
+    cadastrarEmpresa(CNPJ);
+    cadastrarUsuario(CLIENTE_TIPO);
 }
 

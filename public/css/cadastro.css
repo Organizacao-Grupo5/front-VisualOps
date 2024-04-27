@@ -196,11 +196,31 @@ main > .area-cadastro > .dados-cadastros > .campo-dados > label {
     font-weight: 800;
 }
 
-main > .area-cadastro > .dados-cadastros > .campo-dados > label > input {
+main > .area-cadastro > .dados-cadastros > .campo-dados > label > p {
+    display: flex;
+    align-items: last baseline;
+}
+
+.rtl-fantasia {
+    font-size: 14px;
+    margin: unset;
+    color: black;
+    font-weight: 700;
+    margin-left: 5px;
+    line-height: .8;
+}
+
+main > .area-cadastro > .dados-cadastros > .campo-dados > label > input, select {
     padding: 12px;
+    
     font-size: 20px;
+    
+    color: black;
+
     border: 2px solid #416ae5;
+    
     outline: #416ae5;
+    
     box-shadow: 0px 0px 3px #416ae5;
 }
 
@@ -386,7 +406,7 @@ span {
         flex-direction: unset;
         width: 54%;
         height: unset;
-        margin: 20px 0;    
+        margin: 10px 0;    
     }
     
     .campo-radios > label {
@@ -446,7 +466,7 @@ span {
         display: flex;
         flex-wrap: wrap;
         gap: 10px 30px;
-        height: 300px;
+        height: 365px;
         width: 90%;
     }
     
@@ -456,13 +476,34 @@ span {
         font-weight: 800;
         width: 40%;
     }
+
+    main > .area-cadastro > .dados-cadastros > .campo-dados > label > p {
+        display: flex;
+        align-items: last baseline;
+    }
+
+    .rtl-fantasia {
+        font-size: 14px;
+        margin: unset;
+        color: black;
+        font-weight: 700;
+        margin-left: 5px;
+        line-height: .8;
+    }
     
-    main > .area-cadastro > .dados-cadastros > .campo-dados > label > input {
+    main > .area-cadastro > .dados-cadastros > .campo-dados > label > input, select {
         padding: 9px;
+
         font-size: 15px;
+        
+        color: black;
+
         border: 2px solid #416ae5;
+        
         min-width: 95px;
+        
         outline: #416ae5;
+        
         box-shadow: 0px 0px 3px #416ae5;
     }
     
@@ -527,7 +568,9 @@ span {
         background-color: black;
         color: white;
         border-color: black;
-        margin: 20px 0;
+        margin: unset;
+        margin-bottom: 13px;
+        margin-top: 5px;
     }
     
     .slack-google {
@@ -548,7 +591,7 @@ span {
         display: block;
         font-weight: 600;
         color: gray;
-        margin: 10px;
+        margin: 6px;
     }
     
     .side-imagem {

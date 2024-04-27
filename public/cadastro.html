@@ -35,8 +35,8 @@
                 </div>
                 <div class="campo-dados esconder">
                     <label for="ipt_nomeFantasia">
-                        <p>Nome Fantasia</p>
-                        <input type="text" id="ipt_nomeFantasia" placeholder="Nome-fantasia">
+                        <p>Nome <span class="rtl-fantasia">Fantasia</span></p>
+                        <input type="text" id="ipt_nomeFantasia" placeholder="Nome fantasia">
                     </label>
                     <label for="ipt_nome">
                         <p>Nome</p>
@@ -55,8 +55,11 @@
                         <input type="text" id="ipt_identificacao" placeholder="xx.xxx.xxx/xxxx-xx" oninput="modificarCnpj(this)">
                     </label>
                     <label for="slct_plano">
-                        <p>PLANO</p>
-                        <select type="text" id="slct_plano"></select>
+                        <p>Plano</p>
+                        <select name="slctPlano" id="slctPlano">
+                        </select>
+
+                        <select name="" id=""></select>
                     </label>
                     <label for="ipt_cep">
                         <p>CEP</p>
@@ -71,8 +74,8 @@
                         <input type="text" id="ipt_numero" placeholder="xxx" oninput="modificarNumero(this)">
                     </label>
                     <label for="ipt_complemento">
-                        <p>Complemento...</p>
-                        <input type="text" id="ipt_complemento" placeholder="Complemento">
+                        <p>Complemento</p>
+                        <input type="text" id="ipt_complemento" placeholder="Complemento...">
                     </label>
                 </div>
                 <div class="campo-btns">

@@ -1,10 +1,19 @@
 window.onload = async () => {
-    const slct_plano = document.getElementById('slct_plano');
+    const slctPlano = document.getElementById('slctPlano');
 
-    const planos = await selecioarPlano();
+    const listaPlanos = await selecioarPlano();
 
-    console.log(planos);
+    console.log(listaPlanos);
+
+    for (const pos in listaPlanos) {
+        if (Object.hasOwnProperty.call(listaPlanos, pos)) {
+         
+            slct_plano.innerHTML += `<option value="${listaPlanos[pos].nome}" itemid="${listaPlanos[pos].id}"></option>`
+        };
+    }
 }
+
+const tela = window.innerWidth;
 
 function cadastrarUsuario(CARGO) {
 
@@ -42,7 +51,7 @@ function cadastrarUsuario(CARGO) {
     return false;
 };
 
-function cadastrarEmpresa(NOME_FANTASIA, CNPJ) {
+function cadastrarEmpresa(NOME_FANTASIA, CNPJ, PLANO) {
 
     fetch("/empresa/cadastrar", {
         method: "POST",
@@ -52,6 +61,7 @@ function cadastrarEmpresa(NOME_FANTASIA, CNPJ) {
         body: JSON.stringify({
             nome: NOME_FANTASIA,
             cnpj: CNPJ,
+            fkPlano: PLANO
         }),
     }).then(resposta => {
         console.log("resposta: ", resposta);
@@ -104,8 +114,6 @@ function cadastrarEndereco(LOUGRADOURO) {
     return false;
 };
 
-
-const tela = window.innerWidth;
 
 function voltar(){
     window.location = "index.html";
@@ -267,7 +275,7 @@ function cadastrar() {
 
     const NOME_USUARIO = ipt_nome.value;
     const NOME_FANTASIA = ipt_nomeFantasia.value;
-    const PLANO = ipt_plano.value;
+    const PLANO = slctPlano;
     const EMAIL = ipt_email.value;
     const SENHA = ipt_senha.value;
     const CLIENTE_TIPO = verficarRadio(); 
@@ -278,15 +286,15 @@ function cadastrar() {
     const COMPLEMENTO = ipt_complemento.value;
     
 
-    LISTA_CAMPOS.push(NOME_USUARIO, NOME_FANTASIA, PLANO, EMAIL, SENHA, ESTADO, CEP, COMPLEMENTO);
+    LISTA_CAMPOS.push(NOME_USUARIO, NOME_FANTASIA, PLANO.value, EMAIL, SENHA, ESTADO, CEP, COMPLEMENTO);
 
     if (!validarCampos(LISTA_CAMPOS)) return false;
     
-    localStorage.setItem(NOME_USUARIO, EMAIL, SENHA, LOUGRADOURO, CEP, NUMERO, COMPLEMENTO);
+    localStorage.setItem(NOME_USUARIO, EMAIL, SENHA, CLIENTE_TIPO, LOUGRADOURO, CEP, NUMERO, COMPLEMENTO);
     
-    criarPlano(Plan);
-    cadastrarEmpresa(NOME_FANTASIA, CNPJ);
+    // VERIFICAR ESSA FUNÇÂO DE CADASTRAR ENDERÇO
+    cadastrarEmpresa(NOME_FANTASIA, CNPJ, PLANO.itemid);
     cadastrarEndereco();
-    cadastrarUsuario(CLIENTE_TIPO);
+    cadastrarUsuario();
 }
 

@@ -1,5 +1,5 @@
 function limpa_formulário_cep() {
-    document.getElementById('ipt_estado').value=("");
+    document.getElementById('ipt_logradouro').value=("");
 }
 
 function extenderUf(uf) {
@@ -63,28 +63,36 @@ function extenderUf(uf) {
 
 function meu_callback(conteudo) {
     if (!("erro" in conteudo)) {
-        document.getElementById('ipt_estado').value=(extenderUf(conteudo.uf));
+        sessionStorage.setItem(extenderUf(conteudo.uf), conteudo.logradouro, conteudo.bairro, conteudo.localidade);
+
         retornarObjEndereco(conteudo);       
     }
+
 }
 
 function pesquisacep(valor) {
 
-    var cep = valor.replace(/\D/g, '');
-
-    if (cep != "") {
-
+    const CEP = valor.replace(/\D/g, '');
+    
+    if (CEP != "") {
+        
         var validacep = /^[0-9]{8}$/;
+        
+        if(validacep.test(CEP)) {
+            
+            sessionStorage.setItem(CEP);
+            document.getElementById('ipt_logradouro').value="...";
 
-        if(validacep.test(cep)) {
-
-            document.getElementById('ipt_estado').value="...";
 
             var script = document.createElement('script');
 
-            script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+            script.src = 'https://viacep.com.br/ws/'+ CEP + '/json/?callback=meu_callback';
 
-            document.body.appendChild(script);
+            console.log(script);
+            console.log("BETWEEN;");
+            console.log(script.src);
+
+            document.body.appendChild(script.src);
 
         } else {
             limpa_formulário_cep();
@@ -93,4 +101,22 @@ function pesquisacep(valor) {
     } else {
         limpa_formulário_cep();
     }
+}
+
+
+
+
+function meu_callback(conteudo) {
+if (!("erro" in conteudo)) {
+    document.getElementById('rua').value=(conteudo.logradouro);
+    document.getElementById('bairro').value=(conteudo.bairro);
+    document.getElementById('cidade').value=(conteudo.localidade);
+    document.getElementById('uf').value=(conteudo.uf);
+    document.getElementById('ibge').value=(conteudo.ibge);
+} //end if.
+else {
+    //CEP não Encontrado.
+    limpa_formulário_cep();
+    alert("CEP não encontrado.");
+}
 }

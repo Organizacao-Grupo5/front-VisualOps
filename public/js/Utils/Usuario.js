@@ -15,13 +15,16 @@ function cadastrarUsuario(CARGO) {
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-            mostrarMensagem("Cadastro realizado com sucesso!");
+            const mensagem = "Cadastro realizado com sucesso!" 
+            mostrarMensagem(mensagem);
 
             setTimeout(() => {
                 window.location = "login.html";
             }, 1500);
         } else {
-            mostrarMensagem("Não foi possivel realizar o seu cadastro, por favor tente novamente!");
+            const mensagem = "Não foi possivel realizar o seu cadastro, por favor tente novamente!" 
+            mostrarMensagem(mensagem);
+            
             throw "Houve um erro ao tentar realizar o cadastro!"
         }
     }).catch(resposta => {

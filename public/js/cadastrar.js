@@ -1,5 +1,6 @@
 const { cadastrarUsuario } = require("./Utils/Usuario");
 const { cadastrarEmpresa } = require("./Utils/Empresa");
+const { cadastrarEndereco } = require("./Utils/Endereco");
 
 
 const tela = window.innerWidth;
@@ -163,6 +164,7 @@ function cadastrar() {
     const LISTA_CAMPOS = [];
 
     const NOME_USUARIO = ipt_nome.value;
+    const PLANO = ipt_plano.value;
     const EMAIL = ipt_email.value;
     const SENHA = ipt_senha.value;
     const CLIENTE_TIPO = verficarRadio(); 
@@ -173,13 +175,14 @@ function cadastrar() {
     const COMPLEMENTO = ipt_complemento.value;
     
 
-    LISTA_CAMPOS.push(NOME_USUARIO, EMAIL, SENHA, ESTADO, CEP, COMPLEMENTO);
+    LISTA_CAMPOS.push(NOME_USUARIO, PLANO, EMAIL, SENHA, ESTADO, CEP, COMPLEMENTO);
 
     if (!validarCampos(LISTA_CAMPOS)) return false;
     
-    sessionStorage.setItem(NOME_USUARIO, EMAIL, SENHA, CEP, NUMERO);
+    sessionStorage.setItem(NOME_USUARIO, EMAIL, SENHA, LOUGRADOURO, CEP, NUMERO, COMPLEMENTO);
     
     cadastrarEmpresa(CNPJ);
+    cadastrarEndereco(LOUGRADOURO);
     cadastrarUsuario(CLIENTE_TIPO);
 }
 

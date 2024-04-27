@@ -48,11 +48,20 @@ CREATE TABLE contato (
 
 CREATE TABLE maquina (
     idMaquina INT AUTO_INCREMENT,
-    ipv4 VARCHAR(15) NOT NULL,
     fkUsuario INT NOT NULL,
         CONSTRAINT fkUsuarioMaquina FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario),
     PRIMARY KEY (idMaquina, fkUsuario)
 );
+
+CREATE TABLE ipv4(
+    idIpv4 INT AUTO_INCREMENT,
+    numeroIP VARCHAR(18),
+    nomeLocal VARCHAR(45),
+    fkMaquina INT NOT NULL,
+        CONSTRAINT fkMaquinaIPV4 FOREIGN KEY (fkMaquina) REFERENCES maquina(idMaquina),
+    fkUsuario INT NOT NULL,
+        CONSTRAINT fkUsuarioMaquinaIPV4 FOREIGN KEY (fkUsuario) REFERENCES maquina(fkUsuario)
+    )
 
 CREATE TABLE alertas(
     idAlertas INT PRIMARY KEY AUTO_INCREMENT,
@@ -65,7 +74,6 @@ CREATE TABLE componente (
     componente VARCHAR(45) NOT NULL,
     modelo VARCHAR(45) NOT NULL,
     fabricante VARCHAR(45) NOT NULL,
-    preferenciaAlerta VARCHAR(45),
     fkMaquina INT NOT NULL,
         CONSTRAINT fkMaquinaComponente FOREIGN KEY (fkMaquina) REFERENCES maquina(idMaquina),
     fkUsuario INT NOT NULL,

@@ -2,23 +2,18 @@ CREATE DATABASE der_grupo_5;
 
 USE der_grupo_5;
 
-CREATE TABLE cargos (
-    idCargos INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(45) NOT NULL UNIQUE
-);
-
-select * from cargos;
-
 CREATE TABLE plano (
     idPlano INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(30) NOT NULL,
-    descricao VARCHAR(45) NOT NULL
+    descricao VARCHAR(200) NOT NULL
 );
 
 CREATE TABLE empresa (
     idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(50),
-    cnpj CHAR(14)
+    cnpj CHAR(14),
+    fkPlano INT,
+    constraint fkPlano foreign key (fkPlano) references plano(idPlano)
 );
 
 CREATE TABLE endereco (
@@ -38,12 +33,9 @@ CREATE TABLE usuario (
     nome VARCHAR(60) NOT NULL,
     email VARCHAR(60) NOT NULL,
     senha VARCHAR(45) NOT NULL,
-    fkCargos INT NOT NULL,
-        CONSTRAINT fkCargosUsuario FOREIGN KEY (fkcargos) REFERENCES cargos(idCargos),
+    cargo varchar(45),
     fkEmpresa INT NOT NULL, 
-        CONSTRAINT fkEmpresaUsuario FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa),
-    fkPlano INT NOT NULL,
-        CONSTRAINT fkPlanoEmpresaUsuario FOREIGN KEY (fkPlano) REFERENCES empresa(fkPlano)
+        CONSTRAINT fkEmpresaUsuario FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
 );
 
 CREATE TABLE contato (
@@ -78,13 +70,12 @@ CREATE TABLE componente (
         CONSTRAINT fkMaquinaComponente FOREIGN KEY (fkMaquina) REFERENCES maquina(idMaquina),
     fkUsuario INT NOT NULL,
         CONSTRAINT fkMaquinaUsuarioComponente FOREIGN KEY (fkUsuario) REFERENCES maquina(fkUsuario),
-    PRIMARY KEY (idComponente, fkMaquina, fkUsuario),
-    hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    PRIMARY KEY (idComponente, fkMaquina, fkUsuario)
 );
 
 CREATE TABLE captura(
     idCaptura INT AUTO_INCREMENT,
-    captura VARCHAR(45) NOT NULL,
+    dadoCaptura VARCHAR(45) NOT NULL,
     unidadeMedida VARCHAR(5) NOT NULL,
     dataCaptura DATETIME NOT NULL,
     fkComponente INT NOT NULL,
@@ -95,9 +86,19 @@ CREATE TABLE captura(
 CREATE TABLE registroAlertas(
     idRegistroAlertas INT AUTO_INCREMENT,
     horario TIMESTAMP,
+    fkAlertas INT NOT NULL,
+    constraint fkAlertas foreign key (fkAlertas) references alertas(idAlertas),
     fkCaptura INT NOT NULL,
         CONSTRAINT fkRegistroAlertasCaptura FOREIGN KEY (fkCaptura) REFERENCES captura(idCaptura),
     fkComponente INT NOT NULL,
         CONSTRAINT fkRegistroAlertasCapturaComponente FOREIGN KEY (fkComponente) REFERENCES captura(fkComponente),
     PRIMARY KEY (idRegistroAlertas, fkCaptura, fkComponente)
-)
+);
+
+insert into plano values
+(null, 'Plano Freelancer', 'Foco: Freelancers (monitora uma máquina).
+Monitoramento de Hardware: Processador, RAM, disco, conexão USB, placa gráfica'),
+(null, 'Plano Empresarial', 'Foco: Pequenas e Médias Empresas (monitora até 100 máquinas).
+Monitoramento de Hardware: Processador, RAM, disco, conexão USB, placa gráfica.'),
+(null, 'Plano Corporativo', 'Foco: Grandes Empresas.
+Monitoramento de Hardware: Processador, RAM, disco, conexão USB, placa gráfica.');

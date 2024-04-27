@@ -357,9 +357,6 @@ section{
 }
 
 .chart-content {
-    display: flex;
-    justify-content: space-evenly; 
-    align-items: flex-start; 
     width: 100%;
     height: 95%;
     background-color: #314161; 
@@ -372,6 +369,14 @@ section{
 .chart-content h2 {
     padding: 20px;
     color: white;
+}
+
+.area-entradas{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+
+    width: 100%;
 }
 
 .profile-photo {
@@ -401,28 +406,15 @@ section{
     margin-right: 120px; 
 }
 
-.profile-edit {
-    display: flex;
-    flex-direction: column; 
-    align-items: flex-start; 
-    justify-content: center;
-    width: 45%; 
-    padding: 20px;
-    border-radius: 10px;
-}
-
-.address-info {
+.cadastro-maquina, .novo-usuario {
     display: flex;
     flex-direction: column; 
     align-items: flex-start;
-    justify-content: center;
+    justify-content: space-between;
     width: 45%; 
+    height: 80%;
     padding: 20px;
     border-radius: 10px;
-}
-
-.content-spacing {
-    margin-top: 30px; 
 }
 
 .chart-content input {
@@ -433,9 +425,18 @@ section{
     border-radius: 5px;
 }
 
-.button-att1, .button-att2 {
+.div-button{
+    display: flex;
+    align-content: center;
+    justify-content: center;    
+    width: 100%;
+    height: 100%;
+}
+
+.button-att {
     background-color: #449ADE;
-    width: 50%;
+    width: 30%;
+    height: 40px;
     color: white; 
     padding: 10px; 
     border: none; 
@@ -443,20 +444,6 @@ section{
     cursor: pointer; 
 }
 
-.button-att1 {
-    margin-left: 25%;
-}
-
-.button-att2 {
-    margin-left: 25%;
-}
-
-.titulo-novo-usuario{
-    display: flex;
-    margin-left: 36%;
-}
-
-.titulo-cadastrar-maquina{
-    display: flex;
-    margin-left: 20%;
+.titulo-cadastrar{
+    align-content: center;
 }

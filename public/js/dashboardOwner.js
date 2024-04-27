@@ -265,7 +265,7 @@ function mostrarKpi4() {
 function totalGrafico1() {
     const dados = dataset.first[0].data;
 
-    const total = 0;
+    let total = 0;
 
     for (let i = 0; i < dados.length; i++) {
         total += dados[i];

@@ -16,7 +16,7 @@ router.get('/google/auth', (req, res) => {
 
     controllers.entrar(req, res);
     
-})
+});
 
 router.get('/slack/callback', async (req, res) => {
 

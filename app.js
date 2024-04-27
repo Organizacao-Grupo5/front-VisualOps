@@ -5,10 +5,10 @@ var PORTA = 8080;
 
 var app = express();
 
-
 const slackRouter = require("./src/routes/GoogleSlackRoute");
 var usuarioRouter = require("./src/routes/usuario");
 const enderecoRouter = require("./src/routes/endereco");
+const planoRouter = require("./src/routes/plano");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
@@ -19,6 +19,7 @@ app.use(cors());
 app.use(slackRouter);
 app.use("/usuario", usuarioRouter);
 app.use("/endereco", enderecoRouter);
+app.use("/plano", planoRouter);
 
 app.listen(PORTA, function () {
     console.log(`Visualização é http://localhost:${PORTA}`)

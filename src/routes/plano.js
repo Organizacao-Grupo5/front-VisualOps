@@ -3,8 +3,8 @@ var router = express.Router();
 
 var planoController = require("../controllers/planoController");
 
-router.get("//:idUsuario", function (req, res) {
-    planoController.listarLivro(req, res);
+router.get("/selecionar", function (req, res) {
+    planoController.selecionarPlano(req, res);
 });
 
 module.exports = router;

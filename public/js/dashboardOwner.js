@@ -166,6 +166,8 @@ new Chart(third, {
                     } else {
                         return 1;
                     }
+
+                    mostrarKpi5(context.dataIndex, context.dataset.data[context.dataIndex]);
                 }
             },
         },
@@ -182,39 +184,6 @@ new Chart(third, {
         }
     }
 });
-
-function verificarFormatter(value, context) {
-
-    if (
-    context.dataIndex == 0 ||
-    context.dataIndex == 22 || 
-    context.dataIndex == 29
-    ) {
-        if (value > 40) {
-            return value + ' ↓';
-        } else {
-            return value + ' ↑';
-        }
-    } else return '';
-}
-
-function verificarColor(context) {
-    const valor = context.dataset.data[context.dataIndex];
-
-    if (
-    context.dataIndex == 0 ||
-    context.dataIndex == 22 || 
-    context.dataIndex == 29
-    ) { 
-    
-        mostrarKpi5(context.dataIndex, valor);
-        if (valor > 40) {
-            return '#F2274C';
-        } else {
-            return '#449ADE';
-        } 
-    }
-}
 
 function aparecerPop(mensagem) {
     if (

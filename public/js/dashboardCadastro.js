@@ -27,6 +27,7 @@ function verificarCampos(LISTA_CAMPOS) {
 
 }
 
+
 function adicionar() {
 
     const LISTA_CAMPOS = [];
@@ -36,12 +37,17 @@ function adicionar() {
     const SENHA = senha.value;
     const CARGO = cargo.value;
 
-    const MARCA = marca
+    const MARCA = marca.value;
+    const MODELO = modelo.value;
+    const IDENTIFICACAO = num_identificacao.value;
 
     
     
-    LISTA_CAMPOS.push(NOME, EMAIL, SENHA, CARGO);
+    LISTA_CAMPOS.push(NOME, EMAIL, SENHA, CARGO, MARCA, MODELO, IDENTIFICACAO);
     
     if (verificarCampos(!LISTA_CAMPOS)) return false;
+
+    
+    cadastrarMaquina();
 
 }

@@ -172,15 +172,17 @@ section{
     height: 56.48%;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 4%;
 }
+
 .menu h1{
     font-size: 18px;
     color: #fff;
     letter-spacing: 1.5px;
     margin-top: 2%;
-    margin-left: 7%;
 }
+
 .chose-section{
     width: 100%;
     display: flex;

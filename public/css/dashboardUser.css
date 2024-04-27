@@ -174,6 +174,7 @@ section{
     height: 56.48%;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 4%;
 }
 
@@ -182,7 +183,6 @@ section{
     color: #fff;
     letter-spacing: 1.5px;
     margin-top: 2%;
-    margin-left: 7%;
 }
 
 .chose-section{
@@ -434,143 +434,3 @@ section{
 .chart-porcenatagem-uso canvas{
     width: 180px;
 }
-
-/*código do Guilherme*/
-
-
-
-/* .graficos2_2-content > h3 {
-    text-align: center;
-
-    margin: 10px 0 5px 0;
-
-    width: 100%;
-}
-
-.campo_componetes {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    width: 100%;
-}
-
-.campo_componetes > i {
-    margin: 0 5px;
-
-    font-size: 20px;
-
-    transition: .3s ease;
-}
-
-.info_componentes {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-
-    width: 100%;
-    height: 100%;
-}
-
-.lista_comparacao {
-    display: flex;
-    flex-direction: column;
-
-    margin-top: 15px;
-
-    width: 90%;
-    height: 40%;
-}
-
-.lista_comparacao > li {
-    width: 100%;
-
-    list-style: none;
-
-    display: flex;
-    align-items: center;
-}
-
-.lista_comparacao > li > .componente {
-    width: 52px;
-}
-
-.lista_comparacao > li > .colunas_status {
-    display: flex;
-    justify-content: space-between;
-
-    width: 76%;
-}
-
-.lista_comparacao > li > .colunas_status > div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-weight: 600;
-}
-
-.lista_comparacao > li > .colunas_status > .col_ruim {
-    color: #F2274C;
-
-    width: 50px;
-    height: 30px;
-}
-
-.lista_comparacao > li > .colunas_status > .col_medio {
-    color: #F2AB27;
-
-    width: 50px;
-    height: 30px;
-}
-
-.lista_comparacao > li > .colunas_status > .col_bom {
-    color: #9450F2;
-
-    width: 50px;
-    height: 30px;
-}
-
-.titulos_status {
-    display: flex;
-    align-items: center;
-
-    margin: 15px 0;
-    
-    width: 100%;
-}
-
-.titulos_status > img {
-    width: 30px;
-    margin: 0 20px;
-}
-
-.status {
-    display: flex;
-    justify-content: space-between;
-        
-    width: 65%;
-}
-
-.status > p > span {
-    display: block;
-
-    width: 100%;
-    height: 2px;
-
-    border-radius: 2px;
-}
-
-.status_quente {    
-    background-color: #F2274C;
-}
-
-.status_medio {
-    background-color: #F2AB27;
-}
-
-.status_normal {
-    background-color: #9450F2;
-} */
-

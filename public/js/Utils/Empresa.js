@@ -1,4 +1,4 @@
-function cadastrarEmpresa(CNPJ) {
+function cadastrarEmpresa(NOME_FANTASIA, CNPJ, PLANO) {
 
     fetch("/empresa/cadastrar", {
         method: "POST",
@@ -6,8 +6,9 @@ function cadastrarEmpresa(CNPJ) {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            nome: sessionStorage.getItem(NOME_USUARIO),
-            cnpj: sessionStorage.getItem(CNPJ)
+            nome: NOME_FANTASIA,
+            cnpj: CNPJ,
+            fkPlano: PLANO
         }),
     }).then(resposta => {
         console.log("resposta: ", resposta);
@@ -28,5 +29,3 @@ function cadastrarEmpresa(CNPJ) {
 
     return false;
 };
-
-module.exports = { cadastrarEmpresa };

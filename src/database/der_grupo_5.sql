@@ -48,7 +48,8 @@ CREATE TABLE contato (
 );
 
 CREATE TABLE maquina (
-    id INT AUTO_INCREMENT,
+    idMaquina INT AUTO_INCREMENT,
+    numeroIdentificacao VARCHAR(25),
     username VARCHAR(45),
     hostname VARCHAR(45),
     fkUsuario INT NOT NULL,

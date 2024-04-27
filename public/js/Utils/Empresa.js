@@ -17,6 +17,7 @@ function cadastrarEmpresa(NOME_FANTASIA, CNPJ, PLANO) {
             const mensagem = "Cadastro realizado com sucesso!";
             mostrarMensagem(mensagem);
 
+            return resposta;
         } else {
             const mensagem = "Não foi possivel cadastrar a empresa, por favor tente novamente!";
             mostrarMensagem(mensagem);

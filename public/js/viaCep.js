@@ -65,9 +65,8 @@ function meu_callback(conteudo) {
     if (!("erro" in conteudo)) {
         document.getElementById('ipt_logradouro').value = conteudo.logradouro;
         
-        sessionStorage.setItem('ESTADO', extenderUf(conteudo.uf));
-        sessionStorage.setItem('BAIRRO', conteudo.bairro);
-        sessionStorage.setItem('LOCALIDADE', conteudo.localidade);
+        localStorage.setItem('ESTADO', extenderUf(conteudo.uf));
+        localStorage.setItem('BAIRRO', conteudo.bairro);
     }
 
 }

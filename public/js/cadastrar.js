@@ -258,7 +258,14 @@ function cadastrar() {
 
     if (!validarCampos(LISTA_CAMPOS)) return false;
     
-    localStorage.setItem(NOME_USUARIO, EMAIL, SENHA, CLIENTE_TIPO, LOUGRADOURO, CEP, NUMERO, COMPLEMENTO);
+    localStorage.setItem('NOME_USUARIO', NOME_USUARIO);
+    localStorage.setItem('EMAIL', EMAIL);
+    localStorage.setItem('SENHA', SENHA);
+    localStorage.setItem('CLIENTE_TIPO', CLIENTE_TIPO);
+    localStorage.setItem('LOUGRADOURO', LOUGRADOURO);
+    localStorage.setItem('CEP', CEP); 
+    localStorage.setItem('NUMERO', NUMERO);
+    localStorage.setItem('COMPLEMENTO', COMPLEMENTO);
     
     // VERIFICAR ESSA FUNÇÂO DE CADASTRAR ENDERÇO
     cadastrarEmpresa(NOME_FANTASIA, CNPJ, PLANO.itemid);

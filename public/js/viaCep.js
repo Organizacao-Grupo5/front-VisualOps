@@ -63,9 +63,11 @@ function extenderUf(uf) {
 
 function meu_callback(conteudo) {
     if (!("erro" in conteudo)) {
-        sessionStorage.setItem(extenderUf(conteudo.uf), conteudo.logradouro, conteudo.bairro, conteudo.localidade);
-
-        retornarObjEndereco(conteudo);       
+        document.getElementById('ipt_logradouro').value = conteudo.logradouro;
+        
+        sessionStorage.setItem('ESTADO', extenderUf(conteudo.uf));
+        sessionStorage.setItem('BAIRRO', conteudo.bairro);
+        sessionStorage.setItem('LOCALIDADE', conteudo.localidade);
     }
 
 }
@@ -80,7 +82,6 @@ function pesquisacep(valor) {
         
         if(validacep.test(CEP)) {
             
-            sessionStorage.setItem(CEP);
             document.getElementById('ipt_logradouro').value="...";
 
 
@@ -88,11 +89,7 @@ function pesquisacep(valor) {
 
             script.src = 'https://viacep.com.br/ws/'+ CEP + '/json/?callback=meu_callback';
 
-            console.log(script);
-            console.log("BETWEEN;");
-            console.log(script.src);
-
-            document.body.appendChild(script.src);
+            document.body.appendChild(script);
 
         } else {
             limpa_formulário_cep();
@@ -101,22 +98,4 @@ function pesquisacep(valor) {
     } else {
         limpa_formulário_cep();
     }
-}
-
-
-
-
-function meu_callback(conteudo) {
-if (!("erro" in conteudo)) {
-    document.getElementById('rua').value=(conteudo.logradouro);
-    document.getElementById('bairro').value=(conteudo.bairro);
-    document.getElementById('cidade').value=(conteudo.localidade);
-    document.getElementById('uf').value=(conteudo.uf);
-    document.getElementById('ibge').value=(conteudo.ibge);
-} //end if.
-else {
-    //CEP não Encontrado.
-    limpa_formulário_cep();
-    alert("CEP não encontrado.");
-}
 }

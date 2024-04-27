@@ -1,6 +1,108 @@
-const { cadastrarUsuario } = require("./Utils/Usuario");
-const { cadastrarEmpresa } = require("./Utils/Empresa");
-const { cadastrarEndereco } = require("./Utils/Endereco");
+window.onload = async () => {
+    const slct_plano = document.getElementById('slct_plano');
+
+    const planos = await selecioarPlano();
+
+    console.log(planos);
+}
+
+function cadastrarUsuario(CARGO) {
+
+    fetch("/usuario/cadastrar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            nome: localStorage.getItem(NOME_USUARIO),
+            email: localStorage.getItem(EMAIL),
+            senha: localStorage.getItem(SENHA),
+            cargo: CARGO
+        }),
+    }).then(resposta => {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+            const mensagem = "Cadastro realizado com sucesso!" 
+            mostrarMensagem(mensagem);
+
+            setTimeout(() => {
+                window.location = "login.html";
+            }, 1500);
+        } else {
+            const mensagem = "Não foi possivel realizar o seu cadastro, por favor tente novamente!" 
+            mostrarMensagem(mensagem);
+            
+            throw "Houve um erro ao tentar realizar o cadastro!"
+        }
+    }).catch(resposta => {
+        console.log('#ERRO: ', resposta);
+    });
+
+    return false;
+};
+
+function cadastrarEmpresa(NOME_FANTASIA, CNPJ) {
+
+    fetch("/empresa/cadastrar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            nome: NOME_FANTASIA,
+            cnpj: CNPJ,
+        }),
+    }).then(resposta => {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+            const mensagem = "Cadastro realizado com sucesso!";
+            mostrarMensagem(mensagem);
+
+        } else {
+            const mensagem = "Não foi possivel cadastrar a empresa, por favor tente novamente!";
+            mostrarMensagem(mensagem);
+
+            throw "Houve um erro ao tentar realizar o cadastro!"
+        }
+    }).catch(resposta => {
+        console.log('#ERRO: ', resposta);
+    });
+
+    return false;
+};
+
+function cadastrarEndereco(LOUGRADOURO) {
+
+    fetch("/endereco/cadastrar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            nome: cep.getItem(NOME_USUARIO),
+            cnpj: sessionStorage.getItem(CNPJ)
+        }),
+    }).then(resposta => {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+            const mensagem = "Cadastro realizado com sucesso!";
+            mostrarMensagem(mensagem);
+
+        } else {
+            const mensagem = "Não foi possivel cadastrar a empresa, por favor tente novamente!";
+            mostrarMensagem(mensagem);
+
+            throw "Houve um erro ao tentar realizar o cadastro!"
+        }
+    }).catch(resposta => {
+        console.log('#ERRO: ', resposta);
+    });
+
+    return false;
+};
 
 
 const tela = window.innerWidth;
@@ -164,6 +266,7 @@ function cadastrar() {
     const LISTA_CAMPOS = [];
 
     const NOME_USUARIO = ipt_nome.value;
+    const NOME_FANTASIA = ipt_nomeFantasia.value;
     const PLANO = ipt_plano.value;
     const EMAIL = ipt_email.value;
     const SENHA = ipt_senha.value;
@@ -175,14 +278,15 @@ function cadastrar() {
     const COMPLEMENTO = ipt_complemento.value;
     
 
-    LISTA_CAMPOS.push(NOME_USUARIO, PLANO, EMAIL, SENHA, ESTADO, CEP, COMPLEMENTO);
+    LISTA_CAMPOS.push(NOME_USUARIO, NOME_FANTASIA, PLANO, EMAIL, SENHA, ESTADO, CEP, COMPLEMENTO);
 
     if (!validarCampos(LISTA_CAMPOS)) return false;
     
-    sessionStorage.setItem(NOME_USUARIO, EMAIL, SENHA, LOUGRADOURO, CEP, NUMERO, COMPLEMENTO);
+    localStorage.setItem(NOME_USUARIO, EMAIL, SENHA, LOUGRADOURO, CEP, NUMERO, COMPLEMENTO);
     
-    cadastrarEmpresa(CNPJ);
-    cadastrarEndereco(LOUGRADOURO);
+    criarPlano(Plan);
+    cadastrarEmpresa(NOME_FANTASIA, CNPJ);
+    cadastrarEndereco();
     cadastrarUsuario(CLIENTE_TIPO);
 }
 

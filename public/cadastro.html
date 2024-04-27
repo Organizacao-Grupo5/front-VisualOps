@@ -16,6 +16,7 @@
 </head>
 <body>
     <script src="js/cadastrar.js"></script>
+    <script src="js/Utils/Plano.js"></script>
     <script src="js/viaCep.js"></script>
     <script src="js/GoogleSlack.js"></script>    
     
@@ -33,7 +34,11 @@
                     <label for="radio_empresa">Empresa<input type="radio" name="tipoCliente" id="radio_empresa" value="dono" checked></label>
                 </div>
                 <div class="campo-dados esconder">
-                    <label for="ipt_nome" id="campo_nome">
+                    <label for="ipt_nomeFantasia">
+                        <p>Nome Fantasia</p>
+                        <input type="text" id="ipt_nomeFantasia" placeholder="Nome-fantasia">
+                    </label>
+                    <label for="ipt_nome">
                         <p>Nome</p>
                         <input type="text" id="ipt_nome" placeholder="Nome">
                     </label>
@@ -48,6 +53,10 @@
                     <label for="ipt_identificacao">
                         <p>CNJP</p>
                         <input type="text" id="ipt_identificacao" placeholder="xx.xxx.xxx/xxxx-xx" oninput="modificarCnpj(this)">
+                    </label>
+                    <label for="slct_plano">
+                        <p>PLANO</p>
+                        <select type="text" id="slct_plano"></select>
                     </label>
                     <label for="ipt_cep">
                         <p>CEP</p>

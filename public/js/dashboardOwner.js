@@ -3,6 +3,8 @@ const second = document.getElementById("chart_2");
 const third = document.getElementById("chart_horizontal");
 const background = document.getElementById("bg");
 const pop = document.getElementById("pop"); 
+const colunas = document.getElementsByClassName('colunas_status');
+
 
 const mensagem = {
     inicial: `OLÁ USUÁRIO, É UM PRAZER TÊ-LO CONOSCO, SUA DASHBOARD PESSOAL FOI PROJETADA SER TODA INTERATIVA, PORÊM AINDA ESTAMOS EM DESENVOLVIMENTO...<br><br>EM BREVE ESTARÁ DISPONÍVEL.`,
@@ -25,10 +27,10 @@ function gerarLista(numero) {
     return list;
 }
 
+
 // maquinas de mais ips , verificar se o ip é o msm ip cadastrado
 
 // maquina na tabela de ip
-
 
 const label = {
     first: ['Baixo', 'Médio', 'Alto'],
@@ -49,30 +51,14 @@ const dataset = {
     }],
     second: [{
         label: 'Hardwares Prejudicados por Dia',
-        data: () => {
-            let list = [];
-    
-            for (let i = 0; i < 4; i++) {
-                list.push(geradorNumeros());
-            }
-
-            return list;
-        },
+        data: gerarLista(4),
         backgroundColor: '#F2AB27',
         hoverBackgroundColor: '#F2274C',
         borderRadius: 5
     }],
     third: [{
         label: 'Usabilidade Diária',
-        data: () => {
-            let list = [];
-    
-            for (let i = 0; i < 30; i++) {
-                list.push(geradorNumeros());
-            }
-
-            return list;
-        },
+        data: gerarLista(30),
         backgroundColor: '#9455E2',
         borderColor: '#9455E2',
         hoverBackgroundColor: '#9455E2',
@@ -253,8 +239,27 @@ function aparecerPop(mensagem) {
 
 window.onload = () => {
     aparecerPop(mensagem.inicial);
+    mostrarKpi4();
+    // totalGrafico1();
 };
 
 background.addEventListener("click", () => {
     aparecerPop();
 });
+
+function mostrarKpi4() {
+    for (col in colunas) {
+        console.log(colunas[col].children);
+        for (pos in colunas[col].children) {
+            colunas[col].children[pos].innerText = geradorNumeros(1);
+        }
+    }
+}
+
+function totalGrafico1() {
+
+    // console.log(dataset.first.data);
+
+}
+
+

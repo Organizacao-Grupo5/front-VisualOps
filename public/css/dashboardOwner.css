@@ -607,6 +607,8 @@ section{
 .status {
     display: flex;
     justify-content: space-between;
+
+    font-weight: 600;
         
     width: 65%;
 }

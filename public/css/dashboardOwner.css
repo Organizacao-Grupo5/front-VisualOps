@@ -459,8 +459,9 @@ section{
     font-weight: 600;
 }
 
-.periodos_componente > p {
-    margin-bottom: 5px;
+.container_kpi3 > p > .relatorio {
+    font-weight: 700;
+
 }
 
 .graficos2_1-content {

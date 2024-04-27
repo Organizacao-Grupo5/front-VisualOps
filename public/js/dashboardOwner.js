@@ -167,7 +167,6 @@ new Chart(third, {
                         return 1;
                     }
 
-                    mostrarKpi5(context.dataIndex, context.dataset.data[context.dataIndex]);
                 }
             },
         },
@@ -206,6 +205,7 @@ function aparecerPop(mensagem) {
 window.onload = () => {
     aparecerPop(mensagem.inicial);
     mostrarKpi4();
+    mostrarKpi5();
     totalGrafico1();
 };
 
@@ -213,14 +213,13 @@ background.addEventListener("click", () => {
     aparecerPop();
 });
 
-function mostrarKpi5(pos, valor) {
+function mostrarKpi5() {
 
     const listaDiv = document.getElementsByClassName('relatorio');
-    for ( let i = 0; i < listaDiv; i++ ) {
-        
-        if (i == pos) listaDiv[i].innerHTML = valor;
-        
-    }
+    
+    listaDiv[0].innerHTML = dataset.third[0].data[29];
+    listaDiv[1].innerHTML = dataset.third[0].data[23];
+    listaDiv[2].innerHTML = dataset.third[0].data[0];
 }
 
 function mostrarKpi4() {

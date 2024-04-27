@@ -1,6 +1,34 @@
 const first = document.getElementById("chart_1");
 const second = document.getElementById("chart_2");
 const third = document.getElementById("chart_horizontal");
+const background = document.getElementById("bg");
+const pop = document.getElementById("pop"); 
+
+const mensagem = {
+    inicial: `OLÁ USUÁRIO, É UM PRAZER TÊ-LO CONOSCO, SUA DASHBOARD PESSOAL FOI PROJETADA SER TODA INTERATIVA, PORÊM AINDA ESTAMOS EM DESENVOLVIMENTO...<br><br>EM BREVE ESTARÁ DISPONÍVEL.`,
+    charts: `FUNCIONALIDADE DESSA CHART AINDA NÂO DESENVOLVIDA`,
+}
+
+function geradorNumeros() {
+    const random = Math.round(Math.random() * 50) + 1;
+
+    return random;
+}
+
+function gerarLista(numero) {
+    let list = [];
+
+    for (let i = 0; i < numero; i++) {
+        list.push(geradorNumeros());
+    }
+
+    return list;
+}
+
+// maquinas de mais ips , verificar se o ip é o msm ip cadastrado
+
+// maquina na tabela de ip
+
 
 const label = {
     first: ['Baixo', 'Médio', 'Alto'],
@@ -11,7 +39,7 @@ const label = {
 const dataset = {
     first: [{
         label: 'Desempenho dos computadores diariamente',
-        data: [75, 29, 103],
+        data: gerarLista(3),
         backgroundColor: [
             '#F2274C',
             '#F2AB27',
@@ -21,14 +49,30 @@ const dataset = {
     }],
     second: [{
         label: 'Hardwares Prejudicados por Dia',
-        data: [30, 25, 33, 28],
+        data: () => {
+            let list = [];
+    
+            for (let i = 0; i < 4; i++) {
+                list.push(geradorNumeros());
+            }
+
+            return list;
+        },
         backgroundColor: '#F2AB27',
         hoverBackgroundColor: '#F2274C',
         borderRadius: 5
     }],
     third: [{
         label: 'Usabilidade Diária',
-        data: [37, 43, 20, 47, 13, 30, 33, 23, 40, 27, 23, 32, 26, 25, 32, 31, 40, 32, 33, 23, 40, 27, 23, 32, 26, 25, 32, 31, 40, 32],
+        data: () => {
+            let list = [];
+    
+            for (let i = 0; i < 30; i++) {
+                list.push(geradorNumeros());
+            }
+
+            return list;
+        },
         backgroundColor: '#9455E2',
         borderColor: '#9455E2',
         hoverBackgroundColor: '#9455E2',
@@ -88,7 +132,7 @@ new Chart(first, {
         onClick: (event, context) => {
             const index = context[0].index;
             const labels = label.first[index];
-            alert("clicou valor " + labels);
+            aparecerPop(mensagem.charts);
         }
     },
         
@@ -118,7 +162,7 @@ new Chart(second, {
             }
         },
         onClick: (event) => {
-            alert("clicou");
+            aparecerPop(mensagem.charts);
         }
     }
 });
@@ -188,3 +232,29 @@ function verificarColor(context) {
         } 
     }
 }
+
+function aparecerPop(mensagem) {
+    if (
+        background.style.display == 'none' || 
+        background.style.display == ''
+    ) {
+     
+        background.style.display = 'flex';
+        pop.innerHTML = mensagem;
+        pop.style.display = 'block';
+    
+    } else {
+
+        background.style.display = 'none';
+        pop.style.display = 'none';
+
+    }
+}
+
+window.onload = () => {
+    aparecerPop(mensagem.inicial);
+};
+
+background.addEventListener("click", () => {
+    aparecerPop();
+});

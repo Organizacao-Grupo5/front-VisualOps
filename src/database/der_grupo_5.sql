@@ -12,7 +12,7 @@ select * from cargos;
 CREATE TABLE plano (
     idPlano INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(30) NOT NULL,
-    descricao VARCHAR(45) NOT NULL
+    descricao VARCHAR(45) NOT NULLx 
 );
 
 CREATE TABLE empresa (

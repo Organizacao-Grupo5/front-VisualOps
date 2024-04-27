@@ -632,4 +632,35 @@ section{
     background-color: #9450F2;
 }
 
+.bg {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 2;
+
+    background-color: rgba(0, 0, 0, 0.413);
+    backdrop-filter: blur(10px);
+}
+
+.bg > .pop {
+    padding: 20px 30px;
+    
+    line-height: 1.5;
+
+    width: 350px;
+
+    display: none;
+
+    border-radius: 20px;
+    border: 3px solid #9450F2;
+
+    background-color: white;
+}
+
 /*código do Guilherme*/

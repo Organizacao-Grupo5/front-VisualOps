@@ -1,4 +1,12 @@
+const { cadastrarUsuario } = require("./Utils/Usuario");
+const { criarCargo, selecionarCargo } = require("./Utils/Cargos");
+
+
 const tela = window.innerWidth;
+
+function voltar(){
+    window.location = "index.html";
+}
 
 function mudarVisibilidade() {
     const campoSenha = document.getElementById("ipt_senha");
@@ -160,6 +168,15 @@ function verificarCep(obj) {
 
 }
 
+function verficarRadio() {
+    const radios = document.getElementsByName('tipoCliente');
+    
+    for (let i = 0; i < radios.length; i++) {
+        if (radios[i].checked) return radios[i].value;   
+    }
+    return '';
+} 
+
 async function cadastrar() {
     
     const LISTA_CAMPOS = [];
@@ -187,113 +204,3 @@ async function cadastrar() {
     cadastrarUsuario();
 }
 
-function verficarRadio() {
-    const radios = document.getElementsByName('tipoCliente');
-    
-    for (let i = 0; i < radios.length; i++) {
-        if (radios[i].checked) return radios[i].value;   
-    }
-    return '';
-} 
-
-
-
-function voltar(){
-    window.location = "index.html";
-}
-
-function cadastrarUsuario(corpo){
-    fetch("/usuario/cadastrar", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(corpo),
-    }).then(resposta => {
-        console.log("resposta: ", resposta);
-
-        if (resposta.ok) {
-            mostrarMensagem("Cadastro realizado com sucesso!");
-
-            setTimeout(() => {
-                window.location = "login.html";
-            }, "1500");
-        } else {
-            mostrarMensagem("Não foi possivel realizar o seu cadastro, por favor tente novamente!");
-            throw "Houve um erro ao tentar realizar o cadastro!"
-        }
-    }).catch(resposta => {
-        console.log('#ERRO: ', resposta);
-    });
-    return false;
-}
-
-async function criarCargo(nomeCargo) {
-
-    try {
-        const response = await fetch("/cargo/criar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                nomeJSON: nomeCargo
-            }),
-        })
-
-        if (response.ok) {
-            const dados = await response.json();
-            console.log("RESPOSTA JSON: ", dados);
-            
-            return true;
-
-        } else if (response.status == 409) {
-            const dados = await response.json();
-            console.log("RESPOSTA JSON: ", dados);
-            
-            return false;
-
-        } else {
-            console.error("Falha ao criar o cargo.");
-
-            throw new Error("Houve um erro ao tentar criar o cargo!");
-        
-        }
-
-    } catch (error) {
-        console.log("#ERRO: ", error);
-
-        throw error;
-
-    }
-};
-
-async function selecionarCargo(nomeCargo) {
-
-    try {
-        const response = await fetch(`/cargo/selecionar/${nomeCargo}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        });
-
-        if (response.ok) {
-            const dados = await response.json();
-            console.log("RESPOSTA JSON: ", dados);
-
-            return dados.idCargos;
-        } else {
-            console.error("Erro ao selecionar cargo.");
-
-            throw new Error("Hoveu um erro ao tentar selecionar o cargo!")
-        }
-
-    } catch (error) {
-        console.log("Erro desconhecido na API.", error);
-
-        throw error;
-    }
-};
-
-module.exports =

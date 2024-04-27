@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuário | VisualOps</title>
-    
+
     <link rel="stylesheet" href="../css/dashboardCadastroUser.css">
-    <link rel="icon" href="../assets/favicon/logofundo-roxo.ico">
+    <link rel="icon" href="../assets/favicon/logofundo-azul.ico">
 
     <script src="https://kit.fontawesome.com/265fd07209.js" crossorigin="anonymous"></script>
-    
+
 </head>
 
 <body>
@@ -79,70 +79,100 @@
                     <h1 style="font-size: 0.5em;">FERNANDA<br>SPTECHSCHOOL</h1>
                 </div>
             </nav>
-            
+
             <div class="name-chart-content">
                 <div class="name-content">
                     <div>Cadastrar Usuário</div>
                 </div>
                 <div class="chart-content">
-                    <div class="profile-edit">
-                        <h2 class="titulo-novo-usuario">Novo Usuário</h2>
-                        <div class="profile-photo"></div>
-                        <div class="horizontal-spaced">
-                            <div class="half-width spacing">
-                                <label for="nome">Nome:</label>
-                                <input type="text" id="nome" name="nome">
-                            </div>
-                            <div class="half-width">
-                                <label for="email">Email:</label>
-                                <input type="email" id="email" name="email">
-                            </div>
-                        </div>
-                
-                        <div class="horizontal-spaced">
-                            <div class="half-width spacing"> 
-                                <label for="senha">Senha:</label>
-                                <input type="password" id="senha" name="senha">
-                            </div>
-                            <div class="half-width">
-                                <label for="numerotelefone">Cargo:</label>
-                                <input class="numero" type="number" id="numero" name="numerotelefone">
-                            </div>
-                        </div>
-                
-                        <!-- <button class="button-att1" type="button">Atualizar</button> -->
-                    </div>
-                
-                    <div class="address-info">
-                        <h2 class="titulo-cadastrar-maquina"></h2>
-                
-                        <div class="content-spacing">
+                    <div class="area-entradas">
+
+                        <div class="novo-usuario">
+
+                            <h2 class="titulo-cadastrar">Novo Usuário</h2>
+                            
+
                             <div class="horizontal-spaced">
-                                <div class="half-width">
-                                    <label for="cep">Marca:</label>
-                                    <input type="text" id="cep" name="cep">
+                            
+                                <div class="half-width spacing">
+                            
+                                    <label for="nome">Nome:</label>
+                                    <input type="text" id="nome" name="nome">
+                            
                                 </div>
+                            
                                 <div class="half-width">
-                                    <label for="estado">Modelo:</label>
-                                    <input type="text" id="estado" name="estado">
+                            
+                                    <label for="email">Email:</label>
+                                    <input type="email" id="email" name="email">
+                            
                                 </div>
+                            
                             </div>
-                
-                            <label for="rua">Número Identificação:</label>
-                            <input type="text" id="rua" name="rua">
-                
-                            <button class="button-att2"type="button">Atualizar</button>
+
+                            <div class="horizontal-spaced">
+                            
+                                <div class="half-width spacing">
+                            
+                                    <label for="senha">Senha:</label>
+                                    <input type="password" id="senha" name="senha">
+                            
+                                </div>
+                            
+                                <div class="half-width">
+                            
+                                    <label for="cargo">Cargo:</label>
+                                    <input class="numero" type="number" id="cargo" name="cargo">
+                            
+                                </div>
+                            
+                            </div>
+                                
                         </div>
+                        
+                        <div class="cadastro-maquina">
+                       
+                            <h2 class="titulo-cadastrar">Nova Máquina</h2>
+                        
+                            <div class="content-spacing">
+                       
+                                <div class="horizontal-spaced">
+                       
+                                    <div class="half-width">
+                       
+                                        <label for="marca">Marca:</label>
+                                        <input type="text" id="marca" name="marca">
+                       
+                                    </div>
+                       
+                                    <div class="half-width">
+                       
+                                        <label for="modelo">Modelo:</label>
+                                        <input type="text" id="modelo" name="modelo">
+                       
+                                    </div>
+                       
+                                </div>
+                        
+                                <label for="num_identificacao">Número Identificação:</label>
+                                <input type="text" id="num_identificacao" name="num_identificacao">
+                       
+                            </div>
+                            
+                        </div>
+                        
+                    </div>                    
+                    <div class="div-button">
+                        <button class="button-att" type="button">Adicionar</button>
                     </div>
                 </div>
-                
-                
-                
-                
+            </div>
         </div>
     </section>
-    
+
     <script src="../js/dashboardOwner.js"></script>
-    <script src="../js/minMax.js"></script></body>
+    <script src="../js/minMax.js"></script>
 </body>
+</body>
+
 </html>

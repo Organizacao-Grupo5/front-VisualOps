@@ -62,25 +62,6 @@ CREATE TABLE maquina (
     PRIMARY KEY (idMaquina, fkUsuario)
 );
 
-CREATE TABLE app (
-    idApp INT PRIMARY KEY AUTO_INCREMENT,
-    nomeApp VARCHAR(45) NOT NULL,
-    dtInstalacao DATE NOT NULL,
-    ultimaAtualizacao DATE,
-    tamanhoMB DOUBLE(5,2)
-);
-
-CREATE TABLE app_acessado (
-    fkApp INT AUTO_INCREMENT,
-        CONSTRAINT fkAppApp_acessado FOREIGN KEY (fkApp) REFERENCES app(idApp),
-    fkMaquina INT NOT NULL,
-        CONSTRAINT fkMaquinaApp_acessado FOREIGN KEY (fkMaquina) REFERENCES maquina(idMaquina),
-    fkUsuario INT NOT NULL,
-        CONSTRAINT fkMaquinaUsuarioApp_acessado FOREIGN KEY (fkUsuario) REFERENCES maquina(fkUsuario),
-    PRIMARY KEY (fkApp, fkMaquina, fkUsuario),
-    hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP        
-);
-
 CREATE TABLE alertas(
     idAlertas INT PRIMARY KEY AUTO_INCREMENT,
     tipoAlertas VARCHAR(45) NOT NULL,

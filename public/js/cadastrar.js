@@ -1,20 +1,3 @@
-window.onload = async () => {
-    const slctPlano = document.getElementById('slctPlano');
-
-    const listaPlanos = await selecionarPlano();
-
-    console.log('LISTA PLANOS ==> ');
-    console.log(listaPlanos);
-
-    for (const pos in listaPlanos) {
-        if (Object.hasOwnProperty.call(listaPlanos, pos)) {
-            console.log("ENTROU NO IF");
-            slctPlano.innerHTML += `<option value="${listaPlanos[pos].nome}" itemid="${listaPlanos[pos].id}"></option>`
-        };
-    }
-    console.log('ACABOU O FOR.');
-}
-
 const tela = window.innerWidth;
 
 function voltar(){
@@ -175,7 +158,7 @@ function cadastrar() {
 
     const NOME_USUARIO = ipt_nome.value;
     const NOME_FANTASIA = ipt_nomeFantasia.value;
-    const PLANO = slctPlano.value;
+    const PLANO = slctPlano;
     const EMAIL = ipt_email.value;
     const SENHA = ipt_senha.value;
     const CLIENTE_TIPO = verficarRadio(); 
@@ -186,7 +169,7 @@ function cadastrar() {
     const COMPLEMENTO = ipt_complemento.value;
     
 
-    LISTA_CAMPOS.push(NOME_USUARIO, NOME_FANTASIA, PLANO, EMAIL, SENHA, CLIENTE_TIPO, CNPJ, LOUGRADOURO, CEP, NUMERO);
+    LISTA_CAMPOS.push(NOME_USUARIO, NOME_FANTASIA, EMAIL, SENHA, CLIENTE_TIPO, CNPJ, LOUGRADOURO, CEP, NUMERO);
 
     if (!validarCampos(LISTA_CAMPOS)) return false;
     

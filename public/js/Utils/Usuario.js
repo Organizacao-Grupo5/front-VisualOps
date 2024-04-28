@@ -44,6 +44,4 @@ async function cadastrarUsuario(CARGO) {
     
         throw error;
     }
-
-    return false;
 };

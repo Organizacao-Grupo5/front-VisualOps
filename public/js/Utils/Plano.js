@@ -1,4 +1,4 @@
-async function selecioarPlano() {
+async function selecionarPlano() {
     try {
         
         const response = await fetch("/plano/selecionar", {

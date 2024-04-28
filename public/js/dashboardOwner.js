@@ -217,16 +217,16 @@ function totalGrafico1() {
 
 function moverRight() {
 
-    aparecerPop(mensagem.charts, background, pop);
+    aparecerPop(mensagem.charts);
     
 }    
 
 function moverLeft() {
 
-    aparecerPop(mensagem.charts, background, pop);
+    aparecerPop(mensagem.charts);
 
 }
 
 background.addEventListener("click", () => {
-    aparecerPop(mensagem.charts, background, pop);
+    aparecerPop();
 });

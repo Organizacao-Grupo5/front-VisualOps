@@ -47,7 +47,7 @@ function adicionar() {
     
     if (verificarCampos(!LISTA_CAMPOS)) return false;
 
-    
+    cadastrarUsuario(CARGO);
     cadastrarMaquina();
 
 }

@@ -68,10 +68,23 @@ body {
   align-items: center;
 }
 
+.div-perfil{
+  display: flex;
+  width: 150px;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .header > nav > div > a:nth-child(1) {
     background-color: #416ae5;
     padding: 5px;
     border-radius: 5px;
+}
+
+.header > nav > div > .button-perfil:nth-child(1) {
+  background-color: #416ae5;
+  padding: 5px 20px;
+  border-radius: 5px;
 }
 
 .header > nav > div > a:nth-child(1):hover {

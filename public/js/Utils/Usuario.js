@@ -1,4 +1,4 @@
-function cadastrarUsuario(CARGO) {
+function cadastrarUsuario() {
 
     fetch("/usuario/cadastrar", {
         method: "POST",

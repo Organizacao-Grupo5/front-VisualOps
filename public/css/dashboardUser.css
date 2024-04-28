@@ -330,7 +330,15 @@ section{
     }
 }
 
-@keyframes slide-in-top{0%{transform:translateY(-1000px);opacity:0}100%{transform:translateY(0);opacity:1}}
+@keyframes slide-in-top{
+    0%{
+        transform:translateY(-1000px);
+        opacity:0
+    }100%{
+        transform:translateY(0);
+        opacity:1
+    }
+}
 
 
 /*código do Guilherme*/
@@ -339,16 +347,16 @@ section{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 94.55%;
+    width: 94.6%;
     height: 83%;
 }
 
 .name-content{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     color: white;
-    width: 15%;
+    width: 100%;
     height: 4%;
 }
 

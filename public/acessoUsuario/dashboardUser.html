@@ -19,6 +19,8 @@
 </head>
 
 <body>
+    <script src="../js/Utils/Rotas.js"></script>
+
     <section>
         <div id="sidebar" class="sidebar">
             <div id="top_sidebar" class="top-sidebar">
@@ -40,19 +42,19 @@
                 <h1 id="menu_title">MENU</h1>
                 <div class="chose-section">
                     <i class="fa-solid fa-chart-column" style="font-size: 15px;"></i>
-                    <button class="btn-section">DASHBOARD</button>
+                    <button class="btn-section" onclick="windowDashboardOwner()">DASHBOARD</button>
                 </div>
                 <div class="chose-section">
                     <i class="fa fa-line-chart" aria-hidden="true"></i>
-                        <button class="btn-section">DASHBOARD PESSOAL</button>
+                        <button class="btn-section" onclick="windowDashboardUser()">DASHBOARD PESSOAL</button>
                     </div>
                 <div class="chose-section">
                     <i class="fa-regular fa-user"></i>
-                    <button class="btn-section">PERFIL</button>
+                    <button class="btn-section" onclick="windowPerfil()">PERFIL</button>
                 </div>
                 <div class="chose-section">
                     <i class="fa fa-plus" aria-hidden="true"></i>
-                    <button class="btn-section">ADICIONAR</button>
+                    <button class="btn-section" onclick="windowCadastroUser()">ADICIONAR</button>
                 </div>
                 <div class="chose-section">
                     <i class="fa-solid fa-file-signature" style="font-size: 13px;"></i>
@@ -71,7 +73,7 @@
                 </div>
                 <div class="chose-section">
                     <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                    <button class="btn-section">SAIR</button>
+                    <button class="btn-section" onclick="windowSair()">SAIR</button>
                 </div>
             </div>
         </div>

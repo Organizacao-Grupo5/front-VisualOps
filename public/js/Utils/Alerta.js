@@ -4,7 +4,11 @@ const pop = document.getElementById("pop");
 const mensagem = {
     inicial: `OLÁ USUÁRIO, É UM PRAZER TÊ-LO CONOSCO, SUA DASHBOARD PESSOAL FOI PROJETADA SER TODA INTERATIVA, PORÊM AINDA ESTAMOS EM DESENVOLVIMENTO...<br><br>EM BREVE ESTARÁ DISPONÍVEL.`,
     charts: `FUNCIONALIDADE DESSA CHART AINDA NÂO DESENVOLVIDA.`,
-    tela: `TELA DE REDIRECIONAMENTO AINDA EM DESENVOLVIMENTO.`
+    tela: `TELA DE REDIRECIONAMENTO AINDA EM DESENVOLVIMENTO.`,
+    criacao: {
+        usuario: `Cadastro realizado com sucesso!`,
+        
+    }
 }
 
 function aparecerPop(mensagem) {

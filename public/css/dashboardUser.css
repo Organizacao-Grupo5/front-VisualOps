@@ -347,14 +347,13 @@ section{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 94.55%;
+    width: 94.6%;
     height: 83%;
 }
 
 .name-content{
     display: flex;
     align-items: center;
-    justify-content: center;
     color: white;
     width: 15%;
     height: 4%;
@@ -363,19 +362,20 @@ section{
 .chart-content{
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     width: 100%;
     height: 95%;
 }
 
 .graficos1-content{
+    background-color: white;
 
-    width: 40%;
+    width: 41%;
     height: 96%;
 
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     flex-direction: column;
 }
 
@@ -385,20 +385,8 @@ section{
     width: 80%;
 }
 
-.graficos1_1-content{
-    width: 100%;
-    height: 20%;
-    background-color: #fff;
-}
-
-.graficos1_2-content{
-    width: 100%;
-    height: 78%;
-    background-color: #fff;
-}
-
 .chart_first {
-    height: 100%;
+    height: 80%;
     width: 100%;
 }
 
@@ -407,7 +395,7 @@ section{
     flex-direction: column;
     justify-content: space-between;
     
-    width: 57%;
+    width: 58%;
     height: 96%;
 }
 

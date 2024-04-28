@@ -23,6 +23,7 @@ app.use("/plano", planoRouter);
 app.use(slackRouter);
 app.use("/usuario", usuarioRouter);
 
+
 app.listen(PORTA, function () {
     console.log(`Visualização é http://localhost:${PORTA}`)
 })

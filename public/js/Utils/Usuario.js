@@ -8,9 +8,9 @@ async function cadastrarUsuario(CARGO) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                nome: localStorage.getItem(NOME_USUARIO),
-                email: localStorage.getItem(EMAIL),
-                senha: localStorage.getItem(SENHA),
+                nome: localStorage.getItem('NOME_USUARIO'),
+                email: localStorage.getItem('EMAIL'),
+                senha: localStorage.getItem('SENHA'),
                 cargo: CARGO
             }),
         });
@@ -18,23 +18,25 @@ async function cadastrarUsuario(CARGO) {
         if (response.ok) {
             const dados = await response.json();
             console.log("RESPOSTA JSON: ", dados);
-
-            if (CARGO != 'freelancer')
-
+            
             mostrarMensagem(mensagem.criacao.usuario);
-
-            setTimeout(() => {
-                window.location = "login.html";
-            }, 1500);
+            
+            if (
+                CARGO == 'freelancer' ||
+                CARGO == 'dono'
+            ) {
+                setTimeout(() => {
+                    windowLogin();
+                }, 1500);
+            }
 
             return dados;
         } else {
-            console.error("Erro ao selecionar os planos.");
+            console.error("Erro ao criar o usuário.");
         
-            const mensagem = "Não foi possivel realizar o seu cadastro, por favor tente novamente!" 
-            mostrarMensagem(mensagem);
+            mostrarMensagem(mensagem.criacao.fracasso);
 
-            throw new Error("Erro ao selecionar os planos!");
+            throw new Error("Erro ao executar a criação do usuário!");
         }
 
     } catch (error) {

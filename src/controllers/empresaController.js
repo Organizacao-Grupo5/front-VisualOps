@@ -5,6 +5,8 @@ function cadastrar(req, res) {
     const cnpj = req.body.cnpj;
     const fkPlano = req.body.fkPlano
 
+    console.log(nome, cnpj, fkPlano)
+
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
     } else if (cnpj == undefined) {

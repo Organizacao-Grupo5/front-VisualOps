@@ -2,6 +2,8 @@ const first = document.getElementById("chart_1");
 const second = document.getElementById("chart_2");
 const third = document.getElementById("chart_horizontal"); 
 const colunas = document.getElementsByClassName('colunas_status');
+const background = document.getElementById("bg");
+const pop = document.getElementById("pop");
 
 function geradorNumeros() {
     const random = Math.round(Math.random() * 50) + 1;
@@ -215,13 +217,16 @@ function totalGrafico1() {
 
 function moverRight() {
 
-    aparecerPop(mensagem.charts);
+    aparecerPop(mensagem.charts, background, pop);
     
 }    
 
 function moverLeft() {
 
-    aparecerPop(mensagem.charts);
+    aparecerPop(mensagem.charts, background, pop);
 
 }
 
+background.addEventListener("click", () => {
+    aparecerPop(mensagem.charts, background, pop);
+});

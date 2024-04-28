@@ -1,16 +1,10 @@
-var usuarioModel = require("../models/usuarioModel");
+const usuarioModel = require("../models/usuarioModel");
 
 function cadastrar(req, res) {
-    var nome = req.body.nomeJSON;
-    var email = req.body.emailJSON;
-    var senha = req.body.senhaJSON;
-    // var cnpj = req.body.cnpjJSON;
-    // var fkPlano = req.body.fkPlanoJSON;
-    var fkCargos = req.body.fkCargosJSON;
-    var cep = req.body.cepJSON;
-    var logradouro = req.body.logradouroJSON;
-    var numero = req.body.numeroJSON;
-    var complemento = req.body.complementoJSON;
+    const nome = req.body.nome;
+    const email = req.body.email;
+    const senha = req.body.senha;
+    const cargo = req.body.cargo;
     
 
     if (nome == undefined) {
@@ -19,29 +13,21 @@ function cadastrar(req, res) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
-    } else if (fkCargos == undefined) {
+    } else if (cargo == undefined) {
         res.status(400).send("fkCargos está undefined!");
-    } 
-    else if (cep == undefined) {
-        res.status(400).send("Seu CEP está undefined!");
-    } else if (logradouro == undefined) {
-        res.status(400).send("Seu logradouro está undefined!");
-    } else if (numero == undefined) {
-        res.status(400).send("Seu número está undefined!");
-    }else if (complemento == undefined) {
-        res.status(400).send("Seu complemento está undefined!");
-    }
-    else {
-        usuarioModel.cadastrar(nome, email, senha, fkCargos, cep, logradouro, numero, complemento).then(function (resposta) {
-            res.status(200).send("Cadastro criado com sucesso");
-        }).catch(function (erro) {
-            res.status(500).json(erro.sqlMessage);
-        })
-    }
+    } else {
+        usuarioModel.cadastrar(nome, email, senha, cargo)
+        .then(resposta => {
 
-    // if (fkPlano == undefined) {
-    //     res.status(400).send("fkPlano está undefined!");
-    // }
+            res.status(200).send("Cadastro criado com sucesso");
+        
+        })
+        .catch(erro => {
+
+            res.status(500).json(erro.sqlMessage);
+        
+        });
+    }
 }
 
 function autenticar(req, res) {
@@ -54,10 +40,11 @@ function autenticar(req, res) {
         res.status(400).send("Sua senha está indefinida!");
     } else {
         usuarioModel.autenticar(email, senha)
-            .then(
-                function (resultadoAutenticar) {
+            .then(resultadoAutenticar => {
+
                     console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
                     console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`);
+                
                     if (resultadoAutenticar.length == 1) {
                         console.log(resultadoAutenticar);
 
@@ -83,7 +70,9 @@ function autenticar(req, res) {
             ).catch(
                 function (erro) {
                     console.log(erro);
+
                     console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+                    
                     res.status(500).json(erro.sqlMessage);
                 }
             );

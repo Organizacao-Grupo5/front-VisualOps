@@ -1,17 +1,19 @@
-// window.onload = async () => {
-//     const slctPlano = document.getElementById('slctPlano');
+window.onload = async () => {
+    const slctPlano = document.getElementById('slctPlano');
 
-//     const listaPlanos = await selecioarPlano();
+    const listaPlanos = await selecionarPlano();
 
-//     console.log(listaPlanos);
+    console.log('LISTA PLANOS ==> ');
+    console.log(listaPlanos);
 
-//     for (const pos in listaPlanos) {
-//         if (Object.hasOwnProperty.call(listaPlanos, pos)) {
-         
-//             slctPlano.innerHTML += `<option value="${listaPlanos[pos].nome}" itemid="${listaPlanos[pos].id}"></option>`
-//         };
-//     }
-// }
+    for (const pos in listaPlanos) {
+        if (Object.hasOwnProperty.call(listaPlanos, pos)) {
+            console.log("ENTROU NO IF");
+            slctPlano.innerHTML += `<option value="${listaPlanos[pos].nome}" itemid="${listaPlanos[pos].id}"></option>`
+        };
+    }
+    console.log('ACABOU O FOR.');
+}
 
 const tela = window.innerWidth;
 
@@ -184,7 +186,7 @@ function cadastrar() {
     const COMPLEMENTO = ipt_complemento.value;
     
 
-    LISTA_CAMPOS.push(NOME_USUARIO, NOME_FANTASIA, PLANO, EMAIL, SENHA, LOUGRADOURO, CEP, NUMERO);
+    LISTA_CAMPOS.push(NOME_USUARIO, NOME_FANTASIA, PLANO, EMAIL, SENHA, CLIENTE_TIPO, CNPJ, LOUGRADOURO, CEP, NUMERO);
 
     if (!validarCampos(LISTA_CAMPOS)) return false;
     
@@ -197,7 +199,7 @@ function cadastrar() {
     localStorage.setItem('NUMERO', NUMERO);
     localStorage.setItem('COMPLEMENTO', COMPLEMENTO);
     
-    cadastrarEmpresa(NOME_FANTASIA, CNPJ, 1);
+    cadastrarEmpresa(NOME_FANTASIA, CNPJ, PLANO);
     cadastrarEndereco();
     cadastrarUsuario(CLIENTE_TIPO);
 }

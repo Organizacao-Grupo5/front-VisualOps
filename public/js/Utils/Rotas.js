@@ -17,3 +17,7 @@ function windowCadastroUser(){
 function windowSair(){
     window.location = "indexlogado.html"
 }
+
+function windowLogin() {
+    window.location = "login.html"
+}

@@ -19,7 +19,7 @@ function cadastrar(req, res) {
         usuarioModel.cadastrar(nome, email, senha, cargo)
         .then(resposta => {
 
-            res.status(200).send("Cadastro criado com sucesso");
+            res.status(200).json(resposta);
         
         })
         .catch(erro => {

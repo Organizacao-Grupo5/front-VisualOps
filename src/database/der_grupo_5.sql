@@ -12,7 +12,7 @@ CREATE TABLE plano (
 CREATE TABLE empresa (
     idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(50),
-    cnpj CHAR(14),
+    cnpj CHAR(18),
     fkPlano INT,
     constraint fkPlano foreign key (fkPlano) references plano(idPlano)
 );
@@ -32,7 +32,7 @@ CREATE TABLE endereco (
 CREATE TABLE usuario (
     idUsuario INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(60) NOT NULL,
-    email VARCHAR(60) NOT NULL,
+    email VARCHAR(60) NOT NULL UNIQUE,
     senha VARCHAR(45) NOT NULL,
     cargo varchar(45),
     fkEmpresa INT NOT NULL, 

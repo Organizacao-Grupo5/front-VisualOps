@@ -12,7 +12,7 @@ function cadastrarEndereco() {
             bairro: localStorage.getItem('BAIRRO'),
             estado: localStorage.getItem('ESTADO'),
             complemento: sessionStorage.getItem('COMPLEMENTO'),
-            fkEmpresa: sessionStorage.getItem('CNPJ')
+            // fkEmpresa: sessionStorage.getItem('CNPJ')
         }),
     }).then(resposta => {
         console.log("resposta: ", resposta);

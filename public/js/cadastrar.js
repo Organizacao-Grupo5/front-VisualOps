@@ -99,14 +99,14 @@ function validarCampos(LISTA_CAMPOS) {
             mostrarMensagem(`Os campos não podem estar vazios.`);
             validacaoCampos = false;
             break;
-        } else if (!(LISTA_CAMPOS[3].includes("@hotmail.com") || 
-                LISTA_CAMPOS[3].includes("@gmail.com") || 
-                LISTA_CAMPOS[3].includes("@outlook.com") || 
-                LISTA_CAMPOS[3].includes("@sptech.school"))) {
+        } else if (!(LISTA_CAMPOS[2].includes("@hotmail.com") || 
+                LISTA_CAMPOS[2].includes("@gmail.com") || 
+                LISTA_CAMPOS[2].includes("@outlook.com") || 
+                LISTA_CAMPOS[2].includes("@sptech.school"))) {
             mostrarMensagem(`Esse Email é inválido.`)
             validacaoCampos = false;
             break;
-        } else if (!new RegExp("^(?=.*\\d)(?=.*[^\\w\\s])(?=.*[A-Z])(?=.*[a-z]).*$").test(LISTA_CAMPOS[4])) {
+        } else if (!new RegExp("^(?=.*\\d)(?=.*[^\\w\\s])(?=.*[A-Z])(?=.*[a-z]).*$").test(LISTA_CAMPOS[3])) {
             mostrarMensagem('A Senha deve conter letras MAIÚSCULAS, minúsculas, números e símbolos');
             validacaoCampos = false;
             break;
@@ -158,7 +158,7 @@ function cadastrar() {
 
     const NOME_USUARIO = ipt_nome.value;
     const NOME_FANTASIA = ipt_nomeFantasia.value;
-    const PLANO = slctPlano;
+    const PLANO = slctPlano[slctPlano.selectedIndex].dataset.id;
     const EMAIL = ipt_email.value;
     const SENHA = ipt_senha.value;
     const CLIENTE_TIPO = verficarRadio(); 

@@ -4,26 +4,18 @@ const janela = {
 }
 
 
-function cadastro() {
-
+function cadastro() { 
     window.onload = async () => {
 
-        console.log('NÂO ESTÁ ENTRANDO AQUI <======>')
         const slctPlano = document.getElementById('slctPlano');
-
         
         const listaPlanos = await selecionarPlano();
 
         for (let plano of Object.values(listaPlanos)) {
             
-            if (plano) {
-            
-                console.log(plano);
-                slctPlano.innerHTML += `<option value="${plano.nome}" itemid="${plano.idPlano}">${plano.nome}</option>`
-            };
+            if (plano) slctPlano.innerHTML += `<option value="${plano.nome}" data-id="${plano.idPlano}">${plano.nome}</option>`
 
         }
-        console.log('ACABOU O FOR.');
     };
 
 } 

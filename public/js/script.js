@@ -75,6 +75,8 @@ function exporCard(card) {
     card.style.cursor = "";
 }
 
+window.addEventListener("resize", verificaTamanho);
+window.onload = verificaTamanho;
 
 // CARROSSEL NOSSA EQUIPE
 
@@ -146,7 +148,7 @@ cardJulia.addEventListener("click", () => {
     if (tela > 1040 || tela < 710) {
     
         carrosselEquipe.style.marginLeft = "0"; 
-        carrosselEquipe.style.marginRight = "35%"; 
+        carrosselEquipe.style.marginRight = "35%";  
         exporCardEquipe(cardGuilherme);
         ocultaCardEquipe(cardClaudio);
         ocultaCardEquipe(cardDiego);

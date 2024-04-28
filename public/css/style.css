@@ -454,7 +454,6 @@ body {
   flex-direction: column;
   padding: 10px;
   text-align: center;
-  border: solid 5px firebrick;
 }
 
 .fundobox-nossa-equipe {
@@ -464,7 +463,6 @@ body {
   height: 40px;
   background-color: white;
   margin-top: -50px;
-  border: solid 5px forestgreen;
 }
 
 .container-nossa-equipe {
@@ -474,7 +472,6 @@ body {
   box-sizing: border-box;
   height: 600px;
   overflow: hidden;
-  border: solid 5px fuchsia;
 }
 
 

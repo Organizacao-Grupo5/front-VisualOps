@@ -3,7 +3,7 @@ const mensagem = {
     charts: `FUNCIONALIDADE DESSA CHART AINDA NÂO DESENVOLVIDA.`,
     tela: `TELA DE REDIRECIONAMENTO AINDA EM DESENVOLVIMENTO.`,
     criacao: {
-        sucesso: `Cadastro realizado com sucesso!`,
+        sucesso: `Parabéns, Criação realizada com sucesso!`,
         fracasso: `Não foi possivel realizar o seu cadastro, por favor tente novamente!`,
     }
 }

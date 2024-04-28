@@ -152,7 +152,7 @@ function verficarRadio() {
     return '';
 } 
 
-function cadastrar() {
+async function cadastrar() {
     
     const LISTA_CAMPOS = [];
 
@@ -173,17 +173,17 @@ function cadastrar() {
 
     if (!validarCampos(LISTA_CAMPOS)) return false;
     
-    sessionStorage.setItem('CARGO', CLIENTE_TIPO);
-    localStorage.setItem('NOME_USUARIO', NOME_USUARIO);
-    localStorage.setItem('EMAIL', EMAIL);
-    localStorage.setItem('SENHA', SENHA);
-    localStorage.setItem('LOUGRADOURO', LOUGRADOURO);
-    localStorage.setItem('CEP', CEP); 
-    localStorage.setItem('NUMERO', NUMERO);
-    localStorage.setItem('COMPLEMENTO', COMPLEMENTO);
+    localStorage.setItem('CARGO', CLIENTE_TIPO);
+    sessionStorage.setItem('NOME_USUARIO', NOME_USUARIO);
+    sessionStorage.setItem('EMAIL', EMAIL);
+    sessionStorage.setItem('SENHA', SENHA);
+    sessionStorage.setItem('LOUGRADOURO', LOUGRADOURO);
+    sessionStorage.setItem('CEP', CEP); 
+    sessionStorage.setItem('NUMERO', NUMERO);
+    sessionStorage.setItem('COMPLEMENTO', COMPLEMENTO);
     
-    cadastrarEmpresa(NOME_FANTASIA, CNPJ, PLANO);
-    cadastrarEndereco();
-    cadastrarUsuario(CLIENTE_TIPO);
+    await cadastrarEmpresa(NOME_FANTASIA, CNPJ, PLANO);
+    await cadastrarEndereco();
+    await cadastrarUsuario(CLIENTE_TIPO);
 }
 

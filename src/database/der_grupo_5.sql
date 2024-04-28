@@ -19,7 +19,7 @@ CREATE TABLE empresa (
 
 CREATE TABLE endereco (
     idEndereco INT PRIMARY KEY AUTO_INCREMENT,
-    cep CHAR(8) NOT NULL,
+    cep CHAR(9) NOT NULL,
     logradouro VARCHAR(60) NOT NULL,
     numero VARCHAR(4) NOT NULL,
     bairro VARCHAR(40),

@@ -5,6 +5,7 @@ function cadastrar(req, res) {
     const email = req.body.email;
     const senha = req.body.senha;
     const cargo = req.body.cargo;
+    const fkEmpresa = req.body.fkEmpresa;
     
 
     if (nome == undefined) {
@@ -15,8 +16,10 @@ function cadastrar(req, res) {
         res.status(400).send("Sua senha está undefined!");
     } else if (cargo == undefined) {
         res.status(400).send("fkCargos está undefined!");
+    } else if (fkEmpresa == undefined) {
+        res.status(400).send("fkEmpresa está undefined!");
     } else {
-        usuarioModel.cadastrar(nome, email, senha, cargo)
+        usuarioModel.cadastrar(nome, email, senha, cargo, fkEmpresa)
         .then(resposta => {
 
             res.status(200).json(resposta);
@@ -24,6 +27,8 @@ function cadastrar(req, res) {
         })
         .catch(erro => {
 
+            console.log("Houve um erro ao criar o usuário! Erro: ", erro);
+                    
             res.status(500).json(erro.sqlMessage);
         
         });

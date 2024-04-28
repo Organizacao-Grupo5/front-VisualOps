@@ -1,7 +1,8 @@
 const database = require("../database/config");
 
-function cadastrar(cnpj, logradouro, cep, numero, complemento) {
-    const instrucao = `INSERT INTO endereco (cnpj, logradouro, cep, numero, complemento) VALUES ('${cnpj}', '${logradouro}', ${cep}, '${numero}', '${complemento}')`;
+function cadastrar(cep, logradouro, numero, bairro, estado, complemento, fkEmpresa) {
+    const instrucao = `INSERT INTO endereco (cep, logradouro, numero, bairro, estado, complemento, fkEmpresa) VALUES ('${cep}', '${logradouro}', '${numero}', '${bairro}', '${estado}', '${complemento}', ${fkEmpresa})`;
+    
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }

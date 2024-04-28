@@ -14,13 +14,11 @@ function cadastrar(req, res) {
     } else {
         empresaModel.cadastrar(nome, cnpj, fkPlano)
         .then(resposta => {
+            const id = resposta.insertId;
 
-                if (resposta.ok) {
-                    console.log("Empresa criada com sucesso!!", resposta);
-                
-                };
+            const obj = JSON.stringify(resposta);
 
-            res.status(200).json(resposta);
+            res.status(200).json({'resposta': resposta, 'id': id});
         
         }).catch(function (erro) {
             console.log('Erro no mysql => ', erro);

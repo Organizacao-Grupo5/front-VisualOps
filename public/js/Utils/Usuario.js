@@ -8,18 +8,22 @@ async function cadastrarUsuario(CARGO) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                nome: localStorage.getItem('NOME_USUARIO'),
-                email: localStorage.getItem('EMAIL'),
-                senha: localStorage.getItem('SENHA'),
-                cargo: CARGO
+                nome: sessionStorage.getItem('NOME_USUARIO'),
+                email: sessionStorage.getItem('EMAIL'),
+                senha: sessionStorage.getItem('SENHA'),
+                cargo: CARGO,
+                fkEmpresa: sessionStorage.getItem('fkEmpresa') 
             }),
         });
 
+        sessionStorage.removeItem('fkEmpresa')
+
         if (response.ok) {
+
             const dados = await response.json();
-            console.log("RESPOSTA JSON: ", dados);
+            console.log("RESPOSTA : ", response);
             
-            mostrarMensagem(mensagem.criacao.usuario);
+            mostrarMensagem(mensagem.criacao.sucesso);
             
             if (
                 CARGO == 'freelancer' ||
@@ -30,7 +34,7 @@ async function cadastrarUsuario(CARGO) {
                 }, 1500);
             }
 
-            return dados;
+            return response;
         } else {
             console.error("Erro ao criar o usuário.");
         

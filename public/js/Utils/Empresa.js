@@ -1,32 +1,36 @@
-function cadastrarEmpresa(NOME_FANTASIA, CNPJ, PLANO) {
+async function cadastrarEmpresa(NOME_FANTASIA, CNPJ, PLANO) {
 
-    fetch("/empresa/cadastrar", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            nome: NOME_FANTASIA,
-            cnpj: CNPJ,
-            fkPlano: PLANO
-        }),
-    }).then(resposta => {
-        console.log("resposta: ", resposta);
+    try {
+        
+        const response = await fetch("/empresa/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nome: NOME_FANTASIA,
+                cnpj: CNPJ,
+                fkPlano: PLANO
+            }),
+        });
 
-        if (resposta.ok) {
-            const mensagem = "Cadastro realizado com sucesso!";
-            mostrarMensagem(mensagem);
+        if (response.ok) {
 
-            return resposta;
+            const dados = await response.json();
+            console.log("REPONSTA : ", response);
+        
+            sessionStorage.setItem("fkEmpresa", dados.id);
+
+            return response;
         } else {
-            const mensagem = "Não foi possivel cadastrar a empresa, por favor tente novamente!";
-            mostrarMensagem(mensagem);
+            console.error("Erro ao criar o usuário.");
 
-            throw "Houve um erro ao tentar realizar o cadastro!"
+            throw new Error("Erro ao executar a criação da empresa!");
         }
-    }).catch(resposta => {
-        console.log('#ERRO: ', resposta);
-    });
 
-    return false;
+    } catch (error) {
+        console.log("Erro desconhecido na API ", error);
+
+        throw error;
+    }
 };

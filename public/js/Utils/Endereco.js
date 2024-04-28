@@ -6,26 +6,31 @@ function cadastrarEndereco() {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            cep: localStorage.getItem('CEP'),
-            logradouro: localStorage.getItem('LOUGRADOURO'),
-            numero: localStorage.getItem('NUMERO'),
-            bairro: localStorage.getItem('BAIRRO'),
-            estado: localStorage.getItem('ESTADO'),
+            cep: sessionStorage.getItem('CEP'),
+            logradouro: sessionStorage.getItem('LOUGRADOURO'),
+            numero: sessionStorage.getItem('NUMERO'),
+            bairro: sessionStorage.getItem('BAIRRO') ?? '',
+            estado: sessionStorage.getItem('ESTADO') ?? '',
             complemento: sessionStorage.getItem('COMPLEMENTO'),
-            // fkEmpresa: sessionStorage.getItem('CNPJ')
+            fkEmpresa: sessionStorage.getItem('fkEmpresa')
         }),
     }).then(resposta => {
-        console.log("resposta: ", resposta);
+        sessionStorage.removeItem('CEP');
+        sessionStorage.removeItem('LOUGRADOURO');
+        sessionStorage.removeItem('NUMERO');
+        sessionStorage.removeItem('BAIRRO');
+        sessionStorage.removeItem('ESTADO');
+        sessionStorage.removeItem('COMPLEMENTO');
+
+        console.log('SessionStorage Endereço Limpo!');
 
         if (resposta.ok) {
-            const mensagem = "Cadastro realizado com sucesso!";
-            mostrarMensagem(mensagem);
+            console.log(mensagem.criacao.sucesso);
 
         } else {
-            const mensagem = "Não foi possivel cadastrar a empresa, por favor tente novamente!";
-            mostrarMensagem(mensagem);
+            console.log(mensagem.criacao.fracasso);
 
-            throw "Houve um erro ao tentar realizar o cadastro!"
+            throw "Houve um erro ao tentar realizar o cadastro!";
         }
     }).catch(resposta => {
         console.log('#ERRO: ', resposta);

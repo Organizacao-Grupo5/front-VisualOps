@@ -21,3 +21,11 @@ function windowSair(){
 function windowLogin() {
     window.location = "login.html"
 }
+
+function entrarDash() {
+    window.location = "acesso/dashboardOwner.html";
+}
+
+function entrarPerfil() {
+    window.location = "acesso/dashboardPerfil.html";
+}

@@ -25,10 +25,10 @@ function cadastrarEndereco() {
         console.log('SessionStorage Endereço Limpo!');
 
         if (resposta.ok) {
-            console.log(mensagem.criacao.sucesso);
+            console.log(mensagem.tela.cadastro.sucesso);
 
         } else {
-            console.log(mensagem.criacao.fracasso);
+            console.log(mensagem.tela.cadastro.fracasso);
 
             throw "Houve um erro ao tentar realizar o cadastro!";
         }

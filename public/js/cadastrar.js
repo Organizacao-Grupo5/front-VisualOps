@@ -4,6 +4,18 @@ function voltar(){
     window.location = "index.html";
 }
 
+window.onload = async () => {
+    const slctPlano = document.getElementById('slctPlano');
+    
+    const listaPlanos = await selecionarPlano();
+
+    for (let plano of Object.values(listaPlanos)) {
+        
+        if (plano) slctPlano.innerHTML += `<option value="${plano.nome}" data-id="${plano.idPlano}">${plano.nome}</option>`
+
+    }
+}
+
 function mudarVisibilidade() {
     const campoSenha = document.getElementById("ipt_senha");
     const olho = document.getElementById("olho");
@@ -15,19 +27,6 @@ function mudarVisibilidade() {
         olho.innerHTML = "visibility";
         campoSenha.type = "password";
     }
-}
-
-function mostrarMensagem(newMensagem) {
-    const divMsg = document.querySelector(".div-mensagem");
-    divMsg.style.display = 'block';
-
-    let mensagem = idMensagem;
-
-    mensagem.innerHTML = newMensagem;
-    
-    setTimeout(() => {
-        divMsg.style.display = 'none';
-    }, 3000)
 }
 
 function modificarCnpj(event) {

@@ -45,42 +45,33 @@ function autenticar(req, res) {
         res.status(400).send("Sua senha está indefinida!");
     } else {
         usuarioModel.autenticar(email, senha)
-            .then(resultadoAutenticar => {
+        .then(resultadoAutenticar => {
 
-                    console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
-                    console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`);
+            console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`);
+        
+            if (resultadoAutenticar.length == 1) {
+
+                res.json({
+                    id: resultadoAutenticar[0].id,
+                    email: resultadoAutenticar[0].email,
+                    nome: resultadoAutenticar[0].nome,
+                    senha: resultadoAutenticar[0].senha
+
+                });
                 
-                    if (resultadoAutenticar.length == 1) {
-                        console.log(resultadoAutenticar);
+            } else {
+                console.log("Erro nenhum usuário encontrado com essas informações!");
 
-                        if (resultadoAutenticar.length == 1) {
+                res.status(400).send("Erro não foi possível encontrar usuário com esse email e senha!");
+            }
+        })
+        .catch (erro =>  {
+            console.log(erro);
 
-                            console.log(resultadoAutenticar);
-
-                            res.json({
-                                id: resultadoAutenticar[0].id,
-                                email: resultadoAutenticar[0].email,
-                                nome: resultadoAutenticar[0].nome,
-                                senha: resultadoAutenticar[0].senha
-
-                            });
-
-                        } else if (resultadoAutenticar.length == 0) {
-                            res.status(403).send("Email e/ou senha inválido(s)");
-                        } else {
-                            res.status(403).send("Mais de um usuário com o mesmo login e senha!");
-                        }
-                    }
-                }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-
-                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
-                    
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
+            console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+            
+            res.status(500).json(erro.sqlMessage);
+        });
     }
 }
 

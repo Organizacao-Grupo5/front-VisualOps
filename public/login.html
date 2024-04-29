@@ -12,11 +12,8 @@
     
     <link rel="stylesheet" href="js/login.js">
 
-    <script src="https://unpkg.com/jwt-decode@3.1.2/build/jwt-decode.js"></script>
-
-    <script src="https://accounts.google.com/gsi/client" async></script>
-    
 </head>
+
 <body>
     <script src="js/GoogleSlack.js"></script>
 
@@ -44,11 +41,11 @@
                     <button class="btn-login btn-bottom" onclick="entrar()">LOGIN</button>
                     <span class="esconder-ou-desk">OU</span>
                     <section class="slack-google">
-                        <button class="btn-slack btn-bottom" id="btSlack">
+                        <button class="btn-slack btn-bottom" onclick="auth('slack')">
                             <img src="assets/img/slack.png" alt="imagem slack">
                             SLACK
                         </button>
-                        <button class="btn-bottom" id="btGoogle">
+                        <button class="btn-bottom" onclick="auth('google')">
                             <img src="./assets/img/google.png" alt="imagem google">
                             GOOGLE
                         </button>
@@ -67,5 +64,10 @@
     </main>
     <div class="fio-direito"></div>
 </body>
+<script src="js/Utils/Alerta.js"></script>
+<script src="js/Utils/Usuario.js"></script>
+<script src="js/Utils/Rotas.js"></script>
 <script src="js/login.js"></script>
+<script src="js/GoogleSlack.js"></script>    
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 </html>

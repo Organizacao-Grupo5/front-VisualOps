@@ -1,10 +1,10 @@
 async function selecionarPlano() {
-    try {
-        
+    
+    try {    
         const response = await fetch("/plano/selecionar", {
             method: 'GET',
             headers: {
-                'Content-Type': 'applicatino/json' 
+                'Content-Type': 'application/json' 
             },
         });
 

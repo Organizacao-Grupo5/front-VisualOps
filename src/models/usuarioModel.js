@@ -8,7 +8,7 @@ function cadastrar(nome, email, senha, cargo, fkEmpresa) {
 }
 
 function autenticar(email, senha) {
-    var instrucao = `SELECT idUsuario as id, nome, email, senha FROM usuario WHERE email = '${email}' AND senha = '${senha}'`;
+    var instrucao = `SELECT idUsuario as id, nome, email FROM usuario WHERE email = '${email}' AND senha = '${senha}'`;
     
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

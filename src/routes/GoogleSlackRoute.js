@@ -12,9 +12,9 @@ router.get('/slack/auth', (req, res) => {
 
 });
 
-router.get('/google/auth', (req, res) => {
+router.post('/google/auth', (req, res) => {
 
-    controllers.entrar(req, res);
+    controllers.credential(req, res);
     
 });
 

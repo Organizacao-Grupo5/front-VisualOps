@@ -53,8 +53,7 @@
                     </label>
                     <label for="slctPlano">
                         <p>Plano</p>
-                        <select name="slctPlano" id="slctPlano">
-                        </select>
+                        <select name="slctPlano" id="slctPlano"></select>
                     </label>
                     <label for="ipt_cep">
                         <p>CEP</p>
@@ -76,12 +75,12 @@
                 <div class="campo-btns">
                     <button class="btn-cadastrar btn-bottom" onclick="cadastrar()">CADASTRAR</button>
                     <section class="slack-google esconder">
-                        <button class="btn-slack btn-bottom" id="btSlack">
+                        <button class="btn-slack btn-bottom" id="btSlack" onclick="auth('slack')">
                             <img src="assets/img/slack.png" alt="imagem slack">
                             SLACK
                         </button>
                         <span class="esconder-ou-desk esconder">OU</span>
-                        <button id="btGoogle" class="btn-bottom bt-google">
+                        <button id="btGoogle" class="btn-bottom bt-google" onclick="auth('google')">
                             <img src="./assets/img/google.png" alt="imagem google">
                             GOOGLE
                         </button>

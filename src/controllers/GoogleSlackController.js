@@ -1,4 +1,6 @@
+const { jwtDecode } = require('jwt-decode');
 const usuario = require( '../models/usuarioModel' )
+
 
 async function callback(req, res) {
     
@@ -49,53 +51,6 @@ async function callback(req, res) {
     }
     
 }
-
-function credentialResponse(response) {
- 
-    try {
-        
-        const credential = jwt_decode(response.credential);
-
-        const objetoGoogle = {
-            Nome: credential.name,
-            Email: credential.email,
-            Id: credential.sub
-        };
-
-        verificarUsuario(objetoGoogle);
-
-        console.log( 'Tudo funcionou corretamente!!\nInformações: ' + objetoGoogle );
-
-    } catch (error) {
-
-        console.error('Erro ao decodificar o token JWT: ', error);
-        throw new Error('Erro ao decodificar o token JWT');
-    
-    }
-
-}
-
-function entrar(req, res) {
-
-    try {
-        
-        google.accounts.id.initialize({
-            client_id: "922098160989-41dl6iquosgboclmnllal5v4krnlrl4g.apps.googleusercontent.com",
-            callback: credentialResponse
-        });
-        google.accounts.id.prompt();
-
-        res.status(200).send('Autenticação iniciada.');
-    
-    } catch (error) {
-        
-        console.error('Erro ao inciar a autenticação: ', error);
-        res.status(500).send('Erro ao iniciar a autenticação.');
-
-    }
-
-}
-
 function verificarUsuarioSlack(obj) {
     
     let listaUsuario = [];
@@ -137,4 +92,20 @@ function verificarUsuarioSlack(obj) {
 
 }
 
-module.exports = { callback, entrar };
+function credential (req, res) {
+
+    const response = req.body;
+
+    const credential = jwtDecode(response.credential);
+
+    const objetoGoogle = {
+        Nome: credential.name,
+        Email: credential.email,
+        Id: credential.sub
+    };
+    
+    res.status(200).json(objetoGoogle);
+
+}
+
+module.exports = { callback, credential };

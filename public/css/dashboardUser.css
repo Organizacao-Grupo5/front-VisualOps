@@ -368,7 +368,7 @@ section{
 }
 
 .graficos1-content{
-    background-color: white;
+    background-color: #314161;
 
     width: 41%;
     height: 96%;
@@ -377,6 +377,99 @@ section{
     align-items: center;
     justify-content: space-evenly;
     flex-direction: column;
+}
+
+.graficos1-1-content{
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 95%;
+    height: 11%;
+}
+
+
+.relatorio-ultimo-mes{
+    color: white;
+    font-size: 14px;
+    width: 45%;
+    height: 50%;
+    background-color: #449ADE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.graficos1-2-content{
+    width: 95%;
+    height: 19%;
+    background-color: #449ADE;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.componente-relatorio{
+ width: 20%;
+ height: 100%;
+
+ display: flex;
+ justify-content: center;
+ flex-direction: column;
+ cursor: pointer;
+}
+
+.nome-componente-relatorio{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    color: white;
+}
+
+.imagem-componente-relatorio{
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+    background-color: #293768;
+    width: 70%;
+    height: 70%;
+    border-radius: 10px;
+}
+
+.imagem-componente-relatorio div{
+    width: 85%;
+    height: 85%;
+    background-color: #1A1735;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.imagem-componente-relatorio img{
+    width: 70%;
+}
+
+.graficos1-3-content{
+    width: 100%;
+    height: 71%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart-componente-relatorio{
+    width: 85%;
+}
+
+.chart-componente-relatorio canvas{
+    height: 350px;
 }
 
 .graficos1-content > h3 {
@@ -402,7 +495,8 @@ section{
 .graficos2-content{
     display: flex;
     flex-direction: column;
-    background-color: #fff;
+    background-color: #314161;
+    ;
     
     width: 100%;
     height: 47%;
@@ -411,15 +505,16 @@ section{
 .graficos3-content{
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     width: 100%;
     height: 51%;
     
-    background-color: #fff;
+    background-color: #314161;
 }
 
 .label-chart-porcentagem-uso{
     margin: 1% 0 1% 1% ;
-    color: black;
+    color: #FFFFFF;
 }
 
 .chart-porcentagem-uso{
@@ -448,6 +543,7 @@ section{
 .titulo-historico{
     margin: 1% 0 0 1%;
     width: 75%;
+    color: #fff;
 }
 
 .botoes-historico{
@@ -456,5 +552,65 @@ section{
     flex-direction: row;
     width: 25%;
 }
+
+.botoes-historico img{
+    width: 14%;
+    margin-top: 2.5%;
+    cursor: pointer;
+}
+
+ .seta1{
+    transform: scaleX(-1);
+ }
+
+.container-historico-dados-componente{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    height: 88%;
+}
+
+.chart-historico-desempenho{
+    width: 50%;
+    height: 100%;
+}
+
+.chart-historico-desempenho canvas{
+    height: 230px;
+    width: 350px;
+}
+
+.container-dados-componente{
+    width: 30%;
+    height: 93%;
+    padding: 1%;
+    background-color: #293768;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 8px;
+}
+
+.container-dados-componente div{
+    align-self: center;
+    color: white;
+}
+
+.container-dados-componente li{
+   height: 85%;
+   color: white;
+   text-decoration: none;
+   list-style-type: none;
+}
+
+.container-dados-componente li ul{
+    padding: 2%;
+ }
+
+ .ulValorComponente{
+    font-size: 13px;
+ }
+
+
 
 /*código do Guilherme*/

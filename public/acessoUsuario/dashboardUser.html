@@ -5,17 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | VisualOps</title>
-    
+
     <link rel="stylesheet" href="../css/dashboardUser.css">
     <link rel="icon" href="../assets/favicon/logofundo-azul.ico">
 
     <script src="https://kit.fontawesome.com/265fd07209.js" crossorigin="anonymous"></script>
 
-    
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
-    
+
 </head>
 
 <body>
@@ -46,8 +46,8 @@
                 </div>
                 <div class="chose-section">
                     <i class="fa fa-line-chart" aria-hidden="true"></i>
-                        <button class="btn-section" onclick="windowDashboardUser()">DASHBOARD PESSOAL</button>
-                    </div>
+                    <button class="btn-section" onclick="windowDashboardUser()">DASHBOARD PESSOAL</button>
+                </div>
                 <div class="chose-section">
                     <i class="fa-regular fa-user"></i>
                     <button class="btn-section" onclick="windowPerfil()">PERFIL</button>
@@ -94,18 +94,49 @@
                     <h1 style="font-size: 0.5em;">FERNANDA<br>SPTECHSCHOOL</h1>
                 </div>
             </nav>
-            
+
             <div class="name-chart-content">
                 <div class="name-content">
                     <div>Dashboard Pessoal</div>
                 </div>
                 <div class="chart-content">
                     <div class="graficos1-content">
-                        <div class="graficos1_1-content">
-                            
+                        <div class="graficos1-1-content">
+                            <div class="titulo-relatiorio">DESEMPENHO</div>
+                            <div class="relatorio-ultimo-mes">RELATÓRIO DO ÚLTIMO MÊS</div>
                         </div>
-                        <div class="graficos1_2-content">
-                            
+                        <div class="graficos1-2-content">
+                            <div class="componente-relatorio" onclick="atualizaGraficoRelatorio(0)">
+                                <div class="nome-componente-relatorio">RAM</div>
+                                <div class="imagem-componente-relatorio">
+                                    <div><img src="../assets/img/icone-memoria-ram.png" alt=""></div>
+                                </div>
+                            </div>
+                            <div class="componente-relatorio" onclick="atualizaGraficoRelatorio(1)">
+                                <div class="nome-componente-relatorio">CPU</div>
+                                <div class="imagem-componente-relatorio">
+                                    <div><img src="../assets/img/icone-CPU.png" alt=""></div>
+                                </div>
+                            </div>
+                            <div class="componente-relatorio" onclick="atualizaGraficoRelatorio(2)">
+                                <div class="nome-componente-relatorio">GPU</div>
+                                <div class="imagem-componente-relatorio">
+                                    <div><img src="../assets/img/icone-GPU.png" alt=""></div>
+                                </div>
+                            </div>
+                            <div class="componente-relatorio" onclick="atualizaGraficoRelatorio(3)">
+                                <div class="nome-componente-relatorio">DISCO</div>
+                                <div class="imagem-componente-relatorio">
+                                    <div> <img src="../assets/img/icone-disco.png" alt=""></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="graficos1-3-content">
+                            <div class="chart-componente-relatorio">
+                                    <div>
+                                        <canvas id="chart_componente_relatorio"></canvas>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                     <div class="graficos2e3-content">
@@ -122,19 +153,30 @@
                         <div class="graficos3-content">
 
                             <div class="container-titulo-botoes">
-                                <div class="titulo-historico">HISTÓRICO DE DESEMPENHO</div>
+                                <div class="titulo-historico">HISTÓRICO DE DESEMPENHO (%)</div>
                                 <div class="botoes-historico">
-                                    <div>bt1</div>
-                                    <div>bt2</div>
+                                    <img class="seta1" src="../assets/img/seta.png" onclick="mudarHistoricoDesempenho(-1)" alt="btn1">
+                                    <img src="../assets/img/seta.png" onclick="mudarHistoricoDesempenho(1)" alt="btn2">
                                 </div>
                             </div>
-                            <div>
-                                <div class="chart-historico-desempenho"><div>
-                                    <canvas id="chart_historico_desempenho"></canvas>
+                            <div class="container-historico-dados-componente">
+                                <div class="chart-historico-desempenho">
+                                    <div>
+                                        <canvas id="chart_historico_desempenho"></canvas>
+                                    </div>
                                 </div>
-
                                 <div class="container-dados-componente">
-                                    
+                                    <div id="nomeComponente">GPU</div>
+                                    <li>
+                                        <ul>ATUAL</ul>
+                                        <ul class="ulValorComponente" id="ulValorComponente0">12%</ul>
+                                        <!-- <ul>ÚLTIMO DIA</ul>
+                                        <ul class="ulValorComponente" id="ulValorComponente1">31%</ul> -->
+                                        <ul>ÚLTIMOS 7 DIAS</ul>
+                                        <ul class="ulValorComponente" id="ulValorComponente1">45%</ul>
+                                        <ul>ÚLTIMOS 30 DIAS</ul>
+                                        <ul class="ulValorComponente" id="ulValorComponente2">11%</ul>
+                                    </li>
                                 </div>
                             </div>
                         </div>
@@ -144,7 +186,9 @@
             </div>
         </div>
     </section>
-    
+
     <script src="../js/dashboardUser.js"></script>
-    <script src="../js/minMax.js"></script></body>
+    <script src="../js/minMax.js"></script>
+</body>
+
 </html>

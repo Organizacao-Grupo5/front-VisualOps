@@ -1,82 +1,3 @@
-// const memoriaRam = document.getElementById("chart_porcentagem_uso_memoria_ram");
-// const CPU = document.getElementById("chart_porcentagem_uso_cpu");
-
-
-// const label = {
-//     memoriaRam: [''],
-//     cpu: ['']
-// }
-
-// const options = {
-//     scales: {
-//         xAxes: [{
-//             display: false,
-//         }],
-//     },
-//     indexAxis: 'y',
-//     maintainAspectRatio: false,
-//     scales: {
-//         x: {
-//             min: 0,
-//             max: 100,
-//             ticks: {
-//                 stepSize: 10,
-//             },
-//         },
-//     },
-//     legend: {
-//             display: false,
-//     },
-// };
-
-// const dataset = {
-//     memoriaRam: [{
-//         label: 'none',
-//         data: [80],
-//         backgroundColor: [
-//             '#9450F2',
-//         ],
-//         hoverBackgroundColor: '#9455E2',
-//         borderRadius: 5
-//     }],
-//     CPU: [{
-//         label: 'ABC',
-//         data: [50],
-//         backgroundColor: [
-//             '#9450F2',
-//         ],
-//         hoverBackgroundColor: '#9455E2',
-//         borderRadius: 5
-//     }]
-// };
-
-// const datas = {
-//     toMemoriaRam: {
-//         labels: label.memoriaRam,
-//         datasets: dataset.memoriaRam
-//     },
-//     toCPU: {
-//         labels: label.CPU,
-//         datasets: dataset.CPU
-//     }
-// }
-
-// new Chart(memoriaRam, {
-//     type: 'bar',
-//     data: datas.toMemoriaRam,
-//     options: options,
-
-// });
-
-// new Chart(CPU, {
-//     type: 'bar',
-//     data: datas.toCPU,
-//     options: options,
-
-// });
-
-
-
 const memoriaRam = document.getElementById("chart_porcentagem_componentes");
 
 
@@ -130,11 +51,10 @@ new Chart(memoriaRam, {
 
 var index = 0;
 function mudarHistoricoDesempenho(valor) {
-    var componentes = ['RAM', 'CPU', 'CPU', 'DISCO'];
     if (valor < 0) {
         index--;
         if (index < 0) {
-            index = 4;
+            index = 3;
         }
     } else {
         index++;
@@ -142,47 +62,147 @@ function mudarHistoricoDesempenho(valor) {
             index = 0;
         }
     }
-    switch (index) {
-
-        case 0:
-            break;
-
-        case 1:
-            break;
-
-        case 2:
-            break;
-
-        case 3:
-            break;
-
-    }
+    atualizaHistoricoDesempenho(index);
 }
 
-function atualizaHistoricoDesempenho(index) {
 
+
+
+function geradorNumeros() {
+    const random = Math.round(Math.random() * 81) + 19;
+
+    return random;
+}
+
+
+function gerarLista(numero) {
+    let list = [];
+
+    for (let i = 0; i < numero; i++) {
+        list.push(geradorNumeros());
+    }
+
+    return list;
+}
+
+
+atualizaHistoricoDesempenho(0);
+
+function atualizaHistoricoDesempenho(valor) {
+    matarCanvasDesempenho();
     const historicoComponentes = document.getElementById("chart_historico_desempenho");
 
+    var lista = gerarLista(3);
 
-    // Dados para o gráfico
-    const labels = ['RAM', 'CPU', 'GPU', 'DISCO'];
-    const valores = [51, 20, 9, 60];
+    var componentes = ['RAM', 'CPU', 'GPU', 'DISCO'];
 
-    // Configuração do gráfico
-    const config = {
-        type: 'horizontalBar',
-        data: {
-            labels: labels,
-            datasets: [{
-                data: valores,
-                backgroundColor: ['rgba(75, 192, 192, 0.6)', '#f0f', '#000', '#f00'],
-            }],
-        },
+    const label = {
+        historicoComponentes: ['30 dias', '7 dias', 'Atual'],
+    }
+
+    const dataset = {
+        historicoComponentes: [{
+            label: ('Uso - ' + componentes[valor]),
+            data: lista,
+            backgroundColor: '#449ADE',
+            borderColor: '#449ADE',
+            hoverBackgroundColor: '#449ADE',
+            tension: 0.2,
+        }]
+    };
+
+    const datas = {
+        toHistoricoComponentes: {
+            labels: label.historicoComponentes,
+            datasets: dataset.historicoComponentes
+        }
+    }
+
+    new Chart(historicoComponentes, {
+        type: 'line',
+        data: datas.toHistoricoComponentes,
         options: {
-            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+        }
+    });
+    atualizaDadosComponente(lista[2], lista[1], lista[0]);
+}
+
+function matarCanvasDesempenho() {
+    var canvas = document.getElementById("chart_historico_desempenho");
+    canvas.parentNode.removeChild(canvas);
+    var novoCanvas = document.createElement("canvas");
+    novoCanvas.id = "chart_historico_desempenho";
+    document.querySelector(".chart-historico-desempenho > div").appendChild(novoCanvas);
+}
+
+
+function atualizaDadosComponente(valor0, valor1, valor2) {
+
+    var componentes = ['RAM', 'CPU', 'GPU', 'DISCO'];
+    var nomeComponente = document.getElementById("nomeComponente");
+    nomeComponente.innerHTML = componentes[index];
+
+    var lista = [valor0, valor1, valor2]
+    // var lista = gerarLista(4);
+    //     lista[0] = valor0;
+    //     lista[2] = valor1;
+    //     lista[3] = valor2;
+
+    for (var i = 0; i < lista.length; i++) {
+        var canvas = document.getElementById("ulValorComponente" + i);
+        canvas.innerHTML = lista[i] + "%";
+    }
+
+}
+
+
+atualizaGraficoRelatorio(0);
+function atualizaGraficoRelatorio(indexRelatorio) {
+    matarCanvasRelatorio();
+
+    var canvas = document.getElementById("chart_componente_relatorio");
+    var componentes = ['RAM', 'CPU', 'GPU', 'DISCO'];
+    var lista = gerarLista(20);
+
+
+    var listaLabels = [];
+    for(var i = 0; i <lista.length; i++){
+        listaLabels.push('');
+    }
+
+
+    const label = {
+        canvas: listaLabels,
+    }
+    
+    const dataset = {
+        canvas: [{
+            label: ('Uso - ' + componentes[indexRelatorio]),
+            data: lista,
+            backgroundColor: '#449ADE',
+            borderColor: '#449ADE',
+            hoverBackgroundColor: '#449ADE',
+            tension: 0.2,
+        }]
+    };
+
+    const datas = {
+        toCanvas: {
+            datasets: dataset.canvas,
+            labels: label.canvas,
+        }
+    }
+
+    new Chart(canvas, {
+        type: 'line',
+        data: datas.toCanvas,
+        options: {
+            responsive: true,
             maintainAspectRatio: false,
             scales: {
-                x: {
+                y: {
                     min: 0,
                     max: 100,
                     ticks: {
@@ -190,21 +210,17 @@ function atualizaHistoricoDesempenho(index) {
                     },
                 },
             },
-            plugins: {
-                legend: {
-                    display: false,
-                },
-            },
-        },
-    };
-
-
-    new Chart(memoriaRam, {
-        type: 'bar',
-        config: config,
-        data: config.data,
-        options: config.options,
-
+        }
     });
-
 }
+
+function matarCanvasRelatorio() {
+    var canvas = document.getElementById("chart_componente_relatorio");
+    canvas.parentNode.removeChild(canvas);
+    var novoCanvas = document.createElement("canvas");
+    novoCanvas.id = "chart_componente_relatorio";
+    document.querySelector(".chart-componente-relatorio > div").appendChild(novoCanvas);
+}
+
+
+

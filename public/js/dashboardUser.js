@@ -3,7 +3,7 @@ const memoriaRam = document.getElementById("chart_porcentagem_componentes");
 
 // Dados para o gráfico
 const labels = ['RAM', 'CPU', 'GPU', 'DISCO'];
-const valores = [51, 20, 9, 60];
+const valores = gerarLista(4);
 
 // Configuração do gráfico
 const config = {
@@ -12,7 +12,7 @@ const config = {
         labels: labels,
         datasets: [{
             data: valores,
-            backgroundColor: ['rgba(75, 192, 192, 0.6)', '#f0f', '#000', '#f00'],
+            backgroundColor: ["#449ADE"],
         }],
     },
     options: {

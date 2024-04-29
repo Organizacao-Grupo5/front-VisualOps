@@ -70,9 +70,9 @@ async function autenticar(email, senha) {
 
             console.log("Tudo certo com a requisição: ", resposta);
 
-            sessionStorage.getItem("idUsuario", dados.id);
-            sessionStorage.getItem("emailUsuario", dados.email);
-            sessionStorage.getItem("nomeUsuario", dados.nome);
+            localStorage.setItem("idUsuario", dados.id);
+            sessionStorage.setItem("emailUsuario", dados.email);
+            sessionStorage.setItem("nomeUsuario", dados.nome);
 
             mostrarMensagem(mensagem.tela.sucesso.login(dados.nome));
 
@@ -98,21 +98,29 @@ async function autenticar(email, senha) {
 
 }
 
-async function listar(tabela) {
+async function listar(tabela, campo, valor, alvo, join) {
     
     try {
         
         const resposta = await fetch(`/listar/${tabela}`, {
-            method: "GET",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
+            body: JSON.stringify({
+                campo: campo,
+                valor: valor,
+                alvo: alvo,
+                join: join
+            })
         });
 
         if (resposta.ok) {
             const dados = await resposta.json();
 
             console.log("RESULTADO: ", dados);
+
+            return dados[0];
         } else {
             console.error("Houve um erro ao listar os usuários!");
             

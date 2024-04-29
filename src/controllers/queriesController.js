@@ -1,18 +1,21 @@
 const queriesModel = require("../models/queriesModel");
 
-async function listar (req, res) {
+async function listar(req, res) {
 
     const tabela = req.params.tabela;
+    const valor = req.body.valor ? `WHERE ${req.body.campo} = ${req.body.valor}` : '';
+    const alvo = req.body.alvo;
+    const join = req.body.join ?? '';
 
     try {
 
-        const resposta = await queriesModel.listar(tabela);
+        const resposta = await queriesModel.listar(tabela, valor, alvo, join);
 
         if (resposta) {
             res.status(202).json(resposta);    
         
         } else {
-            console.error(`Não foi possível listar os valoes da tabela '${tabela}'!`);
+            console.error(`Não foi possível listar os valores da tabela '${tabela}'!`);
             
             res.status(400).send(`Não foi possível listar os valores da tabela '${tabela}'!`);
         }

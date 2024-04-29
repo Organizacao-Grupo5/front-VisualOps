@@ -142,14 +142,14 @@
                             <div class="half-width spacing">
 
                                 <label for="senha">Senha:</label>
-                                <input type="password" id="senha" name="senha">
+                                <input type="text" id="senha" name="senha">
 
                             </div>
 
                             <div class="half-width">
 
                                 <label for="numerotelefone">Telefone</label>
-                                <input class="numero" type="number" id="numero" name="telefone">
+                                <input class="numero" type="text" id="numero" name="telefone" value="(__) _____-____">
 
                             </div>
 
@@ -169,26 +169,26 @@
 
                                 <div class="half-width">
 
-                                    <label for="cep">CEP:</label>
-                                    <input type="text" id="cep" name="cep">
+                                    <label for="bairro">Bairro:</label>
+                                    <input type="text" id="bairro" name="bairro" value="----------------------------------">
 
                                 </div>
 
                                 <div class="half-width">
 
                                     <label for="estado">Estado:</label>
-                                    <input type="text" id="estado" name="estado">
+                                    <input type="text" id="estado" name="estado" value="----------------------------------">
 
                                 </div>
 
                             </div>
 
+                            <label for="cep">CEP:</label>
+                            <input type="text" id="cep" name="cep">
+
                             <label for="rua">Rua:</label>
                             <input type="text" id="rua" name="rua">
-
-                            <label for="bairro">Bairro:</label>
-                            <input type="text" id="bairro" name="bairro">
-
+                            
                             <div class="horizontal-spaced">
 
                                 <div class="half-width">
@@ -201,7 +201,7 @@
                                 <div class="half-width">
 
                                     <label for="complemento">Complemento:</label>
-                                    <input type="text" id="complemento" name="complemento">
+                                    <input type="text" id="complemento" name="complemento" value="----------------------------------">
 
                                 </div>
 
@@ -221,7 +221,8 @@
 
     </section>
 
-    <script src="../js/dashboardOwner.js"></script>
+    <script src="../js/dashboardPerfil.js"></script>
+    <script src="../js/Utils/Usuario.js"></script>
     <script src="../js/minMax.js"></script>
 </body>
 </body>

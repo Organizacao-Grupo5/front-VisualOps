@@ -1,7 +1,7 @@
 const database = require("../database/config");
 
-function listar (tabela) {
-    const query = `SELECT * FROM ${tabela};`;
+function listar (tabela, valor, alvo, join) {
+    const query = `SELECT ${alvo} FROM ${tabela} ${join} ${valor};`;
 
     console.log("Executar a instrução SQL: \n" + query);
     return database.executar(query);

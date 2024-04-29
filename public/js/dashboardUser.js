@@ -67,6 +67,7 @@ function mudarHistoricoDesempenho(valor) {
 
 
 
+
 function geradorNumeros() {
     const random = Math.round(Math.random() * 81) + 19;
 
@@ -88,7 +89,7 @@ function gerarLista(numero) {
 atualizaHistoricoDesempenho(0);
 
 function atualizaHistoricoDesempenho(valor) {
-    matarCanvas();
+    matarCanvasDesempenho();
     const historicoComponentes = document.getElementById("chart_historico_desempenho");
 
     var lista = gerarLista(3);
@@ -128,7 +129,7 @@ function atualizaHistoricoDesempenho(valor) {
     atualizaDadosComponente(lista[2], lista[1], lista[0]);
 }
 
-function matarCanvas() {
+function matarCanvasDesempenho() {
     var canvas = document.getElementById("chart_historico_desempenho");
     canvas.parentNode.removeChild(canvas);
     var novoCanvas = document.createElement("canvas");
@@ -156,7 +157,11 @@ function atualizaDadosComponente(valor0, valor1, valor2) {
 
 }
 
-function atualizaGraficoDesempenho() {
+
+atualizaGraficoRelatorio(0);
+function atualizaGraficoRelatorio(indexRelatorio) {
+    matarCanvasRelatorio();
+
     var canvas = document.getElementById("chart_componente_relatorio");
     var componentes = ['RAM', 'CPU', 'GPU', 'DISCO'];
     var lista = gerarLista(20);
@@ -174,7 +179,7 @@ function atualizaGraficoDesempenho() {
     
     const dataset = {
         canvas: [{
-            label: ('Uso - ' + componentes[0]),
+            label: ('Uso - ' + componentes[indexRelatorio]),
             data: lista,
             backgroundColor: '#449ADE',
             borderColor: '#449ADE',
@@ -209,9 +214,13 @@ function atualizaGraficoDesempenho() {
     });
 }
 
-atualizaGraficoDesempenho()
-
-
+function matarCanvasRelatorio() {
+    var canvas = document.getElementById("chart_componente_relatorio");
+    canvas.parentNode.removeChild(canvas);
+    var novoCanvas = document.createElement("canvas");
+    novoCanvas.id = "chart_componente_relatorio";
+    document.querySelector(".chart-componente-relatorio > div").appendChild(novoCanvas);
+}
 
 
 

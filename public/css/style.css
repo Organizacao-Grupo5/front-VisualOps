@@ -367,7 +367,10 @@ body {
 
 .texto-background-sobre-nos {
   display: flex;
-}
+    margin: 0; 
+    padding: 0; 
+  }
+  
 
 .texto-sobre-nos {
   font-family: sans-serif;
@@ -386,7 +389,7 @@ body {
   top: 100%;
   left: 0;
   width: 20%;
-  height: 120vh;
+  height: 50vh;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -474,7 +477,7 @@ body {
   box-sizing: border-box;
   height: 600px;
   overflow: hidden;
-  border: solid 5px fuchsia;
+  
 }
 
 

@@ -379,6 +379,98 @@ section{
     flex-direction: column;
 }
 
+.graficos1-1-content{
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 95%;
+    height: 11%;
+}
+
+
+.relatorio-ultimo-mes{
+    color: white;
+    font-size: 14px;
+    width: 45%;
+    height: 50%;
+    background-color: #449ADE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.graficos1-2-content{
+    width: 95%;
+    height: 19%;
+    background-color: #449ADE;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.componente-relatorio{
+ width: 20%;
+ height: 100%;
+
+ display: flex;
+ justify-content: center;
+ flex-direction: column;
+}
+
+.nome-componente-relatorio{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    color: white;
+}
+
+.imagem-componente-relatorio{
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+    background-color: #293768;
+    width: 70%;
+    height: 70%;
+    border-radius: 10px;
+}
+
+.imagem-componente-relatorio div{
+    width: 85%;
+    height: 85%;
+    background-color: #1A1735;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.imagem-componente-relatorio img{
+    width: 70%;
+}
+
+.graficos1-3-content{
+    width: 100%;
+    height: 71%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart-componente-relatorio{
+    width: 85%;
+}
+
+.chart-componente-relatorio canvas{
+    height: 350px;
+}
+
 .graficos1-content > h3 {
     text-align: center;
 
@@ -511,7 +603,7 @@ section{
 }
 
 .container-dados-componente li ul{
-    padding: 1%;
+    padding: 2%;
  }
 
  .ulValorComponente{

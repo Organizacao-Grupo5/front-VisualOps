@@ -1,82 +1,3 @@
-// const memoriaRam = document.getElementById("chart_porcentagem_uso_memoria_ram");
-// const CPU = document.getElementById("chart_porcentagem_uso_cpu");
-
-
-// const label = {
-//     memoriaRam: [''],
-//     cpu: ['']
-// }
-
-// const options = {
-//     scales: {
-//         xAxes: [{
-//             display: false,
-//         }],
-//     },
-//     indexAxis: 'y',
-//     maintainAspectRatio: false,
-//     scales: {
-//         x: {
-//             min: 0,
-//             max: 100,
-//             ticks: {
-//                 stepSize: 10,
-//             },
-//         },
-//     },
-//     legend: {
-//             display: false,
-//     },
-// };
-
-// const dataset = {
-//     memoriaRam: [{
-//         label: 'none',
-//         data: [80],
-//         backgroundColor: [
-//             '#9450F2',
-//         ],
-//         hoverBackgroundColor: '#9455E2',
-//         borderRadius: 5
-//     }],
-//     CPU: [{
-//         label: 'ABC',
-//         data: [50],
-//         backgroundColor: [
-//             '#9450F2',
-//         ],
-//         hoverBackgroundColor: '#9455E2',
-//         borderRadius: 5
-//     }]
-// };
-
-// const datas = {
-//     toMemoriaRam: {
-//         labels: label.memoriaRam,
-//         datasets: dataset.memoriaRam
-//     },
-//     toCPU: {
-//         labels: label.CPU,
-//         datasets: dataset.CPU
-//     }
-// }
-
-// new Chart(memoriaRam, {
-//     type: 'bar',
-//     data: datas.toMemoriaRam,
-//     options: options,
-
-// });
-
-// new Chart(CPU, {
-//     type: 'bar',
-//     data: datas.toCPU,
-//     options: options,
-
-// });
-
-
-
 const memoriaRam = document.getElementById("chart_porcentagem_componentes");
 
 
@@ -172,7 +93,7 @@ function atualizaHistoricoDesempenho(valor) {
 
     var lista = gerarLista(3);
 
-    var componentes = ['RAM', 'GPU', 'CPU', 'DISCO'];
+    var componentes = ['RAM', 'CPU', 'GPU', 'DISCO'];
 
     const label = {
         historicoComponentes: ['30 dias', '7 dias', 'Atual'],
@@ -207,7 +128,7 @@ function atualizaHistoricoDesempenho(valor) {
     atualizaDadosComponente(lista[2], lista[1], lista[0]);
 }
 
-function matarCanvas(){
+function matarCanvas() {
     var canvas = document.getElementById("chart_historico_desempenho");
     canvas.parentNode.removeChild(canvas);
     var novoCanvas = document.createElement("canvas");
@@ -216,22 +137,79 @@ function matarCanvas(){
 }
 
 
-function atualizaDadosComponente(valor0, valor1, valor2){
+function atualizaDadosComponente(valor0, valor1, valor2) {
 
-    var lista = gerarLista(4);
-        lista[0] = valor0;
-        lista[2] = valor1;
-        lista[3] = valor2;
+    var componentes = ['RAM', 'CPU', 'GPU', 'DISCO'];
+    var nomeComponente = document.getElementById("nomeComponente");
+    nomeComponente.innerHTML = componentes[index];
 
-    for(var i = 0; i < 4; i++){
+    var lista = [valor0, valor1, valor2]
+    // var lista = gerarLista(4);
+    //     lista[0] = valor0;
+    //     lista[2] = valor1;
+    //     lista[3] = valor2;
+
+    for (var i = 0; i < lista.length; i++) {
         var canvas = document.getElementById("ulValorComponente" + i);
         canvas.innerHTML = lista[i] + "%";
     }
 
 }
 
+function atualizaGraficoDesempenho() {
+    var canvas = document.getElementById("chart_componente_relatorio");
+    var componentes = ['RAM', 'CPU', 'GPU', 'DISCO'];
+    var lista = gerarLista(20);
 
 
+    var listaLabels = [];
+    for(var i = 0; i <lista.length; i++){
+        listaLabels.push('');
+    }
+
+
+    const label = {
+        canvas: listaLabels,
+    }
+    
+    const dataset = {
+        canvas: [{
+            label: ('Uso - ' + componentes[0]),
+            data: lista,
+            backgroundColor: '#449ADE',
+            borderColor: '#449ADE',
+            hoverBackgroundColor: '#449ADE',
+            tension: 0.2,
+        }]
+    };
+
+    const datas = {
+        toCanvas: {
+            datasets: dataset.canvas,
+            labels: label.canvas,
+        }
+    }
+
+    new Chart(canvas, {
+        type: 'line',
+        data: datas.toCanvas,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    min: 0,
+                    max: 100,
+                    ticks: {
+                        stepSize: 10,
+                    },
+                },
+            },
+        }
+    });
+}
+
+atualizaGraficoDesempenho()
 
 
 

@@ -101,11 +101,42 @@
                 </div>
                 <div class="chart-content">
                     <div class="graficos1-content">
-                        <div class="graficos1_1-content">
-
+                        <div class="graficos1-1-content">
+                            <div class="titulo-relatiorio">DESEMPENHO</div>
+                            <div class="relatorio-ultimo-mes">RELATÓRIO DO ÚLTIMO MÊS</div>
                         </div>
-                        <div class="graficos1_2-content">
-
+                        <div class="graficos1-2-content">
+                            <div class="componente-relatorio">
+                                <div class="nome-componente-relatorio">RAM</div>
+                                <div class="imagem-componente-relatorio">
+                                    <div><img src="../assets/img/icone-memoria-ram.png" alt=""></div>
+                                </div>
+                            </div>
+                            <div class="componente-relatorio">
+                                <div class="nome-componente-relatorio">CPU</div>
+                                <div class="imagem-componente-relatorio">
+                                    <div><img src="../assets/img/icone-CPU.png" alt=""></div>
+                                </div>
+                            </div>
+                            <div class="componente-relatorio">
+                                <div class="nome-componente-relatorio">GPU</div>
+                                <div class="imagem-componente-relatorio">
+                                    <div><img src="../assets/img/icone-GPU.png" alt=""></div>
+                                </div>
+                            </div>
+                            <div class="componente-relatorio">
+                                <div class="nome-componente-relatorio">DISCO</div>
+                                <div class="imagem-componente-relatorio">
+                                    <div> <img src="../assets/img/icone-disco.png" alt=""></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="graficos1-3-content">
+                            <div class="chart-componente-relatorio">
+                                    <div>
+                                        <canvas id="chart_componente_relatorio"></canvas>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                     <div class="graficos2e3-content">
@@ -135,16 +166,16 @@
                                     </div>
                                 </div>
                                 <div class="container-dados-componente">
-                                    <div>GPU</div>
+                                    <div id="nomeComponente">GPU</div>
                                     <li>
                                         <ul>ATUAL</ul>
                                         <ul class="ulValorComponente" id="ulValorComponente0">12%</ul>
-                                        <ul>ÚLTIMO DIA</ul>
-                                        <ul class="ulValorComponente" id="ulValorComponente1">31%</ul>
+                                        <!-- <ul>ÚLTIMO DIA</ul>
+                                        <ul class="ulValorComponente" id="ulValorComponente1">31%</ul> -->
                                         <ul>ÚLTIMOS 7 DIAS</ul>
-                                        <ul class="ulValorComponente" id="ulValorComponente2">45%</ul>
+                                        <ul class="ulValorComponente" id="ulValorComponente1">45%</ul>
                                         <ul>ÚLTIMOS 30 DIAS</ul>
-                                        <ul class="ulValorComponente" id="ulValorComponente3">11%</ul>
+                                        <ul class="ulValorComponente" id="ulValorComponente2">11%</ul>
                                     </li>
                                 </div>
                             </div>

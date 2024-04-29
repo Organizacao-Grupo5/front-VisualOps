@@ -7,4 +7,11 @@ function listar (tabela) {
     return database.executar(query);
 }
 
-module.exports = { listar };
+function deletar (tabela, campo, valor) {
+    const query = `DELETE FROM ${tabela} WHERE ${campo} = ${valor};`;
+
+    console.log("Executar a instrução SQL: \n" + query);
+    return database.executar(query);
+}
+
+module.exports = { listar, deletar };

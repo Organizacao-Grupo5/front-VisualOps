@@ -70,15 +70,17 @@ async function autenticar(email, senha) {
 
             console.log("Tudo certo com a requisição: ", resposta);
 
+            sessionStorage.getItem("idUsuario", dados.id);
             sessionStorage.getItem("emailUsuario", dados.email);
             sessionStorage.getItem("nomeUsuario", dados.nome);
-            sessionStorage.getItem("idUsuario", dados.IdUsuario);
 
-            mostrarMensagem(mensagem.tela.login(dados.nome));
+            mostrarMensagem(mensagem.tela.sucesso.login(dados.nome));
 
             setTimeout(() => {
-                entrarDash();
-            }, 1500);
+                entrarPerfil();
+            }, 2000);
+
+            return true;
 
         } else {
             console.error("Houve um erro ao realizar o login!");
@@ -96,11 +98,11 @@ async function autenticar(email, senha) {
 
 }
 
-async function listar(table) {
+async function listar(tabela) {
     
     try {
         
-        const resposta = await fetch(`/listar/${table}`, {
+        const resposta = await fetch(`/listar/${tabela}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -125,15 +127,19 @@ async function listar(table) {
 
 }
 
-async function deletar(table, valor) {
+async function deletar(tabela, campo, valor) {
 
     try {
         
-        const resposta = await fetch(`/delete/${table}/${valor}`, {
+        const resposta = await fetch(`/deletar/${tabela}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
             },
+            body: JSON.stringify({
+                campo: campo,
+                valor: valor
+            })
         });
 
         if (resposta.ok) {

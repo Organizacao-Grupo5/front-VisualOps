@@ -436,13 +436,13 @@ body {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 100%;
+  width: 140%;
   height: 400px;
   transition: all ease-in-out 0.5s;
 }
 
 .fotos-nossa-equipe {
-  width: 15vw;
+  width: 100%;
   min-width: 50px;
 }
 
@@ -458,7 +458,7 @@ body {
   flex-direction: column;
   padding: 10px;
   text-align: center;
-  border: solid 5px firebrick;
+
 }
 
 .fundobox-nossa-equipe {
@@ -468,7 +468,7 @@ body {
   height: 40px;
   background-color: white;
   margin-top: -50px;
-  border: solid 5px forestgreen;
+
 }
 
 .container-nossa-equipe {
@@ -795,6 +795,31 @@ body {
   }
 
 }
+
+
+@media screen and (max-width: 700px){
+  .box-nossa-equipe {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    box-sizing: border-box;
+    margin: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    text-align: center;
+     
+  }
+  
+
+  .fotos-nossa-equipe {
+    width: 150%;
+    min-width: 50px;
+  }
+}
+
 
 @media screen and (max-width: 600px) {
 

@@ -16,6 +16,8 @@
 <body>
     <script src="../js/Utils/Rotas.js"></script>
 
+
+
     <section>
         <div id="sidebar" class="sidebar">
             <div id="top_sidebar" class="top-sidebar">
@@ -28,7 +30,7 @@
                     </div>
                 </div>
             </div>
-            <div id="minimizar" class="minimizar">
+            <div id="minimizar" class="minimizar" onclick="cliqueiMinimizarSidebar()" >
                 <div class="line"></div>
                 <i class="fa-solid fa-angles-left"></i>
                 <h6>MINIMIZAR</h6>
@@ -36,19 +38,19 @@
             <div id="menu" class="menu">
                 <h1 id="menu_title">MENU</h1>
                 <div class="chose-section">
-                    <i class="fa-solid fa-chart-column" style="font-size: 15px;"></i>
+                    <i class="fa-solid fa-chart-column" style="font-size: 15px;" onclick="windowDashboardOwner()"></i>
                     <button class="btn-section" onclick="windowDashboardOwner()">DASHBOARD</button>
                 </div>
                 <div class="chose-section">
-                    <i class="fa fa-line-chart" aria-hidden="true"></i>
+                    <i class="fa fa-line-chart" aria-hidden="true" onclick="windowDashboardPessoal()"></i>
                     <button class="btn-section" onclick="windowDashboardPessoal()">DASHBOARD PESSOAL</button>
                 </div>
                 <div class="chose-section">
-                    <i class="fa-regular fa-user"></i>
+                    <i class="fa-regular fa-user" onclick="windowPerfil()"></i>
                     <button class="btn-section" onclick="windowPerfil()">PERFIL</button>
                 </div>
                 <div class="chose-section">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    <i class="fa fa-plus" aria-hidden="true" onclick="windowCadastroUser()"></i>
                     <button class="btn-section" onclick="windowCadastroUser()">ADICIONAR</button>
                 </div>
                 <div class="chose-section">
@@ -67,12 +69,12 @@
                     <button class="btn-section">SUPORTE</button>
                 </div>
                 <div class="chose-section">
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <i class="fa-solid fa-arrow-right-from-bracket" onclick="windowSair()"></i>
                     <button class="btn-section" onclick="windowSair()">SAIR</button>
                 </div>
             </div>
         </div>
-        <button id="maximizar" class="maximizar"><i class="fa-solid fa-angles-right"></i></button>
+        <button id="maximizar" class="maximizar" onclick="cliqueiMaximizarSidebar()"><i class="fa-solid fa-angles-right"></i></button>
 
         <div class="dashboard-content" id="dashboard">
 
@@ -224,6 +226,7 @@
     <script src="../js/dashboardPerfil.js"></script>
     <script src="../js/Utils/Usuario.js"></script>
     <script src="../js/minMax.js"></script>
+    <script src="../js/Utils/tamanhoSidebar.js"></script>
 </body>
 </body>
 

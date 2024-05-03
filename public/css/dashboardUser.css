@@ -368,7 +368,7 @@ section{
 }
 
 .graficos1-content{
-    background-color: #314161;
+    background-color: white;
 
     width: 41%;
     height: 96%;
@@ -380,7 +380,7 @@ section{
 }
 
 .graficos1-1-content{
-    color: white;
+    color: black;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -425,7 +425,7 @@ section{
     justify-content: center;
     align-items: center;
     font-size: 16px;
-    color: white;
+    color: black;
 }
 
 .imagem-componente-relatorio{
@@ -495,7 +495,7 @@ section{
 .graficos2-content{
     display: flex;
     flex-direction: column;
-    background-color: #314161;
+    background-color: white;
     ;
     
     width: 100%;
@@ -509,12 +509,12 @@ section{
     width: 100%;
     height: 51%;
     
-    background-color: #314161;
+    background-color: white;
 }
 
 .label-chart-porcentagem-uso{
     margin: 1% 0 1% 1% ;
-    color: #FFFFFF;
+    color: black;
 }
 
 .chart-porcentagem-uso{
@@ -542,7 +542,7 @@ section{
 .titulo-historico{
     margin: 1% 0 0 1%;
     width: 75%;
-    color: #fff;
+    color: black;
 }
 
 .botoes-historico{

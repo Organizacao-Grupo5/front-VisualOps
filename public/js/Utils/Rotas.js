@@ -29,3 +29,4 @@ function entrarDash() {
 function entrarPerfil() {
     window.location = "acesso/dashboardPerfil.html";
 }
+

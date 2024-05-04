@@ -89,6 +89,9 @@ function pesquisacep(valor) {
             script.src = 'https://viacep.com.br/ws/'+ CEP + '/json/?callback=meu_callback';
 
             document.body.appendChild(script);
+            console.log(script)
+
+            
 
         } else {
             limpa_formulário_cep();

@@ -67,6 +67,7 @@ elements.minimizar.addEventListener("click", () => {
             e.style.display = "none";
         }, 300);
     });
+
 });
 
 elements.btnMaximizar.addEventListener("click", () => {

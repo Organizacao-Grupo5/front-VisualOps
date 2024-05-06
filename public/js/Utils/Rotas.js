@@ -2,6 +2,10 @@ function windowDashboardOwner(){
     window.location = "dashboardOwner.html"
 }
 
+function windowDashboardGerente(){
+    window.location = "dashboardGerente.html"
+}
+
 function windowDashboardPessoal(){
     window.location = "dashboardUser.html"
 }
@@ -29,3 +33,4 @@ function entrarDash() {
 function entrarPerfil() {
     window.location = "acesso/dashboardPerfil.html";
 }
+

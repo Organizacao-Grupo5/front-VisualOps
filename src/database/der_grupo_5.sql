@@ -1,4 +1,5 @@
 -- SQLBook: Code
+use der_grupo_5;
 CREATE DATABASE der_grupo_5;
 
 USE der_grupo_5;
@@ -113,9 +114,31 @@ CREATE TABLE registroAlertas(
 
 
 insert into plano values
-(null, 'Plano Freelancer', 'Foco: Freelancers (monitora uma máquina).
+(1, 'Plano Freelancer', 'Foco: Freelancers (monitora uma máquina).
 Monitoramento de Hardware: Processador, RAM, disco, conexão USB, placa gráfica'),
-(null, 'Plano Empresarial', 'Foco: Pequenas e Médias Empresas (monitora até 100 máquinas).
+(2, 'Plano Empresarial', 'Foco: Pequenas e Médias Empresas (monitora até 100 máquinas).
 Monitoramento de Hardware: Processador, RAM, disco, conexão USB, placa gráfica.'),
-(null, 'Plano Corporativo', 'Foco: Grandes Empresas.
+(3, 'Plano Corporativo', 'Foco: Grandes Empresas.
 Monitoramento de Hardware: Processador, RAM, disco, conexão USB, placa gráfica.');
+
+INSERT INTO empresa (nome, cnpj, fkPlano) VALUES
+('Visual Ops', '12345678901234', 3);
+
+INSERT INTO endereco (cep, logradouro, numero, bairro, estado, complemento, fkEmpresa) VALUES
+('09930220', 'Rua Londres', '68', 'Bairro Jardim das Nações', 'São Paulo', '', 1);
+
+INSERT INTO usuario (nome, email, senha, cargo, fkEmpresa) VALUES
+('clau', 'clau@gmail.com', '123', 'Gerente', 1);
+
+INSERT INTO contato (telefone, fkUsuario) VALUES
+('11944636705', 1);
+
+INSERT INTO maquina (username, hostname, fkUsuario) VALUES
+('clau', 'clau', 1);
+
+INSERT INTO ipv4 (numeroIP, nomeLocal, fkMaquina, fkUsuario) VALUES
+('10.18.35.68', 'CASA', 1, 1);
+select * from usuario;
+SELECT * FROM maquina JOIN usuario on maquina.fkUsuario = usuario.idUsuario JOIN ipv4 ON ipv4.fkMaquina = maquina.idMaquina WHERE idUsuario = 1;
+SELECT * FROM maquina JOIN componente ON componente.fkMaquina = maquina.idMaquina WHERE maquina.idMaquina = 1;
+SELECT * FROM captura JOIN componente ON componente.idComponente = captura.fkComponente JOIN maquina ON maquina.idMaquina = componente.fkMaquina JOIN usuario on usuario.idUsuario = maquina.fkUsuario WHERE idUsuario = 1;

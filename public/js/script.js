@@ -91,7 +91,7 @@ const carrosselEquipe = document.getElementById("id_carrossel_equipe");
 
 cardClaudio.addEventListener("click", () => {
     if (tela > 1040 || tela < 710) {
-        carrosselEquipe.style.marginLeft = "30%";
+        carrosselEquipe.style.marginLeft = "90%";
         carrosselEquipe.style.marginRight = "0";
         ocultaCardEquipe(cardGuilherme);
         exporCardEquipe(cardDiego);
@@ -104,20 +104,21 @@ cardClaudio.addEventListener("click", () => {
 
 cardGuilherme.addEventListener("click", () => {
     if (tela > 1040 || tela < 710) {
-        carrosselEquipe.style.marginLeft = "0";
-        carrosselEquipe.style.marginRight = "50%";
+        carrosselEquipe.style.marginLeft = "5%";
+        carrosselEquipe.style.marginRight = "5%";
         ocultaCardEquipe(cardClaudio);
         ocultaCardEquipe(cardDiego);
         exporCardEquipe(cardJulia);
         ocultaCardEquipe(cardMaria);
         ocultaCardEquipe(cardThiago);
         exporCardEquipe(cardGuilherme);
+        
     }
 });
 
 cardDiego.addEventListener("click", () => {
     if (tela > 1040 || tela < 710) { 
-        carrosselEquipe.style.marginLeft = "30%";
+        carrosselEquipe.style.marginLeft = "90%";
         carrosselEquipe.style.marginRight = "0";
         ocultaCardEquipe(cardGuilherme);
         exporCardEquipe(cardClaudio);
@@ -131,8 +132,8 @@ cardDiego.addEventListener("click", () => {
 cardJulia.addEventListener("click", () => {
     if (tela > 1040 || tela < 710) {
 
-        carrosselEquipe.style.marginLeft = "0";
-        carrosselEquipe.style.marginRight = "50%";
+        carrosselEquipe.style.marginLeft = "5%";
+        carrosselEquipe.style.marginRight = "5%";
         exporCardEquipe(cardGuilherme);
         ocultaCardEquipe(cardClaudio);
         ocultaCardEquipe(cardDiego);
@@ -146,7 +147,7 @@ cardJulia.addEventListener("click", () => {
 cardMaria.addEventListener("click", () => {
     if (tela > 1040 || tela < 710) {
         carrosselEquipe.style.marginLeft = "0";
-        carrosselEquipe.style.marginRight = "117%";
+        carrosselEquipe.style.marginRight = "90%";
         ocultaCardEquipe(cardGuilherme);
         ocultaCardEquipe(cardClaudio);
         ocultaCardEquipe(cardDiego);
@@ -159,7 +160,7 @@ cardMaria.addEventListener("click", () => {
 cardThiago.addEventListener("click", () => {
     if (tela > 1040 || tela < 710) {
         carrosselEquipe.style.marginLeft = "0";
-        carrosselEquipe.style.marginRight = "117%";
+        carrosselEquipe.style.marginRight = "90%";
         ocultaCardEquipe(cardGuilherme);
         ocultaCardEquipe(cardClaudio);
         ocultaCardEquipe(cardDiego);
@@ -193,6 +194,7 @@ const verificaTamanhoEquipe = () => {
         }
     }
 };
+
 
 function ocultaCardEquipe(card) {
     card.style.opacity = "0.5";

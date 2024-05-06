@@ -141,7 +141,7 @@ body {
 }
 
 .caixa-titlewhy {
-  margin-top: 10vw;
+  margin-top: 20vw;
 }
 
 .titlewhy {
@@ -153,7 +153,7 @@ body {
   justify-content: center;
   bottom: 10px;
   text-align: center;
-  margin-top: 200px;
+  margin-top: 100px;
 }
 
 
@@ -251,6 +251,7 @@ body {
 
 .custom-button {
   display: block;
+  width: 100px;
   margin: 20px auto;
   padding: 10px 20px;
   border: 1px solid #0056b3;
@@ -367,7 +368,10 @@ body {
 
 .texto-background-sobre-nos {
   display: flex;
-}
+    margin: 0; 
+    padding: 0; 
+  }
+  
 
 .texto-sobre-nos {
   font-family: sans-serif;
@@ -386,7 +390,7 @@ body {
   top: 100%;
   left: 0;
   width: 20%;
-  height: 120vh;
+  height: 50vh;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -432,13 +436,13 @@ body {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 100%;
+  width: 140%;
   height: 400px;
   transition: all ease-in-out 0.5s;
 }
 
 .fotos-nossa-equipe {
-  width: 15vw;
+  width: 100%;
   min-width: 50px;
 }
 
@@ -454,7 +458,7 @@ body {
   flex-direction: column;
   padding: 10px;
   text-align: center;
-  border: solid 5px firebrick;
+
 }
 
 .fundobox-nossa-equipe {
@@ -464,7 +468,7 @@ body {
   height: 40px;
   background-color: white;
   margin-top: -50px;
-  border: solid 5px forestgreen;
+
 }
 
 .container-nossa-equipe {
@@ -474,7 +478,7 @@ body {
   box-sizing: border-box;
   height: 600px;
   overflow: hidden;
-  border: solid 5px fuchsia;
+  
 }
 
 
@@ -791,6 +795,31 @@ body {
   }
 
 }
+
+
+@media screen and (max-width: 700px){
+  .box-nossa-equipe {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    box-sizing: border-box;
+    margin: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    text-align: center;
+     
+  }
+  
+
+  .fotos-nossa-equipe {
+    width: 150%;
+    min-width: 50px;
+  }
+}
+
 
 @media screen and (max-width: 600px) {
 

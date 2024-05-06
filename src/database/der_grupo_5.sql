@@ -68,7 +68,7 @@ CREATE TABLE ipv4(
     fkUsuario INT NOT NULL,
         CONSTRAINT fkUsuarioMaquinaIPV4 FOREIGN KEY (fkUsuario) REFERENCES maquina(fkUsuario),
     PRIMARY KEY (idIpv4, fkMaquina, fkUsuario)
-    );
+);
 
 CREATE TABLE alertas(
     idAlertas INT PRIMARY KEY AUTO_INCREMENT,
@@ -87,6 +87,7 @@ CREATE TABLE componente (
         CONSTRAINT fkMaquinaUsuarioComponente FOREIGN KEY (fkUsuario) REFERENCES maquina(fkUsuario),
     PRIMARY KEY (idComponente, fkMaquina, fkUsuario)
 );
+
 
 CREATE TABLE captura(
     idCaptura INT AUTO_INCREMENT,
@@ -109,6 +110,7 @@ CREATE TABLE registroAlertas(
         CONSTRAINT fkRegistroAlertasCapturaComponente FOREIGN KEY (fkComponente) REFERENCES captura(fkComponente),
     PRIMARY KEY (idRegistroAlertas, fkCaptura, fkComponente)
 );
+
 
 insert into plano values
 (null, 'Plano Freelancer', 'Foco: Freelancers (monitora uma máquina).

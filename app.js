@@ -23,7 +23,7 @@ app.use("/", queriesRouter);
 app.use("/empresa", empresaRouter);
 app.use("/endereco", enderecoRouter);
 app.use("/plano", planoRouter);
-app.use(slackRouter);
+app.use("/", slackRouter);
 app.use("/usuario", usuarioRouter);
 
 

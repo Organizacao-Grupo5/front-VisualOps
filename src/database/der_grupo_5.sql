@@ -1,7 +1,6 @@
 -- SQLBook: Code
-use der_grupo_5;
+drop database der_grupo_5;
 CREATE DATABASE der_grupo_5;
-
 USE der_grupo_5;
 
 CREATE TABLE plano (
@@ -135,7 +134,9 @@ INSERT INTO maquina (username, hostname, fkUsuario) VALUES
 ('clau', 'clau', 1);
 
 INSERT INTO ipv4 (numeroIP, nomeLocal, fkMaquina, fkUsuario) VALUES
-('10.18.35.68', 'CASA', 1, 1);
+('11.0.0.108', 'CASA', 1, 1);
+-- ip casa : 11.0.0.108 | ip sptech : 10.18.35.68
+
 select * from usuario;
 SELECT * FROM maquina JOIN usuario on maquina.fkUsuario = usuario.idUsuario JOIN ipv4 ON ipv4.fkMaquina = maquina.idMaquina WHERE idUsuario = 1;
 SELECT * FROM maquina JOIN componente ON componente.fkMaquina = maquina.idMaquina WHERE maquina.idMaquina = 1;

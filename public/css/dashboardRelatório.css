@@ -32,7 +32,7 @@
 }
 
 .day-content {
-    width: 78px;
+    width: 75px;
     height: auto;
     flex-shrink: 0;
     display: inline-block;
@@ -65,12 +65,20 @@
     scale: 1.1;
 }
 .inp{
-    margin-top: 1%;
+    margin-top: 4%;
     width: 100%;
     outline: none;
     padding: 1px;
     font-size: 8px;
     height: 30px;
+    color: #fff;
+    background-color: transparent;
+    border: 1px #fff solid;
+    box-shadow: 0 0 5px 0 #000;
+    transition: all 0.4s ease-in-out;
+}
+.inp:hover{
+    scale: 1.05;
 }
 .line-content{
     margin-top: 5%;
@@ -87,7 +95,6 @@
 }
 .side-line-content label{
     font-size: 12px;
-    width: 100%;
     margin-right: 2%;
 }
 .checkbox-chose{
@@ -114,6 +121,44 @@
     height: 40px;
     border: none;
     cursor: pointer;
-    box-shadow: 0 0 5px 0;
+    color: #fff;
+    box-shadow: #000 0 0 5px 0;
     font-size: 20px;
+    background-color: #449ade;
+}
+
+.report-content{
+    width: 100%;
+    height: 100px;
+    background-color: #29376852;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+    box-shadow: 0 0 5px 0 #000;
+    padding: 5px;
+    border-radius: 0.2rem;
+    border: 1px solid #364888;
+    justify-content: space-between;
+}
+.report-content h4{
+    margin: 1px;
+    font-size: 7px;
+}
+.div-btn-action-report{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+.div-btn-action-report button{
+    width: 100%;
+    border: none;
+    color: #fff;
+    background-color: #449ade;
+    box-shadow: 0 0 4px 0 #000;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    font-size: 10px;
+    height: 20px;
+    text-align: center;
 }

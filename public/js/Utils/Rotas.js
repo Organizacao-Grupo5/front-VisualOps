@@ -34,3 +34,6 @@ function entrarPerfil() {
     window.location = "acesso/dashboardPerfil.html";
 }
 
+function windowRelatorio() {
+    window.location = "dashboardRelatorio.html"
+}

@@ -13,8 +13,6 @@ function setIdConfiguration (platform) {
 
             deleteAllCookies();
 
-        
-
             idConfiguration = {
                 client_id: "922098160989-41dl6iquosgboclmnllal5v4krnlrl4g.apps.googleusercontent.com",
                 callback: credentialResponse

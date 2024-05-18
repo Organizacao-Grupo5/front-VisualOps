@@ -12,6 +12,9 @@
     
     <link rel="stylesheet" href="js/login.js">
 
+    <script src="https://accounts.google.com/gsi/client" async></script>
+
+
 </head>
 
 <body>
@@ -41,11 +44,12 @@
                     <button class="btn-login btn-bottom" onclick="entrar()">LOGIN</button>
                     <span class="esconder-ou-desk">OU</span>
                     <section class="slack-google">
-                        <button class="btn-slack btn-bottom" onclick="auth('slack')">
+                        <button class="btn-slack btn-bottom" id="btSlack" name="slack">
                             <img src="assets/img/slack.png" alt="imagem slack">
                             SLACK
                         </button>
-                        <button class="btn-bottom" onclick="auth('google')">
+                        <span class="esconder-ou-desk esconder">OU</span>
+                        <button id="btn_oauth" class="btn-bottom bt-google" name="google">
                             <img src="./assets/img/google.png" alt="imagem google">
                             GOOGLE
                         </button>

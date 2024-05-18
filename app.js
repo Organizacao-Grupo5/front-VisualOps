@@ -23,10 +23,10 @@ app.use("/", queriesRouter);
 app.use("/empresa", empresaRouter);
 app.use("/endereco", enderecoRouter);
 app.use("/plano", planoRouter);
-app.use(slackRouter);
+app.use("/", slackRouter);
 app.use("/usuario", usuarioRouter);
 
 
 app.listen(PORTA, function () {
-    console.log(`Visualização é http://localhost:${PORTA}`)
+    console.log(`Visualização é https://52.206.6.185:${PORTA}`)
 })

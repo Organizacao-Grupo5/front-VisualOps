@@ -24,4 +24,11 @@ router.get('/slack/callback', async (req, res) => {
     
 });
 
+router.get('/authenticating/google', async (req, res) => {
+
+    const value = req.par
+    controllers.callback(req, res);
+    
+});
+
 module.exports = router;

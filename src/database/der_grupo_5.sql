@@ -46,6 +46,7 @@ CREATE TABLE usuario (
 CREATE TABLE contato (
     idContato INT AUTO_INCREMENT,
     telefone CHAR(12) NOT NULL,
+    tipo VARCHAR(30) NOT NULL,
     fkUsuario INT NOT NULL,
         CONSTRAINT fkUsuarioContato FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario),
     PRIMARY KEY (idContato, fkUsuario)

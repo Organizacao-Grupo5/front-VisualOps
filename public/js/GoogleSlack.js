@@ -1,26 +1,57 @@
-function auth(platform) {
 
-    console.log(platform);
+document.getElementById ("btn_oauth") .addEventListener ("click", (event)=> {
+    let platform = event.currentTarget.name;
+    setIdConfiguration (platform);    
+});
 
+function setIdConfiguration (platform) {
+    let idConfiguration = {};
+    
     switch (platform) {
-        case 'google': authGoogle();
-        break;
-        case 'slack': authSlack;
-        break;
+
+        case 'google': {
+
+            deleteAllCookies();
+
+            idConfiguration = {
+                client_id: "922098160989-41dl6iquosgboclmnllal5v4krnlrl4g.apps.googleusercontent.com",
+                callback: credentialResponse
+            };
+            authGoogle(idConfiguration);
+
+            break;
+        }
+        case 'slack': {
+            return authSlack();
+        }        
+    };
+};
+
+function deleteAllCookies () {
+    const cookies = document.cookie.split(";");
+    console.log(document.cookie);
+
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i];
+        const eqPos = cookie.indexOf("=");
+        const name = eqPos > -1 ? cookie.substring(0, eqPos) : cookie;
+
+        document.cookie = name + "=;";
     }
+
 }
 
-function authGoogle() {
+
+function authGoogle(idConfiguration) {
     
-    google.accounts.id.initialize({
-        client_id: "922098160989-41dl6iquosgboclmnllal5v4krnlrl4g.apps.googleusercontent.com",
-        callback: credentialResponse
-    });
+    google.accounts.id.initialize(idConfiguration);
     google.accounts.id.prompt();
 
 }
 
 async function credentialResponse(response) {
+
+    console.log(response);
          
     try {   
         const resposta = await fetch('/google/auth', {
@@ -30,6 +61,8 @@ async function credentialResponse(response) {
             },
             body: JSON.stringify(response)
         });
+
+        console.log('Entrou aqui');
 
         if (resposta.ok) {
             const dados = await resposta.json();

@@ -70,7 +70,7 @@ async function autenticar(email, senha) {
 
             console.log("Tudo certo com a requisição: ", resposta);
 
-            localStorage.setItem("idUsuario", dados.id);
+            sessionStorage.setItem("idUsuario", dados.id);
             sessionStorage.setItem("emailUsuario", dados.email);
             sessionStorage.setItem("nomeUsuario", dados.nome);
 

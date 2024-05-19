@@ -1,0 +1,77 @@
+.content-report-left {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+    border-right: 1px solid #fff;
+}
+.content-report-left h4 {
+    color: #fff;
+}
+.content-report-right {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+}
+.content-report-right h4 {
+    color: #fff;
+}
+.pdf-content {
+    width: 100%;
+    height: auto;
+    display: flex;
+    background-color: #ffffff;
+    box-shadow: inset #000 0 0 4px 0;
+    border-radius: 0.3rem;
+    padding: 4%;
+    margin-top: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    justify-content: center;
+}
+.info-form {
+    color: #fff;
+    margin: 3%;
+    width: 90%;
+    height: 40%;
+    display: flex;
+    gap: 5%;
+    margin-top: 5%;
+    align-self: center;
+    flex-direction: column;
+}
+.actions {
+    width: 90%;
+    align-self: center;
+    display: flex;
+    height: 40%;
+    color: #fff;
+    flex-direction: column;
+}
+.div-button-action {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.div-button-action button {
+    margin-top: 10px;
+    width: 20%;
+    height: 40px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: center;
+    gap: 5px;
+}
+.div-button-action button i {
+    font-size: 15px;
+}
+.pdf {
+    width: 412px;
+    height: 450.504pt;
+}

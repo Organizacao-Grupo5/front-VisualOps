@@ -6,9 +6,11 @@
     padding: 2%;
     border-right: 1px solid #fff;
 }
+
 .content-report-left h4 {
     color: #fff;
 }
+
 .content-report-right {
     width: 50%;
     height: 100%;
@@ -16,21 +18,51 @@
     flex-direction: column;
     padding: 2%;
 }
+
 .content-report-right h4 {
     color: #fff;
 }
+
 .pdf-content {
-    width: 100%;
+    width: 600px;
+    max-width: 90%;
     height: auto;
     display: flex;
     background-color: #ffffff;
     box-shadow: inset #000 0 0 4px 0;
     border-radius: 0.3rem;
-    padding: 4%;
+    padding: 2%;
     margin-top: 20px;
-    overflow-y: auto;
     overflow-x: hidden;
-    justify-content: center;
+    position: relative;
+    
+}
+
+.pdf {  
+    margin-left: 5.95%;
+    transition: transform 0.5s ease-in-out;
+    display: flex;
+    gap: 100px;
+}
+
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.carousel-control.prev {
+    left: 5px; 
+}
+
+.carousel-control.next {
+    right: 5px;
 }
 .info-form {
     color: #fff;
@@ -43,6 +75,7 @@
     align-self: center;
     flex-direction: column;
 }
+
 .actions {
     width: 90%;
     align-self: center;
@@ -51,12 +84,14 @@
     color: #fff;
     flex-direction: column;
 }
+
 .div-button-action {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
+
 .div-button-action button {
     margin-top: 10px;
     width: 20%;
@@ -68,10 +103,7 @@
     justify-content: center;
     gap: 5px;
 }
+
 .div-button-action button i {
     font-size: 15px;
-}
-.pdf {
-    width: 412px;
-    height: 450.504pt;
 }

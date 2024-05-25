@@ -38,12 +38,40 @@ const limpaCampos = () => {
   ).padStart(2, "0")}-${String(dataAtual.getDate()).padStart(2, "0")}`;
 };
 
-const abrirRelatorio = () => {
-  window.location = "paginaRelatorio.html";
+const abrirRelatorio = (data, tipo) => {
+  fetch(`/relatorio/${sessionStorage.getItem("idUsuario")}/abrirRelatorio`, {
+    method: "POST",
+    body: JSON.stringify({
+      info: {
+        data: data,
+        tipo_relatorio: tipo,
+      },
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+  .then((resp) => {
+    if (resp.ok) {
+      return resp.json();
+    } else {
+      throw new Error('Erro na resposta');
+    }
+  })
+  .then((dados) => {
+    let dadosMod = {
+      dados,
+      tipo: tipo
+    };
+    sessionStorage.setItem("relatorioDados", JSON.stringify(dadosMod));
+    window.location = "paginaRelatorio.html";
+  })
+  .catch((erro) => {
+    console.log("Ocorreu um erro: " + erro);
+  });
 };
 
 const construirCalendarioSemanal = async () => {
-
   const dataSelecionada = new Date(inputSemana.value);
   const nomesDiasSemana = [
     "Domingo",
@@ -93,28 +121,23 @@ const construirCalendarioSemanal = async () => {
   const promises = diasDaSemana.map(async (dia) => {
     try {
       const dados = await consultarRelatorioDia(
-        `${dia.data.getFullYear()}-${
-          dia.data.getMonth() + 1
-        }-${dia.data.getDate()}`
+        `${dia.data.getFullYear()}-${dia.data.getMonth() + 1}-${dia.data.getDate()}`
       );
-      console.log(dados);
-
+  
       if (dados && dados.length > 0) {
-        return dados
-          .flatMap((lista) =>
-            lista.map(
-              (dado) => `
-                <div class="report-content">
-                    <h4>Relatório - ${dado.tipo_relatorio}</h4>
-                    <h4>Total de registros: ${dado.total_capturas}</h4>
-                    <div class="div-btn-action-report">
-                        <button onclick="abrirRelatorio()">ABRIR</button>
-                    </div>
-                </div>
+        const html = dados.flatMap((lista) =>
+          lista.map((dado) => 
             `
-            )
-          )
-          .join("");
+            <div class="report-content">
+              <h4>Relatório - ${dado.tipo_relatorio}</h4>
+              <h4>Total de registros: ${dado.total_capturas}</h4>
+              <div class="div-btn-action-report">
+                <button onclick="abrirRelatorio('${dado.tipo_relatorio === "diários" ? dado.data : dado.tipo_relatorio === "semanal" ? dado.data_inicio_semana : dado.data_inicio_mes}', '${dado.tipo_relatorio}')">ABRIR</button>
+              </div>
+            </div>
+          `)
+        ).join("");
+        return html;
       } else {
         return "";
       }
@@ -123,7 +146,7 @@ const construirCalendarioSemanal = async () => {
       return "";
     }
   });
-
+  
   const htmlContents = await Promise.all(promises);
 
   relatoriosCalendarioDiv.innerHTML = diasDaSemana

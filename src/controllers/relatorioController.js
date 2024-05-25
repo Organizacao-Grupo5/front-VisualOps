@@ -45,6 +45,20 @@ function buscarComponentesElegiveis(req, res) {
         });
 }
 
+const abrirRelatorio = (req, res) => {
+    const dados = req.body.info;
+    const idUser = req.params;
+
+    relatorioModel.infoCapturasData(dados, idUser)
+    .then(registros => {
+      res.json(registros);
+    })
+    .catch(error => {
+      res.status(500).json({ error: 'Erro ao abrir o relatório', details: error });
+    });
+}
+
 module.exports = {
-    buscarComponentesElegiveis
+    buscarComponentesElegiveis,
+    abrirRelatorio
 };

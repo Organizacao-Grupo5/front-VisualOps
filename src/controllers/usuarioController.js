@@ -55,8 +55,9 @@ function autenticar(req, res) {
                     id: resultadoAutenticar[0].id,
                     email: resultadoAutenticar[0].email,
                     nome: resultadoAutenticar[0].nome,
-                    senha: resultadoAutenticar[0].senha
-
+                    senha: resultadoAutenticar[0].senha,
+                    nomeEmpresa: resultadoAutenticar[0].nomeEmpresa,
+                    idEmpresa: resultadoAutenticar[0].idEmpresa,
                 });
                 
             } else {

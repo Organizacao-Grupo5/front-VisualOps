@@ -73,6 +73,8 @@ async function autenticar(email, senha) {
             sessionStorage.setItem("idUsuario", dados.id);
             sessionStorage.setItem("emailUsuario", dados.email);
             sessionStorage.setItem("nomeUsuario", dados.nome);
+            sessionStorage.setItem("nomeEmpresa", dados.nomeEmpresa);
+            sessionStorage.setItem("idEmpresa", dados.nomeIdEmpresa);
 
             mostrarMensagem(mensagem.tela.sucesso.login(dados.nome));
 

@@ -12,7 +12,7 @@ router.post('/:idUsuario/abrirRelatorio', (req, res) => {
     relatorioController.abrirRelatorio(req, res)
 })
 
-router.post("/upload-excell", async(req, res) => {
+router.post("/upload-excel/:idMaquina", async(req, res) => {
     return excelController.gerarRelatorioExcell(req, res);
 })
 

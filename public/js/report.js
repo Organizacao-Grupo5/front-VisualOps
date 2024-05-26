@@ -372,6 +372,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const containerPDF = document.getElementById("pdf_content");
 
+btnExcel.addEventListener('click', async () => {
+  const datas = dadosCaptura.map(dado => new Date(dado.dataCaptura)).filter(date => !isNaN(date));
+
+  const dataInicio = new Date(Math.min(...datas));
+  const dataFim = new Date(Math.max(...datas));
+
+  try {
+    const resp = await fetch(
+      `/relatorio/upload-excel/${JSON.parse(sessionStorage.getItem("relatorioDados")).idMaquina}`,
+      {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        dataInicio: dataInicio,
+        dataFim: dataFim,
+      }),
+    });
+
+    if (resp.ok) {
+      const blob = await resp.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'relatorio.xlsx';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    } else {
+      throw new Error("Erro ao obter relatório");
+    }
+  } catch (erro) {
+    console.error(erro);
+    throw erro;
+  }
+});
+
+
 const btnLeft = document
   .getElementById("btn_left")
   .addEventListener("click", () => {

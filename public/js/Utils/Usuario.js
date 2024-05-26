@@ -100,21 +100,15 @@ async function autenticar(email, senha) {
 
 }
 
-async function listar(tabela, campo, valor, alvo, join) {
+async function listarUsuario(id) {
     
     try {
         
-        const resposta = await fetch(`/listar/${tabela}`, {
-            method: "POST",
+        const resposta = await fetch(`/usuario/listar/${id}`, {
+            method: "GET",
             headers: {
                 "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                campo: campo,
-                valor: valor,
-                alvo: alvo,
-                join: join
-            })
+            }
         });
 
         if (resposta.ok) {
@@ -122,7 +116,7 @@ async function listar(tabela, campo, valor, alvo, join) {
 
             console.log("RESULTADO: ", dados);
 
-            return dados[0];
+            return dados;
         } else {
             console.error("Houve um erro ao listar os usuários!");
             

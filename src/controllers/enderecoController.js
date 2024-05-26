@@ -52,6 +52,41 @@ function cadastrar(req, res) {
     }
 }
 
+function listarByFkEmpresa (req, res) {
+    const fkEmpresa = req.params.fkEmpresa;
+
+    if (fkEmpresa != null || fkEmpresa != '') {
+        enderecoModel.listarByFkEmpresa(fkEmpresa)
+        .then(resultado => {
+
+            if (resultado.length > 0) {
+                res.json({
+                    id: resultado[0].id,
+                    cep: resultado[0].cep,
+                    logradouro: resultado[0].logradouro,
+                    numero: resultado[0].numero,
+                    bairro: resultado[0].bairro,
+                    estado: resultado[0].estado,
+                    complemento: resultado[0].complemento
+                });
+            
+            } else {
+                console.log("Erro! nenhum endereço encontrado com essas informações!");
+
+                res.status(400).send("Erro não foi possível encontrar o endereço!")
+            }
+        })
+        .catch (erro =>  {
+            console.log(erro);
+
+            console.log("\nHouve um erro ao realizar o select! Erro: ", erro);
+            
+            res.status(500).json(erro.sqlMessage);
+        });
+    }
+}
+
 module.exports = {
-    cadastrar
+    cadastrar,
+    listarByFkEmpresa
 }

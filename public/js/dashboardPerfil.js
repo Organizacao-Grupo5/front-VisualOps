@@ -4,16 +4,13 @@ let address;
 
 window.onload = async () => {
     const idUser = sessionStorage.getItem("IdUsuario");
-    user = await listar('usuario', 'idUsuario', idUser, '*');
-    address = await listar('endereco', 'idUsuario', idUser, 'endereco.*', joinOn([
-        { "empresa": ["endereco.fkEmpresa", "empresa.idEmpresa"] },
-        { "endereco": ["empresa.idEmpresa", "usuario.fkEmpresa"] }
-    ]));
+    user = await listarUsuario(idUser);
+    address = await listarEnderecoByFk(user.fkEmpresa);
 
     trocar();
 }
 
-function joinOn(tabelas) {
+function joinOn(tabela) {
     return `JOIN ${tabela} ON ${valor2} = ${valor1} `
 }
 

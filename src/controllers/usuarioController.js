@@ -76,7 +76,41 @@ function autenticar(req, res) {
     }
 }
 
+function listar (req, res) {
+    const idUsuario = req.params.id;
+
+    if (idUsuario != null || idUsuario != '') {
+        usuarioModel.listar(idUsuario)
+        .then(resultado => {
+
+            if (resultado.length > 0) {
+                res.json({
+                    id: resultado[0].id,
+                    nome: resultado[0].nome,
+                    email: resultado[0].email,
+                    senha: resultado[0].senha,
+                    cargo: resultado[0].cargo,
+                    fkEmpresa: resultado[0].fkEmpresa
+                });
+            
+            } else {
+                console.log("Erro! nenhum usuário encontrado com essas informações!");
+
+                res.status(400).send("Erro não foi possível encontrar usuário com esse id!")
+            }
+        })
+        .catch (erro =>  {
+            console.log(erro);
+
+            console.log("\nHouve um erro ao realizar o select! Erro: ", erro);
+            
+            res.status(500).json(erro.sqlMessage);
+        });
+    }
+}
+
 module.exports = {
     cadastrar,
-    autenticar
+    autenticar,
+    listar
 }

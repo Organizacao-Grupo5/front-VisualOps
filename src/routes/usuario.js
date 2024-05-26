@@ -11,7 +11,7 @@ router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
 
-router.get("/lista/:id", function (req, res) {
+router.get("/listar/:id", function (req, res) {
     usuarioController.listar(req, res);
 });
 

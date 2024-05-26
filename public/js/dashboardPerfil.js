@@ -3,7 +3,7 @@ let address;
 
 
 window.onload = async () => {
-    const idUser = sessionStorage.getItem("IdUsuario");
+    const idUser = sessionStorage.getItem("idUsuario");
     user = await listarUsuario(idUser);
     address = await listarEnderecoByFk(user.fkEmpresa);
 
@@ -20,21 +20,16 @@ function trocar() {
     console.log(user);
     console.log(address);
 
-    let nome = document.getElementById("nome").value;
-    let email = document.getElementById("email").value;
-    let senha = document.getElementById("senha").value;
-    let telefone = document.getElementById("numero").value;
+    nome.value = `${user.nome}`;
+    email.value = `${user.email}`;
+    senha.value = `${user.senha}`;
+    let telefone = document.getElementById("numero");
 
-    let bairro = document.getElementById("bairro").value;
-    let estado = document.getElementById("estado").value;
-    let cep = document.getElementById("cep").value;
-    let rua = document.getElementById("rua").value;
-    let complemento = document.getElementById("complemento").value;
-
-
-    nome == '' ?? `${user.nome}`;
-    email == '' ?? `${user.email}`;
-    senha == '' ?? `${user.senha}`;
+    let bairro = document.getElementById("bairro");
+    let estado = document.getElementById("estado");
+    let cep = document.getElementById("cep");
+    let rua = document.getElementById("rua");
+    let complemento = document.getElementById("complemento");
 
     bairro == '' ?? `${address.bairro}`;
     estado == '' ?? `${address.estado}`;

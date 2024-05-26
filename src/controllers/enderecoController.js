@@ -55,7 +55,7 @@ function cadastrar(req, res) {
 function listarByFkEmpresa (req, res) {
     const fkEmpresa = req.params.fkEmpresa;
 
-    if (fkEmpresa != null || fkEmpresa != '') {
+    if (fkEmpresa != undefined && fkEmpresa != '') {
         enderecoModel.listarByFkEmpresa(fkEmpresa)
         .then(resultado => {
 

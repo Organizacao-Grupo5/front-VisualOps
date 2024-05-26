@@ -79,7 +79,7 @@ function autenticar(req, res) {
 function listar (req, res) {
     const idUsuario = req.params.id;
 
-    if (idUsuario != null || idUsuario != '') {
+    if (idUsuario != undefined && idUsuario != '') {
         usuarioModel.listar(idUsuario)
         .then(resultado => {
 

@@ -103,3 +103,6 @@ elements.btnMaximizar.addEventListener("click", () => {
         }, 300);
     });
 });
+
+document.getElementById('txt_welcome_user').innerHTML = `BEM-VINDO(A) ${sessionStorage.getItem("nomeUsuario").toUpperCase()}`;
+document.getElementById('txt_user_and_interprise').innerHTML = `${sessionStorage.getItem("nomeUsuario").toUpperCase()}<br>${sessionStorage.getItem("nomeEmpresa").toUpperCase()}`;

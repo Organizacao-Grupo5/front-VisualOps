@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="../css/dashboardPerfil.css">
     <link rel="stylesheet" href="../css/navBar.css">
+    <link rel="stylesheet" href="../css/layout.css">
     <link rel="icon" href="../assets/favicon/logofundo-azul.ico">
 
     <script src="https://kit.fontawesome.com/265fd07209.js" crossorigin="anonymous"></script>
@@ -63,8 +64,8 @@
                     <button class="btn-section">ASSINATURA</button>
                 </div>
                 <div class="chose-section">
-                    <i class="fa-regular fa-file-lines" style="font-size: 18px;"></i>
-                    <button class="btn-section">RELATÓRIOS</button>
+                    <i class="fa-regular fa-file-lines" style="font-size: 18px;" onclick="windowRelatorio()"></i>
+                    <button class="btn-section" onclick="windowRelatorio()">RELATÓRIOS</button>
                 </div>
             </div>
             <div class="end-sidebar">
@@ -85,30 +86,15 @@
         <div class="dashboard-content" id="dashboard">
 
             <nav>
-
-                <h1 style="font-size: 1rem;">BEM-VINDO(A) FERNANDA</h1>
-
-                <div class="input-div">
-
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input class="sessao" placeholder="Buscar" type="text">
-
-                </div>
-
+                <h1 class="user-welcome" style="font-size: 1rem;" id="txt_welcome_user"></h1>
                 <div class="nav-visual-info">
-
                     <h1 style="font-size: 1em;">VISUALOPS</h1>
                     <img src="logofundo.png" alt="">
-
                 </div>
-
                 <div class="nav-user-info">
-
                     <div class="circle"></div>
-                    <h1 style="font-size: 0.5em;">FERNANDA<br>SPTECHSCHOOL</h1>
-
+                    <h1 style="font-size: 0.5em;" id="txt_user_and_interprise"></h1>
                 </div>
-
             </nav>
 
             <div class="name-chart-content">

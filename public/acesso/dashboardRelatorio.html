@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Relatórios | VisualOps</title>
     <link rel="stylesheet" href="../css/layout.css">
     <link rel="stylesheet" href="../css/dashboardRelatório.css">
+    <link rel="stylesheet" href="../css/navBar.css">
     <script src="https://kit.fontawesome.com/265fd07209.js" crossorigin="anonymous"></script>
 </head>
 
@@ -74,18 +75,14 @@
         <button id="maximizar" class="maximizar"><i class="fa-solid fa-angles-right"></i></button>
         <div class="dashboard-content" id="dashboard">
             <nav>
-                <h1 style="font-size: 1rem;">BEM-VINDO(A) NOVAMENTE FERNANDA</h1>
-                <div class="input-div">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input placeholder="Buscar por sessão" type="text">
-                </div>
+                <h1 class="user-welcome" style="font-size: 1rem;" id="txt_welcome_user"></h1>
                 <div class="nav-visual-info">
                     <h1 style="font-size: 1em;">VISUALOPS</h1>
                     <img src="logofundo.png" alt="">
                 </div>
                 <div class="nav-user-info">
                     <div class="circle"></div>
-                    <h1 style="font-size: 0.5em;">FERNANDA<br>SPTECHSCHOOL</h1>
+                    <h1 style="font-size: 0.5em;" id="txt_user_and_interprise"></h1>
                 </div>
             </nav>
             <div class="content-dash-report">
@@ -164,11 +161,11 @@
                                 <span>Tipo</span>
                                 <div class="checkbox-chose">
                                     <label for="chk_diario">Diário</label>
-                                    <input type="checkbox" name="" id="chk_diario">
+                                    <input checked type="checkbox" name="" id="chk_diario">
                                     <label for="chk_semanal">Semanal</label>
-                                    <input type="checkbox" name="" id="chk_semanal">
+                                    <input checked type="checkbox" name="" id="chk_semanal">
                                     <label for="chk_mensal">Mensal</label>
-                                    <input type="checkbox" name="" id="chk_mensal">
+                                    <input checked type="checkbox" name="" id="chk_mensal">
                                 </div>
                             </div>
                             <div class="side-line-content">
@@ -178,25 +175,6 @@
                                     <input type="checkbox" name="" id="chk_proprio">
                                     <label for="chk_time">Time</label>
                                     <input type="checkbox" name="" id="chk_time">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="line-content">
-                            <div class="side-line-content">
-                                <span>Componente</span>
-                                <div class="checkbox-chose">
-                                    <label for="chk_todos_componente">Todos</label>
-                                    <input checked type="checkbox" name="" id="chk_todos_componente">
-                                    <label for="chk_cpu">CPU</label>
-                                    <input type="checkbox" name="" id="chk_cpu">
-                                    <label for="chk_gpu">GPU</label>
-                                    <input type="checkbox" name="" id="chk_gpu">
-                                    <label for="chk_hdd">HDD</label>
-                                    <input type="checkbox" name="" id="chk_hdd">
-                                    <label for="chk_ram">RAM</label>
-                                    <input type="checkbox" name="" id="chk_ram">
-                                    <label for="chk_app">APP</label>
-                                    <input type="checkbox" name="" id="chk_app">
                                 </div>
                             </div>
                         </div>

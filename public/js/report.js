@@ -184,8 +184,8 @@ const gerarPaginas = () => {
         </tbody>
       </table> 
       <h6 style="margin-top:2%; margin-bottom:1%;"><u>Gráfico das capturas registradas</u></h6>
-      <div id="div_chart_img_${componente}"; style="width: 100%;">
-          
+      <div style="width: 100%;">
+        <canvas id="ctx_${componente}"></canvas>
       </div>
     </div>
     `;
@@ -262,13 +262,6 @@ const gerarGraficos = () => {
     } else {
       console.error(`Canvas element with ID ctx_${componente} not found`);
     }
-
-    const divImgCtx = document.getElementById(`div_chart_img_${componente}`);
-
-    const dataUrl = ctx.toDataURL();
-    const imgHtml = `<img src="${dataUrl}" />`;
-
-    divImgCtx.innerHTML += imgHtml;
   });
 };
 
@@ -290,17 +283,24 @@ const alterarPagina = () => {
   containerPDF.style.transform = `translateX(${movimento}px)`;
 };
 
-function baixarPDF() {
-  const pagina = paginasEstilizadaPDF.join(""); 
-
+async function baixarPDF() {
+  
   const fileName = `relatorio.pdf`;
-  html2pdf()
-    .from(pagina)
-    .toPdf()
-    .get("pdf")
-    .then(function (pdf) {
-      pdf.save(fileName);
-    });
+  let todasPaginas = document.querySelectorAll(".content-pdf");
+
+  const pdfWidth = todasPaginas[0].clientWidth + 100;
+  const movimento = -pdfWidth * 0;
+
+  containerPDF.style.transform = `translateX(${movimento}px)`;
+  pdfConteiner.style.flexDirection = "column"
+
+  try {
+    const pdf = await html2pdf().from(pdfConteiner).toPdf().get("pdf");
+    pdf.save(fileName);
+  } catch (error) {
+    console.error('Erro ao gerar o PDF:', error);
+  }
+  pdfConteiner.style.flexDirection = "row";
 }
 
 btnPdf.addEventListener("click", () => {

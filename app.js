@@ -18,6 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
 app.use(express.static(path.join(__dirname, "public")));
 
+
 app.use(cors());
 
 app.use("/", queriesRouter);
@@ -26,8 +27,11 @@ app.use("/endereco", enderecoRouter);
 app.use("/plano", planoRouter);
 app.use("/", slackRouter);
 app.use("/usuario", usuarioRouter);
-app.use("/relatorio", relatorioRouter);
+app.use("/relatorio", relatorioRouter );
 
+app.use((req, res) => {
+    res.status(404).sendFile(path.join(__dirname, 'public/acesso', '404.html'));
+});
 
 app.listen(PORTA, function () {
     console.log(`Visualização é https://52.206.6.185:${PORTA}`)

@@ -106,10 +106,12 @@ function gerarDadosParaExcel(dados, idMaquina) {
   console.log(dados);
 
   const query = `
-    SELECT captura.dadoCaptura, captura.unidadeMedida, dataCaptura, componente.componente, captura.idCaptura
+    SELECT captura.dadoCaptura, captura.unidadeMedida, dataCaptura, componente.componente, captura.idCaptura, usuario.nome as nomeUsuario, empresa.nome as nomeEmpresa
       FROM captura 
         JOIN componente ON componente.idComponente = captura.fkComponente 
         JOIN maquina ON maquina.idMaquina = componente.fkMaquina 
+        JOIN usuario ON maquina.fkUsuario = usuario.idUsuario
+        JOIN empresa ON usuario.fkEmpresa = empresa.idEmpresa
         WHERE dataCaptura >= "${dados.dataInicio}" AND dataCaptura <= "${dados.dataFim}" AND maquina.idMaquina = ${idMaquina} ;
   `;
 

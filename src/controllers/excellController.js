@@ -1,5 +1,5 @@
 const path = require("path");
-const ExcelJS = require("exceljs");
+const XlsxPopulate = require("xlsx-populate");
 const relatorioModel = require('../models/relatorioModel');
 
 const gerarRelatorioExcell = async (req, res) => {
@@ -11,30 +11,37 @@ const gerarRelatorioExcell = async (req, res) => {
 
     const dados = await relatorioModel.gerarDadosParaExcel(infos, idMaquina);
 
-    const workbook = new ExcelJS.Workbook();
-    await workbook.xlsx.readFile(templatePath);
+    const workbook = await XlsxPopulate.fromFileAsync(templatePath);
 
-    console.log('Worksheets:', workbook.worksheets.map(ws => ws.name));
+    const formatarData = (data) => {
+      const dia = String(data.getDate()).padStart(2, "0");
+      const mes = String(data.getMonth() + 1).padStart(2, "0");
+      const ano = data.getFullYear();
+      const horas = String(data.getHours()).padStart(2, "0");
+      const minutos = String(data.getMinutes()).padStart(2, "0");
+      return `${ano}/${mes}/${dia} | ${horas}:${minutos}`;
+    };
 
-    const worksheet = workbook.worksheets[0]; // ou workbook.getWorksheet('NomeDaAba');
+    workbook.sheets().forEach(planilha => {
 
-    if (!worksheet) {
-      throw new Error('Worksheet not found');
-    }
+      planilha.cell('C7').value(`   RELATÓRIO GERAL DOS COMPONENTES DA SUA MÁQUINA - ${(dados[0].nomeUsuario).toUpperCase()} - ${formatarData(new Date())} - Empresa ${(dados[0].nomeEmpresa).toUpperCase()} |`);
+  
+      const dadosFiltrados = dados.filter(dado => {
+        const nomeComponente = dado.componente.toLowerCase();
+        const nomePlanilha = planilha.name().toLowerCase();
+        return nomeComponente.includes(nomePlanilha) || nomePlanilha.includes(nomeComponente);
+      });
 
-    dados.forEach((dado, index) => {
-      const row = index + 13; // Começa na linha 13
-      worksheet.getCell(`D${row}`).value = dado.dataCaptura;
-      worksheet.getCell(`E${row}`).value = dado.dataCaptura;
-      worksheet.getCell(`F${row}`).value = dado.idCaptura;
-      worksheet.getCell(`G${row}`).value = dado.idCaptura;
-      worksheet.getCell(`H${row}`).value = dado.dadoCaptura;
-      worksheet.getCell(`I${row}`).value = dado.dadoCaptura;
-      worksheet.getCell(`J${row}`).value = dado.unidadeMedida;
-      worksheet.getCell(`K${row}`).value = dado.unidadeMedida;
+      dadosFiltrados.forEach((dado, index) => {
+        const row = index + 13;
+        planilha.cell(`D${row}`).value(dado.dataCaptura);
+        planilha.cell(`F${row}`).value(dado.idCaptura);
+        planilha.cell(`H${row}`).value(dado.dadoCaptura);
+        planilha.cell(`J${row}`).value(dado.unidadeMedida);
+      });
     });
 
-    const buffer = await workbook.xlsx.writeBuffer();
+    const buffer = await workbook.outputAsync();
 
     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     res.setHeader('Content-Disposition', 'attachment; filename=relatorio.xlsx');

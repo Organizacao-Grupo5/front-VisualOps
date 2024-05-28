@@ -24,6 +24,34 @@ function cadastrar(req, res) {
     }
 }
 
+
+function contar(req, res) {
+    const fkUsuario = req.params.fkUsuario;
+
+    if (fkUsuario == undefined) {
+        res.status(400).send("O fk do usuário está indefinido!");
+    } else {
+        maquinaModel.contar(fkUsuario)
+        .then(resposta => {
+
+            if (resposta > 0) {
+                res.json({
+                    id: resultado[0].id,
+                    nome: resultado[0].nome,
+                    email: resultado[0].email,
+                    senha: resultado[0].senha,
+                    cargo: resultado[0].cargo,
+                    fkEmpresa: resultado[0].fkEmpresa
+                });
+            }
+        })
+        .catch(erro => {
+            res.status(500).json(erro.sqlMessage);
+        })
+    }
+}
+
 module.exports = {
-    cadastrar
+    cadastrar,
+    contar
 }

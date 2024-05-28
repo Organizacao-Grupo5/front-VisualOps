@@ -5,20 +5,51 @@ const colunas = document.getElementsByClassName('colunas_status');
 const background = document.getElementById("bg");
 const pop = document.getElementById("pop");
 
-function geradorNumeros() {
-    const random = Math.round(Math.random() * 50) + 1;
+window.onload = () => {
+    // aparecerPop(mensagem.inicial);
+    mostrarKpi4();
+    mostrarKpi5();
+    totalGrafico1();
+};
 
-    return random;
+setInterval(() => {
+    atualizarGrafico();
+}, 1000)
+
+const list = {
+    first: [],
+    second: [],
+    third: [],
 }
 
-function gerarLista(numero) {
-    let list = [];
+async function atualizarGrafico() {
+    try {
+        
+        const resposta = await fetch(`/maquina/contar/${fkUsuario}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
 
-    for (let i = 0; i < numero; i++) {
-        list.push(geradorNumeros());
-    }
+        if (resposta.ok) {
+            const dados = await resposta.json();
 
-    return list;
+            console.log("RESULTADO: ", dados);
+
+            return dados;
+        } else {
+            console.error("Houve um erro ao listar os usuários!");
+            
+            throw new Error("Houve um erro ao listar os usuários!")
+        }
+
+    } catch (error) {
+        console.log("Erro desconhecido na API ", error);
+
+        return false;
+    };
+
 }
 
 const label = {
@@ -30,7 +61,7 @@ const label = {
 const dataset = {
     first: [{
         label: 'Quantidade de Computadores por Desempenho Mensal',
-        data: gerarLista(3),
+        data: list.first,
         backgroundColor: [
             '#F2274C',
             '#F2AB27',
@@ -40,14 +71,14 @@ const dataset = {
     }],
     second: [{
         label: 'Hardwares Prejudicados por Dia',
-        data: gerarLista(4),
+        data: list.second,
         backgroundColor: '#F2AB27',
         hoverBackgroundColor: '#F2274C',
         borderRadius: 5
     }],
     third: [{
         label: 'Usabilidade Diária por Equipe',
-        data: gerarLista(30),
+        data: list.third,
         backgroundColor: '#449ADE',
         borderColor: '#449ADE',
         hoverBackgroundColor: '#449ADE',
@@ -177,14 +208,6 @@ new Chart(third, {
         }
     }
 });
-
-
-window.onload = () => {
-    aparecerPop(mensagem.inicial);
-    mostrarKpi4();
-    mostrarKpi5();
-    totalGrafico1();
-};
 
 function mostrarKpi5() {
 

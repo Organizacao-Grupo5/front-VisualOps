@@ -8,6 +8,13 @@ function cadastrar(numeroIdentificacao, marca, modelo, fkUsuario) {
     return database.executar(instrucao);
 }
 
+function contar (fkUsuario) {
+    const query = `SELECT COUNT(*) FROM maquina WHERE fkUsuario = ${fk}`;
+    console.log("Executando a instrução SQL: \n");
+    return database.executar(query);
+}
+
 module.exports = {
-    cadastrar
+    cadastrar,
+    contar
 };

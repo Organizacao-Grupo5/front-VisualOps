@@ -11,6 +11,7 @@ const enderecoRouter = require("./src/routes/endereco");
 const slackRouter = require("./src/routes/GoogleSlackRoute");
 const planoRouter = require("./src/routes/plano");
 const usuarioRouter = require("./src/routes/usuario");
+const maquinaRouter = require("./src/routes/maquina");
 
 
 app.use(express.json());
@@ -25,6 +26,7 @@ app.use("/endereco", enderecoRouter);
 app.use("/plano", planoRouter);
 app.use("/", slackRouter);
 app.use("/usuario", usuarioRouter);
+app.use("/maquina", maquinaRouter);
 
 
 app.listen(PORTA, function () {

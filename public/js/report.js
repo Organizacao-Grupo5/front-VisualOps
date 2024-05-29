@@ -47,6 +47,8 @@ const btnPdf = document.getElementById("btn_pdf");
 const btnExcel = document.getElementById("btn_xlsx");
 const btnEdit = document.getElementById("btn_edit");
 const btnExpand = document.getElementById("btn_exp");
+const tabRelatorio = document.getElementById("tab_relatorio")
+const tabTabelaRegistro = document.getElementById("tab_tabela_registro")
 
 const gerarPdf = () => {
   pdfConteiner.innerHTML += paginas.join("");
@@ -235,72 +237,73 @@ const aumentarVisualizacao = () => {
 
   containerPDF.style.transform = `translateX(${movimento}px)`;
 
-  let existingClone = document.querySelector('.pdf-clone');
+  let existingClone = document.querySelector(".pdf-clone");
   let divExpand;
 
   if (!existingClone) {
     const pdfContainerClone = containerPDF.cloneNode(true);
-    pdfContainerClone.classList.add('pdf-clone');
-    pdfContainerClone.classList.remove('content-pdf')
+    pdfContainerClone.classList.add("pdf-clone");
+    pdfContainerClone.classList.remove("content-pdf");
 
-    divExpand = document.createElement('div');
-    divExpand.classList.add('div-expand');
+    divExpand = document.createElement("div");
+    divExpand.classList.add("div-expand");
 
-    const btnClose = document.createElement('button');
+    const btnClose = document.createElement("button");
     btnClose.innerHTML = '<i class="fa-solid fa-circle-xmark"></i>';
-    btnClose.classList.add('botao-fechar');
+    btnClose.classList.add("botao-fechar");
 
     divExpand.appendChild(pdfContainerClone);
     divExpand.appendChild(btnClose);
     document.body.appendChild(divExpand);
 
-    pdfContainerClone.style.transform = 'none';
-    pdfContainerClone.style.width = 'auto';
+    pdfContainerClone.style.transform = "none";
+    pdfContainerClone.style.width = "auto";
 
-    btnClose.addEventListener('click', () => {
-      divExpand.style.display = 'none';
+    btnClose.addEventListener("click", () => {
+      divExpand.style.display = "none";
     });
   } else {
     divExpand = existingClone.parentElement;
-    divExpand.style.display = 'block';
+    divExpand.style.display = "block";
   }
-}
+};
 
 async function baixarPDF() {
-  const pdfHtml = document.querySelector('.pdf-clone');
+  const pdfHtml = document.querySelector(".pdf-clone");
 
   pdfHtml.style.flexDirection = "column";
   pdfHtml.style.margin = 0;
   pdfHtml.style.padding = 0;
   pdfHtml.style.gap = 0;
   pdfHtml.style.width = "595.28pt";
-  
-  const contentElements = pdfHtml.querySelectorAll('.content-pdf');
 
-  pdfHtml.querySelector(".logo").style.width = "200pt"
-  pdfHtml.querySelector(".header").style.padding = "5%"
-  pdfHtml.querySelector(".logo").style.height = "200pt"
-  pdfHtml.querySelector(".logo").style.borderRadius = "200pt"
-  pdfHtml.querySelector(".date").style.fontSize = "22px"
-  pdfHtml.querySelector(".title").style.fontSize = "80px"
-  pdfHtml.querySelector(".subtitle").style.fontSize = "40px"
-  pdfHtml.querySelector(".title").style.marginLeft = "5%"
-  pdfHtml.querySelector(".subtitle").style.marginLeft = "5%"
-  pdfHtml.querySelector(".footer").style.height = "100pt"
-  pdfHtml.querySelector(".footer-text").style.fontSize = "22px"
-  pdfHtml.querySelector(".footer-img").style.height = "50pt"
-  pdfHtml.querySelector(".footer-img").style.width = "50pt"
-  contentElements.forEach(element => {
+  const contentElements = pdfHtml.querySelectorAll(".content-pdf");
+
+  pdfHtml.querySelector(".logo").style.width = "200pt";
+  pdfHtml.querySelector(".header").style.padding = "5%";
+  pdfHtml.querySelector(".logo").style.height = "200pt";
+  pdfHtml.querySelector(".logo").style.borderRadius = "200pt";
+  pdfHtml.querySelector(".date").style.fontSize = "22px";
+  pdfHtml.querySelector(".title").style.fontSize = "80px";
+  pdfHtml.querySelector(".subtitle").style.fontSize = "40px";
+  pdfHtml.querySelector(".title").style.marginLeft = "5%";
+  pdfHtml.querySelector(".subtitle").style.marginLeft = "5%";
+  pdfHtml.querySelector(".footer").style.height = "100pt";
+  pdfHtml.querySelector(".footer-text").style.fontSize = "22px";
+  pdfHtml.querySelector(".footer-img").style.height = "50pt";
+  pdfHtml.querySelector(".footer-img").style.width = "50pt";
+
+  contentElements.forEach((element) => {
     element.style.width = "595.28pt";
     element.style.height = " 841.89pt";
   });
 
   try {
     const options = {
-      filename: 'relatorio-visualOps.pdf',
-      image: { type: 'jpeg', quality: 1.0 },
+      filename: "relatorio-visualOps.pdf",
+      image: { type: "jpeg", quality: 1.0 },
       html2canvas: { scale: 3, useCORS: true },
-      jsPDF: { unit: 'pt', format: 'a4', orientation: 'portrait' }
+      jsPDF: { unit: "pt", format: "a4", orientation: "portrait" },
     };
 
     await html2pdf().set(options).from(pdfHtml).save();
@@ -314,74 +317,52 @@ btnPdf.addEventListener("click", () => {
   baixarPDF();
 });
 
-btnExpand.addEventListener('click', () => {
+btnExpand.addEventListener("click", () => {
   aumentarVisualizacao();
 });
-
-
 
 document.addEventListener("DOMContentLoaded", () => {
   const infoCapturas = JSON.parse(sessionStorage.getItem("relatorioDados"));
 
+  if(tabRelatorio.value == "activate"){
+    carregarTabRelatorios(infoCapturas);
+  } else{
+    
+  }
+
   if (infoCapturas) {
     dadosCaptura = infoCapturas.dados;
-
-    loadingUtils.showLoadingPopup();
-
-    gerarPaginas();
-
-    loadingUtils.hideLoadingPopup();
-
-    h5QtdCapturas.innerHTML += infoCapturas.dados.length;
-
-    const datas = Array.from({ length: infoCapturas.dados.length }, (_, i) => {
-      return infoCapturas.dados[i].dataCaptura;
-    });
-
-    const dataInicio = new Date(
-      datas.reduce((a, b) => {
-        return a < b ? a : b;
-      })
-    );
-
-    const dataFim = new Date(
-      datas.reduce((a, b) => {
-        return a > b ? a : b;
-      })
-    );
-
-    const addZero = (num) => (num < 10 ? "0" + num : num);
-
-    const inicio = `${dataInicio.getFullYear()}/${addZero(
-      dataInicio.getMonth() + 1
-    )}/${addZero(dataInicio.getDate())} ${
-      "| " +
-      addZero(dataInicio.getHours()) +
-      ":" +
-      addZero(dataInicio.getMinutes())
-    }`;
-
-    const fim = `${dataFim.getFullYear()}/${addZero(
-      dataFim.getMonth() + 1
-    )}/${addZero(dataFim.getDate())} ${
-      "| " + addZero(dataFim.getHours()) + ":" + addZero(dataFim.getMinutes())
-    }`;
-
-    infoDataReport.innerHTML = `Relatório(s) ${infoCapturas.tipo} - Início: ${inicio} - Fim: ${fim}`;
-
-    h5Componentes.innerHTML += Array.from(
-      new Set(infoCapturas.dados.map((item) => item.componente))
-    ).join(", ");
-
-    h5Data.innerHTML += inicio + " até " + fim;
   } else {
     console.log("Nenhum dado de relatório encontrado.");
   }
-
-  gerarPdf();
-
-  gerarGraficos();
 });
+
+const gerarTabela = () => {
+  new Tabulator(document.getElementById("div_tabulator"), {
+    layout: "fitColumns",
+    pagination: "local",
+    paginationSize: 6,
+    paginationSizeSelector: [3, 6, 8, 10],
+    movableColumns: true,
+    paginationCounter: "rows",
+    data: dadosCaptura,
+    groupBy: "componente",
+    columns: [
+      { title: "Componente", field: "componente", width: 150 },
+      {
+        title: "Captura",
+        field: "dadoCaptura",
+        hozAlign: "left",
+      },
+      {
+        title: "Data hora",
+        field: "dataCaptura",
+        sorter: "date",
+        hozAlign: "center",
+      },
+    ],
+  });
+};
 
 const containerPDF = document.getElementById("pdf_content");
 
@@ -446,6 +427,60 @@ const btnRight = document
       alterarPagina();
     }
   });
+
+const carregarTabRelatorios = (infoCapturas) => {
+  loadingUtils.showLoadingPopup();
+
+  gerarPaginas();
+
+  loadingUtils.hideLoadingPopup();
+
+  h5QtdCapturas.innerHTML += infoCapturas.dados.length;
+
+  const datas = Array.from({ length: infoCapturas.dados.length }, (_, i) => {
+    return infoCapturas.dados[i].dataCaptura;
+  });
+
+  const dataInicio = new Date(
+    datas.reduce((a, b) => {
+      return a < b ? a : b;
+    })
+  );
+
+  const dataFim = new Date(
+    datas.reduce((a, b) => {
+      return a > b ? a : b;
+    })
+  );
+
+  const addZero = (num) => (num < 10 ? "0" + num : num);
+
+  const inicio = `${dataInicio.getFullYear()}/${addZero(
+    dataInicio.getMonth() + 1
+  )}/${addZero(dataInicio.getDate())} ${
+    "| " +
+    addZero(dataInicio.getHours()) +
+    ":" +
+    addZero(dataInicio.getMinutes())
+  }`;
+
+  const fim = `${dataFim.getFullYear()}/${addZero(
+    dataFim.getMonth() + 1
+  )}/${addZero(dataFim.getDate())} ${
+    "| " + addZero(dataFim.getHours()) + ":" + addZero(dataFim.getMinutes())
+  }`;
+
+  infoDataReport.innerHTML = `Relatório(s) ${infoCapturas.tipo} - Início: ${inicio} - Fim: ${fim}`;
+
+  h5Componentes.innerHTML += Array.from(
+    new Set(infoCapturas.dados.map((item) => item.componente))
+  ).join(", ");
+
+  h5Data.innerHTML += inicio + " até " + fim;
+
+  gerarPdf();
+  gerarGraficos();
+};
 
 // window.addEventListener("beforeunload", () => {
 //   sessionStorage.removeItem("relatorioDados");

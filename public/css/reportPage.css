@@ -115,3 +115,39 @@
 .div-button-action button i {
     font-size: 15px;
 }
+
+.name-content{
+    width: 100%;
+    justify-content: space-between;
+}
+
+.tabs{
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    gap: 2%;
+    height: 100%;
+}
+
+.tabs button{
+    clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+    width: 40%;
+    z-index: 1;
+    background-color: #36334f;
+    color: #fff;
+    font-size: 10px;
+    border: none;
+}
+
+.tabs button[value="activate"] {    
+    pointer-events: auto;
+}
+
+.tabs button[value="activate"]:hover {    
+    scale: 1;
+}
+
+.tabs button[value="disable"] {
+    box-shadow: inset #000 0 -2px 5px 0;
+    cursor: pointer;
+}

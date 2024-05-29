@@ -150,11 +150,12 @@ i:hover {
 
 .menu {
     width: 100%;
-    height: 56.48%;
+    height: 35%;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 4%;
+    /* border: 5px solid red; */
 }
 
 .menu h1 {
@@ -167,13 +168,14 @@ i:hover {
 .chose-section {
     width: 100%;
     display: flex;
-    height: 9%;
+    height: 15%;
     /*7.87%*/
     align-items: center;
     justify-content: center;
     gap: 20%;
     color: #fff;
     transition: all 0.5s ease-in-out;
+    /* border: 5px solid purple; */
 }
 
 .chose-section:hover {
@@ -208,8 +210,8 @@ button:hover {
 
 .end-sidebar {
     width: 100%;
-    height: 25.93%;
-    gap: 8%;
+    height: 30%;
+    /* border: 5px solid blue;  */
 }
 
 .end-sidebar h6 {

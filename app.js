@@ -34,5 +34,5 @@ app.use((req, res) => {
 });
 
 app.listen(PORTA, function () {
-    console.log(`Visualização é https://52.206.6.185:${PORTA}`)
+    console.log(`Visualização é http://localhost:${PORTA}`)
 })

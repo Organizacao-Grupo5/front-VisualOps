@@ -1,4 +1,4 @@
-.content-pdf {
+.pdf .content-pdf {
   width: 412px;
   height: 450.504pt;
   background-color: #f8f9fa;
@@ -28,7 +28,7 @@
 .logo {
   width: 80px;
   height: 80px;
-  border-radius: 50%;
+  border-radius: 100%;
   background-color: #314161;
   padding: 5px;
 }
@@ -140,4 +140,102 @@ table.blueTable tfoot .links a {
   color: #FFFFFF;
   padding: 2px 8px;
   border-radius: 5px;
+}
+
+.div-grafico{
+  width: 75%;
+}
+
+.div-expand {
+  width: 100vw;
+  max-height: 100%;
+  position: absolute;
+  background-color: #00000029;
+  display: flex;
+  justify-content: center;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  z-index: 5;
+  top: 0%;
+}
+
+.div-expand .pdf-clone {
+  display: flex;
+  margin: 0;
+  flex-direction: column;
+  align-items: center;
+  width: 595.28pt;
+  height: 100%;
+  margin-top: 5%;
+}
+
+.div-expand .content-pdf {
+  height: 1123px;
+  width: 595.28pt;
+}
+
+.div-expand .description{
+  font-size: 15px;
+}
+
+.div-expand .logo{
+  width: 140pt;
+  height: 140pt;
+  border-radius: 100%;
+}
+
+.div-expand .date{
+  font-size: 18px;
+}
+
+.div-expand .content-pdf .title{
+  font-size: 80px;
+}
+
+.div-expand .content-pdf .subtitle{
+  font-size: 45px;
+}
+
+.div-expand .footer{
+  height: 110pt;
+}
+
+.div-expand .footer .footer-logo img{
+  height: 40pt;
+  width: 40pt;
+}
+
+.div-expand .footer .footer-logo .footer-text{
+  font-size: 20px;
+}
+
+.botao-fechar {
+  text-align: center;
+  background-color: #766ec6;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: #000 0 0 8px 0;
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  border: none;
+  top: 2%;
+  right: 2%;
+  transition: all 0.5s ease-in-out;
+}
+
+.botao-fechar i {
+  font-size: 20px;
+  color: #fff;
+}
+
+.botao-fechar:hover {
+  background-color: #fff;
+}
+
+.botao-fechar:hover i {
+  color: #766ec6;
 }

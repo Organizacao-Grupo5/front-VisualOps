@@ -4,8 +4,6 @@ const showLoadingPopup = () => {
 
   const popupContent = document.createElement("div");
   popupContent.classList.add("popup-content");
-  
-  popupContent.classList.add("slide-in-elliptic-top-fwd")
 
   const loadingIcon = document.createElement("img");
   loadingIcon.src = "../assets/img/loading.webp";
@@ -13,30 +11,19 @@ const showLoadingPopup = () => {
   loadingIcon.classList.add("loading-icon");
 
   const loadingText = document.createElement("p");
-  loadingText.style.width = "220px"
-  loadingText.style.fontSize = "18px"
   loadingText.textContent = "Carregando...";
-  loadingText.classList.add("tracking-in-contract");
-
-  setInterval(() => {
-    loadingText.style.fontSize = "18px"
-      loadingText.classList.remove("tracking-out-expand");
-      loadingText.classList.add("tracking-in-contract");
-  }, 2000);
-  
-  setInterval(() => {
-    loadingText.style.fontSize = "7px"
-    loadingText.classList.remove("tracking-in-contract");
-    loadingText.classList.add("tracking-out-expand");
-  }, 3000);
-  
+  loadingText.classList.add("loading-text");
 
   popupContent.appendChild(loadingIcon);
   popupContent.appendChild(loadingText);
 
   popup.appendChild(popupContent);
-
   document.body.appendChild(popup);
+
+  setInterval(() => {
+    loadingText.classList.toggle("tracking-in-contract");
+    loadingText.classList.toggle("tracking-out-expand");
+  }, 2500);
 };
 
 const hideLoadingPopup = () => {
@@ -47,6 +34,6 @@ const hideLoadingPopup = () => {
 };
 
 export default {
-    showLoadingPopup,
-    hideLoadingPopup
-}
+  showLoadingPopup,
+  hideLoadingPopup
+};

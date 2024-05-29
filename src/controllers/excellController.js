@@ -23,22 +23,80 @@ const gerarRelatorioExcell = async (req, res) => {
     };
 
     workbook.sheets().forEach(planilha => {
-
-      planilha.cell('C7').value(`   RELATÓRIO GERAL DOS COMPONENTES DA SUA MÁQUINA - ${(dados[0].nomeUsuario).toUpperCase()} - ${formatarData(new Date())} - Empresa ${(dados[0].nomeEmpresa).toUpperCase()} |`);
+      if(planilha.name().toLowerCase() !== "storage"){
+        planilha.cell('C7').value(`   RELATÓRIO GERAL DOS COMPONENTES DA SUA MÁQUINA - ${(dados[0].nomeUsuario).toUpperCase()} - ${formatarData(new Date())} - Empresa ${(dados[0].nomeEmpresa).toUpperCase()} |`);
+    
+        const dadosFiltrados = dados.filter(dado => {
+          const nomeComponente = dado.componente.toLowerCase();
+          const nomePlanilha = planilha.name().toLowerCase();
+          return nomeComponente.includes(nomePlanilha) || nomePlanilha.includes(nomeComponente);
+        });
   
-      const dadosFiltrados = dados.filter(dado => {
-        const nomeComponente = dado.componente.toLowerCase();
-        const nomePlanilha = planilha.name().toLowerCase();
-        return nomeComponente.includes(nomePlanilha) || nomePlanilha.includes(nomeComponente);
-      });
+        dadosFiltrados.forEach((dado, index) => {
+          const row = index + 13;
+          planilha.cell(`D${row}`).value("" + dado.dataCaptura);
+          planilha.cell(`F${row}`).value(dado.idCaptura);
+          planilha.cell(`H${row}`).value(dado.dadoCaptura);
+          planilha.cell(`J${row}`).value(dado.unidadeMedida);
+        });
+      } else{
 
-      dadosFiltrados.forEach((dado, index) => {
-        const row = index + 13;
-        planilha.cell(`D${row}`).value(dado.dataCaptura);
-        planilha.cell(`F${row}`).value(dado.idCaptura);
-        planilha.cell(`H${row}`).value(dado.dadoCaptura);
-        planilha.cell(`J${row}`).value(dado.unidadeMedida);
-      });
+        const dadosGPU = dados.filter(dado => {
+          return dado.componente.toLowerCase() === "gpu"
+        })
+
+        const dadosCPU = dados.filter(dado => {
+          return dado.componente.toLowerCase() === "cpu"
+        })
+
+        const dadosHDD = dados.filter(dado => {
+          return dado.componente.toLowerCase() === "hdd"
+        })
+
+        const dadosRAM = dados.filter(dado => {
+          return dado.componente.toLowerCase() === "memoriaram"
+        })
+
+        const dadosVolume = dados.filter(dado => {
+          return dado.componente.toLowerCase() === "volume"
+        })
+
+        dadosCPU.forEach((dado, index) => {
+          const row = index + 3;
+          planilha.cell(`B${row}`).value(dado.dataCaptura);
+          planilha.cell(`A${row}`).value(dado.idCaptura);
+          planilha.cell(`C${row}`).value(dado.dadoCaptura);
+          planilha.cell(`D${row}`).value(dado.unidadeMedida);
+        });
+        dadosGPU.forEach((dado, index) => {
+          const row = index + 3;
+          planilha.cell(`Q${row}`).value(dado.dataCaptura);
+          planilha.cell(`P${row}`).value(dado.idCaptura);
+          planilha.cell(`R${row}`).value(dado.dadoCaptura);
+          planilha.cell(`S${row}`).value(dado.unidadeMedida);
+        });
+        dadosHDD.forEach((dado, index) => {
+          const row = index + 3;
+          planilha.cell(`G${row}`).value(dado.dataCaptura);
+          planilha.cell(`F${row}`).value(dado.idCaptura);
+          planilha.cell(`H${row}`).value(dado.dadoCaptura);
+          planilha.cell(`I${row}`).value(dado.unidadeMedida);
+        });
+        dadosRAM.forEach((dado, index) => {
+          const row = index + 3;
+          planilha.cell(`L${row}`).value(dado.dataCaptura);
+          planilha.cell(`K${row}`).value(dado.idCaptura);
+          planilha.cell(`M${row}`).value(dado.dadoCaptura);
+          planilha.cell(`N${row}`).value(dado.unidadeMedida);
+        });
+        dadosVolume.forEach((dado, index) => {
+          const row = index + 3;
+          planilha.cell(`V${row}`).value(dado.dataCaptura);
+          planilha.cell(`U${row}`).value(dado.idCaptura);
+          planilha.cell(`W${row}`).value(dado.dadoCaptura);
+          planilha.cell(`X${row}`).value(dado.unidadeMedida);
+        });
+      }
     });
 
     const buffer = await workbook.outputAsync();

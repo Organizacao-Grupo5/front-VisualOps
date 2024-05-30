@@ -92,11 +92,11 @@
                 <div class="name-content">
                     <div>RELATÓRIOS | BAIXAR RELATÓRIO</div>
                     <div class="tabs">
-                        <button id="tab_relatorio" value="activate">RELATÓRIO</button>
-                        <button id="tab_tabela_registro" value="disable">TABELA DE REGISTRO</button>
+                        <button id="tab_relatorio" value="disable">RELATÓRIO</button>
+                        <button id="tab_tabela_registro" value="activate">TABELA DE REGISTRO</button>
                     </div>
                 </div>
-                <div class="content">
+                <div class="content" id="tab_1">
                     <div class="content-report-left">
                         <h4 id="info_data_report">Relatório Diário - Início: xx/xx/xxxx - Fim: xx/xx/xxxx</h4>
                         <div class="pdf-content" id="show_pages_pdf">
@@ -124,6 +124,33 @@
                         </div>
                         <div id="div_tabulator" class="div-tabulator">
                             
+                        </div>
+                    </div>
+                </div>
+                <div id="tab_2" class="content">
+                    <h4 class="title-tab2">Informações sobre o usuário responsável pelo registro</h4>
+                    <div class="informacoes-usuario">
+                        <div class="img-container">
+                            <img src="" id="img_user" alt="">
+                        </div>
+                        <div class="info-user-resp">
+                            <h6>Nome: </h6>
+                            <h6>E-mail: </h6>
+                            <h6>Cargo: </h6>
+                        </div>
+                    </div>
+                    <h4>Tabelas de registros do componentes (xxxx/xx/xx - xx:xx | xxxx/xx/xx - xx:xx)</h4>
+                    <div class="div-tab-table">
+                        <div class="div-tabs">
+                            <button value="disable" class="tab-table" id="tab_app">APP | JANELAS</button>
+                            <button value="activate" class="tab-table" id="tab_cpu">CPU</button>
+                            <button value="disable" class="tab-table" id="tab_gpu">GPU</button>
+                            <button value="disable" class="tab-table" id="tab_hdd">HDD</button>
+                            <button value="disable" class="tab-table" id="tab_ram">RAM</button>
+                            <button value="disable" class="tab-table" id="tab_volume">VOLUME</button>
+                        </div>
+                        <div class="div-tab-tables">
+    
                         </div>
                     </div>
                 </div>

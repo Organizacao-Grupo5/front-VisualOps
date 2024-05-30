@@ -47,8 +47,8 @@ const btnPdf = document.getElementById("btn_pdf");
 const btnExcel = document.getElementById("btn_xlsx");
 const btnEdit = document.getElementById("btn_edit");
 const btnExpand = document.getElementById("btn_exp");
-const tabRelatorio = document.getElementById("tab_relatorio")
-const tabTabelaRegistro = document.getElementById("tab_tabela_registro")
+const tabRelatorio = document.getElementById("tab_relatorio");
+const tabTabelaRegistro = document.getElementById("tab_tabela_registro");
 
 const gerarPdf = () => {
   pdfConteiner.innerHTML += paginas.join("");
@@ -324,17 +324,71 @@ btnExpand.addEventListener("click", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const infoCapturas = JSON.parse(sessionStorage.getItem("relatorioDados"));
 
-  if(tabRelatorio.value == "activate"){
-    carregarTabRelatorios(infoCapturas);
-  } else{
-    
-  }
-
   if (infoCapturas) {
     dadosCaptura = infoCapturas.dados;
+    loadingUtils.showLoadingPopup();
+
+    gerarPaginas();
+
+    loadingUtils.hideLoadingPopup();
+
+    h5QtdCapturas.innerHTML += infoCapturas.dados.length;
+
+    const datas = Array.from({ length: infoCapturas.dados.length }, (_, i) => {
+      return infoCapturas.dados[i].dataCaptura;
+    });
+
+    const dataInicio = new Date(
+      datas.reduce((a, b) => {
+        return a < b ? a : b;
+      })
+    );
+
+    const dataFim = new Date(
+      datas.reduce((a, b) => {
+        return a > b ? a : b;
+      })
+    );
+
+    const addZero = (num) => (num < 10 ? "0" + num : num);
+
+    const inicio = `${dataInicio.getFullYear()}/${addZero(
+      dataInicio.getMonth() + 1
+    )}/${addZero(dataInicio.getDate())} ${
+      "| " +
+      addZero(dataInicio.getHours()) +
+      ":" +
+      addZero(dataInicio.getMinutes())
+    }`;
+
+    const fim = `${dataFim.getFullYear()}/${addZero(
+      dataFim.getMonth() + 1
+    )}/${addZero(dataFim.getDate())} ${
+      "| " + addZero(dataFim.getHours()) + ":" + addZero(dataFim.getMinutes())
+    }`;
+
+    infoDataReport.innerHTML = `Relatório(s) ${infoCapturas.tipo} - Início: ${inicio} - Fim: ${fim}`;
+
+    h5Componentes.innerHTML += Array.from(
+      new Set(infoCapturas.dados.map((item) => item.componente))
+    ).join(", ");
+
+    h5Data.innerHTML += inicio + " até " + fim;
   } else {
     console.log("Nenhum dado de relatório encontrado.");
   }
+
+  if(tabRelatorio.value == "activate"){
+    document.getElementById("tab_1").style.display = "flex";
+    document.getElementById("tab_2").style.display = "none";
+  } else if(tabTabelaRegistro.value == "activate"){
+    document.getElementById("tab_1").style.display = "none";
+    document.getElementById("tab_2").style.display = "flex";
+  }
+
+  gerarPdf();
+  gerarGraficos();
+  gerarTabela();
 });
 
 const gerarTabela = () => {
@@ -363,6 +417,24 @@ const gerarTabela = () => {
     ],
   });
 };
+
+tabRelatorio.addEventListener("click", () => {
+  if ((tabRelatorio.value = "disable")) {
+    document.getElementById("tab_1").style.display = "flex";
+    document.getElementById("tab_2").style.display = "none";
+    tabTabelaRegistro.value = "disable";
+    tabRelatorio.value = "activate";
+  }
+});
+
+tabTabelaRegistro.addEventListener("click", () => {
+  if ((tabTabelaRegistro.value = "disable")) {
+    document.getElementById("tab_2").style.display = "flex";
+    document.getElementById("tab_1").style.display = "none";
+    tabRelatorio.value = "disable";
+    tabTabelaRegistro.value = "activate";
+  }
+});
 
 const containerPDF = document.getElementById("pdf_content");
 
@@ -427,60 +499,6 @@ const btnRight = document
       alterarPagina();
     }
   });
-
-const carregarTabRelatorios = (infoCapturas) => {
-  loadingUtils.showLoadingPopup();
-
-  gerarPaginas();
-
-  loadingUtils.hideLoadingPopup();
-
-  h5QtdCapturas.innerHTML += infoCapturas.dados.length;
-
-  const datas = Array.from({ length: infoCapturas.dados.length }, (_, i) => {
-    return infoCapturas.dados[i].dataCaptura;
-  });
-
-  const dataInicio = new Date(
-    datas.reduce((a, b) => {
-      return a < b ? a : b;
-    })
-  );
-
-  const dataFim = new Date(
-    datas.reduce((a, b) => {
-      return a > b ? a : b;
-    })
-  );
-
-  const addZero = (num) => (num < 10 ? "0" + num : num);
-
-  const inicio = `${dataInicio.getFullYear()}/${addZero(
-    dataInicio.getMonth() + 1
-  )}/${addZero(dataInicio.getDate())} ${
-    "| " +
-    addZero(dataInicio.getHours()) +
-    ":" +
-    addZero(dataInicio.getMinutes())
-  }`;
-
-  const fim = `${dataFim.getFullYear()}/${addZero(
-    dataFim.getMonth() + 1
-  )}/${addZero(dataFim.getDate())} ${
-    "| " + addZero(dataFim.getHours()) + ":" + addZero(dataFim.getMinutes())
-  }`;
-
-  infoDataReport.innerHTML = `Relatório(s) ${infoCapturas.tipo} - Início: ${inicio} - Fim: ${fim}`;
-
-  h5Componentes.innerHTML += Array.from(
-    new Set(infoCapturas.dados.map((item) => item.componente))
-  ).join(", ");
-
-  h5Data.innerHTML += inicio + " até " + fim;
-
-  gerarPdf();
-  gerarGraficos();
-};
 
 // window.addEventListener("beforeunload", () => {
 //   sessionStorage.removeItem("relatorioDados");

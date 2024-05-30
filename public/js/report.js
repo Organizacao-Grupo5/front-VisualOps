@@ -324,6 +324,9 @@ btnExpand.addEventListener("click", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const infoCapturas = JSON.parse(sessionStorage.getItem("relatorioDados"));
 
+  let fim = 0;
+  let inicio = 0;
+
   if (infoCapturas) {
     dadosCaptura = infoCapturas.dados;
     loadingUtils.showLoadingPopup();
@@ -352,7 +355,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const addZero = (num) => (num < 10 ? "0" + num : num);
 
-    const inicio = `${dataInicio.getFullYear()}/${addZero(
+    inicio = `${dataInicio.getFullYear()}/${addZero(
       dataInicio.getMonth() + 1
     )}/${addZero(dataInicio.getDate())} ${
       "| " +
@@ -361,7 +364,7 @@ document.addEventListener("DOMContentLoaded", () => {
       addZero(dataInicio.getMinutes())
     }`;
 
-    const fim = `${dataFim.getFullYear()}/${addZero(
+    fim = `${dataFim.getFullYear()}/${addZero(
       dataFim.getMonth() + 1
     )}/${addZero(dataFim.getDate())} ${
       "| " + addZero(dataFim.getHours()) + ":" + addZero(dataFim.getMinutes())
@@ -378,45 +381,120 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("Nenhum dado de relatório encontrado.");
   }
 
-  if(tabRelatorio.value == "activate"){
+  if (tabRelatorio.value == "activate") {
     document.getElementById("tab_1").style.display = "flex";
     document.getElementById("tab_2").style.display = "none";
-  } else if(tabTabelaRegistro.value == "activate"){
+  } else if (tabTabelaRegistro.value == "activate") {
     document.getElementById("tab_1").style.display = "none";
     document.getElementById("tab_2").style.display = "flex";
   }
 
   gerarPdf();
   gerarGraficos();
-  gerarTabela();
-});
 
-const gerarTabela = () => {
-  new Tabulator(document.getElementById("div_tabulator"), {
-    layout: "fitColumns",
-    pagination: "local",
-    paginationSize: 6,
-    paginationSizeSelector: [3, 6, 8, 10],
-    movableColumns: true,
-    paginationCounter: "rows",
-    data: dadosCaptura,
-    groupBy: "componente",
-    columns: [
-      { title: "Componente", field: "componente", width: 150 },
-      {
-        title: "Captura",
-        field: "dadoCaptura",
-        hozAlign: "left",
-      },
-      {
-        title: "Data hora",
-        field: "dataCaptura",
-        sorter: "date",
-        hozAlign: "center",
-      },
-    ],
+  document.getElementById("info_tabela_registro").innerHTML = `
+    Tabelas de registros do componentes (${inicio} | ${fim});
+  `;
+
+  const tabs = Array.from(
+    new Set(infoCapturas.dados.map((item) => item.componente))
+  );
+
+  tabs.forEach((componente, index) => {
+    document.getElementById("tabs_componente").innerHTML += `
+      <button value="${
+        index === 0 ? "activate" : "disable"
+      }" class="tab-table" id="tab_${componente}">${componente.toUpperCase()}</button>
+    `;
+
+    const containerTable = document.createElement("div");
+    containerTable.id = `container_table_${componente}`;
+    containerTable.classList.add("container-table");
+
+    containerTable.innerHTML += `
+      <div class="actions-table">
+        <button id="print_table_${componente}">Print</button>
+        <button id="download_xlsx_${componente}">Download XLSX</button>
+        <button id="download_pdf_${componente}">Download PDF</button>
+      </div>
+      <div class="tabulator" style="height:100%;" id="tabela_${componente}"></div>
+    `;
+
+    document.getElementById("div_tab_tables").appendChild(containerTable);
+
+    const dadosTab = dadosCaptura.filter((dado) => {
+      return dado.componente === tabs[index];
+    });
+
+    let table = new Tabulator(document.getElementById(`tabela_${componente}`), {
+      layout: "fitColumns",
+      pagination: "local",
+      paginationSize: dadosTab.length,
+      paginationSizeSelector: [3, 6, 8, 10],
+      movableColumns: true,
+      printAsHtml: true,
+      printHeader: `<h1>Informações sobre as capturas do(a) ${componente}<h1>`,
+      printFooter:
+        "<h5>Este relatório é gerado com base nos dados registrados dos componentes listados. Os dados apresentados são para referência e análise. Qualquer uso ou interpretação desses dados deve ser feito com cuidado e consideração das condições específicas de cada componente. Para informações mais detalhadas ou consultas adicionais, entre em contato conosco. Agradecemos sua atenção e confiança em nossos serviços.<h5>",
+      paginationCounter: "rows",
+      data: dadosTab,
+      columns: [
+        { title: "Componente", field: "componente", width: 150 },
+        {
+          title: "Captura",
+          field: "dadoCaptura",
+          hozAlign: "left",
+        },
+        {
+          title: "Data hora",
+          field: "dataCaptura",
+          sorter: "date",
+          hozAlign: "center",
+        },
+      ],
+    });
+
+    document
+      .getElementById(`print_table_${componente}`)
+      .addEventListener("click", function () {
+        table.print(false, true);
+      });
+
+    document
+      .getElementById(`download_xlsx_${componente}`)
+      .addEventListener("click", function () {
+        table.download("xlsx", "data.xlsx", { sheetName: `Relatório VisualOps | ${componente}` });
+      });
+
+    document
+      .getElementById(`download_pdf_${componente}`)
+      .addEventListener("click", function () {
+        table.download("pdf", "data.pdf", {
+          orientation: "portrait", 
+          title: `Relatório sobre o uso do(a) ${componente}`,
+        });
+      });
+
+    if (index !== 0) {
+      containerTable.style.display = "none";
+    }
   });
-};
+
+  document.querySelectorAll(".tab-table").forEach((tab, index) => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".tab-table").forEach((t) => {
+        t.value = "disable";
+      });
+      document.querySelectorAll("[id^='container_table_']").forEach((div) => {
+        div.style.display = "none";
+      });
+
+      tab.value = "activate";
+      document.getElementById(`container_table_${tabs[index]}`).style.display =
+        "flex";
+    });
+  });
+});
 
 tabRelatorio.addEventListener("click", () => {
   if ((tabRelatorio.value = "disable")) {

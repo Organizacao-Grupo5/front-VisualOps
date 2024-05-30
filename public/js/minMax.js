@@ -1,3 +1,7 @@
+if(sessionStorage.getItem("idUsuario") === null){
+    window.location = "acessDenied.html"
+}
+
 const elements = {
     chartLogo: document.getElementById("chart_logo"),
     tituloDash: document.getElementById("titulo_dash"),

@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
-// const xlsx = require("xlsx");
-// const jsontoxml = require("jsontoxml");
+const xlsx = require("xlsx");
+const jsontoxml = require("jsontoxml");
 
 const gerarRelatorioExcell = async (req, res) => {
   const templatePath = path.join(

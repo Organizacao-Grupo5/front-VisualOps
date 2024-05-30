@@ -38,13 +38,14 @@ const limpaCampos = () => {
   ).padStart(2, "0")}-${String(dataAtual.getDate()).padStart(2, "0")}`;
 };
 
-const abrirRelatorio = (data, tipo) => {
+const abrirRelatorio = (data, tipo, idMaquina) => {
   fetch(`/relatorio/${sessionStorage.getItem("idUsuario")}/abrirRelatorio`, {
     method: "POST",
     body: JSON.stringify({
       info: {
         data: data,
         tipo_relatorio: tipo,
+        idMaquina: idMaquina,
       },
     }),
     headers: {
@@ -61,7 +62,8 @@ const abrirRelatorio = (data, tipo) => {
   .then((dados) => {
     let dadosMod = {
       dados,
-      tipo: tipo
+      tipo: tipo,
+      idMaquina: idMaquina
     };
     sessionStorage.setItem("relatorioDados", JSON.stringify(dadosMod));
     window.location = "paginaRelatorio.html";
@@ -123,6 +125,8 @@ const construirCalendarioSemanal = async () => {
       const dados = await consultarRelatorioDia(
         `${dia.data.getFullYear()}-${dia.data.getMonth() + 1}-${dia.data.getDate()}`
       );
+
+      console.log(dados)
   
       if (dados && dados.length > 0) {
         const html = dados.flatMap((lista) =>
@@ -132,7 +136,7 @@ const construirCalendarioSemanal = async () => {
               <h4>Relatório - ${dado.tipo_relatorio}</h4>
               <h4>Total de registros: ${dado.total_capturas}</h4>
               <div class="div-btn-action-report">
-                <button onclick="abrirRelatorio('${dado.tipo_relatorio === "diários" ? dado.data : dado.tipo_relatorio === "semanal" ? dado.data_inicio_semana : dado.data_inicio_mes}', '${dado.tipo_relatorio}')">ABRIR</button>
+                <button onclick="abrirRelatorio('${dado.tipo_relatorio === "diários" ? dado.data : dado.tipo_relatorio === "semanal" ? dado.data_inicio_semana : dado.data_inicio_mes}', '${dado.tipo_relatorio}', ${dado.idMaquina})">ABRIR</button>
               </div>
             </div>
           `)
@@ -190,6 +194,7 @@ const consultarRelatorioDia = async (data) => {
         },
         body: JSON.stringify({
           dados: preferencias,
+          idEmpresa: sessionStorage.getItem('fkEmpresa')
         }),
       }
     );

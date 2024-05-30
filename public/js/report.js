@@ -4,7 +4,7 @@ let dadosCaptura = [];
 let idxAtual = 0;
 
 let capaRelatorio = `
-  <div class="content-pdf  capa">
+  <div class="content-pdf">
       <div class="container">
           <div class="header">
               <img src="logofundo.png" alt="Logo" class="logo">
@@ -24,7 +24,7 @@ let capaRelatorio = `
       </div>
       <div class="footer">
           <div class="footer-logo">
-              <img src="logofundo.png" alt="Logo">
+              <img class="footer-img" src="logofundo.png" alt="Logo">
               <h6 class="footer-text">VisualOps</h6>
           </div>
           <h6 class="footer-text">Relatório de Hardware</h6>
@@ -32,39 +32,7 @@ let capaRelatorio = `
   </div>
     `;
 
-let capaRelatorioStylePDF = `
-    <div style="width: 100%; height: 1122px; background-color: #f8f9fa; color: #314161; box-shadow: 3px 1px 10px 1px #000; box-sizing: border-box; position: relative; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between;">
-        <div style="padding: 5%;">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <img src="logofundo.png" alt="Logo" style="height: 7.13%;width: 19.8%;border-radius: 50%; background-color: #314161; padding: 5px;">
-                <div style="text-align: right;">
-                    <h6 style="margin: 0; font-size: 80%;">${new Date().getFullYear()}-${
-  new Date().getMonth() + 1
-}-${new Date().getDate()}</h6>
-                </div>
-            </div>
-            <div style="margin-top: 20px;">
-                <h1 style="margin: 0; font-size: 120px; font-weight: bold;">VisualOps</h1>
-                <h2 style="margin: 0; font-size: 40px; color: #a8a6a6;">Relatório de Desempenho de Hardware</h2>
-            </div>
-        </div>
-        <div style="padding: 20px; font-size: 6px; margin-top: auto; margin-left: auto; width: 40.29%;">
-            <p style="margin: 0; text-align: justify; font-size: 12px;">Este relatório apresenta uma análise detalhada do desempenho dos componentes de hardware do seu sistema, incluindo processador, memória RAM, armazenamento e placa gráfica. Os dados foram coletados e analisados para fornecer insights valiosos sobre o funcionamento do seu computador.</p>
-        </div>
-        <div style="padding: 20px; background-color: #314161; border-radius: 0; height: 150px;">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div style="display: flex; align-items: center;">
-                    <img src="logofundo.png" alt="Logo" style="width: 14%; margin-right: 2.5%;">
-                    <h6 style="margin: 0; color: #fff; font-size: 25px;">VisualOps</h6>
-                </div>
-                <h6 style="margin: 0; color: #fff; font-size: 15px;">Relatório de Hardware</h6>
-            </div>
-        </div>
-    </div>
-`;
-
 let paginas = [capaRelatorio];
-let paginasEstilizadaPDF = [capaRelatorioStylePDF];
 
 let pdfConteiner = document.getElementById("pdf_content");
 
@@ -79,6 +47,8 @@ const btnPdf = document.getElementById("btn_pdf");
 const btnExcel = document.getElementById("btn_xlsx");
 const btnEdit = document.getElementById("btn_edit");
 const btnExpand = document.getElementById("btn_exp");
+const tabRelatorio = document.getElementById("tab_relatorio")
+const tabTabelaRegistro = document.getElementById("tab_tabela_registro")
 
 const gerarPdf = () => {
   pdfConteiner.innerHTML += paginas.join("");
@@ -154,42 +124,11 @@ const gerarPaginas = () => {
         </tbody>
       </table> 
       <h6 style="margin-top:2%; margin-bottom:1%;"><u>Gráfico das capturas registradas</u></h6>
-      <div style="width: 100%;">
-          <canvas id="ctx_${componente}"></canvas>
+      <div class="div-grafico">
+          <canvas style="width: 100%;" id="ctx_${componente}"></canvas>
       </div>
       </div>
     </div>`;
-
-    let pageHtmlToPDF = `
-    <div style="width: 100%; height: 1122px; background-color: #f8f9fa; color: #314161; box-shadow: 3px 1px 10px 1px #000; box-sizing: border-box; position: relative; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; padding:5%;">
-        <div>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <h1 style="font-size: 60px;">${componente}</h1>
-              <h6 style="font-size: 13px;">Data início: ${formatarData(
-                dataInicio
-              )}<br>Data fim: ${formatarData(dataFim)}</h6>
-            </div>
-        </div>
-        <h6 style="margin-top:2%; margin-bottom:1%; font-size:16px;"><u>5 capturas mais altas registradas</u></h6>
-        <table class="blueTable">
-        <thead>
-          <tr style="color:#fff;">
-            <th>Componente</th>
-            <th>Captura</th>
-            <th>Data hora</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${table}           
-        </tbody>
-      </table> 
-      <h6 style="margin-top:2%; margin-bottom:1%;"><u>Gráfico das capturas registradas</u></h6>
-      <div id="div_chart_img_${componente}"; style="width: 100%;">
-          
-      </div>
-    </div>
-    `;
-    paginasEstilizadaPDF.push(pageHtmlToPDF);
     paginas.push(pageHtml);
   });
 };
@@ -256,19 +195,19 @@ const gerarGraficos = () => {
             y: {
               beginAtZero: true,
             },
+            x: {
+              ticks: {
+                font: {
+                  size: 7,
+                },
+              },
+            },
           },
         },
       });
     } else {
       console.error(`Canvas element with ID ctx_${componente} not found`);
     }
-
-    const divImgCtx = document.getElementById(`div_chart_img_${componente}`);
-
-    const dataUrl = ctx.toDataURL();
-    const imgHtml = `<img src="${dataUrl}" />`;
-
-    divImgCtx.innerHTML += imgHtml;
   });
 };
 
@@ -290,87 +229,185 @@ const alterarPagina = () => {
   containerPDF.style.transform = `translateX(${movimento}px)`;
 };
 
-function baixarPDF() {
-  const pagina = paginasEstilizadaPDF.join(""); 
+const aumentarVisualizacao = () => {
+  let todasPaginas = document.querySelectorAll(".content-pdf");
 
-  const fileName = `relatorio.pdf`;
-  html2pdf()
-    .from(pagina)
-    .toPdf()
-    .get("pdf")
-    .then(function (pdf) {
-      pdf.save(fileName);
+  const pdfWidth = todasPaginas[0].clientWidth + 100;
+  const movimento = -pdfWidth * 0;
+
+  containerPDF.style.transform = `translateX(${movimento}px)`;
+
+  let existingClone = document.querySelector(".pdf-clone");
+  let divExpand;
+
+  if (!existingClone) {
+    const pdfContainerClone = containerPDF.cloneNode(true);
+    pdfContainerClone.classList.add("pdf-clone");
+    pdfContainerClone.classList.remove("content-pdf");
+
+    divExpand = document.createElement("div");
+    divExpand.classList.add("div-expand");
+
+    const btnClose = document.createElement("button");
+    btnClose.innerHTML = '<i class="fa-solid fa-circle-xmark"></i>';
+    btnClose.classList.add("botao-fechar");
+
+    divExpand.appendChild(pdfContainerClone);
+    divExpand.appendChild(btnClose);
+    document.body.appendChild(divExpand);
+
+    pdfContainerClone.style.transform = "none";
+    pdfContainerClone.style.width = "auto";
+
+    btnClose.addEventListener("click", () => {
+      divExpand.style.display = "none";
     });
+  } else {
+    divExpand = existingClone.parentElement;
+    divExpand.style.display = "block";
+  }
+};
+
+async function baixarPDF() {
+  const pdfHtml = document.querySelector(".pdf-clone");
+
+  pdfHtml.style.flexDirection = "column";
+  pdfHtml.style.margin = 0;
+  pdfHtml.style.padding = 0;
+  pdfHtml.style.gap = 0;
+  pdfHtml.style.width = "595.28pt";
+
+  const contentElements = pdfHtml.querySelectorAll(".content-pdf");
+
+  pdfHtml.querySelector(".logo").style.width = "200pt";
+  pdfHtml.querySelector(".header").style.padding = "5%";
+  pdfHtml.querySelector(".logo").style.height = "200pt";
+  pdfHtml.querySelector(".logo").style.borderRadius = "200pt";
+  pdfHtml.querySelector(".date").style.fontSize = "22px";
+  pdfHtml.querySelector(".title").style.fontSize = "80px";
+  pdfHtml.querySelector(".subtitle").style.fontSize = "40px";
+  pdfHtml.querySelector(".title").style.marginLeft = "5%";
+  pdfHtml.querySelector(".subtitle").style.marginLeft = "5%";
+  pdfHtml.querySelector(".footer").style.height = "100pt";
+  pdfHtml.querySelector(".footer-text").style.fontSize = "22px";
+  pdfHtml.querySelector(".footer-img").style.height = "50pt";
+  pdfHtml.querySelector(".footer-img").style.width = "50pt";
+
+  contentElements.forEach((element) => {
+    element.style.width = "595.28pt";
+    element.style.height = " 841.89pt";
+  });
+
+  try {
+    const options = {
+      filename: "relatorio-visualOps.pdf",
+      image: { type: "jpeg", quality: 1.0 },
+      html2canvas: { scale: 3, useCORS: true },
+      jsPDF: { unit: "pt", format: "a4", orientation: "portrait" },
+    };
+
+    await html2pdf().set(options).from(pdfHtml).save();
+  } catch (error) {
+    console.error("Erro ao gerar o PDF:", error);
+  }
 }
 
 btnPdf.addEventListener("click", () => {
+  aumentarVisualizacao();
   baixarPDF();
+});
+
+btnExpand.addEventListener("click", () => {
+  aumentarVisualizacao();
 });
 
 document.addEventListener("DOMContentLoaded", () => {
   const infoCapturas = JSON.parse(sessionStorage.getItem("relatorioDados"));
 
+  if(tabRelatorio.value == "activate"){
+    carregarTabRelatorios(infoCapturas);
+  } else{
+    
+  }
+
   if (infoCapturas) {
     dadosCaptura = infoCapturas.dados;
-
-    loadingUtils.showLoadingPopup();
-
-    gerarPaginas();
-
-    loadingUtils.hideLoadingPopup();
-
-    h5QtdCapturas.innerHTML += infoCapturas.dados.length;
-
-    const datas = Array.from({ length: infoCapturas.dados.length }, (_, i) => {
-      return infoCapturas.dados[i].dataCaptura;
-    });
-
-    const dataInicio = new Date(
-      datas.reduce((a, b) => {
-        return a < b ? a : b;
-      })
-    );
-
-    const dataFim = new Date(
-      datas.reduce((a, b) => {
-        return a > b ? a : b;
-      })
-    );
-
-    const addZero = (num) => (num < 10 ? "0" + num : num);
-
-    const inicio = `${dataInicio.getFullYear()}/${addZero(
-      dataInicio.getMonth() + 1
-    )}/${addZero(dataInicio.getDate())} ${
-      "| " +
-      addZero(dataInicio.getHours()) +
-      ":" +
-      addZero(dataInicio.getMinutes())
-    }`;
-
-    const fim = `${dataFim.getFullYear()}/${addZero(
-      dataFim.getMonth() + 1
-    )}/${addZero(dataFim.getDate())} ${
-      "| " + addZero(dataFim.getHours()) + ":" + addZero(dataFim.getMinutes())
-    }`;
-
-    infoDataReport.innerHTML = `Relatório(s) ${infoCapturas.tipo} - Início: ${inicio} - Fim: ${fim}`;
-
-    h5Componentes.innerHTML += Array.from(
-      new Set(infoCapturas.dados.map((item) => item.componente))
-    ).join(", ");
-
-    h5Data.innerHTML += inicio + " até " + fim;
   } else {
     console.log("Nenhum dado de relatório encontrado.");
   }
-
-  gerarPdf();
-
-  gerarGraficos();
 });
 
+const gerarTabela = () => {
+  new Tabulator(document.getElementById("div_tabulator"), {
+    layout: "fitColumns",
+    pagination: "local",
+    paginationSize: 6,
+    paginationSizeSelector: [3, 6, 8, 10],
+    movableColumns: true,
+    paginationCounter: "rows",
+    data: dadosCaptura,
+    groupBy: "componente",
+    columns: [
+      { title: "Componente", field: "componente", width: 150 },
+      {
+        title: "Captura",
+        field: "dadoCaptura",
+        hozAlign: "left",
+      },
+      {
+        title: "Data hora",
+        field: "dataCaptura",
+        sorter: "date",
+        hozAlign: "center",
+      },
+    ],
+  });
+};
+
 const containerPDF = document.getElementById("pdf_content");
+
+btnExcel.addEventListener("click", async () => {
+  const datas = dadosCaptura
+    .map((dado) => new Date(dado.dataCaptura))
+    .filter((date) => !isNaN(date));
+
+  const dataInicio = new Date(Math.min(...datas));
+  const dataFim = new Date(Math.max(...datas));
+
+  try {
+    const resp = await fetch(
+      `/relatorio/upload-excel/${
+        JSON.parse(sessionStorage.getItem("relatorioDados")).idMaquina
+      }`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          dataInicio: dataInicio,
+          dataFim: dataFim,
+        }),
+      }
+    );
+
+    if (resp.ok) {
+      const blob = await resp.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "relatorio.xlsx";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    } else {
+      throw new Error("Erro ao obter relatório");
+    }
+  } catch (erro) {
+    console.error(erro);
+    throw erro;
+  }
+});
 
 const btnLeft = document
   .getElementById("btn_left")
@@ -390,6 +427,60 @@ const btnRight = document
       alterarPagina();
     }
   });
+
+const carregarTabRelatorios = (infoCapturas) => {
+  loadingUtils.showLoadingPopup();
+
+  gerarPaginas();
+
+  loadingUtils.hideLoadingPopup();
+
+  h5QtdCapturas.innerHTML += infoCapturas.dados.length;
+
+  const datas = Array.from({ length: infoCapturas.dados.length }, (_, i) => {
+    return infoCapturas.dados[i].dataCaptura;
+  });
+
+  const dataInicio = new Date(
+    datas.reduce((a, b) => {
+      return a < b ? a : b;
+    })
+  );
+
+  const dataFim = new Date(
+    datas.reduce((a, b) => {
+      return a > b ? a : b;
+    })
+  );
+
+  const addZero = (num) => (num < 10 ? "0" + num : num);
+
+  const inicio = `${dataInicio.getFullYear()}/${addZero(
+    dataInicio.getMonth() + 1
+  )}/${addZero(dataInicio.getDate())} ${
+    "| " +
+    addZero(dataInicio.getHours()) +
+    ":" +
+    addZero(dataInicio.getMinutes())
+  }`;
+
+  const fim = `${dataFim.getFullYear()}/${addZero(
+    dataFim.getMonth() + 1
+  )}/${addZero(dataFim.getDate())} ${
+    "| " + addZero(dataFim.getHours()) + ":" + addZero(dataFim.getMinutes())
+  }`;
+
+  infoDataReport.innerHTML = `Relatório(s) ${infoCapturas.tipo} - Início: ${inicio} - Fim: ${fim}`;
+
+  h5Componentes.innerHTML += Array.from(
+    new Set(infoCapturas.dados.map((item) => item.componente))
+  ).join(", ");
+
+  h5Data.innerHTML += inicio + " até " + fim;
+
+  gerarPdf();
+  gerarGraficos();
+};
 
 // window.addEventListener("beforeunload", () => {
 //   sessionStorage.removeItem("relatorioDados");

@@ -4,10 +4,12 @@ function buscarComponentesElegiveis(req, res) {
     const idUsuario = req.params;
     const preferencias = req.body.dados;
 
+    const idEmpresa = req.body.idEmpresa;
+
     let dados = [];
 
     const gerarDados = (tipo) => {
-        return relatorioModel.buscarQtdRelatorios(idUsuario, preferencias, tipo);
+        return relatorioModel.buscarQtdRelatorios(idUsuario, preferencias, tipo, idEmpresa);
     }
 
     if (preferencias.tipo.diario) {

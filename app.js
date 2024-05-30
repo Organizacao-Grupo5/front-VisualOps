@@ -11,6 +11,7 @@ const enderecoRouter = require("./src/routes/endereco");
 const slackRouter = require("./src/routes/GoogleSlackRoute");
 const planoRouter = require("./src/routes/plano");
 const usuarioRouter = require("./src/routes/usuario");
+const relatorioRouter = require("./src/routes/relatorio");
 const maquinaRouter = require("./src/routes/maquina");
 
 
@@ -26,9 +27,11 @@ app.use("/endereco", enderecoRouter);
 app.use("/plano", planoRouter);
 app.use("/", slackRouter);
 app.use("/usuario", usuarioRouter);
+app.use("/relatorio", relatorioRouter);
 app.use("/maquina", maquinaRouter);
 
 
 app.listen(PORTA, function () {
     console.log(`Visualização é http://localhost:${PORTA}`)
 })
+

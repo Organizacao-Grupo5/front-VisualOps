@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Máquinas | VisualOps</title>
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/navBar.css">
+    <link rel="stylesheet" href="../css/dashboardMaquinas.css">
+    <link href="https://unpkg.com/tabulator-tables/dist/css/themes/tabulator_bootstrap4.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/265fd07209.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <section>
+        <div id="sidebar" class="sidebar">
+            <div id="top_sidebar" class="top-sidebar">
+                <img id="logo_sidebar" src="logofundo.png" alt="">
+                <div id="titulo_dash" class="title-dash">
+                    <i id="chart_logo" class="fa-solid fa-chart-area"></i>
+                    <div class="title">
+                        <h1 id="title_sidebar">DASHBOARD</h1>
+                        <h6>VISUALOPS</h6>
+                    </div>
+                </div>
+            </div>
+            <div id="minimizar" class="minimizar">
+                <div class="line"></div>
+                <i class="fa-solid fa-angles-left"></i>
+                <h6>MINIMIZAR</h6>
+            </div>
+            <div id="menu" class="menu">
+                <h1 id="menu_title">MENU</h1>
+                <div class="chose-section">
+                    <i class="fa-solid fa-chart-column" style="font-size: 15px;" onclick="windowDashboardOwner()"></i>
+                    <button class="btn-section" onclick="windowDashboardOwner()">DASHBOARD</button>
+                </div>
+                <div class="chose-section">
+                    <i class="fa-solid fa-bars-progress" style="font-size: 15px;"
+                        onclick="windowDashboardGerente()"></i>
+                    <button class="btn-section" onclick="windowDashboardGerente()">GERENTE</button>
+                </div>
+                <div class="chose-section">
+                    <i class="fa fa-line-chart" aria-hidden="true" onclick="windowDashboardPessoal()"></i>
+                    <button class="btn-section" onclick="windowDashboardPessoal()">DASHBOARD PESSOAL</button>
+                </div>
+                <div class="chose-section">
+                    <i class="fa-regular fa-user" onclick="windowPerfil()"></i>
+                    <button class="btn-section" onclick="windowPerfil()">PERFIL</button>
+                </div>
+                <div class="chose-section">
+                    <i class="fa fa-plus" aria-hidden="true" onclick="windowCadastroUser()"></i>
+                    <button class="btn-section" onclick="windowCadastroUser()">ADICIONAR</button>
+                </div>
+                <div class="chose-section">
+                    <i class="fa-solid fa-file-signature" style="font-size: 13px;"></i>
+                    <button class="btn-section">ASSINATURA</button>
+                </div>
+                <div class="chose-section">
+                    <i class="fa-regular fa-file-lines" style="font-size: 18px;" onclick="windowRelatorio()"></i>
+                    <button class="btn-section" onclick="windowRelatorio()">RELATÓRIOS</button>
+                </div>
+                <div class="chose-section">
+                    <i class="fa-solid fa-computer" style="font-size: 18px;" onclick="windowRelatorio()"></i>
+                    <button class="btn-section" onclick="windowMaquina()">MÁQUINAS</button>
+                </div>
+            </div>
+            <div class="end-sidebar">
+                <h6 id="suporte_text">SUPORTE / CONFIGURAÇÃO</h6>
+                <div class="chose-section">
+                    <i class="fa-solid fa-bullhorn"></i>
+                    <button class="btn-section">SUPORTE</button>
+                </div>
+                <div class="chose-section">
+                    <i class="fa-solid fa-arrow-right-from-bracket" onclick="windowSair()"></i>
+                    <button class="btn-section" onclick="windowSair()">SAIR</button>
+                </div>
+            </div>
+        </div>
+        <button id="maximizar" class="maximizar"><i class="fa-solid fa-angles-right"></i></button>
+        <div class="dashboard-content" id="dashboard">
+            <nav>
+                <h1 class="user-welcome" style="font-size: 1rem;" id="txt_welcome_user"></h1>
+                <div class="nav-visual-info">
+                    <h1 style="font-size: 1em;">VISUALOPS</h1>
+                    <img src="logofundo.png" alt="">
+                </div>
+                <div class="nav-user-info">
+                    <div class="circle"></div>
+                    <h1 style="font-size: 0.5em;" id="txt_user_and_interprise"></h1>
+                </div>
+            </nav>
+            <div class="content-dash-report">
+                <div class="name-content">
+                    <div>Máquinas</div>
+                </div>
+                <div class="content">
+                    <div class="left-content">
+                        <h2>Máquinas</h2>
+                        <div id="show_maquinas" class="todas-maquinas">
+
+                        </div>
+                    </div>
+                    <div class="right-content">
+                        <h2>Cadastro | Edição</h2>
+                        <div class="inp-switch-div">
+                            <span>Preencher endereço IP automaticamente</span>
+                            <label class="switch">
+                                <input type="checkbox" id="autoFillSwitch">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        <div id="machineForm">
+                            <h2 id="situacao_formulario">CADASTRO</h2>
+                            <div class="cadastro-ips">
+                                <div class="ipv4-1">
+                                    <label for="nome_local_ipv4_1">Nome do Local para o 1° IPv4 (ex: Trabalho)</label>
+                                    <input id="nome_local_ipv4_1" type="text">
+                                    <label for="ipv4_1">Endereço do 1° IPv4 (<a onclick="abrirTutorialIP()"
+                                            href="#">Clique aqui</a> para
+                                        instruções)</label>
+                                    <input id="ipv4_1" type="text">
+                                </div>
+                                <div class="ipv4-2">
+                                    <label for="nome_local_ipv4_2">Nome do Local para o 2° IPv4 (ex: Casa)</label>
+                                    <input id="nome_local_ipv4_2" type="text">
+                                    <label for="ipv4_2">Endereço do 2° IPv4 (<a onclick="abrirTutorialIP()"
+                                            id="openIPv4Popup" href="#">Clique aqui</a> para
+                                        instruções)</label>
+                                    <input id="ipv4_2" type="text">
+                                </div>
+                            </div>
+                            <div class="machine-details">
+                                <label for="marca">Marca</label>
+                                <input id="marca" type="text">
+                                <label for="modelo">Modelo</label>
+                                <input id="modelo" type="text">
+                                <label for="responsavel">Responsável</label>
+                                <input id="responsavel" type="text">
+                                <ul id="usuarios-lista" class="usuarios-lista"></ul>
+                            </div>
+                            <div class="form-actions" id="opt_btns">
+                                <button id="btn_save" class="btn save">Salvar</button>
+                                <button id="btn_reset" class="btn reset">Limpar</button>
+                                <button id='btn_vlt' class="btn" onclick='voltarCadastro()'>Voltar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <span class="close-1 close">&times;</span>
+            <h2>Confirmar Exclusão</h2>
+            <div class="consequences">
+                <h3>Consequências da Exclusão:</h3>
+                <ul>
+                    <li>Todas as capturas e relatórios que não foram baixados serão perdidos.</li>
+                    <li>A máquina será removida permanentemente da lista.</li>
+                    <li>Configurações e personalizações específicas da máquina serão apagadas.</li>
+                    <li>Quaisquer integrações ou serviços vinculados à máquina serão desativados.</li>
+                    <li>Ações irreversíveis - esta ação não pode ser desfeita.</li>
+                </ul>
+            </div>
+            <p>Por favor, insira sua senha para confirmar a exclusão da máquina.</p>
+            <form id="passwordForm_excluir">
+                <input type="password" id="password" placeholder="Senha" required>
+                <button type="submit" class="btn">Confirmar</button>
+            </form>
+        </div>
+    </div>
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <span class="close-2 close">&times;</span>
+            <h2>Confirmar Ação</h2>
+            <div class="consequences" id="missing_fields">
+
+            </div>
+            <p>Por favor, insira sua senha para concluir a ação.</p>
+            <form id="passwordForm_confirmar">
+                <input type="password" id="password_confirm" placeholder="Senha" required>
+                <button type="submit" class="btn">Concluir</button>
+            </form>
+        </div>
+    </div>
+    <div id="ipv4Popup" class="ipv4-popup">
+        <div class="ipv4-popup-content">
+            <span class="ipv4-close" id="closeIPv4Popup">&times;</span>
+            <h2>Como Descobrir seu IPv4</h2>
+            <ol>
+                <li><strong>Windows:</strong>
+                    <ul>
+                        <li>Pressione as teclas <kbd>Windows</kbd> + <kbd>R</kbd> para abrir o Executar.</li>
+                        <li>Digite <code>cmd</code> e pressione <kbd>Enter</kbd>.</li>
+                        <li>No prompt de comando, digite <code>ipconfig</code> e pressione <kbd>Enter</kbd>.</li>
+                        <li>Procure pela seção "Adaptador de Rede Sem Fio" ou "Adaptador Ethernet". Seu IPv4 será
+                            exibido próximo a "Endereço IPv4".</li>
+                    </ul>
+                </li>
+                <li><strong>Mac:</strong>
+                    <ul>
+                        <li>Clique no ícone da Apple no canto superior esquerdo e selecione <strong>Preferências do
+                                Sistema</strong>.</li>
+                        <li>Selecione <strong>Rede</strong>.</li>
+                        <li>Escolha a conexão ativa (Wi-Fi ou Ethernet) na barra lateral esquerda.</li>
+                        <li>O endereço IPv4 será exibido na parte direita da janela, abaixo de "Status".</li>
+                    </ul>
+                </li>
+                <li><strong>Linux:</strong>
+                    <ul>
+                        <li>Abra um terminal.</li>
+                        <li>Digite <code>hostname -I</code> e pressione <kbd>Enter</kbd>. Seu IPv4 será exibido.</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="../js/minMax.js"></script>
+<script src="../js/Utils/tamanhoSidebar.js"></script>
+<link href="https://unpkg.com/tabulator-tables/dist/css/tabulator.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"></script>
+<script src="../js/Utils/Rotas.js"></script>
+<script src="../js/dashboardMaquinas.js"></script>

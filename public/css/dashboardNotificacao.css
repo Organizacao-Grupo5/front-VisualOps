@@ -1,0 +1,398 @@
+@media screen and (max-width: 900px) {
+    .title-dash h1 {
+        display: none;
+    }
+
+    .end-sidebar h6 {
+        display: none;
+    }
+}
+
+@keyframes slide-in-top {
+    0% {
+        transform: translateY(-1000px);
+        opacity: 0
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1
+    }
+}
+
+
+/*código do Guilherme*/
+
+.name-chart-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 94.6%;
+    height: 83%;
+}
+
+.name-content {
+    display: flex;
+    align-items: center;
+    color: white;
+    width: 15%;
+    height: 4%;
+}
+
+.chart-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 95%;
+    background-color: #110f26;
+}
+
+.chart-content-menu {
+    width: 20%;
+    height: 100%;
+    color: white;
+    background-color: #221e48;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chart-content-menu div {
+    margin-top: 5%;
+    height: 10%;
+}
+
+
+.chart-content-menu .titulo-menu {
+    font-size: 32px;
+    height: 10%;
+}
+
+.chart-content-notificacoes {
+    width: 49%;
+    height: 100%;
+}
+
+.container-notificacoes-cabecalho {
+    display: flex;
+    color: white;
+    margin: 0 4%;
+    justify-content: space-between;
+    margin-top: 5%;
+}
+
+.notificacoes-cabecalho-titulo {
+    display: flex;
+    width: 50%;
+    align-items: center;
+}
+
+.notificacoes-cabecalho-titulo div{
+    font-size: 24px;
+}
+
+.notificacoes-cabecalho-titulo span{
+    font-size: 12px;
+    margin-left: 2%;
+}
+
+.notificacoes-cabecalho-botoes{
+    display: flex;
+    justify-content: right;
+    width: 50%;
+}
+
+.notificacoes-cabecalho-botoes .btn1,
+.notificacoes-cabecalho-botoes .btn2{
+    height: 100%;
+    background-color: #ff80f2;
+    margin-left: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-style: dashed;
+    border-width: 2px;
+}
+
+.notificacoes-cabecalho-botoes .btn1{
+    width: 65%;
+    text-align: center;
+}
+
+.notificacoes-cabecalho-botoes .btn2{
+    width: 30%;
+}
+
+.chart-content-notificacoes .container-notificacoes-infos{
+    width: 100%;
+    height: 80%;
+    margin-top: 5%;
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.linha-do-tempo{
+    display: flex;
+    flex-direction: column;
+    width: 10%;
+    height: 100%;
+}
+
+.linha-do-tempo-data{
+    display: flex;
+    color: white;
+    font-size: 10px;
+}
+
+.linha-do-tempo-data > div:first-child::after {
+    content: '';
+    display: block;
+    width: 2px;
+    height: 100%;
+    background-color: white;
+    position: relative;
+    margin-left: 76%;
+    left: 50%;
+}
+
+.linha-do-tempo-data > div:last-child::after{
+    margin: 0;
+    padding: 0;
+    content: '';
+    display: block;
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+    margin-left: 28%;
+    background-color: white;
+    position:relative;
+}
+
+.linha-do-tempo-data{
+    width: 100%;
+    height: 26%;
+}
+
+.notificacoes{
+    width: 86%;
+    height: 100%;
+}
+
+.notificacoes-notificacao{
+    width: 100%;
+    height: 20%;
+    background-color: white;
+    margin-bottom: 5%;
+    display: flex;
+}
+
+.notificacoes-notificacao .notificacao-status {
+    width: 10%;
+    height: 100%;
+    background-color: red;
+}
+
+.container-notificacao-titulo-notificacao {
+    width: 65%;
+    height: 100%;
+    font-size: 14px;
+    margin-left: 2%;
+}
+
+.container-notificacao-data-notificacao{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 35%;
+}
+
+.notificacao-conteudo-notificacao {
+    width: 100%;
+    height: 74%;
+    font-size: 12px;
+    margin-top: 2%;
+    overflow: auto;
+}
+
+.container-notificacao-data-notificacao div{
+    font-size: 10px;
+    margin-bottom: 10%;
+}
+
+
+
+
+.chart-content-barrinha {
+    width: 0.2px;
+    height: 90%;
+    background-color: white;
+}
+
+.chart-content-configuracoes {
+    width: 30%;
+    height: 100%;
+    color: white;
+}
+
+.configuracoes-notificacao {
+    margin-left: 1%;
+    height: 23%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.titulo-configuracao {
+    margin-top: 5%;
+    font-size: 26px;
+    height: 35%;
+}
+
+.container-configuracao {
+    height: 50%;
+    margin-left: 4%;
+}
+
+.checkboxes-configuracao {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.checkboxes-configuracao div {
+    display: flex;
+    align-items: center;
+}
+
+.checkboxes-configuracao div input {
+    margin-left: 15%;
+}
+
+.checkboxes-configuracao-slack span {
+    color: #f24726;
+    font-size: 8px;
+}
+
+.barrinha-configuracao-notificacao {
+    width: 95%;
+    height: 3%;
+    background-color: white;
+    margin-top: 3%;
+}
+
+.tipos-notificacao {
+    margin-left: 1%;
+    height: 25%;
+}
+
+.titulo-tipos {
+    margin-top: 2%;
+    font-size: 26px;
+    height: 35%;
+}
+
+.container-tipos {
+    height: 50%;
+    width: 91%;
+    margin-left: 4%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 13px;
+}
+
+
+
+.tipo-monitoramento .checkboxes-tipos>*:not(.titulo-checkbox-tipos) {
+    display: flex;
+    align-items: center;
+    width: 60%;
+    justify-content: space-between;
+}
+
+.tipo-mensagens .checkboxes-tipos>*:not(.titulo-checkbox-tipos) {
+    display: flex;
+    align-items: center;
+    width: 85%;
+    justify-content: space-between;
+}
+
+.tipo-aviso-plataforma .checkboxes-tipos>*:not(.titulo-checkbox-tipos) {
+    display: flex;
+    align-items: center;
+    width: 35%;
+    justify-content: space-between;
+}
+
+
+.titulo-checkbox-tipos {
+    margin-bottom: 5%;
+}
+
+
+.titulo-checkbox-tipos {
+    font-size: 15px;
+}
+
+
+.status-notificacao {
+    margin-left: 1%;
+    height: 45%;
+}
+
+.status-notificacao .titulo-status {
+    margin-top: 5%;
+    font-size: 26px;
+}
+
+.status-notificacao .titulo-status {
+    margin-top: 5%;
+    font-size: 26px;
+}
+
+.status-notificacao a {
+    font-size: 10px;
+    color: #2d9bf0;
+    margin-left: 1%;
+}
+
+
+.status-monitoramento{
+    margin-left: 4%;
+    margin-top: 4%;
+}
+
+ .legendas-status {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    margin-top: 2%;
+}
+
+.status-monitoramento .legendas-status div {
+    display: flex;
+    align-items: center;
+}
+
+.status-monitoramento .legendas-status div .bolinha-status {
+    width: 1rem;
+    height: 1rem;
+    margin: 0 0.5rem 0 0.3rem;
+    border-radius: 50%;
+    background-color: #f24726;
+}
+
+.status-seguranca .legendas-status {
+    display: flex;
+    font-size: 8px;
+}
+
+.status-seguranca .legendas-status div {
+    display: flex;
+    align-items: center;
+}

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificações | VisualOps</title>
+
+    <link rel="stylesheet" href="../css/dashboardNotificacao.css">
+    <link rel="stylesheet" href="../css/navBar.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="icon" href="../assets/favicon/logofundo-azul.ico">
+
+    <script src="https://kit.fontawesome.com/265fd07209.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <script src="../js/Utils/Rotas.js"></script>
+
+
+
+    <section>
+        <div id="sidebar" class="sidebar">
+            <div id="top_sidebar" class="top-sidebar">
+                <img id="logo_sidebar" src="../assets/img/logofundo.png" alt="">
+                <div id="titulo_dash" class="title-dash">
+                    <i id="chart_logo" class="fa-solid fa-chart-area"></i>
+                    <div class="title">
+                        <h1 id="title_sidebar">DASHBOARD</h1>
+                        <h6>VISUALOPS</h6>
+                    </div>
+                </div>
+            </div>
+            <div id="minimizar" class="minimizar" onclick="cliqueiMinimizarSidebar()">
+                <div class="line"></div>
+                <i class="fa-solid fa-angles-left"></i>
+                <h6>MINIMIZAR</h6>
+            </div>
+            <div id="menu" class="menu">
+                <h1 id="menu_title">MENU</h1>
+                <div class="chose-section">
+                    <i class="fa-solid fa-chart-column" style="font-size: 15px;" onclick="windowDashboardOwner()"></i>
+                    <button class="btn-section" onclick="windowDashboardOwner()">DASHBOARD</button>
+                </div>
+                <div class="chose-section">
+                    <i class="fa-solid fa-bars-progress" style="font-size: 15px;"
+                        onclick="windowDashboardGerente()"></i>
+                    <button class="btn-section" onclick="windowDashboardGerente()">GERENTE</button>
+                </div>
+                <div class="chose-section">
+                    <i class="fa fa-line-chart" aria-hidden="true" onclick="windowDashboardPessoal()"></i>
+                    <button class="btn-section" onclick="windowDashboardPessoal()">DASHBOARD PESSOAL</button>
+                </div>
+                <div class="chose-section">
+                    <i class="fa-regular fa-user" onclick="windowPerfil()"></i>
+                    <button class="btn-section" onclick="windowPerfil()">PERFIL</button>
+                </div>
+                <div class="chose-section">
+                    <i class="fa fa-plus" aria-hidden="true" onclick="windowCadastroUser()"></i>
+                    <button class="btn-section" onclick="windowCadastroUser()">ADICIONAR</button>
+                </div>
+                <div class="chose-section">
+                    <i class="fa-solid fa-file-signature" style="font-size: 13px;"></i>
+                    <button class="btn-section">ASSINATURA</button>
+                </div>
+                <div class="chose-section">
+                    <i class="fa-regular fa-file-lines" style="font-size: 18px;" onclick="windowRelatorio()"></i>
+                    <button class="btn-section" onclick="windowRelatorio()">RELATÓRIOS</button>
+                </div>
+            </div>
+            <div class="end-sidebar">
+                <h6 id="suporte_text">SUPORTE / CONFIGURAÇÃO</h6>
+                <div class="chose-section">
+                    <i class="fa-solid fa-bullhorn"></i>
+                    <button class="btn-section">SUPORTE</button>
+                </div>
+                <div class="chose-section">
+                    <i class="fa-solid fa-arrow-right-from-bracket" onclick="windowSair()"></i>
+                    <button class="btn-section" onclick="windowSair()">SAIR</button>
+                </div>
+            </div>
+        </div>
+        <button id="maximizar" class="maximizar" onclick="cliqueiMaximizarSidebar()"><i
+                class="fa-solid fa-angles-right"></i></button>
+
+        <div class="dashboard-content" id="dashboard">
+
+            <nav>
+                <h1 class="user-welcome" style="font-size: 1rem;" id="txt_welcome_user"></h1>
+                <div class="nav-visual-info">
+                    <h1 style="font-size: 1em;">VISUALOPS</h1>
+                    <img src="logofundo.png" alt="">
+                </div>
+                <div class="nav-user-info">
+                    <div class="circle"></div>
+                    <h1 style="font-size: 0.5em;" id="txt_user_and_interprise"></h1>
+                </div>
+            </nav>
+
+            <div class="name-chart-content">
+
+                <div class="name-content">
+
+                    <div>Perfil > Notificações</div>
+
+                </div>
+
+                <div class="chart-content">
+
+                    <div class="chart-content-menu">
+                        <div class="titulo-menu">Menu</div>
+                        <div>Editar meu perfi ></div>
+                        <div>Segurança ></div>
+                        <div>Notificações ></div>
+                        <div>Máquinas</div>
+                    </div>
+
+                    <div class="chart-content-notificacoes">
+                        
+                        <div class="container-notificacoes-cabecalho">
+                            <div class="notificacoes-cabecalho-titulo">
+                                <div>Notificações</div>
+                                <span>(Não lidas: 5)</span>
+                            </div>
+                            <div class="notificacoes-cabecalho-botoes">
+                                <!-- <div class="btn1">Marcar todas como lidas</div> -->
+                                <div class="btn2">Fitro</div>
+                            </div>
+                        </div>
+
+                        <div class="container-notificacoes-infos">
+
+                            <div class="linha-do-tempo">
+                                <div class="linha-do-tempo-data">
+                                    <div>Apr 5, 24</div>
+                                    <div></div>
+                                </div>
+                                <div class="linha-do-tempo-data">
+                                    <div>Apr 5, 24</div>
+                                    <div></div>
+                                </div>
+                                <div class="linha-do-tempo-data">
+                                    <div>Apr 5, 24</div>
+                                    <div></div>
+                                </div>
+                                
+                            </div>
+
+                            <div class="notificacoes">
+
+                                <div class="notificacoes-notificacao">
+                                    <div class="notificacao-status"></div>
+                                    <div class="container-notificacao-titulo-notificacao">
+                                        <div class="notificacao-titulo-notificacao">Título da notificação</div>
+                                        <div class="notificacao-conteudo-notificacao">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida cum sociis natoque penatibus. Eget arcu dictum varius duis at consectetur lorem donec massa. Quisque egestas diam in arcu cursus euismod quis viverra nibh. </div>
+                                    </div>
+                                    <div class="container-notificacao-data-notificacao">
+                                        <div>De: LoremIpsum | Para: LoremIpsum</div>
+                                        <div>13:59:26</div>
+                                    </div>
+                                </div>
+
+                                <div class="notificacoes-notificacao">
+                                    <div class="notificacao-status"></div>
+                                    <div class="container-notificacao-titulo-notificacao">
+                                        <div class="notificacao-titulo-notificacao">Título da notificação</div>
+                                        <div class="notificacao-conteudo-notificacao">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida cum sociis natoque penatibus. Eget arcu dictum varius duis at consectetur lorem donec massa. Quisque egestas diam in arcu cursus euismod quis viverra nibh. </div>
+                                    </div>
+                                    <div class="container-notificacao-data-notificacao">
+                                        <div>De: LoremIpsum | Para: LoremIpsum</div>
+                                        <div>13:59:26</div>
+                                    </div>
+                                </div>
+
+                                <div class="notificacoes-notificacao">
+                                    <div class="notificacao-status"></div>
+                                    <div class="container-notificacao-titulo-notificacao">
+                                        <div class="notificacao-titulo-notificacao">Título da notificação</div>
+                                        <div class="notificacao-conteudo-notificacao">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida cum sociis natoque penatibus. Eget arcu dictum varius duis at consectetur lorem donec massa. Quisque egestas diam in arcu cursus euismod quis viverra nibh. </div>
+                                    </div>
+                                    <div class="container-notificacao-data-notificacao">
+                                        <div>De: LoremIpsum | Para: LoremIpsum</div>
+                                        <div>13:59:26</div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="chart-content-barrinha"></div>
+
+                    <div class="chart-content-configuracoes">
+                            <div class="configuracoes-notificacao">
+                                <div class="titulo-configuracao">Configurações de notificação</div>
+                                <div class="container-configuracao">
+                                    <div>Receber notificações</div>
+                                    <div class="checkboxes-configuracao">
+                                        <div>Gmail<input type="checkbox"></div>
+                                        <div>Sms<input type="checkbox"></div>
+                                        <div class="checkboxes-configuracao-slack">Slack<input type="checkbox">
+                                            <span>(obrigatório)</span></div>
+                                    </div>
+                                    <div class="barrinha-configuracao-notificacao"></div>
+                                </div>
+                            </div>
+
+                            <div class="tipos-notificacao">
+                                <div class="titulo-tipos">Tipos de notificações</div>
+                                <div class="container-tipos">
+                                    <div class="tipo-monitoramento">
+                                        <div class="checkboxes-tipos">
+                                            <div class="titulo-checkbox-tipos">Monitoramento</div>
+                                            <div>GPU<input type="checkbox"></div>
+                                            <div>CPU<input type="checkbox"></div>
+                                            <div>DISCO<input type="checkbox"></div>
+                                            <div>RAM<input type="checkbox"></div>
+                                        </div>
+                                    </div>
+                                    <div class="tipo-mensagens">
+                                        <div class="checkboxes-tipos">
+                                            <div class="titulo-checkbox-tipos">Mensagens</div>
+                                            <div>Minhas<input type="checkbox"></div>
+                                            <div>Time<input type="checkbox"></div>
+                                        </div>
+                                    </div>
+                                    <div class="tipo-aviso-plataforma">
+                                        <div class="checkboxes-tipos">
+                                            <div class="titulo-checkbox-tipos">Avisos da plataforma</div>
+                                            <div>Sim<input type="checkbox"></div>
+                                            <div>Não<input type="checkbox"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="status-notificacao">
+                                <div class="titulo-status">Status</div>
+                                <div class="status-monitoramento">
+                                    <div>
+                                        <span>Monitoramento</span><a href="">Configure seus alertas</a>
+                                    </div>
+                                    <div class="legendas-status">
+                                        <div>
+                                            <div>Seu componente está no limite </div>
+                                            <div class="bolinha-status" ></div>
+                                        </div>
+                                        <div>
+                                            <div>Seu componente está perto do limite </div>
+                                            <div class="bolinha-status" style="background-color: #fef445;"></div>
+                                        </div>
+                                        <div>
+                                            <div>Ajuste </div>
+                                            <div class="bolinha-status" style="background-color: #169d5e;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+    </section>
+
+    <script src="../js/dashboardPerfil.js"></script>
+    <script src="../js/Utils/Usuario.js"></script>
+    <script src="../js/minMax.js"></script>
+    <script src="../js/Utils/tamanhoSidebar.js"></script>
+    <script src="../js/viaCep.js"></script>
+
+</body>
+</body>
+
+</html>

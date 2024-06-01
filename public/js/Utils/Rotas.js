@@ -37,3 +37,7 @@ function entrarPerfil() {
 function windowRelatorio() {
     window.location = "dashboardRelatorio.html"
 }
+
+function windowMaquina(){
+    window.location = "dashboardMaquinas.html"
+}

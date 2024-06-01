@@ -1,3 +1,238 @@
+const btnSave = document.querySelector(".btn.save");
+
+const modal = document.getElementById("deleteModal");
+const closeBtn = document.querySelector(".close-1");
+const closeModalConfirmaAcao = document.querySelector(".close-2");
+const passwordFormExcluir = document.getElementById("passwordForm_excluir");
+const passwordFormConfirm = document.getElementById("passwordForm_confirmar");
+
+const modalConfirmarAcao = document.getElementById("confirmModal");
+const camposFaltantes = document.getElementById("missing_fields");
+
+let ipv4_1 = document.getElementById("ipv4_1");
+let nome_local_ipv4_1 = document.getElementById("nome_local_ipv4_1");
+
+let ipv4_2 = document.getElementById("ipv4_2");
+let nome_local_ipv4_2 = document.getElementById("nome_local_ipv4_2");
+
+let marca = document.getElementById("marca");
+let modelo = document.getElementById("modelo");
+let responsavel = document.getElementById("responsavel");
+
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const response = await fetch(
+      `/maquina/listarMaquina/${sessionStorage.getItem("fkEmpresa")}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Erro na resposta");
+    }
+
+    const maquinas = await response.json();
+
+    const maquinasHtml = maquinas
+      .map((maquina) => {
+        let ipv4Info = "";
+
+        for (let i = 0; i < Math.min(maquina.numeroIP.length, 2); i++) {
+          ipv4Info += `IPV4(${i + 1}): ${maquina.numeroIP[i]} (${
+            maquina.nomeLocal[i]
+          })<br>`;
+        }
+        return `
+          <div class="maquina-card">
+            <i class="fa-solid fa-computer"></i>
+            <div class="info-pc">
+                <h6>${ipv4Info}Marca: ${maquina.marca}<br>Modelo: ${
+          maquina.modelo
+        }<br>Responsável: ${maquina.nome}</h6>
+            </div>
+            <button class="garbage" onclick='openModal(${JSON.stringify(
+              maquina
+            )})'>
+                <i class="fa-solid fa-trash-can"></i>
+            </button>
+            <button class="pencil" onclick='editarMaquina(${JSON.stringify(
+              maquina
+            )})'>
+                <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+          </div>
+        `;
+      })
+      .join("");
+
+    document.getElementById("show_maquinas").innerHTML += maquinasHtml;
+  } catch (error) {
+    console.log("Ocorreu um erro: " + error);
+  }
+});
+
+const inputResponsavel = document.getElementById("responsavel");
+const listaUsuarios = document.getElementById("usuarios-lista");
+let usuarios = [];
+
+inputResponsavel.addEventListener("input", async () => {
+  const termoBusca = inputResponsavel.value.toLowerCase();
+  try {
+    const resp = await fetch("/maquina/buscarFuncionarios", {
+      method: "POST",
+      body: JSON.stringify({
+        info: {
+          campo: termoBusca,
+          idEmpresa: sessionStorage.getItem("fkEmpresa"),
+        },
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (resp.ok) {
+      const dados = await resp.json();
+      mostrarUsuariosFiltrados(dados);
+    } else {
+      throw new Error("Erro ao obter dados");
+    }
+  } catch (erro) {
+    console.error(erro);
+  }
+});
+
+const salvar = (situacao, senha) => {
+  if (!usuarios.idUsuario && situacao.toLowerCase() == "cadastro") {
+    console.error("Usuário responsável não encontrado");
+    return;
+  }
+
+  let campos = {
+    infos: {
+      marca: marca.value,
+      modelo: modelo.value,
+      fkUsuario: situacao.toLowerCase() == "cadastro" ? usuarios.idUsuario : maquinaEditar.idUsuario,
+      numeroIP1: ipv4_1.value,
+      nomeLocal1: nome_local_ipv4_1.value,
+      numeroIP2: ipv4_2.value,
+      nomeLocal2: nome_local_ipv4_2.value,
+      senhaUsuario: senha,
+      idEmpresa: situacao.toLowerCase() == "cadastro" ? usuarios.fkEmpresa : maquinaEditar.idEmpresa,
+      idUsuarioLogado: sessionStorage.getItem("idUsuario"),
+      idIpv41: maquinaEditar.idIpv4[0],
+      idIpv42: maquinaEditar.idIpv4[1],
+    },
+  };
+
+  if (situacao.toLowerCase() == "cadastro") {
+    fetch("/maquina/salvar", {
+      method: "POST",
+      body: JSON.stringify(campos),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((resp) => {
+        if (resp.ok) {
+          return resp.json();
+        } else {
+          throw new Error("Erro ao salvar os dados");
+        }
+      })
+      .then((data) => {
+        console.log("Cadastro realizado:", data);
+        closeModalConfirma()
+      })
+      .catch((error) => {
+        throw new Error("Erro ao realizar o cadastro:", error);
+      });
+  } else if(situacao.toLowerCase() == "edição"){
+    fetch(`/maquina/editar/${maquinaEditar.idMaquina}`, {
+      method: "PUT",
+      body: JSON.stringify(campos),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((resp) => {
+        if (resp.ok) {
+          return resp.json();
+        } else {
+          throw new Error("Erro ao editar os dados");
+        }
+      })
+      .then((data) => {
+        console.log("Edição realizada:", data);
+        closeModalConfirma()
+      })
+      .catch((error) => {
+        throw new Error("Erro ao realizar a edição:", error);
+      });
+  }
+};
+
+passwordFormConfirm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const password = document.getElementById("password_confirm").value;
+  const situacao = situacaoFormulario.innerText;
+  salvar(situacao, password);
+});
+
+function mostrarUsuariosFiltrados(usuariosFiltrados) {
+  listaUsuarios.innerHTML = "";
+  usuariosFiltrados.map((usuario) => {
+    const itemLista = document.createElement("li");
+    itemLista.textContent = usuario.nome;
+    itemLista.addEventListener("click", function () {
+      usuarios = usuario;
+      inputResponsavel.value = usuario.nome;
+      listaUsuarios.innerHTML = "";
+    });
+    listaUsuarios.appendChild(itemLista);
+  });
+
+  const inputBounds = inputResponsavel.getBoundingClientRect();
+  listaUsuarios.style.top = inputBounds.top - listaUsuarios.offsetHeight + "px";
+  listaUsuarios.style.left = inputBounds.left + "px";
+}
+
+inputResponsavel.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    listaUsuarios.innerHTML = "";
+  }
+});
+let situacaoFormulario = document.getElementById("situacao_formulario");
+
+let maquinaEditar = [];
+const editarMaquina = (maquina) => {
+  situacaoFormulario.innerText = "EDIÇÃO";
+  document.getElementById("btn_vlt").style.display = "flex";
+  if (maquina.idIpv4.length > 0) {
+    ipv4_1.value = maquina.numeroIP[0];
+    nome_local_ipv4_1.value = maquina.nomeLocal[0];
+  }
+  if (maquina.idIpv4.length > 1) {
+    ipv4_2.value = maquina.numeroIP[1];
+    nome_local_ipv4_2.value = maquina.nomeLocal[1];
+  }
+  marca.value = maquina.marca;
+  modelo.value = maquina.modelo;
+  responsavel.value = maquina.nome;
+
+  maquinaEditar = maquina;
+};
+
+const voltarCadastro = () => {
+  situacaoFormulario.innerText = "CADASTRO";
+  document.getElementById("btn_vlt").style.display = "none";
+  resetFormulario();
+};
+
 async function getIP() {
   try {
     const response = await fetch("https://api.ipify.org?format=json");
@@ -20,21 +255,14 @@ document
     }
   });
 
-const modal = document.getElementById("deleteModal");
-const closeBtn = document.querySelector(".close-1");
-const closeModalConfirmaAcao = document.querySelector(".close-2");
-const passwordFormExcluir = document.getElementById("passwordForm_excluir");
-const passwordFormConfirm = document.getElementById("passwordForm_confirmar");
-
-const modalConfirmarAcao = document.getElementById("confirmModal");
-const camposFaltantes = document.getElementById("missing_fields");
-
 function openModalConfirmarAcao() {
   modalConfirmarAcao.style.display = "block";
 }
 
-function openModal() {
+let maquinaDeletar = "";
+function openModal(maquina) {
   modal.style.display = "block";
+  maquinaDeletar = maquina;
 }
 
 function closeModal() {
@@ -44,12 +272,6 @@ function closeModal() {
 function closeModalConfirma() {
   modalConfirmarAcao.style.display = "none";
 }
-
-document.querySelectorAll(".garbage").forEach((button) => {
-  button.addEventListener("click", () => {
-    openModal();
-  });
-});
 
 closeBtn.addEventListener("click", () => {
   closeModal();
@@ -63,29 +285,33 @@ passwordFormExcluir.addEventListener("submit", (e) => {
   e.preventDefault();
   const password = document.getElementById("password").value;
 
-  closeModal();
+  document.getElementById("password").classList.remove("invalid-field");
+
+  fetch(`/maquina/deletar/${maquinaDeletar.idMaquina}`, {
+    method: "DELETE",
+    body: JSON.stringify({
+      info: {
+        idUsuario: sessionStorage.getItem("idUsuario"),
+        senhaUsuario: password,
+        idEmpresa: sessionStorage.getItem("fkEmpresa"),
+      },
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((resp) => {
+      if (resp.ok) {
+        console.log("Máquina deletada com SUCESSO!");
+        closeModal();
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 });
-
-passwordFormConfirm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const password = document.getElementById("password_confirm").value;
-
-  closeModalConfirma();
-});
-
-const btnSave = document.querySelector(".btn.save");
 
 btnSave.addEventListener("click", () => {
-  let ipv4_1 = document.getElementById("ipv4_1");
-  let nome_local_ipv4_1 = document.getElementById("nome_local_ipv4_1");
-
-  let ipv4_2 = document.getElementById("ipv4_2");
-  let nome_local_ipv4_2 = document.getElementById("nome_local_ipv4_2");
-
-  let marca = document.getElementById("marca");
-  let modelo = document.getElementById("modelo");
-  let responsavel = document.getElementById("responsavel");
-
   let missingFields = [];
 
   ipv4_1.classList.remove("invalid-field");
@@ -142,7 +368,6 @@ btnSave.addEventListener("click", () => {
         <li>Impacto na funcionalidade: Dependendo do sistema ou do uso dos dados, a falta desses campos pode impactar a funcionalidade ou a capacidade do sistema de realizar determinadas operações.</li>
         <li>Dificuldade na identificação: A ausência de informações como modelo, marca e responsável pode tornar difícil identificar ou rastrear o dispositivo ou recurso correspondente.</li>
       </ul>`;
-
   }
 
   openModalConfirmarAcao();
@@ -169,15 +394,7 @@ function closePopup() {
 
 const btnReset = document.querySelector(".btn.reset");
 
-btnReset.addEventListener("click", () => {
-  let ipv4_1 = document.getElementById("ipv4_1");
-  let nome_local_ipv4_1 = document.getElementById("nome_local_ipv4_1");
-  let ipv4_2 = document.getElementById("ipv4_2");
-  let nome_local_ipv4_2 = document.getElementById("nome_local_ipv4_2");
-  let marca = document.getElementById("marca");
-  let modelo = document.getElementById("modelo");
-  let responsavel = document.getElementById("responsavel");
-
+const resetFormulario = () => {
   ipv4_1.value = "";
   nome_local_ipv4_1.value = "";
   ipv4_2.value = "";
@@ -190,4 +407,24 @@ btnReset.addEventListener("click", () => {
   nome_local_ipv4_1.classList.remove("invalid-field");
   ipv4_2.classList.remove("invalid-field");
   nome_local_ipv4_2.classList.remove("invalid-field");
+};
+
+btnReset.addEventListener("click", () => {
+  resetFormulario();
 });
+
+const abrirTutorialIP = () => {
+  document.getElementById("ipv4Popup").style.display = "flex";
+};
+
+document
+  .getElementById("closeIPv4Popup")
+  .addEventListener("click", function () {
+    document.getElementById("ipv4Popup").style.display = "none";
+  });
+
+window.onclick = function (event) {
+  if (event.target == document.getElementById("ipv4Popup")) {
+    document.getElementById("ipv4Popup").style.display = "none";
+  }
+};

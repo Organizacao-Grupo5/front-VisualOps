@@ -8,6 +8,7 @@
     display: flex;
     flex-direction: column;
     padding: 20px;
+    overflow-y: hidden;
 }
 
 .content {
@@ -63,7 +64,14 @@
 .info-pc {
     color: #fff;
     font-size: 14px;
+    width: 35%;
     flex: 1;
+}
+
+.info-pc h6{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .garbage,
@@ -344,6 +352,7 @@ input[type="password"] {
 .invalid-field {
     border: 2px solid #ff0000 !important;
 }
+
 .popup {
     display: none;
     position: fixed;
@@ -364,5 +373,84 @@ input[type="password"] {
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.ipv4-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.ipv4-popup-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.ipv4-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+ol {
+    padding-left: 20px;
+    color: #333;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+kbd {
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 2px 5px;
+    font-size: 90%;
+}
+
+#btn_vlt{
+    background-color: #21b935;
+    display: none;
+}
+.usuarios-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 150px;
+    overflow-y: auto;
+    border-radius: 5px;
+    position: absolute;
+    width: calc(25% - 2px);
+     z-index: 999;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.usuarios-lista li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.usuarios-lista li:hover {
+    background-color: #f0f0f0;
 }
 

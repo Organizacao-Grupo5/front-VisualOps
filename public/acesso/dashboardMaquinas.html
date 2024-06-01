@@ -61,6 +61,10 @@
                     <i class="fa-regular fa-file-lines" style="font-size: 18px;" onclick="windowRelatorio()"></i>
                     <button class="btn-section" onclick="windowRelatorio()">RELATÓRIOS</button>
                 </div>
+                <div class="chose-section">
+                    <i class="fa-solid fa-computer" style="font-size: 18px;" onclick="windowRelatorio()"></i>
+                    <button class="btn-section" onclick="windowMaquina()">MÁQUINAS</button>
+                </div>
             </div>
             <div class="end-sidebar">
                 <h6 id="suporte_text">SUPORTE / CONFIGURAÇÃO</h6>
@@ -94,20 +98,8 @@
                 <div class="content">
                     <div class="left-content">
                         <h2>Máquinas</h2>
-                        <div class="todas-maquinas">
-                            <div class="maquina-card">
-                                <i class="fa-solid fa-computer"></i>
-                                <div class="info-pc">
-                                    <h6>IPV4(1): 192.168.1.1 <br>IPV4(2): 192.168.1.2 <br>Marca: Dell <br>Modelo:
-                                        Inspiron <br>Responsável: João</h6>
-                                </div>
-                                <button class="garbage">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </button>
-                                <button class="pencil">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </button>
-                            </div>
+                        <div id="show_maquinas" class="todas-maquinas">
+
                         </div>
                     </div>
                     <div class="right-content">
@@ -120,18 +112,21 @@
                             </label>
                         </div>
                         <div id="machineForm">
+                            <h2 id="situacao_formulario">CADASTRO</h2>
                             <div class="cadastro-ips">
                                 <div class="ipv4-1">
                                     <label for="nome_local_ipv4_1">Nome do Local para o 1° IPv4 (ex: Trabalho)</label>
                                     <input id="nome_local_ipv4_1" type="text">
-                                    <label for="ipv4_1">Endereço do 1° IPv4 (<a href="#">Clique aqui</a> para
+                                    <label for="ipv4_1">Endereço do 1° IPv4 (<a onclick="abrirTutorialIP()"
+                                            href="#">Clique aqui</a> para
                                         instruções)</label>
                                     <input id="ipv4_1" type="text">
                                 </div>
                                 <div class="ipv4-2">
                                     <label for="nome_local_ipv4_2">Nome do Local para o 2° IPv4 (ex: Casa)</label>
                                     <input id="nome_local_ipv4_2" type="text">
-                                    <label for="ipv4_2">Endereço do 2° IPv4 (<a href="#">Clique aqui</a> para
+                                    <label for="ipv4_2">Endereço do 2° IPv4 (<a onclick="abrirTutorialIP()"
+                                            id="openIPv4Popup" href="#">Clique aqui</a> para
                                         instruções)</label>
                                     <input id="ipv4_2" type="text">
                                 </div>
@@ -143,10 +138,12 @@
                                 <input id="modelo" type="text">
                                 <label for="responsavel">Responsável</label>
                                 <input id="responsavel" type="text">
+                                <ul id="usuarios-lista" class="usuarios-lista"></ul>
                             </div>
-                            <div class="form-actions">
+                            <div class="form-actions" id="opt_btns">
                                 <button id="btn_save" class="btn save">Salvar</button>
                                 <button id="btn_reset" class="btn reset">Limpar</button>
+                                <button id='btn_vlt' class="btn" onclick='voltarCadastro()'>Voltar</button>
                             </div>
                         </div>
                     </div>
@@ -181,7 +178,7 @@
             <span class="close-2 close">&times;</span>
             <h2>Confirmar Ação</h2>
             <div class="consequences" id="missing_fields">
-                
+
             </div>
             <p>Por favor, insira sua senha para concluir a ação.</p>
             <form id="passwordForm_confirmar">
@@ -190,7 +187,38 @@
             </form>
         </div>
     </div>
-    
+    <div id="ipv4Popup" class="ipv4-popup">
+        <div class="ipv4-popup-content">
+            <span class="ipv4-close" id="closeIPv4Popup">&times;</span>
+            <h2>Como Descobrir seu IPv4</h2>
+            <ol>
+                <li><strong>Windows:</strong>
+                    <ul>
+                        <li>Pressione as teclas <kbd>Windows</kbd> + <kbd>R</kbd> para abrir o Executar.</li>
+                        <li>Digite <code>cmd</code> e pressione <kbd>Enter</kbd>.</li>
+                        <li>No prompt de comando, digite <code>ipconfig</code> e pressione <kbd>Enter</kbd>.</li>
+                        <li>Procure pela seção "Adaptador de Rede Sem Fio" ou "Adaptador Ethernet". Seu IPv4 será
+                            exibido próximo a "Endereço IPv4".</li>
+                    </ul>
+                </li>
+                <li><strong>Mac:</strong>
+                    <ul>
+                        <li>Clique no ícone da Apple no canto superior esquerdo e selecione <strong>Preferências do
+                                Sistema</strong>.</li>
+                        <li>Selecione <strong>Rede</strong>.</li>
+                        <li>Escolha a conexão ativa (Wi-Fi ou Ethernet) na barra lateral esquerda.</li>
+                        <li>O endereço IPv4 será exibido na parte direita da janela, abaixo de "Status".</li>
+                    </ul>
+                </li>
+                <li><strong>Linux:</strong>
+                    <ul>
+                        <li>Abra um terminal.</li>
+                        <li>Digite <code>hostname -I</code> e pressione <kbd>Enter</kbd>. Seu IPv4 será exibido.</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
 </body>
 
 </html>

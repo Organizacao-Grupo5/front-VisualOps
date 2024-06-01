@@ -45,7 +45,6 @@ let h5Data = document.getElementById("h5_data");
 
 const btnPdf = document.getElementById("btn_pdf");
 const btnExcel = document.getElementById("btn_xlsx");
-const btnEdit = document.getElementById("btn_edit");
 const btnExpand = document.getElementById("btn_exp");
 const tabRelatorio = document.getElementById("tab_relatorio");
 const tabTabelaRegistro = document.getElementById("tab_tabela_registro");
@@ -103,35 +102,39 @@ const gerarPaginas = () => {
 
     let pageHtml = `
     <div class="content-pdf ${componente}">
-    <div class="container">
-      <div class="header">
-        <h1>${componente}</h1>
-        <h6 style="font-size: 8px;">Data início: ${formatarData(
-          dataInicio
-        )}<br>Data fim: ${formatarData(dataFim)}</h6>
-      </div>
-      <h6 style="margin-top:2%; margin-bottom:1%;"><u>5 capturas mais altas registradas</u></h6>
-      <table class="blueTable">
-        <thead>
-          <tr>
-            <th>Componente</th>
-            <th>Captura</th>
-            <th>Data hora</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${table}           
-        </tbody>
-      </table> 
-      <h6 style="margin-top:2%; margin-bottom:1%;"><u>Gráfico das capturas registradas</u></h6>
-      <div class="div-grafico">
-          <canvas style="width: 100%;" id="ctx_${componente}"></canvas>
-      </div>
+      <div class="container">
+        <div class="header">
+          <h1>${componente}</h1>
+          <h6 style="font-size: 8px;">Data início: ${formatarData(
+            dataInicio
+          )}<br>Data fim: ${formatarData(dataFim)}</h6>
+        </div>
+        <h6 style="margin-top:2%; margin-bottom:1%;"><u>5 capturas mais altas registradas</u></h6>
+        <table class="blueTable">
+          <thead>
+            <tr>
+              <th>Componente</th>
+              <th>Captura</th>
+              <th>Data hora</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${table}           
+          </tbody>
+        </table> 
+        <h6 style="margin-top:2%; margin-bottom:1%;"><u>Gráfico das capturas registradas</u></h6>
+        <div class="div-grafico">
+          <canvas id="ctx_${componente}"></canvas>
+        </div>
       </div>
     </div>`;
     paginas.push(pageHtml);
   });
 };
+
+let listIdGraficos = [];
+let listLabelsGrafico = [];
+let listDadosGrafico = [];
 
 const gerarGraficos = () => {
   const componentes = Array.from(
@@ -168,6 +171,10 @@ const gerarGraficos = () => {
       .map((item) => item.dadoCaptura);
 
     const ctx = document.getElementById(`ctx_${componente}`);
+
+    listIdGraficos.push(`ctx_${componente}`);
+    listLabelsGrafico.push(labels);
+    listDadosGrafico.push(dados);
 
     if (ctx) {
       const maxPoints = 4;
@@ -231,7 +238,6 @@ const alterarPagina = () => {
 
 const aumentarVisualizacao = () => {
   let todasPaginas = document.querySelectorAll(".content-pdf");
-
   const pdfWidth = todasPaginas[0].clientWidth + 100;
   const movimento = -pdfWidth * 0;
 
@@ -258,6 +264,86 @@ const aumentarVisualizacao = () => {
 
     pdfContainerClone.style.transform = "none";
     pdfContainerClone.style.width = "auto";
+
+    let novosIds = listIdGraficos.map((id) => {
+      let grafico = pdfContainerClone.querySelector(`#${id}`);
+      console.log("grafico:", grafico);
+      let novoId = id + "_clone";
+      grafico.id = novoId;
+      console.log("novoId:", novoId);
+      return novoId;
+    });
+
+    novosIds.forEach((componente, index) => {
+      const limitarDados = (labels, dados, maxPoints) => {
+        if (labels.length <= maxPoints) {
+          return { limitedLabels: labels, limitedData: dados };
+        }
+
+        console.log(labels);
+        console.log(dados);
+
+        const limitedLabels = [labels[0][0]];
+        const limitedData = [dados[0][0]];
+
+        const step = Math.floor((labels.length - 2) / (maxPoints - 2));
+
+        for (let i = 1; i < labels.length - 1; i += step) {
+          limitedLabels.push(labels[i]);
+          limitedData.push(dados[i]);
+        }
+
+        limitedLabels.push(labels[labels.length - 1]);
+        limitedData.push(dados[dados.length - 1]);
+
+        return { limitedLabels, limitedData };
+      };
+
+      const labels = listLabelsGrafico[index];
+      const dados = listDadosGrafico[index];
+
+      const ctx = document.getElementById(componente);
+
+      if (ctx) {
+        const maxPoints = 4;
+        const { limitedLabels, limitedData } = limitarDados(
+          labels,
+          dados,
+          maxPoints
+        );
+        new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: limitedLabels,
+            datasets: [
+              {
+                label: "Capturas",
+                data: limitedData,
+                borderWidth: 1,
+                pointRadius: 0,
+                pointHoverRadius: 0,
+              },
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+              x: {
+                ticks: {
+                  font: {
+                    size: 7,
+                  },
+                },
+              },
+            },
+          },
+        });
+      } else {
+        console.error(`Canvas element with ID ctx_${componente} not found`);
+      }
+    });
 
     btnClose.addEventListener("click", () => {
       divExpand.style.display = "none";
@@ -313,7 +399,6 @@ async function baixarPDF() {
 }
 
 btnPdf.addEventListener("click", () => {
-  aumentarVisualizacao();
   baixarPDF();
 });
 
@@ -463,14 +548,16 @@ document.addEventListener("DOMContentLoaded", () => {
     document
       .getElementById(`download_xlsx_${componente}`)
       .addEventListener("click", function () {
-        table.download("xlsx", "data.xlsx", { sheetName: `Relatório VisualOps | ${componente}` });
+        table.download("xlsx", "data.xlsx", {
+          sheetName: `Relatório VisualOps | ${componente}`,
+        });
       });
 
     document
       .getElementById(`download_pdf_${componente}`)
       .addEventListener("click", function () {
         table.download("pdf", "data.pdf", {
-          orientation: "portrait", 
+          orientation: "portrait",
           title: `Relatório sobre o uso do(a) ${componente}`,
         });
       });

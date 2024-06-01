@@ -292,4 +292,12 @@
 .tabulator .tabulator-footer .tabulator-footer-contents{
     background-color: #24213a;
     color: #fff;
+    
+}
+.div-grafico{
+    display: flex;
+    width: 500px;
+}
+.div-grafico canvas{
+    width: 500px;
 }

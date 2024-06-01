@@ -21,13 +21,13 @@ function selecionarQualidade(fkEmpresa) {
 }
 
 function selecionarPrejudicados(fkEmpresa) {
-    const query = `SELECT idMaquina, componente, fkAlerta FROM maquina AS mac 
+    const query = `SELECT idMaquina, componente, fkAlerta, DAY(dataCaptura) AS dia FROM maquina AS mac 
 	JOIN componente AS comp ON idMaquina = fkMaquina 
 		JOIN captura ON idComponente = fkComponente 
 			JOIN registroalerta ON idCaptura = fkCaptura 
 				WHERE componente IN ('RAM', 'CPU', 'GPU', 'HDD') 
 					AND fkAlerta > 1 AND fkEmpresa = ${fkEmpresa}
-						GROUP BY idMaquina, componente, fkAlerta;`;
+						GROUP BY idMaquina, componente, fkAlerta, dia;`;
 
     console.log("Executando a instrução SQL: \n");
     return database.executar(query);

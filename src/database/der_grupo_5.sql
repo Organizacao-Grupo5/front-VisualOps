@@ -1,16 +1,15 @@
 -- SQLBook: Code
--- DROP-Script
-DROP DATABASE der_grupo_5;
-
+-- USER-Script
 DROP USER 'client'@'%';
 FLUSH PRIVILEGES;
-
--- CREATE-Script
-CREATE DATABASE der_grupo_5;
 
 CREATE USER 'client'@'%' identified by 'Client123$';
 GRANT SELECT, UPDATE, DELETE, INSERT ON der_grupo_5.* TO 'client';
 flush privileges;
+
+-- CREATE-Script
+DROP DATABASE der_grupo_5;
+CREATE DATABASE der_grupo_5;
 
 USE der_grupo_5;
 
@@ -67,9 +66,9 @@ CREATE TABLE maquina (
     marca VARCHAR (45),
     mac VARCHAR(20),
     fkUsuario INT,
-        CONSTRAINT fkUsuarioMaquina FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario),
+        CONSTRAINT fkUsuarioMaquina FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario) ON DELETE CASCADE,
 	fkEmpresa INT NOT NULL,
-		CONSTRAINT fkEmpresaMaquina FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
+		CONSTRAINT fkEmpresaMaquina FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa) ON DELETE CASCADE
 );
 
 CREATE TABLE rede (
@@ -86,14 +85,14 @@ CREATE TABLE ipv4(
     numeroIP VARCHAR(18),
     nomeLocal VARCHAR(45),
     fkMaquina INT NOT NULL,
-        CONSTRAINT fkMaquinaIPV4 FOREIGN KEY (fkMaquina) REFERENCES maquina(idMaquina)
+        CONSTRAINT fkMaquinaIPV4 FOREIGN KEY (fkMaquina) REFERENCES maquina(idMaquina) ON DELETE CASCADE
 );
 
 CREATE TABLE relRedeIpv4 (
     fkRede INT NOT NULL,
-		CONSTRAINT fkRedeRRI FOREIGN KEY (fkRede) REFERENCES rede(idRede),
+		CONSTRAINT fkRedeRRI FOREIGN KEY (fkRede) REFERENCES rede(idRede) ON DELETE CASCADE,
 	fkIpv4 INT NOT NULL,
-		CONSTRAINT fkIpv4RRI FOREIGN KEY (fkIpv4) REFERENCES ipv4(idIpv4),
+		CONSTRAINT fkIpv4RRI FOREIGN KEY (fkIpv4) REFERENCES ipv4(idIpv4) ON DELETE CASCADE,
 	PRIMARY KEY (fkRede, fkIpv4),
 	dataConexao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -104,7 +103,7 @@ CREATE TABLE componente (
     modelo VARCHAR(200) NOT NULL,
     fabricante VARCHAR(200) NOT NULL,
     fkMaquina INT NOT NULL,
-        CONSTRAINT fkMaquinaComponente FOREIGN KEY (fkMaquina) REFERENCES maquina(idMaquina)
+        CONSTRAINT fkMaquinaComponente FOREIGN KEY (fkMaquina) REFERENCES maquina(idMaquina) ON DELETE CASCADE
 );
 
 CREATE TABLE configuracao (
@@ -131,7 +130,7 @@ CREATE TABLE captura (
     unidadeMedida VARCHAR(5) NOT NULL,
     dataCaptura DATETIME NOT NULL,
     fkComponente INT NOT NULL,
-        CONSTRAINT fkComponenteCaptura FOREIGN KEY (fkComponente) REFERENCES componente(idComponente)
+        CONSTRAINT fkComponenteCaptura FOREIGN KEY (fkComponente) REFERENCES componente(idComponente) 
 );
 
 CREATE TABLE registroAlerta (

@@ -24,7 +24,7 @@ async function gerarDados() {
     dados = await atualizarGrafico_2(fkEmpresa);
     gerenciarGrafico_2(dados);
     
-    // dados = await atualizarGrafico_1(fkEmpresa);
+    dados = await atualizarGrafico_3(fkEmpresa);
     // gerenciarGrafico_1(dados);
 
     setInterval(async () => {
@@ -104,11 +104,11 @@ function gerenciarGrafico_1(dados) {
     let idAlerta;
 
     dados.forEach(consulta => {
-        // if (consulta.mes >= mesAtual) mesAtual = consulta.mes
+        // if (consulta.mes >= mesAtual) mesAtual = consulta.mes;
         if (
             idMaquinaAtual < consulta.idMaquina
         ) {
-            if (idMaquinaAtual != 0) list.first[idAlerta-1]++;
+            if (idMaquinaAtual != 0) list.first[idAlerta-1] += 1;
             idMaquinaAtual = consulta.idMaquina;
             maiorAlerta = 0;
             idAlerta;    
@@ -121,11 +121,13 @@ function gerenciarGrafico_1(dados) {
 }
 
 function gerenciarGrafico_2(dados) {
+    // let diaAtual = 0;
     let idMaquinaAtual = 0;
 
     dados.forEach(consulta => {
         const componente = consulta.componente;
         const index = label.second.findIndex(valor => valor == componente);
+        // if (consulta.dia >= diaAtual) diaAtual = consulta.dia;
         if (
             idMaquinaAtual < consulta.idMaquina
         ) {
@@ -135,6 +137,13 @@ function gerenciarGrafico_2(dados) {
     })
 }
 
+function gerenciarGrafico_3(dados) {
+    const classRuim = 'col_ruim';
+    const classMedio = 'col_medio';
+    const classBom = 'col_bom';
+
+    // const div = `<div class="${}">${}</div>`;
+}
 
 const dataset = {
     first: [{

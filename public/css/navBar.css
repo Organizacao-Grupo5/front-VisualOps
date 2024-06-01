@@ -171,6 +171,7 @@ section{
     gap: 20%;
     color: #fff;
     transition: all 0.5s ease-in-out;
+    font-size: 19px;
 }
 .chose-section:hover{
     box-shadow: #000 0 0 4px 0;

@@ -286,6 +286,8 @@ button:hover {
 }
 
 .name-content {
+    font-size: 17px;
+    font-weight: bolder;
     display: flex;
     align-items: center;
     justify-content: start;

@@ -578,6 +578,6 @@ const btnRight = document
     }
   });
 
-window.addEventListener("beforeunload", () => {
-  sessionStorage.removeItem("relatorioDados");
-});
+// window.addEventListener("beforeunload", () => {
+//   sessionStorage.removeItem("relatorioDados");
+// });

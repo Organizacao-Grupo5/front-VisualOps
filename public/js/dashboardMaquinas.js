@@ -124,8 +124,8 @@ const salvar = (situacao, senha) => {
       senhaUsuario: senha,
       idEmpresa: situacao.toLowerCase() == "cadastro" ? usuarios.fkEmpresa : maquinaEditar.idEmpresa,
       idUsuarioLogado: sessionStorage.getItem("idUsuario"),
-      idIpv41: maquinaEditar.idIpv4[0],
-      idIpv42: maquinaEditar.idIpv4[1],
+      idIpv41: situacao.toLowerCase() !== "cadastro" ? maquinaEditar.idIpv4[0] : "",
+      idIpv42: situacao.toLowerCase() !== "cadastro" ? maquinaEditar.idIpv4[1] : "",
     },
   };
 

@@ -143,7 +143,7 @@ const salvarMaquina = async (infos) => {
 
 const deletarMaquina = async (infos, idMaquina) => {
   let instrucaoVerificarSenha = `
-  SELECT * FROM usuario WHERE idUsuario = ${infos.idUsuarioLogado} AND senha = '${infos.senhaUsuario}' AND fkEmpresa = ${infos.idEmpresa};
+  SELECT * FROM usuario WHERE idUsuario = ${infos.idUsuario} AND senha = '${infos.senhaUsuario}' AND fkEmpresa = ${infos.idEmpresa};
 `;
 
   console.log(
@@ -200,10 +200,17 @@ const editarMaquina = async (infos, idMaquina) => {
         instrucaoDeleteIpv4_1
     );
     await database.executar(instrucaoDeleteIpv4_1);
-  } else {
+  } else if(infos.idIpv41 !== "" && infos.idIpv41 !== undefined){
     let instrucaoUpdateIpv4_1 = `UPDATE ipv4 SET numeroIP = '${infos.numeroIP1}', nomeLocal = '${infos.nomeLocal1}' WHERE idIpv4 = ${infos.idIpv41};`;
     console.log(
       "Executando a instrução SQL para atualizar ipv4 (1): \n" +
+        instrucaoUpdateIpv4_1
+    );
+    await database.executar(instrucaoUpdateIpv4_1);
+  } else{
+    let instrucaoUpdateIpv4_1 = `INSERT INTO ipv4 (numeroIP, nomeLocal, fkMaquina, fkUsuario) VALUES ('${infos.numeroIP1}', '${infos.nomeLocal1}', ${idMaquina}, ${infos.fkUsuario});`;
+    console.log(
+      "Executando a instrução SQL para inserir ipv4 (1): \n" +
         instrucaoUpdateIpv4_1
     );
     await database.executar(instrucaoUpdateIpv4_1);
@@ -216,10 +223,17 @@ const editarMaquina = async (infos, idMaquina) => {
         instrucaoDeleteIpv4_2
     );
     await database.executar(instrucaoDeleteIpv4_2);
-  } else {
+  } else if(infos.idIpv42 !== "" && infos.idIpv42 !== undefined){
     let instrucaoUpdateIpv4_2 = `UPDATE ipv4 SET numeroIP = '${infos.numeroIP2}', nomeLocal = '${infos.nomeLocal2}' WHERE idIpv4 = ${infos.idIpv42};`;
     console.log(
       "Executando a instrução SQL para atualizar ipv4 (2): \n" +
+        instrucaoUpdateIpv4_2
+    );
+    await database.executar(instrucaoUpdateIpv4_2);
+  } else{
+    let instrucaoUpdateIpv4_2 = `INSERT INTO ipv4 (numeroIP, nomeLocal, fkMaquina, fkUsuario) VALUES ('${infos.numeroIP2}', '${infos.nomeLocal2}', ${idMaquina}, ${infos.fkUsuario});`;
+    console.log(
+      "Executando a instrução SQL para inserir ipv4 (2): \n" +
         instrucaoUpdateIpv4_2
     );
     await database.executar(instrucaoUpdateIpv4_2);

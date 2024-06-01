@@ -8,13 +8,14 @@ function cadastrar(numeroIdentificacao, marca, modelo, fkUsuario) {
     return database.executar(instrucao);
 }
 
-function contar (fkUsuario) {
-    const query = `SELECT COUNT(*) FROM maquina WHERE fkUsuario = ${fk}`;
+function selecionarQualidade(fkEmpresa) {
+    const query = `SELECT mac.*, fkAlerta, MONTH(dataCaptura) as semana, COUNT(fkAlerta) AS qtdAlerta FROM maquina AS mac JOIN componente ON idMaquina = fkMaquina JOIN captura ON idComponente = fkComponente JOIN registroalerta ON idCaptura = fkCaptura WHERE fkEmpresa = ${fkEmpresa} GROUP BY idMaquina, fkAlerta, mes;`;
+
     console.log("Executando a instrução SQL: \n");
     return database.executar(query);
 }
 
 module.exports = {
     cadastrar,
-    contar
+    selecionarQualidade
 };

@@ -6,26 +6,36 @@ const background = document.getElementById("bg");
 const pop = document.getElementById("pop");
 
 window.onload = () => {
-    // aparecerPop(mensagem.inicial);
-    mostrarKpi4();
-    mostrarKpi5();
-    totalGrafico1();
+    gerarDados();
+//     aparecerPop(mensagem.inicial);
+//     mostrarKpi4();
+//     mostrarKpi5();
+//     totalGrafico1();
 };
 
-setInterval(() => {
-    atualizarGrafico();
-}, 1000)
+async function gerarDados() {
+    const fkEmpresa = sessionStorage.getItem("fkEmpresa");
+    
+    let dados;
+    
+    dados = await atualizarGrafico_1(fkEmpresa);
+    gerenciarGrafico_1(dados);
+    
+    dados = await atualizarGrafico_1(fkEmpresa);
+    gerenciarGrafico_1(dados);
+    
+    dados = await atualizarGrafico_1(fkEmpresa);
+    gerenciarGrafico_1(dados);
 
-const list = {
-    first: [],
-    second: [],
-    third: [],
+    setInterval(() => {
+        const dados = atualizarGrafico(fkEmpresa);
+        gerenciarDados(dados);
+    }, 1800000)
 }
 
-async function atualizarGrafico() {
+async function atualizarGrafico_1(fkEmpresa) {
     try {
-        
-        const resposta = await fetch(`/maquina/contar/${fkUsuario}`, {
+        const resposta = await fetch(`/maquina/selecionar/qualidade/${fkEmpresa}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -39,21 +49,50 @@ async function atualizarGrafico() {
 
             return dados;
         } else {
-            console.error("Houve um erro ao listar os usuários!");
+            console.error("Houve um erro ao selecionar maquinas por qualidade!");
             
-            throw new Error("Houve um erro ao listar os usuários!")
+            throw new Error("Houve um erro ao selecionar maquinas por qualidade!")
         }
-
     } catch (error) {
         console.log("Erro desconhecido na API ", error);
-
         return false;
     };
 
 }
 
+const list = {
+    first: [0, 0, 0],
+    second: [],
+    third: [],
+}
+
+function gerenciarGrafico_1(dados) {
+    // let mesAtual = 0;
+    let idMaquinaAtual = 0;
+    let maiorAlerta;
+    let idAlerta;
+
+    dados.forEach(consulta => {
+        // if (consulta.mes >= mesAtual) mesAtual = consulta.mes
+        if (
+            idMaquinaAtual < consulta.idMaquina
+        ) {
+            if (idMaquinaAtual != 0) list.first[idAlerta-1]++;
+            idMaquinaAtual = consulta.idMaquina;
+            maiorAlerta = 0;
+            idAlerta;    
+        }
+        if (maiorAlerta < consulta.qtdAlerta) {
+            maiorAlerta = consulta.qtdAlerta;
+            idAlerta = consulta.fkAlerta;
+        }
+    })
+}
+
+
+
 const label = {
-    first: ['Baixo', 'Médio', 'Alto'],
+    first: ['Alto', 'Médio', 'Baixo'],
     second: ['CPU', 'GPU', 'RAM', 'HHD'],
     third: [30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
 }
@@ -63,9 +102,9 @@ const dataset = {
         label: 'Quantidade de Computadores por Desempenho Mensal',
         data: list.first,
         backgroundColor: [
-            '#F2274C',
+            '#449ADE',
             '#F2AB27',
-            '#449ADE'
+            '#F2274C'
         ],
         hoverOffset: 15
     }],

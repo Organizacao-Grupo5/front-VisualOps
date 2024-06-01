@@ -25,24 +25,18 @@ function cadastrar(req, res) {
 }
 
 
-function contar(req, res) {
-    const fkUsuario = req.params.fkUsuario;
+function selecionarQualidade(req, res) {
 
-    if (fkUsuario == undefined) {
+    const fkEmpresa = req.params.fkEmpresa;
+
+    if (fkEmpresa == undefined) {
         res.status(400).send("O fk do usuário está indefinido!");
     } else {
-        maquinaModel.contar(fkUsuario)
+        maquinaModel.selecionarQualidade(fkEmpresa)
         .then(resposta => {
 
-            if (resposta > 0) {
-                res.json({
-                    id: resultado[0].id,
-                    nome: resultado[0].nome,
-                    email: resultado[0].email,
-                    senha: resultado[0].senha,
-                    cargo: resultado[0].cargo,
-                    fkEmpresa: resultado[0].fkEmpresa
-                });
+            if (resposta.length > 0) {
+                res.json(resposta);
             }
         })
         .catch(erro => {
@@ -53,5 +47,5 @@ function contar(req, res) {
 
 module.exports = {
     cadastrar,
-    contar
+    selecionarQualidade
 }

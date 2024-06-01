@@ -30,14 +30,9 @@ function validarCampo() {
         divMsg.style.display = 'block';
         mensagem.innerHTML = `Email e Senha não devem ter espaços em branco.`
         return false;
-    } else if (!(email.includes("@gmail.com") || email.includes("@hotmail.com") ||
-            email.includes("@outlook.com") || email.includes("@sptech.school"))) {
+    } else if (!(new RegExp("@[^@\\r\\n]+\\.com").test(email) || email.includes("@sptech.school"))) {
         divMsg.style.display = 'block';
         mensagem.innerHTML = `Email inválido.`
-        return false;
-    } else if (!new RegExp("^(?=.*\\d)(?=.*[^\\w\\s])(?=.*[A-Z])(?=.*[a-z]).*$").test(senha)) {
-        divMsg.style.display = 'block';
-        mensagem.innerHTML = `Senha deve conter letras MAIÚSCULAS, minúsculas, números e símbolos.`
         return false;
     }
 

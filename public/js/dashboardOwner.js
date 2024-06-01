@@ -17,19 +17,19 @@ async function gerarDados() {
     const fkEmpresa = sessionStorage.getItem("fkEmpresa");
     
     let dados;
-    
-    dados = await atualizarGrafico_1(fkEmpresa);
-    gerenciarGrafico_1(dados);
-    
-    dados = await atualizarGrafico_1(fkEmpresa);
-    gerenciarGrafico_1(dados);
-    
-    dados = await atualizarGrafico_1(fkEmpresa);
-    gerenciarGrafico_1(dados);
 
-    setInterval(() => {
-        const dados = atualizarGrafico(fkEmpresa);
-        gerenciarDados(dados);
+    dados = await atualizarGrafico_1(fkEmpresa);
+    gerenciarGrafico_1(dados);
+    
+    dados = await atualizarGrafico_2(fkEmpresa);
+    gerenciarGrafico_2(dados);
+    
+    // dados = await atualizarGrafico_1(fkEmpresa);
+    // gerenciarGrafico_1(dados);
+
+    setInterval(async () => {
+        dados = await atualizarGrafico_1(fkEmpresa);
+        gerenciarGrafico_1(dados);
     }, 1800000)
 }
 
@@ -57,13 +57,44 @@ async function atualizarGrafico_1(fkEmpresa) {
         console.log("Erro desconhecido na API ", error);
         return false;
     };
+}
 
+async function atualizarGrafico_2(fkEmpresa) {
+    try {
+        const resposta = await fetch(`/maquina/selecionar/prejudicado/${fkEmpresa}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (resposta.ok) {
+            const dados = await resposta.json();
+
+            console.log("RESULTADO: ", dados);
+
+            return dados;
+        } else {
+            console.error("Houve um erro ao selecionar maquinas por qualidade!");
+            
+            throw new Error("Houve um erro ao selecionar maquinas por qualidade!")
+        }
+    } catch (error) {
+        console.log("Erro desconhecido na API ", error);
+        return false;
+    };
 }
 
 const list = {
     first: [0, 0, 0],
-    second: [],
+    second: [0, 0, 0, 0],
     third: [],
+}
+
+const label = {
+    first: ['Alto', 'Médio', 'Baixo'],
+    second: ['CPU', 'GPU', 'RAM', 'HDD'],
+    third: [30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
 }
 
 function gerenciarGrafico_1(dados) {
@@ -89,13 +120,21 @@ function gerenciarGrafico_1(dados) {
     })
 }
 
+function gerenciarGrafico_2(dados) {
+    let idMaquinaAtual = 0;
 
-
-const label = {
-    first: ['Alto', 'Médio', 'Baixo'],
-    second: ['CPU', 'GPU', 'RAM', 'HHD'],
-    third: [30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
+    dados.forEach(consulta => {
+        const componente = consulta.componente;
+        const index = label.second.findIndex(valor => valor == componente);
+        if (
+            idMaquinaAtual < consulta.idMaquina
+        ) {
+            if (idMaquinaAtual != 0) list.second[index]++;
+            idMaquinaAtual = consulta.idMaquina;
+        }
+    })
 }
+
 
 const dataset = {
     first: [{

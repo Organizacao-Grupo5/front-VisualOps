@@ -30,7 +30,7 @@ function selecionarQualidade(req, res) {
     const fkEmpresa = req.params.fkEmpresa;
 
     if (fkEmpresa == undefined) {
-        res.status(400).send("O fk do usuário está indefinido!");
+        res.status(400).send("O foreign key da empresa está indefinido!");
     } else {
         maquinaModel.selecionarQualidade(fkEmpresa)
         .then(resposta => {
@@ -45,7 +45,28 @@ function selecionarQualidade(req, res) {
     }
 }
 
+function selecionarPrejudicados(req, res) {
+
+    const fkEmpresa = req.params.fkEmpresa;
+
+    if (fkEmpresa == undefined) {
+        res.status(400).send("O foreign key da empresa está indefinido!");
+    } else {
+        maquinaModel.selecionarPrejudicados(fkEmpresa)
+        .then(resposta => {
+
+            if (resposta.length > 0) {
+                res.json(resposta);
+            }
+        })
+        .catch(erro => {
+            res.status(500).json(erro.sqlMessage);
+        })
+    }
+}
+
 module.exports = {
     cadastrar,
-    selecionarQualidade
+    selecionarQualidade,
+    selecionarPrejudicados
 }

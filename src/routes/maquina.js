@@ -11,4 +11,8 @@ router.get("/selecionar/qualidade/:fkEmpresa", function (req, res) {
     maquinaController.selecionarQualidade(req, res);
 });
 
+router.get("/selecionar/prejudicado/:fkEmpresa", function (req, res) {
+    maquinaController.selecionarPrejudicados(req, res);
+});
+
 module.exports = router;

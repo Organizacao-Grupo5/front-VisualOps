@@ -65,8 +65,29 @@ function selecionarPrejudicados(req, res) {
     }
 }
 
+function selecionarQuantidade(req, res) {
+
+    const fkEmpresa = req.params.fkEmpresa;
+
+    if (fkEmpresa == undefined) {
+        res.status(400).send("O foreign key da empresa está indefinido!");
+    } else {
+        maquinaModel.selecionarQuantidade(fkEmpresa)
+        .then(resposta => {
+
+            if (resposta.length > 0) {
+                res.json(resposta);
+            }
+        })
+        .catch(erro => {
+            res.status(500).json(erro.sqlMessage);
+        })
+    }
+}
+
 module.exports = {
     cadastrar,
     selecionarQualidade,
-    selecionarPrejudicados
+    selecionarPrejudicados,
+    selecionarQuantidade
 }

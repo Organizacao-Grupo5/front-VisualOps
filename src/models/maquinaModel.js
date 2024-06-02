@@ -9,7 +9,7 @@ function cadastrar(numeroIdentificacao, marca, modelo, fkUsuario) {
 }
 
 function selecionarQualidade(fkEmpresa) {
-    const query = `SELECT mac.*, fkAlerta, MONTH(dataCaptura) as mes, COUNT(fkAlerta) AS qtdAlerta FROM maquina AS mac 
+    const query = `SELECT idMaquina, fkAlerta, MONTH(dataCaptura) as mes, COUNT(fkAlerta) AS qtdAlerta FROM maquina AS mac 
     JOIN componente ON idMaquina = fkMaquina 
         JOIN captura ON idComponente = fkComponente 
             JOIN registroalerta ON idCaptura = fkCaptura 
@@ -25,9 +25,23 @@ function selecionarPrejudicados(fkEmpresa) {
 	JOIN componente AS comp ON idMaquina = fkMaquina 
 		JOIN captura ON idComponente = fkComponente 
 			JOIN registroalerta ON idCaptura = fkCaptura 
-				WHERE componente IN ('RAM', 'CPU', 'GPU', 'HDD') 
+				WHERE componente IN ('MemoriaRam', 'CPU', 'GPU', 'HDD') 
 					AND fkAlerta > 1 AND fkEmpresa = ${fkEmpresa}
 						GROUP BY idMaquina, componente, fkAlerta, dia;`;
+
+    console.log("Executando a instrução SQL: \n");
+    return database.executar(query);
+}
+
+function selecionarQuantidade(fkEmpresa) {
+    const query = `SELECT idMaquina, componente, fkAlerta, MAX(dataCaptura) maxCap FROM maquina AS mac
+	JOIN componente AS comp ON idMaquina = fkMaquina
+		JOIN captura ON idComponente = fkComponente
+			JOIN registroalerta ON idCaptura = fkCaptura
+				WHERE fkEmpresa = ${fkEmpresa}
+                    AND componente IN ('MemoriaRam', 'CPU', 'GPU', 'HDD') 
+						GROUP BY idMaquina, idComponente, fkAlerta
+							ORDER BY idMaquina DESC`;
 
     console.log("Executando a instrução SQL: \n");
     return database.executar(query);
@@ -36,5 +50,6 @@ function selecionarPrejudicados(fkEmpresa) {
 module.exports = {
     cadastrar,
     selecionarQualidade,
-    selecionarPrejudicados
+    selecionarPrejudicados,
+    selecionarQuantidade
 };

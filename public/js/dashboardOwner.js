@@ -25,13 +25,15 @@ async function gerarDados() {
     gerenciarGrafico_2(dados);
     
     dados = await atualizarGrafico_3(fkEmpresa);
-    // gerenciarGrafico_1(dados);
+    gerenciarGrafico_3(dados);
+    
+    dados = await atualizarGrafico_4(fkEmpresa);
+    gerenciarGrafico_3(dados);
 
-    setInterval(async () => {
-        dados = await atualizarGrafico_1(fkEmpresa);
-        gerenciarGrafico_1(dados);
-    }, 1800000)
 }
+setInterval(async () => {
+    gerarDados();
+}, 1800000)
 
 async function atualizarGrafico_1(fkEmpresa) {
     try {
@@ -44,8 +46,6 @@ async function atualizarGrafico_1(fkEmpresa) {
 
         if (resposta.ok) {
             const dados = await resposta.json();
-
-            console.log("RESULTADO: ", dados);
 
             return dados;
         } else {
@@ -71,7 +71,53 @@ async function atualizarGrafico_2(fkEmpresa) {
         if (resposta.ok) {
             const dados = await resposta.json();
 
-            console.log("RESULTADO: ", dados);
+            return dados;
+        } else {
+            console.error("Houve um erro ao selecionar maquinas por qualidade!");
+            
+            throw new Error("Houve um erro ao selecionar maquinas por qualidade!")
+        }
+    } catch (error) {
+        console.log("Erro desconhecido na API ", error);
+        return false;
+    };
+}
+
+async function atualizarGrafico_3(fkEmpresa) {
+    try {
+        const resposta = await fetch(`/maquina/selecionar/quantidade/${fkEmpresa}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (resposta.ok) {
+            const dados = await resposta.json();
+
+            return dados;
+        } else {
+            console.error("Houve um erro ao selecionar maquinas por qualidade!");
+            
+            throw new Error("Houve um erro ao selecionar maquinas por qualidade!")
+        }
+    } catch (error) {
+        console.log("Erro desconhecido na API ", error);
+        return false;
+    };
+}
+
+async function atualizarGrafico_4(fkEmpresa) {
+    try {
+        const resposta = await fetch(`/maquina/selecionar/capturas/${fkEmpresa}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (resposta.ok) {
+            const dados = await resposta.json();
 
             return dados;
         } else {
@@ -101,21 +147,25 @@ function gerenciarGrafico_1(dados) {
     // let mesAtual = 0;
     let idMaquinaAtual = 0;
     let maiorAlerta;
-    let idAlerta;
+    let idAlertaAtual;
 
     dados.forEach(consulta => {
+        const idMaquina = consulta.idMaquina;
+        const alerta = consulta.qtdAlerta;
+        const idAlerta = consulta.fkAlerta;
         // if (consulta.mes >= mesAtual) mesAtual = consulta.mes;
+
         if (
-            idMaquinaAtual < consulta.idMaquina
+            idMaquinaAtual < idMaquina
         ) {
-            if (idMaquinaAtual != 0) list.first[idAlerta-1] += 1;
-            idMaquinaAtual = consulta.idMaquina;
+            idMaquinaAtual = idMaquina;
             maiorAlerta = 0;
             idAlerta;    
         }
-        if (maiorAlerta < consulta.qtdAlerta) {
-            maiorAlerta = consulta.qtdAlerta;
-            idAlerta = consulta.fkAlerta;
+        if (maiorAlerta < alerta) {
+            maiorAlerta = alerta;
+            idAlertaAtual = idAlerta;
+            list.first[idAlerta-1]++;
         }
     })
 }
@@ -125,24 +175,115 @@ function gerenciarGrafico_2(dados) {
     let idMaquinaAtual = 0;
 
     dados.forEach(consulta => {
+        const idMaquina = consulta.idMaquina;
         const componente = consulta.componente;
-        const index = label.second.findIndex(valor => valor == componente);
+        const index = label.second.findIndex(valor => componente.toLowerCase().includes(valor.toLowerCase()));
+        
         // if (consulta.dia >= diaAtual) diaAtual = consulta.dia;
         if (
-            idMaquinaAtual < consulta.idMaquina
+            idMaquinaAtual < idMaquina
         ) {
-            if (idMaquinaAtual != 0) list.second[index]++;
-            idMaquinaAtual = consulta.idMaquina;
+            idMaquinaAtual = idMaquina;
+            list.second[index]++;
         }
     })
 }
 
 function gerenciarGrafico_3(dados) {
-    const classRuim = 'col_ruim';
-    const classMedio = 'col_medio';
-    const classBom = 'col_bom';
+    let idMaquinaAtual = 0;
+    let componenteAtual;
+    let alertaAtual;
+    let dataAtual;
 
-    // const div = `<div class="${}">${}</div>`;
+    const objetoComp = {
+        cpu: [0, 0, 0],
+        gpu: [0, 0, 0],
+        ram: [0, 0, 0],
+        hdd: [0, 0, 0],
+    }
+
+    dados.forEach(consulta => {
+        const idMaquina = consulta.idMaquina;
+        const componente = consulta.componente;
+        const idAlerta = consulta.fkAlerta;
+        const dataCaptura = new Date(consulta.maxCap);
+
+        if (
+            idMaquinaAtual != idMaquina
+        ) {
+            idMaquinaAtual = idMaquina;
+            componenteAtual = 0;
+            alertaAtual = 0;
+            dataAtual = 0;
+        }
+
+        const posicao = idAlerta-1;
+        if (
+            idMaquinaAtual == idMaquina &&
+            componenteAtual != componente
+        )  {
+            switch (componente) {
+                case 'CPU':
+                    objetoComp.cpu[posicao]++;
+                    break;
+                case 'GPU':
+                    objetoComp.gpu[posicao]++;
+                    break;
+                case 'MemoriaRam':
+                    objetoComp.ram[posicao]++;
+                    break;
+                case 'HDD':
+                    objetoComp.hdd[posicao]++;
+                    break;
+                default:
+                    break;
+            }
+        } else if (
+            componenteAtual == componente &&
+            dataAtual < dataCaptura
+        )  {
+            const antigaPos = alertaAtual-1;
+            switch (componente) {
+                case 'CPU':
+                    objetoComp.cpu[antigaPos]--;
+                    objetoComp.cpu[posicao]++;
+                    break;
+                case 'GPU':
+                    objetoComp.gpu[antigaPos]--;
+                    objetoComp.gpu[posicao]++;
+                    break;
+                case 'MemoriaRam':
+                    objetoComp.ram[antigaPos]--;
+                    objetoComp.ram[posicao]++;
+                    break;
+                case 'HDD':
+                    objetoComp.hdd[antigaPos]--;
+                    objetoComp.hdd[posicao]++;
+                    break;
+                default:
+                    break;
+            }
+        }
+        componenteAtual = componente;
+        alertaAtual = idAlerta;
+        dataAtual = dataCaptura;
+    });
+
+    cpu_ruim.innerHTML = objetoComp.cpu[2]; 
+    cpu_medio.innerHTML = objetoComp.cpu[1];
+    cpu_bom.innerHTML = objetoComp.cpu[0];
+    
+    gpu_ruim.innerHTML = objetoComp.gpu[2]; 
+    gpu_medio.innerHTML = objetoComp.gpu[1];
+    gpu_bom.innerHTML = objetoComp.gpu[0];
+    
+    ram_ruim.innerHTML = objetoComp.ram[2]; 
+    ram_medio.innerHTML = objetoComp.ram[1];
+    ram_bom.innerHTML = objetoComp.ram[0];
+    
+    hdd_ruim.innerHTML = objetoComp.hdd[2]; 
+    hdd_medio.innerHTML = objetoComp.hdd[1];
+    hdd_bom.innerHTML = objetoComp.hdd[0];
 }
 
 const dataset = {
@@ -164,7 +305,7 @@ const dataset = {
         borderRadius: 5
     }],
     third: [{
-        label: 'Usabilidade Diária por Equipe',
+        label: ['Indice Mediana/Diária', 'Indice 75% dos Dados/Diária'],
         data: list.third,
         backgroundColor: '#449ADE',
         borderColor: '#449ADE',

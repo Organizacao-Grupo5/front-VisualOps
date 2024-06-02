@@ -1,159 +1,119 @@
-let user;
-let address;
+const btnAddRowContact = document.getElementById("addButton");
 
+const inpUserName = document.getElementById("inp_user_name");
+const inpUserEmail = document.getElementById("inp_user_email");
+const inpUserPassword = document.getElementById("inp_user_password");
+const selectCargo = document.getElementById("select_cargo");
 
-window.onload = async () => {
-    const idUser = sessionStorage.getItem("IdUsuario");
-    user = await listar('usuario', 'idUsuario', idUser, '*');
-    address = await listar('endereco', 'idUsuario', idUser, 'endereco.*', joinOn([
-        { "empresa": ["endereco.fkEmpresa", "empresa.idEmpresa"] },
-        { "endereco": ["empresa.idEmpresa", "usuario.fkEmpresa"] }
-    ]));
+const inpCEP = document.getElementById("inp_cep");
+const inpLogradouro = document.getElementById("inp_logradouro");
+const inpNumero = document.getElementById("inp_numero");
+const inpBairro = document.getElementById("inp_bairro");
+const inpEstado = document.getElementById("inp_estado");
+const inpComplemento = document.getElementById("inp_complemento");
 
-    trocar();
-}
+const btnSalvar = document.getElementById("btn_save");
+const btnResetar = document.getElementById("btn_reset");
 
-function joinOn(tabelas) {
-    return `JOIN ${tabela} ON ${valor2} = ${valor1} `
-}
+document.addEventListener("DOMContentLoaded", async () => {
+  const infosUser = await coletaDadosUsuarioLogado();
 
+    inpUserName.value = infosUser[0].nome;
+    inpBairro.value = infosUser[0].bairro;
+    inpUserEmail.value = infosUser[0].email;
+    inpUserPassword.value = infosUser[0].senha;
+    inpCEP.value = infosUser[0].cep;
+    inpLogradouro.value = infosUser[0].logradouro;
+    inpNumero.value = infosUser[0].numero;
+    inpEstado.value = infosUser[0].estado;
+    inpComplemento.value = infosUser[0].complemento;
+    selectCargo.value = infosUser[0].cargo == "Gerente" ? "1" : "2";
 
-function trocar() {
+  let tableContact = new Tabulator(
+    document.getElementById("tabulator_contato"),
+    {
+      layout: "fitColumns",
+      data: [
+        { id: 1, telefone: "123-456-7890", tipo: "Celular" },
+        { id: 2, telefone: "098-765-4321", tipo: "Trabalho" },
+        { id: 3, telefone: "555-555-5555", tipo: "Casa" },
+      ],
+      columns: [
+        { title: "id", field: "id", resizable: false },
+        {
+          title: "Número",
+          field: "telefone",
+          editor: "input",
+          resizable: false,
+        },
+        {
+          title: "Tipo contato",
+          field: "tipo",
+          hozAlign: "center",
+          editor: "input",
+          resizable: false,
+        },
+        {
+          title: "Excluir",
+          field: "delete",
+          hozAlign: "center",
+          formatter: () => "<button>Excluir</button>",
+          cellClick: (e, cell) => {
+            cell.getRow().delete();
+          },
+          resizable: false,
+        },
+        {
+          title: "Confirmar",
+          field: "confirm",
+          hozAlign: "center",
+          formatter: () => "<button>Confirmar</button>",
+          cellClick: (e, cell) => {
+            const rowData = cell.getRow().getData();
+            console.log("Dados confirmados:", rowData);
+          },
+          resizable: false,
+        },
+        {
+          title: "Resetar",
+          field: "reset",
+          hozAlign: "center",
+          formatter: () => "<button>Resetar</button>",
+          cellClick: (e, cell) => {
+            const row = cell.getRow();
+            row.update({ telefone: "", tipo: "" });
+            console.log("Linha resetada");
+          },
+          resizable: false,
+        },
+      ],
+    }
+  );
 
-    console.log(user);
-    console.log(address);
+  btnAddRowContact.addEventListener("click", () => {
+    tableContact.addRow({}, true);
+  });
+});
 
-    let nome = document.getElementById("nome").value;
-    let email = document.getElementById("email").value;
-    let senha = document.getElementById("senha").value;
-    let telefone = document.getElementById("numero").value;
+const coletaDadosUsuarioLogado = async () => {
+  try {
+    const response = await fetch(
+      `/usuario/infoUsuario/${sessionStorage.getItem("idUsuario")}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-    let bairro = document.getElementById("bairro").value;
-    let estado = document.getElementById("estado").value;
-    let cep = document.getElementById("cep").value;
-    let rua = document.getElementById("rua").value;
-    let complemento = document.getElementById("complemento").value;
-
-
-    nome == '' ?? `${user.nome}`;
-    email == '' ?? `${user.email}`;
-    senha == '' ?? `${user.senha}`;
-
-    bairro == '' ?? `${address.bairro}`;
-    estado == '' ?? `${address.estado}`;
-    cep == '' ?? `${address.cep}`;
-    rua == '' ?? `${address.rua}`;
-    complemento == '' ?? `${address.complemento}`;
-
-}
-
-
-
-
-let telefone = document.getElementById("numero");
-let cep = document.getElementById("cep");
-
-telefone.addEventListener("input", () => {
-    let limparValor = telefone.value.replace(/\D/g, "").substring(0, 11);
-
-    let numerosArray = limparValor.split("")
-
-    let numeroFormatado = "";
-
-
-    if (numerosArray.length < 11) {
-        if (numerosArray.length > 0) {
-            numeroFormatado += `(${numerosArray.slice(0, 2).join("")}`;
-        }
-        if (numerosArray.length > 2) {
-            numeroFormatado += `) ${numerosArray.slice(2, 6).join("")}`;
-        }
-        if (numerosArray.length > 6) {
-            numeroFormatado += `-${numerosArray.slice(6, 10).join("")}`;
-            console.log(numerosArray)
-        }
-    } else {
-        if (numerosArray.length > 0) {
-            numeroFormatado += `(${numerosArray.slice(0, 2).join("")}`;
-        }
-        if (numerosArray.length > 2) {
-            numeroFormatado += `) ${numerosArray.slice(2, 7).join("")}`;
-        }
-        if (numerosArray.length > 7) {
-            numeroFormatado += `-${numerosArray.slice(7, 11).join("")}`;
-        }
+    if (!response.ok) {
+      throw new Error("Erro na resposta");
     }
 
-
-    telefone.value = numeroFormatado;
-})
-
-cep.addEventListener("input", () => {
-
-    let limparValor = cep.value.replace(/\D/g, "").substring(0, 8);
-    let cepArray = limparValor.split("");
-    let cepFormatado = "";
-
-    if (cepArray.length > 0) {
-        cepFormatado += `${cepArray.slice(0, 5).join("")}`;
-    }
-    if (cepArray.length > 5) {
-        cepFormatado += `-${cepArray.slice(5, 8).join("")}`;
-    }
-
-    cep.value = cepFormatado
-}
-)
-
-
-
-
-
-
-
-function pesquisaCepDashboard(valor) {
-
-    let CEP = cep.value;
-    let cepDesformatado = CEP.replace(/[^0-9]/g, '');
-
-    if (cepDesformatado != "") {
-
-        var url = 'https://viacep.com.br/ws/' + cepDesformatado + '/json/';
-
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                // Aqui você pode usar os dados recebidos (data)
-                console.log(data); // Saída: objeto JSON com os dados do CEP
-
-                // Exemplo de como acessar os dados do CEP
-                console.log("CEP:", data.cep);
-                console.log("Logradouro:", data.logradouro);
-                console.log("Bairro:", data.bairro);
-                console.log("Cidade:", data.localidade);
-                console.log("Estado:", data.uf);
-
-                let bairro = document.getElementById("bairro");
-                let estado = document.getElementById("estado");
-                let rua = document.getElementById("rua");
-        
-                console.log(bairro.value);
-                bairro.value = data.bairro;
-                estado.value = data.uf;
-                rua.value = data.logradouro;
-            })
-            .catch(error => {
-                console.error('Ocorreu um erro ao fazer a requisição:', error);
-            });
-
-
-
-    } else {
-        limpa_formulário_cep();
-        alert("Formato de CEP inválido.");
-    }
-}
-
-
-
-
+    return response.json();
+  } catch (error) {
+    console.error("Erro ao coletar dados do usuário:", error);
+    throw error;
+  }
+};

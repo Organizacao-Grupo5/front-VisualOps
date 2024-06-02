@@ -1,10 +1,6 @@
 -- SQLBook: Code
+drop database der_grupo_5;
 CREATE DATABASE der_grupo_5;
-
-CREATE USER "client"@'%' identified by "Client123$";
-grant Select, Update, Delete, Insert on der_grupo_5.* to "client";
-flush privileges;
-
 USE der_grupo_5;
 
 CREATE TABLE plano (
@@ -46,7 +42,6 @@ CREATE TABLE usuario (
 CREATE TABLE contato (
     idContato INT AUTO_INCREMENT,
     telefone CHAR(12) NOT NULL,
-    tipo VARCHAR(30) NOT NULL,
     fkUsuario INT NOT NULL,
         CONSTRAINT fkUsuarioContato FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario),
     PRIMARY KEY (idContato, fkUsuario)
@@ -73,8 +68,7 @@ CREATE TABLE ipv4(
     fkUsuario INT NOT NULL,
         CONSTRAINT fkUsuarioMaquinaIPV4 FOREIGN KEY (fkUsuario) REFERENCES maquina(fkUsuario),
     PRIMARY KEY (idIpv4, fkMaquina, fkUsuario)
-);
-
+    );
 
 CREATE TABLE alertas(
     idAlertas INT PRIMARY KEY AUTO_INCREMENT,
@@ -93,7 +87,6 @@ CREATE TABLE componente (
         CONSTRAINT fkMaquinaUsuarioComponente FOREIGN KEY (fkUsuario) REFERENCES maquina(fkUsuario),
     PRIMARY KEY (idComponente, fkMaquina, fkUsuario)
 );
-
 
 CREATE TABLE captura(
     idCaptura INT AUTO_INCREMENT,
@@ -117,51 +110,37 @@ CREATE TABLE registroAlertas(
     PRIMARY KEY (idRegistroAlertas, fkCaptura, fkComponente)
 );
 
-
 insert into plano values
-(null, 'Plano Freelancer', 'Foco: Freelancers (monitora uma máquina).
+(1, 'Plano Freelancer', 'Foco: Freelancers (monitora uma máquina).
 Monitoramento de Hardware: Processador, RAM, disco, conexão USB, placa gráfica'),
-(null, 'Plano Empresarial', 'Foco: Pequenas e Médias Empresas (monitora até 100 máquinas).
+(2, 'Plano Empresarial', 'Foco: Pequenas e Médias Empresas (monitora até 100 máquinas).
 Monitoramento de Hardware: Processador, RAM, disco, conexão USB, placa gráfica.'),
-(null, 'Plano Corporativo', 'Foco: Grandes Empresas.
+(3, 'Plano Corporativo', 'Foco: Grandes Empresas.
 Monitoramento de Hardware: Processador, RAM, disco, conexão USB, placa gráfica.');
 
--- Inserções para a tabela 'empresa'
 INSERT INTO empresa (nome, cnpj, fkPlano) VALUES
-('Empresa A', '12345678901234', 1),
-('Empresa B', '98765432109876', 2),
-('Empresa C', '56789012345678', 3);
+('Visual Ops', '12345678901234', 3);
 
-select * from maquina;
+INSERT INTO endereco (cep, logradouro, numero, bairro, estado, complemento, fkEmpresa) VALUES
+('09930220', 'Rua Londres', '68', 'Bairro Jardim das Nações', 'São Paulo', '', 1);
 
-insert into ipv4(numeroIP, nomeLocal, fkMaquina, fkUsuario) values 
-	('192.168.15.6', 'Home', '4', 4),
-    ('192.168.15.6', 'Empresa', 5, 5);
+INSERT INTO usuario (nome, email, senha, cargo, fkEmpresa) VALUES
+('clau', 'clau@gmail.com', '123', 'Gerente', 1);
 
--- Inserções para a tabela 'endereco'
-INSERT INTO endereco (cep, logradouro, numero, fkEmpresa) VALUES
-('12345-678', 'Rua A', '123', 4),
-('98765-432', 'Rua B', '456', 5),
-('56789-012', 'Rua C', '789', 6);
+INSERT INTO contato (telefone, fkUsuario) VALUES
+('11944636705', 1);
 
--- Inserções para a tabela 'usuario'
-INSERT INTO usuario (nome, email, senha, fkEmpresa) VALUES
-('Usuário 1', 'usuario1@empresa.com', 'senha123', 4),
-('Usuário 2', 'usuario2@empresa.com', 'senha456', 5),
-('Usuário 3', 'usuario3@empresa.com', 'senha789', 6);
+INSERT INTO maquina (username, hostname, fkUsuario) VALUES
+('clau', 'clau', 1);
 
-SELECT * FROM maquina JOIN usuario on maquina.fkUsuario = usuario.idUsuario JOIN ipv4 ON ipv4.fkMaquina = maquina.idMaquina WHERE idUsuario = 5;
-
-select * from ipv4;
-
-update ipv4 set numeroIp = '192.168.15.5' where idipv4 = 1;
-
+INSERT INTO ipv4 (numeroIP, nomeLocal, fkMaquina, fkUsuario) VALUES
+('10.18.35.68', 'CASA', 1, 1);
+-- ip sptech : 10.18.35.68
 
 select * from usuario;
+SELECT * FROM maquina JOIN usuario on maquina.fkUsuario = usuario.idUsuario JOIN ipv4 ON ipv4.fkMaquina = maquina.idMaquina WHERE idUsuario = 1;
+SELECT * FROM maquina JOIN componente ON componente.fkMaquina = maquina.idMaquina WHERE maquina.idMaquina = 1;
+SELECT * FROM captura JOIN componente ON componente.idComponente = captura.fkComponente JOIN maquina ON maquina.idMaquina = componente.fkMaquina JOIN usuario on usuario.idUsuario = maquina.fkUsuario WHERE idUsuario = 1;
 
+SELECT ipv4.numeroIP FROM ipv4 INNER JOIN Maquina ON ipv4.fkMaquina = Maquina.idMaquina where ipv4.numeroIP = "26.245.80.14";
 
--- Inserções para a tabela 'maquina'
-INSERT INTO maquina (fkUsuario) VALUES
-(4),
-(5),
-(6);

@@ -15,84 +15,158 @@ const inpComplemento = document.getElementById("inp_complemento");
 const btnSalvar = document.getElementById("btn_save");
 const btnResetar = document.getElementById("btn_reset");
 
+const alterarIMG = document.getElementById("alt_img");
+const ficheiro = document.getElementById("fileInput");
+
+const createUsuarioObject = () => {
+  return {
+    nome: inpUserName.value,
+    email: inpUserEmail.value,
+    senha: inpUserPassword.value,
+    cargo: selectCargo.value,
+    imgUser: ficheiro.files[0] ? ficheiro.files[0].name : "",
+  };
+};
+
+const createEnderecoObject = () => {
+  return {
+    cep: inpCEP.value,
+    estado: inpEstado.value,
+    bairro: inpBairro.value,
+    complemento: inpComplemento.value,
+    logradouro: inpLogradouro.value,
+    numero: inpNumero.value,
+  };
+};
+
 document.addEventListener("DOMContentLoaded", async () => {
   const infosUser = await coletaDadosUsuarioLogado();
 
-    inpUserName.value = infosUser[0].nome;
-    inpBairro.value = infosUser[0].bairro;
-    inpUserEmail.value = infosUser[0].email;
-    inpUserPassword.value = infosUser[0].senha;
-    inpCEP.value = infosUser[0].cep;
-    inpLogradouro.value = infosUser[0].logradouro;
-    inpNumero.value = infosUser[0].numero;
-    inpEstado.value = infosUser[0].estado;
-    inpComplemento.value = infosUser[0].complemento;
-    selectCargo.value = infosUser[0].cargo == "Gerente" ? "1" : "2";
+  inpUserName.value = infosUser[0].nome;
+  inpBairro.value = infosUser[0].bairro;
+  inpUserEmail.value = infosUser[0].email;
+  inpUserPassword.value = infosUser[0].senha;
+  inpCEP.value = infosUser[0].cep;
+  inpLogradouro.value = infosUser[0].logradouro;
+  inpNumero.value = infosUser[0].numero;
+  inpEstado.value = infosUser[0].estado;
+  inpComplemento.value = infosUser[0].complemento;
+  selectCargo.value = infosUser[0].cargo == "Gerente" ? "Gerente" : "Designer";
+
+  let originalData = [];
 
   let tableContact = new Tabulator(
-    document.getElementById("tabulator_contato"),
-    {
-      layout: "fitColumns",
-      data: [
-        { id: 1, telefone: "123-456-7890", tipo: "Celular" },
-        { id: 2, telefone: "098-765-4321", tipo: "Trabalho" },
-        { id: 3, telefone: "555-555-5555", tipo: "Casa" },
-      ],
-      columns: [
-        { title: "id", field: "id", resizable: false },
-        {
-          title: "Número",
-          field: "telefone",
-          editor: "input",
-          resizable: false,
-        },
-        {
-          title: "Tipo contato",
-          field: "tipo",
-          hozAlign: "center",
-          editor: "input",
-          resizable: false,
-        },
-        {
-          title: "Excluir",
-          field: "delete",
-          hozAlign: "center",
-          formatter: () => "<button>Excluir</button>",
-          cellClick: (e, cell) => {
-            cell.getRow().delete();
+      document.getElementById("tabulator_contato"),
+      {
+          layout: "fitColumns",
+          data: await coletaDadosContatosUsuarioLogado(),
+          columns: [
+              { title: "id", field: "idContato", resizable: false },
+              {
+                  title: "Número",
+                  field: "telefone",
+                  editor: "input",
+                  resizable: false,
+                  cellEdited: function (cell) {
+                      enableConfirmButton(cell.getRow());
+                  },
+              },
+              {
+                  title: "Tipo contato",
+                  field: "tipo",
+                  hozAlign: "center",
+                  editor: "input",
+                  resizable: false,
+                  cellEdited: function (cell) {
+                      enableConfirmButton(cell.getRow());
+                  },
+              },
+              {
+                  title: "Excluir",
+                  field: "delete",
+                  hozAlign: "center",
+                  formatter: () => "<button>Excluir</button>",
+                  cellClick: (e, cell) => {
+                      cell.getRow().delete();
+                      deleteContact(cell.getRow().getData().idContato)
+                  },
+                  resizable: false,
+              },
+              {
+                title: "Confirmar",
+                field: "confirm",
+                hozAlign: "center",
+                formatter: () => "<button disabled>Confirmar</button>",
+                cellClick: (e, cell) => {
+                    const rowData = cell.getRow().getData();
+                    if (!rowData.idContato) {
+                        createContact(rowData);
+                    } else {
+                        updateContact(rowData);
+                    }
+                    disableConfirmButton(cell.getRow());
+                },
+                resizable: false,
+            },
+          ],
+          dataLoaded: function (data) {
+              originalData = data.map(obj => ({ ...obj }));
           },
-          resizable: false,
-        },
-        {
-          title: "Confirmar",
-          field: "confirm",
-          hozAlign: "center",
-          formatter: () => "<button>Confirmar</button>",
-          cellClick: (e, cell) => {
-            const rowData = cell.getRow().getData();
-            console.log("Dados confirmados:", rowData);
-          },
-          resizable: false,
-        },
-        {
-          title: "Resetar",
-          field: "reset",
-          hozAlign: "center",
-          formatter: () => "<button>Resetar</button>",
-          cellClick: (e, cell) => {
-            const row = cell.getRow();
-            row.update({ telefone: "", tipo: "" });
-            console.log("Linha resetada");
-          },
-          resizable: false,
-        },
-      ],
-    }
+      }
   );
+  
+  function enableConfirmButton(row) {
+      row
+          .getCell("confirm")
+          .getElement()
+          .querySelector("button")
+          .removeAttribute("disabled");
+  }
+  
+  function disableConfirmButton(row) {
+      row
+          .getCell("confirm")
+          .getElement()
+          .querySelector("button")
+          .setAttribute("disabled", "disabled");
+  }
 
   btnAddRowContact.addEventListener("click", () => {
     tableContact.addRow({}, true);
   });
+
+  alterarIMG.addEventListener("click", () => {
+    ficheiro.click();
+  });
+});
+
+
+fileInput.addEventListener("change", function (event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      document.querySelector(".user-img img").src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  } else {
+    fileNameElement.textContent = "Nenhum ficheiro selecionado";
+  }
+
+  const formData = new FormData();
+  formData.append("image", file);
+
+  fetch("/usuario/upload", {
+    method: "POST",
+    body: formData,
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data.message);
+    })
+    .catch((error) => {
+      console.error("Erro:", error);
+    });
 });
 
 const coletaDadosUsuarioLogado = async () => {
@@ -116,4 +190,139 @@ const coletaDadosUsuarioLogado = async () => {
     console.error("Erro ao coletar dados do usuário:", error);
     throw error;
   }
+};
+
+const coletaDadosContatosUsuarioLogado = async () => {
+  try {
+    const response = await fetch(
+      `/usuario/infoContatosUsuario/${sessionStorage.getItem("idUsuario")}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Erro na resposta");
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error("Erro ao coletar dados do usuário:", error);
+    throw error;
+  }
+};
+
+const atualizaUsuario = () => {
+  const usuario = createUsuarioObject();
+
+  fetch(`/usuario/atualiza/${sessionStorage.getItem("idUsuario")}`, {
+    method: "PUT",
+    body: JSON.stringify(usuario),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Erro ao atualizar o usuário");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Usuário atualizado com sucesso:", data);
+    })
+    .catch((error) => {
+      console.error("Erro:", error);
+    });
+};
+
+const atualizaEndereco = () => {
+  const endereco = createEnderecoObject();
+
+  fetch(`/usuario/endereco/${sessionStorage.getItem("fkEmpresa")}`, {
+    method: "PUT",
+    body: JSON.stringify(endereco),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Erro ao atualizar o endereço");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Endereço atualizado com sucesso:", data);
+    })
+    .catch((error) => {
+      console.error("Erro:", error);
+    });
+};
+
+document.getElementById("btn_save").addEventListener("click", () => {
+  atualizaUsuario();
+  atualizaEndereco();
+});
+
+const createContact = (contactData) => {
+  fetch(`/usuario/contato/${sessionStorage.getItem("idUsuario")}`, {
+      method: "POST",
+      body: JSON.stringify(contactData),
+      headers: {
+          "Content-Type": "application/json",
+      },
+  })
+  .then((response) => {
+      if (!response.ok) {
+          throw new Error("Erro ao criar um novo contato");
+      }
+      return response.json();
+  })
+  .then((data) => {
+      console.log("Novo contato criado com sucesso:", data);
+  })
+  .catch((error) => {
+      console.error("Erro:", error);
+  });
+};
+
+const updateContact = (contactData) => {
+  fetch(`/usuario/contato/${contactData.idContato}`, {
+      method: "PUT",
+      body: JSON.stringify(contactData),
+      headers: {
+          "Content-Type": "application/json",
+      },
+  })
+  .then((response) => {
+      if (!response.ok) {
+          throw new Error("Erro ao atualizar o contato");
+      }
+      return response.json();
+  })
+  .then((data) => {
+      console.log("Contato atualizado com sucesso:", data);
+  })
+  .catch((error) => {
+      console.error("Erro:", error);
+  });
+};
+
+const deleteContact = (idContato) => {
+  fetch(`/usuario/contato/${idContato}`, {
+    method: "DELETE",
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Erro ao excluir o contato");
+      }
+      console.log("Contato excluído com sucesso");
+    })
+    .catch((error) => {
+      console.error("Erro:", error);
+    });
 };

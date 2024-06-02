@@ -341,3 +341,6 @@ select {
 .btn i:hover{
     color: #fff;
 }
+.upload-img-user{
+    display: none;
+}

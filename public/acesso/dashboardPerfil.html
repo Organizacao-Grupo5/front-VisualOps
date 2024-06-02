@@ -118,12 +118,14 @@
 
                 <div class="chart-content">
                     <div class="top-user-page">
+                        <div class="pointer" id="pointer"></div>
                         <div class="user-img">
                             <img src="" alt="">
-                            <div class="alt-img">
+                            <div id="alt_img" class="alt-img">
                                 <h6>Alterar imagem de perfil<i class="fa-solid fa-pen-nib"></i></h6>
                             </div>
                         </div>
+                        <input class="upload-img-user" type="file" id="fileInput" accept="image/*">
                     </div>
                     <div class="middle-page">
                         <div class="info-user-address">
@@ -139,8 +141,8 @@
                                 <input type="password" id="inp_user_password">
                                 <label for="select_cargo">Cargo</label>
                                 <select id="select_cargo">
-                                    <option value="1">Gerente</option>
-                                    <option value="2">Designer</option>
+                                    <option value="Gerente">Gerente</option>
+                                    <option value="Designer">Designer</option>
                                 </select>
                             </div>
                             <div class="right-infos infos">

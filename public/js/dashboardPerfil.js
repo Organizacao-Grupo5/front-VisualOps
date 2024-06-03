@@ -150,6 +150,32 @@ document.addEventListener("DOMContentLoaded", async () => {
       .setAttribute("disabled", "disabled");
   }
 
+  const caminhoImagem = dadosOriginais[0].imagemPerfil;
+  
+  try {
+    const response = await fetch("/firebase/imagem", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ caminho: caminhoImagem }),
+    });
+  
+    if (!response.ok) {
+      throw new Error("Erro ao buscar a imagem.");
+    }
+  
+    const blob = await response.blob();
+    const imagemURL = URL.createObjectURL(blob);
+
+  
+    const imagemContainer = document.getElementById("img_user");
+    imagemContainer.src = imagemURL;
+  } catch (error) {
+    console.error(error);
+    alert("Erro ao buscar a imagem. Por favor, tente novamente.");
+  }
+
   btnAddRowContact.addEventListener("click", () => {
     tableContact.addRow({}, true);
   });

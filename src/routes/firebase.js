@@ -29,12 +29,25 @@ router.post("/upload", upload.single("imagem"), async (req, res) => {
 });
 
 router.get("/listar-imagens", async (req, res) => {
-    const urls = await firebaseController.listarImagensDaPastaEmpresa();
-    if (urls.length > 0) {
-      res.status(200).json(urls);
-    } else {
-      res.status(500).send("Erro ao listar imagens ou nenhuma imagem encontrada.");
-    }
-  });
+  const urls = await firebaseController.listarImagensDaPastaEmpresa();
+  if (urls.length > 0) {
+    res.status(200).json(urls);
+  } else {
+    res
+      .status(500)
+      .send("Erro ao listar imagens ou nenhuma imagem encontrada.");
+  }
+});
+
+router.post('/imagem', (req, res) => {
+  const caminhoImagem = req.body.caminho;
+  const caminhoLocal = firebaseController.obterCaminhoImagem(caminhoImagem);
+  
+  if (caminhoLocal) {
+    res.sendFile(caminhoLocal);
+  } else {
+    res.status(404).send("Imagem não encontrada.");
+  }
+});
 
 module.exports = router;

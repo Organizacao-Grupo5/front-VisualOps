@@ -59,8 +59,17 @@ async function listarImagensDaPastaEmpresa() {
     return false;
   }
 }
+function obterCaminhoImagem(caminhoImagem) {
+  const dirPath = path.join(__dirname, '../temp', caminhoImagem);
+  if (fs.existsSync(dirPath)) {
+    return dirPath;
+  } else {
+    return null;
+  }
+}
 
 module.exports = {
   enviarImagemParaFirebaseStorage,
   listarImagensDaPastaEmpresa,
+  obterCaminhoImagem
 };

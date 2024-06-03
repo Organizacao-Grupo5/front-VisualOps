@@ -58,6 +58,7 @@ function autenticar(req, res) {
                     senha: resultadoAutenticar[0].senha,
                     nomeEmpresa: resultadoAutenticar[0].nomeEmpresa,
                     fkEmpresa: resultadoAutenticar[0].fkEmpresa,
+                    imagemPerfil: resultadoAutenticar[0].imagemPerfil,
                 });
                 
             } else {

@@ -55,12 +55,33 @@ const createEnderecoObject = () => {
     numero: inpNumero.value,
   };
 };
-
+ 
 document.addEventListener("DOMContentLoaded", async () => {
-  const infosUser = await coletaDadosUsuarioLogado();
+  await inicializarPagina();
+});
 
+btnResetar.addEventListener("click", async () => {
+  await inicializarPagina();
+});
+
+async function inicializarPagina() {
+  const infosUser = await coletaDadosUsuarioLogado();
   dadosOriginais = infosUser;
 
+  preencherFormularioUsuario(infosUser);
+  configurarTabelaContatos();
+  carregarImagemPerfil(dadosOriginais[0].imagemPerfil);
+
+  btnAddRowContact.addEventListener("click", () => {
+    adicionarNovaLinhaContato();
+  });
+
+  alterarIMG.addEventListener("click", () => {
+    ficheiro.click();
+  });
+}
+
+async function preencherFormularioUsuario(infosUser) {
   inpUserName.value = infosUser[0].nome;
   inpBairro.value = infosUser[0].bairro;
   inpUserEmail.value = infosUser[0].email;
@@ -71,10 +92,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   inpEstado.value = infosUser[0].estado;
   inpComplemento.value = infosUser[0].complemento;
   selectCargo.value = infosUser[0].cargo == "Gerente" ? "Gerente" : "Designer";
+}
 
+let tableContact;
+
+async function configurarTabelaContatos() {
   let originalData = [];
 
-  let tableContact = new Tabulator(
+  tableContact = new Tabulator(
     document.getElementById("tabulator_contato"),
     {
       layout: "fitColumns",
@@ -133,25 +158,25 @@ document.addEventListener("DOMContentLoaded", async () => {
       },
     }
   );
+}
 
-  function enableConfirmButton(row) {
-    row
-      .getCell("confirm")
-      .getElement()
-      .querySelector("button")
-      .removeAttribute("disabled");
-  }
+function enableConfirmButton(row) {
+  row
+    .getCell("confirm")
+    .getElement()
+    .querySelector("button")
+    .removeAttribute("disabled");
+}
 
-  function disableConfirmButton(row) {
-    row
-      .getCell("confirm")
-      .getElement()
-      .querySelector("button")
-      .setAttribute("disabled", "disabled");
-  }
+function disableConfirmButton(row) {
+  row
+    .getCell("confirm")
+    .getElement()
+    .querySelector("button")
+    .setAttribute("disabled", "disabled");
+}
 
-  const caminhoImagem = dadosOriginais[0].imagemPerfil;
-  
+async function carregarImagemPerfil(caminhoImagem) {
   try {
     const response = await fetch("/firebase/imagem", {
       method: "POST",
@@ -160,31 +185,24 @@ document.addEventListener("DOMContentLoaded", async () => {
       },
       body: JSON.stringify({ caminho: caminhoImagem }),
     });
-  
+
     if (!response.ok) {
       throw new Error("Erro ao buscar a imagem.");
     }
-  
+
     const blob = await response.blob();
     const imagemURL = URL.createObjectURL(blob);
-
-  
     const imagemContainer = document.getElementById("img_user");
     imagemContainer.src = imagemURL;
   } catch (error) {
     console.error(error);
     alert("Erro ao buscar a imagem. Por favor, tente novamente.");
   }
+}
 
-  btnAddRowContact.addEventListener("click", () => {
-    tableContact.addRow({}, true);
-  });
-
-  alterarIMG.addEventListener("click", () => {
-    ficheiro.click();
-  });
-});
-
+function adicionarNovaLinhaContato() {
+  tableContact.addRow({}, true);
+}
 const coletaDadosUsuarioLogado = async () => {
   try {
     const response = await fetch(

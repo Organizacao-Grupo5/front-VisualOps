@@ -13,6 +13,7 @@ const planoRouter = require("./src/routes/plano");
 const usuarioRouter = require("./src/routes/usuario");
 const relatorioRouter = require("./src/routes/relatorio");
 const maquinaRouter = require("./src/routes/maquina")
+const firebaseRouter = require("./src/routes/firebase")
 
 
 app.use(express.json());
@@ -30,6 +31,7 @@ app.use("/", slackRouter);
 app.use("/usuario", usuarioRouter);
 app.use("/relatorio", relatorioRouter );
 app.use("/maquina", maquinaRouter);
+app.use("/firebase", firebaseRouter);
 
 app.use((req, res) => {
     res.status(404).sendFile(path.join(__dirname, 'public/acesso', '404.html'));

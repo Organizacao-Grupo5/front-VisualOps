@@ -1,5 +1,8 @@
 let express = require("express");
+const multer = require("multer");
 let router = express.Router();
+let path = require("path");
+let fs = require("fs");
 
 let usuarioController = require("../controllers/usuarioController");
 let perfilController = require("../controllers/perfilController");
@@ -18,10 +21,6 @@ router.get("/infoUsuario/:idUsuario", (req, res) => {
 
 router.get("/infoContatosUsuario/:idUsuario", (req, res) => {
   return perfilController.buscarInfosContatosUsuario(req, res);
-});
-
-router.post("/upload", (req, res) => {
-  return perfilController.uploadImage(req, res);
 });
 
 router.put("/atualiza/:idUsuario", (req, res) => {

@@ -595,22 +595,13 @@ let chart_3 = new Chart(third, {
 
 function totalGrafico1() {
     const dados = dataset.first[0].data;
-    console.log(dados);
 
     let total = 0;
 
     for (let i = 0; i < dados.length; i++) {
-        console.log(dados[i]);
         total += dados[i];
     }
-    console.log("document.getElementById('qtdTotal')");
-    console.log(document.getElementById('qtdTotal'));
-    console.log("total");
-    console.log(total);
-
     document.getElementById('qtdTotal').innerText = total;
-    
-    console.log(document.getElementById('qtdTotal'));
 }
 
 async function moverRight() {

@@ -5,37 +5,141 @@ const colunas = document.getElementsByClassName('colunas_status');
 const background = document.getElementById("bg");
 const pop = document.getElementById("pop");
 
-window.onload = () => {
+const fkEmpresa = sessionStorage.getItem("fkEmpresa");
+
+const list = {
+    first: [0, 0, 0],
+    second: [0, 0, 0, 0],
+    third: [
+        [],
+        []
+    ],
+}
+
+const label = {
+    first: ['Alto', 'Médio', 'Baixo'],
+    second: ['CPU', 'GPU', 'RAM', 'HDD'],
+    third: [],
+}
+
+const listaComp = [];
+const comp_graf3 = document.getElementById('comp_graf3');
+const componentes = {
+    nome: [],
+    value: [],
+    unidadeMedida: [],
+    nomeUniMedida: []
+}
+
+window.onload = async () => {
+    const dados = await listarComponentes();
+    gerenciarLista(dados);
     gerarDados();
-//     aparecerPop(mensagem.inicial);
-//     mostrarKpi4();
-//     mostrarKpi5();
-//     totalGrafico1();
 };
 
-async function gerarDados() {
-    const fkEmpresa = sessionStorage.getItem("fkEmpresa");
-    
+async function gerarDados() {    
     let dados;
 
-    dados = await atualizarGrafico_1(fkEmpresa);
+    dados = await atualizarGrafico_1();
     gerenciarGrafico_1(dados);
     
-    dados = await atualizarGrafico_2(fkEmpresa);
+    dados = await atualizarGrafico_2();
     gerenciarGrafico_2(dados);
     
-    dados = await atualizarGrafico_3(fkEmpresa);
+    dados = await atualizarGrafico_3();
     gerenciarGrafico_3(dados);
     
-    dados = await atualizarGrafico_4(fkEmpresa);
-    gerenciarGrafico_3(dados);
+    dados = await atualizarGrafico_4(comp_graf3.innerText);
+    gerenciarGrafico_4(dados);
 
+    atualizarCharts();
+    totalGrafico1();
+    
 }
+
 setInterval(async () => {
     gerarDados();
 }, 1800000)
 
-async function atualizarGrafico_1(fkEmpresa) {
+
+async function listarComponentes() {
+    try {
+        const resposta = await fetch(`/maquina/selecionar/componentes/${fkEmpresa}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (resposta.ok) {
+            const dados = await resposta.json();
+
+            return dados;
+        } else {
+            console.error("Houve um erro ao selecionar maquinas por qualidade!");
+            
+            throw new Error("Houve um erro ao selecionar maquinas por qualidade!")
+        }
+    } catch (error) {
+        console.log("Erro desconhecido na API ", error);
+        return false;
+    };
+}
+
+function gerenciarLista(dados) {
+    let componenteAtual;
+    let nomes = componentes.nome;
+    let values = componentes.value;
+
+    dados.forEach(consulta => {
+        const componente = consulta.componente;
+        const uniMedida = consulta.uni;
+        let nomeUniMedida;
+
+        if (
+            componenteAtual != componente &&
+            (nomes == 0 ||
+            !nomes.some(nome => nome == componente)) 
+        ) {
+            componenteAtual = componente;
+            componentes.unidadeMedida.push(uniMedida);
+            let novoNome;
+            switch (componente) {
+                case "MemoriaRam":
+                    novoNome = "RAM"
+                    break;
+                case "SistemaOp":
+                    novoNome = "SO"
+                    break;
+                default:
+                    novoNome = componente;
+                    break;
+            }
+            switch (uniMedida) {
+                case '%':
+                    nomeUniMedida = "Porcentagem";
+                    break;
+                case 'GB':
+                    nomeUniMedida = "Armazenamento";
+                    break;
+                case '°C':
+                    nomeUniMedida = "Temperatura";
+                    break;
+                default:
+                    nomeUniMedida = "Desempenho";
+                    break;
+            }
+            nomes.push(novoNome);
+            values.push(componente);
+            componentes.nomeUniMedida.push(nomeUniMedida);
+        }
+    })
+    comp_graf3.innerText = nomes[0];
+    comp_graf3.value = values[0];
+    unidadeMedida = componentes.nomeUniMedida;
+}
+
+async function atualizarGrafico_1() {
     try {
         const resposta = await fetch(`/maquina/selecionar/qualidade/${fkEmpresa}`, {
             method: "GET",
@@ -57,90 +161,6 @@ async function atualizarGrafico_1(fkEmpresa) {
         console.log("Erro desconhecido na API ", error);
         return false;
     };
-}
-
-async function atualizarGrafico_2(fkEmpresa) {
-    try {
-        const resposta = await fetch(`/maquina/selecionar/prejudicado/${fkEmpresa}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
-
-        if (resposta.ok) {
-            const dados = await resposta.json();
-
-            return dados;
-        } else {
-            console.error("Houve um erro ao selecionar maquinas por qualidade!");
-            
-            throw new Error("Houve um erro ao selecionar maquinas por qualidade!")
-        }
-    } catch (error) {
-        console.log("Erro desconhecido na API ", error);
-        return false;
-    };
-}
-
-async function atualizarGrafico_3(fkEmpresa) {
-    try {
-        const resposta = await fetch(`/maquina/selecionar/quantidade/${fkEmpresa}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
-
-        if (resposta.ok) {
-            const dados = await resposta.json();
-
-            return dados;
-        } else {
-            console.error("Houve um erro ao selecionar maquinas por qualidade!");
-            
-            throw new Error("Houve um erro ao selecionar maquinas por qualidade!")
-        }
-    } catch (error) {
-        console.log("Erro desconhecido na API ", error);
-        return false;
-    };
-}
-
-async function atualizarGrafico_4(fkEmpresa) {
-    try {
-        const resposta = await fetch(`/maquina/selecionar/capturas/${fkEmpresa}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
-
-        if (resposta.ok) {
-            const dados = await resposta.json();
-
-            return dados;
-        } else {
-            console.error("Houve um erro ao selecionar maquinas por qualidade!");
-            
-            throw new Error("Houve um erro ao selecionar maquinas por qualidade!")
-        }
-    } catch (error) {
-        console.log("Erro desconhecido na API ", error);
-        return false;
-    };
-}
-
-const list = {
-    first: [0, 0, 0],
-    second: [0, 0, 0, 0],
-    third: [],
-}
-
-const label = {
-    first: ['Alto', 'Médio', 'Baixo'],
-    second: ['CPU', 'GPU', 'RAM', 'HDD'],
-    third: [30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
 }
 
 function gerenciarGrafico_1(dados) {
@@ -170,6 +190,30 @@ function gerenciarGrafico_1(dados) {
     })
 }
 
+async function atualizarGrafico_2() {
+    try {
+        const resposta = await fetch(`/maquina/selecionar/prejudicado/${fkEmpresa}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (resposta.ok) {
+            const dados = await resposta.json();
+
+            return dados;
+        } else {
+            console.error("Houve um erro ao selecionar componentes prejudicados!");
+            
+            throw new Error("Houve um erro ao selecionar componentes prejudicados!")
+        }
+    } catch (error) {
+        console.log("Erro desconhecido na API ", error);
+        return false;
+    };
+}
+
 function gerenciarGrafico_2(dados) {
     // let diaAtual = 0;
     let idMaquinaAtual = 0;
@@ -187,6 +231,30 @@ function gerenciarGrafico_2(dados) {
             list.second[index]++;
         }
     })
+}
+
+async function atualizarGrafico_3() {
+    try {
+        const resposta = await fetch(`/maquina/selecionar/quantidade/${fkEmpresa}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (resposta.ok) {
+            const dados = await resposta.json();
+
+            return dados;
+        } else {
+            console.error("Houve um erro ao selecionar qunatidade de componentes!");
+            
+            throw new Error("Houve um erro ao selecionar qunatidade de componentes!")
+        }
+    } catch (error) {
+        console.log("Erro desconhecido na API ", error);
+        return false;
+    };
 }
 
 function gerenciarGrafico_3(dados) {
@@ -286,6 +354,94 @@ function gerenciarGrafico_3(dados) {
     hdd_bom.innerHTML = objetoComp.hdd[0];
 }
 
+async function atualizarGrafico_4(componente) {
+    try {
+        const resposta = await fetch(`/maquina/selecionar/${componente}/${fkEmpresa}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (resposta.ok) {
+            const dados = await resposta.json();
+
+            return dados;
+        } else {
+            console.error("Houve um erro ao selecionar componente!");
+            
+            throw new Error("Houve um erro ao selecionar componente!")
+        }
+    } catch (error) {
+        console.log("Erro desconhecido na API ", error);
+        return false;
+    };
+}
+
+function gerenciarGrafico_4(dados) {
+    let listaMediana = [];
+    let diaAtual = 0;
+    
+    let newIndex = list.third[0].length;
+    dados.forEach((consulta, index) => {
+        
+        if (list.third[0].length >= 1) {
+            for (let i = 0; i < newIndex; i++) {
+                list.third[0].pop();
+                list.third[1].pop();
+                label.third.pop();
+            }
+            newIndex = 0;
+        }
+
+        const dia = consulta.minuto;
+        const dado = Math.round(consulta.dadoCaptura);
+        
+        
+        if ((diaAtual != dia && diaAtual != 0) || dados.length - 1 == index) {            
+            if (listaMediana.length >= 1) {
+                let center = listaMediana.length / 2;
+                let mediana;
+                
+                if (listaMediana.length == 1) {
+                    mediana = listaMediana[0];
+                } else if (listaMediana.length % 2 == 1) {
+                    mediana = (listaMediana[(center + .5)] + listaMediana[(center - .5)]) / 2
+                } else {
+                    mediana = listaMediana[center];
+                }
+                list.third[0].push(mediana);
+
+                let media = 0;
+                listaMediana.map(valor => {
+                    media += valor;
+                });
+                media = media / listaMediana.length;
+
+                list.third[1].push(media);
+            }
+        }
+
+        if (diaAtual != 0 && (diaAtual != dia || dados.length - 1 == index)) {
+            label.third.push(diaAtual);
+        }
+        if (diaAtual < dia) {
+            diaAtual = dia;
+        }
+
+        let newValor = dado;
+        if (newValor > 10 && newValor <= 100) {
+            newValor = Number.parseFloat(dado / 10);
+        } else if (newValor > 100 && newValor <= 1000) {
+            newValor = Number.parseFloat(dado / 100);
+        } else if (newValor > 1000) {
+            newValor = Number.parseFloat(dado / 1000);
+        }
+        listaMediana.push(newValor);
+        
+    });
+}
+
 const dataset = {
     first: [{
         label: 'Quantidade de Computadores por Desempenho Mensal',
@@ -305,11 +461,18 @@ const dataset = {
         borderRadius: 5
     }],
     third: [{
-        label: ['Indice Mediana/Diária', 'Indice 75% dos Dados/Diária'],
-        data: list.third,
+        label: `Índice Mediana / Desempenho`,
+        data: list.third[0],
         backgroundColor: '#449ADE',
         borderColor: '#449ADE',
         hoverBackgroundColor: '#449ADE',
+        tension: 0.2,
+    }, {
+        label: `Índice 75% dos Dados / Desempenho`,
+        data: list.third[1],
+        backgroundColor: '#314161',
+        borderColor: '#36334F',
+        hoverBackgroundColor: '#36334F',
         tension: 0.2,
     }]
 };
@@ -329,7 +492,7 @@ const datas = {
     }
 }
 
-new Chart(first, {
+let chart_1 = new Chart(first, {
     type: 'pie',
     data: datas.toFirst,
     plugins: [ChartDataLabels],
@@ -372,7 +535,7 @@ new Chart(first, {
         
 });
 
-new Chart(second, {
+let chart_2 = new Chart(second, {
     type: 'bar',
     data: datas.toSecond,
     options: {
@@ -401,28 +564,12 @@ new Chart(second, {
     }
 });
 
-new Chart(third, {
+let chart_3 = new Chart(third, {
     type: 'line',
     data: datas.toThird,
     options: {
         responsive: true,
         maintainAspectRatio: false,
-        elements: {
-            point: {
-                radius: function(context) {
-                    if (
-                        context.dataIndex == 0 ||
-                        context.dataIndex == 23 ||
-                        context.dataIndex == 29
-                    ) {
-                        return 5;
-                    } else {
-                        return 1;
-                    }
-
-                }
-            },
-        },
         plugins: {
             datalabels: {
                 onHover: (event, chartElements) => {
@@ -433,51 +580,79 @@ new Chart(third, {
                     }
                 },
             }
-        }
+        },
+        scales: {
+            y: {
+                max: 10,
+                min: 0,
+                ticks: {
+                    beginAtZero: false
+                }
+            }
+        },
     }
 });
 
-function mostrarKpi5() {
-
-    const listaDiv = document.getElementsByClassName('relatorio');
-    
-    listaDiv[0].innerHTML = dataset.third[0].data[29];
-    listaDiv[1].innerHTML = dataset.third[0].data[23];
-    listaDiv[2].innerHTML = dataset.third[0].data[0];
-}
-
-function mostrarKpi4() {
-    for (col in colunas) {
-        for (pos in colunas[col].children) {
-            colunas[col].children[pos].innerText = geradorNumeros(1);
-        }
-    }
-}
-
 function totalGrafico1() {
     const dados = dataset.first[0].data;
+    console.log(dados);
 
     let total = 0;
 
     for (let i = 0; i < dados.length; i++) {
+        console.log(dados[i]);
         total += dados[i];
     }
+    console.log("document.getElementById('qtdTotal')");
+    console.log(document.getElementById('qtdTotal'));
+    console.log("total");
+    console.log(total);
 
-    document.getElementById('qtdTotal').innerHTML = total;
+    document.getElementById('qtdTotal').innerText = total;
+    
+    console.log(document.getElementById('qtdTotal'));
 }
 
-function moverRight() {
+async function moverRight() {
+    const nomes = componentes.nome;
 
-    aparecerPop(mensagem.charts);
-    
+    const posicao = nomes.findIndex(nome => nome == comp_graf3.innerText);
+
+    if (posicao == 6) {
+        comp_graf3.innerText = nomes[0];
+        comp_graf3.value = componentes.value[0];
+    } else {
+        comp_graf3.innerText = nomes[posicao+1];
+        comp_graf3.value = componentes.value[posicao+1];
+    }
+    const componente = comp_graf3.value;
+    const dados = await atualizarGrafico_4(componente);
+    gerenciarGrafico_4(dados);
+    atualizarCharts();
 }    
 
-function moverLeft() {
+async function moverLeft() {
+    const nomes = componentes.nome;
 
-    aparecerPop(mensagem.charts);
+    const lastPos = nomes.length-1;
+    
+    const posicao = nomes.findIndex(nome => nome == comp_graf3.innerText);
 
+    if (posicao == 0) {
+        comp_graf3.innerText = nomes[lastPos];
+        comp_graf3.value = componentes.value[lastPos];
+    } else {
+        comp_graf3.innerText = nomes[posicao-1];
+        comp_graf3.value = componentes.value[posicao-1];
+    }
+    const componente = comp_graf3.value;
+    const dados = await atualizarGrafico_4(componente);
+    gerenciarGrafico_4(dados);
+    atualizarCharts();
 }
 
-background.addEventListener("click", () => {
-    aparecerPop();
-});
+function atualizarCharts() {
+    chart_1.update();
+    chart_2.update();
+    chart_3.update();
+}

@@ -21,13 +21,13 @@ function selecionarQualidade(fkEmpresa) {
 }
 
 function selecionarPrejudicados(fkEmpresa) {
-    const query = `SELECT idMaquina, componente, fkAlerta, DAY(dataCaptura) AS dia FROM maquina AS mac 
+    const query = `SELECT idMaquina, componente, fkAlerta, MAX(DAY(dataCaptura)) dia FROM maquina AS mac 
 	JOIN componente AS comp ON idMaquina = fkMaquina 
 		JOIN captura ON idComponente = fkComponente 
 			JOIN registroalerta ON idCaptura = fkCaptura 
 				WHERE componente IN ('MemoriaRam', 'CPU', 'GPU', 'HDD') 
 					AND fkAlerta > 1 AND fkEmpresa = ${fkEmpresa}
-						GROUP BY idMaquina, componente, fkAlerta, dia;`;
+						GROUP BY idMaquina, componente, fkAlerta;`;
 
     console.log("Executando a instrução SQL: \n");
     return database.executar(query);
@@ -47,9 +47,34 @@ function selecionarQuantidade(fkEmpresa) {
     return database.executar(query);
 }
 
+function listarComponentes(fkEmpresa) {
+    const query = `SELECT componente, cap.unidadeMedida uni, COUNT(DAY(cap.dataCaptura)) dia FROM maquina mac
+	RIGHT JOIN componente comp ON idMaquina = fkMaquina
+		LEFT JOIN captura cap ON idComponente = fkComponente
+            WHERE fkEmpresa = ${fkEmpresa}
+		    	GROUP BY componente, uni;`;
+
+    console.log("Executando a instrução SQL: \n");
+    return database.executar(query);
+}
+
+function selecionarComponente(componente, fkEmpresa) {
+    const query = `SELECT cap.dadoCaptura, cap.unidadeMedida, componente, MINUTE(dataCaptura) minuto FROM maquina mac
+	JOIN componente comp ON idMaquina = fkMaquina
+		JOIN captura cap ON idComponente = fkComponente
+			WHERE fkEmpresa = ${fkEmpresa} AND componente = '${componente}'
+				GROUP BY idMaquina, cap.dadoCaptura, cap.unidadeMedida, minuto
+                    ORDER BY minuto;`;
+
+    console.log(`Executando a instrução SQL: \n${query}`);
+    return database.executar(query);
+}
+
 module.exports = {
     cadastrar,
     selecionarQualidade,
     selecionarPrejudicados,
-    selecionarQuantidade
+    selecionarQuantidade,
+    listarComponentes,
+    selecionarComponente
 };

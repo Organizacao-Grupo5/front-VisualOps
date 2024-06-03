@@ -152,42 +152,42 @@
                                         <li>
                                             <div class="componente">CPU -</div>
                                             <div class="colunas_status">
-                                                <div class="col_ruim" id="cpu_ruim"></div>
-                                                <div class="col_medio" id="cpu_medio"></div>
                                                 <div class="col_bom" id="cpu_bom"></div>
+                                                <div class="col_medio" id="cpu_medio"></div>
+                                                <div class="col_ruim" id="cpu_ruim"></div>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="componente">GPU -</div>
                                             <div class="colunas_status">
-                                                <div class="col_ruim" id="gpu_ruim"></div>
-                                                <div class="col_medio" id="gpu_medio"></div>
                                                 <div class="col_bom" id="gpu_bom"></div>
+                                                <div class="col_medio" id="gpu_medio"></div>
+                                                <div class="col_ruim" id="gpu_ruim"></div>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="componente">RAM -</div>
                                             <div class="colunas_status">
-                                                <div class="col_ruim" id="ram_ruim"></div>
-                                                <div class="col_medio" id="ram_medio"></div>
                                                 <div class="col_bom" id="ram_bom"></div>
+                                                <div class="col_medio" id="ram_medio"></div>
+                                                <div class="col_ruim" id="ram_ruim"></div>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="componente">HDD -</div>
                                             <div class="colunas_status">
-                                                <div class="col_ruim" id="hdd_ruim"></div>
-                                                <div class="col_medio" id="hdd_medio"></div>
                                                 <div class="col_bom" id="hdd_bom"></div>
+                                                <div class="col_medio" id="hdd_medio"></div>
+                                                <div class="col_ruim" id="hdd_ruim"></div>
                                             </div>
                                         </li>
                                     </ul>
                                     <div class="titulos_status">
                                         <img src="../assets/img/logofundo-azul.png" alt="">
                                         <div class="status">
-                                            <p><span class="status_quente"></span>RUIM</p>
-                                            <p><span class="status_medio"></span>MÉDIO</p>
                                             <p><span class="status_normal"></span>BOM</p>
+                                            <p><span class="status_medio"></span>MÉDIO</p>
+                                            <p><span class="status_quente"></span>RUIM</p>
                                         </div>
                                     </div>
                                 </div>
@@ -196,19 +196,20 @@
                         <div class="graficos3-content">
                             <div class="header_graficos3">
                                 <i onclick="moverLeft()" class="fa-solid fa-angle-left"></i>
-                                <h2>CPU</h2>
+                                <h2 id="comp_graf3"></h2>
                                 <i onclick="moverRight()" class="fa-solid fa-angle-right"></i>
                             </div>
                             <div class="container_graficos3">
                                 <div class="chart-horizontal">
                                     <canvas id="chart_horizontal"></canvas>
                                 </div>
-                                <div class="container_kpi3">
+                                <span>Índices diários</span>
+                                <!-- <div class="container_kpi3">
                                     <span>Equipe de <span id="funcionario">Banner</span></span>
                                     <p>Atual - <span class="relatorio"></span></p>
                                     <p>Últimos 7 Dias - <span class="relatorio"></span></p>
                                     <p>Últimos 30 Dias - <span class="relatorio"></span></p>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>

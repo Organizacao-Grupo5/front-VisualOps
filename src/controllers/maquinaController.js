@@ -85,9 +85,54 @@ function selecionarQuantidade(req, res) {
     }
 }
 
+function listarComponentes(req, res) {
+
+    const fkEmpresa = req.params.fkEmpresa;
+
+    if (fkEmpresa == undefined) {
+        res.status(400).send("O foreign key da empresa está indefinido!");
+    } else {
+        maquinaModel.listarComponentes(fkEmpresa)
+        .then(resposta => {
+
+            if (resposta.length > 0) {
+                res.json(resposta);
+            }
+        })
+        .catch(erro => {
+            res.status(500).json(erro.sqlMessage);
+        })
+    }
+}
+
+function selecionarComponente(req, res) {
+
+    const componente = req.params.componente;
+    const fkEmpresa = req.params.fkEmpresa;
+
+    if (fkEmpresa == undefined) {
+        res.status(400).send("O foreign key da empresa está indefinido!");
+    } else if (componente == undefined) {
+        res.status(400).send("O componente está indefinido!");
+    } else {
+        maquinaModel.selecionarComponente(componente, fkEmpresa)
+        .then(resposta => {
+
+            if (resposta.length > 0) {
+                res.json(resposta);
+            }
+        })
+        .catch(erro => {
+            res.status(500).json(erro.sqlMessage);
+        })
+    }
+}
+
 module.exports = {
     cadastrar,
     selecionarQualidade,
     selecionarPrejudicados,
-    selecionarQuantidade
+    selecionarQuantidade,
+    listarComponentes,
+    selecionarComponente
 }

@@ -28,4 +28,13 @@ router.post("/upload", upload.single("imagem"), async (req, res) => {
   }
 });
 
+router.get("/listar-imagens", async (req, res) => {
+    const urls = await firebaseController.listarImagensDaPastaEmpresa();
+    if (urls.length > 0) {
+      res.status(200).json(urls);
+    } else {
+      res.status(500).send("Erro ao listar imagens ou nenhuma imagem encontrada.");
+    }
+  });
+
 module.exports = router;

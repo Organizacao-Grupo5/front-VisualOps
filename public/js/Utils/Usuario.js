@@ -78,6 +78,20 @@ async function autenticar(email, senha) {
 
             mostrarMensagem(mensagem.tela.sucesso.login(dados.nome));
 
+            try {
+                const response = await fetch('/firebase/listar-imagens', {
+                  method: 'GET'
+                });
+        
+                if (!response.ok) {
+                  throw new Error('Erro ao listar as imagens');
+                }
+        
+              } catch (error) {
+                console.error(error);
+                alert('Erro ao listar as imagens. Por favor, tente novamente.');
+              }
+
             setTimeout(() => {
                 entrarPerfil();
             }, 2000);

@@ -36,19 +36,12 @@ ficheiro.addEventListener("change", (event) => {
 });
 
 const createUsuarioObject = () => {
-  const fileInput = document.getElementById("fileInput");
-  const file = fileInput.files[0];
-  const formData = new FormData();
-  formData.append("file", file);
-  const imgUser = file ? file.name : "";
-
   return {
     nome: inpUserName.value,
     email: inpUserEmail.value,
     senha: inpUserPassword.value,
     cargo: selectCargo.value,
-    imgUser: imgUser,
-    file: formData,
+    imgUser: "",
   };
 };
 
@@ -217,24 +210,28 @@ let usuario = "";
 const atualizaUsuario = async () => {
   usuario = createUsuarioObject();
 
-  if (usuario.imgUser) {
-    let fileName = usuario.imgUser;
-    const fileExtension = fileName.split(".").pop();
+  const inputImagem = document.getElementById("fileInput");
+  const imagem = inputImagem.files[0];
 
-    if (fileName.length > 30) {
-      const extensionLength = fileExtension.length + 1;
-      const maxFileNameLength = 30 - extensionLength;
-      const truncatedFileName =
-        fileName.substring(0, maxFileNameLength) + "." + fileExtension;
-
-      fileName = truncatedFileName;
-      nomeArquivo = fileName;
-    }
-
-    fileName = `empresa/${fileName}`;
-
-    usuario.imgUser = fileName;
+  if (!imagem) {
+    alert("Por favor, selecione uma imagem.");
+    return;
   }
+
+  let fileName = imagem.name;
+  const fileExtension = fileName.split(".").pop();
+
+  if (fileName.length > 30) {
+    const extensionLength = fileExtension.length + 1;
+    const maxFileNameLength = 30 - extensionLength;
+    const truncatedFileName =
+      fileName.substring(0, maxFileNameLength) + "." + fileExtension;
+
+    fileName = truncatedFileName;
+  }
+
+  const updatedFileName = `empresa/${fileName}`;
+  usuario.imgUser = updatedFileName;
 
   fetch(`/usuario/atualiza/${sessionStorage.getItem("idUsuario")}`, {
     method: "PUT",
@@ -255,16 +252,16 @@ const atualizaUsuario = async () => {
     .catch((error) => {
       console.error("Erro:", error);
     });
-  const inputImagem = document.getElementById("fileInput");
-  const imagem = inputImagem.files[0];
 
   if (!imagem) {
     alert("Por favor, selecione uma imagem.");
     return;
   }
 
+  const renamedFile = new File([imagem], fileName, { type: imagem.type });
+
   const formData = new FormData();
-  formData.append("imagem", imagem);
+  formData.append("imagem", renamedFile);
 
   try {
     const response = await fetch("/firebase/upload", {

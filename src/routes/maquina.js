@@ -27,4 +27,8 @@ router.get("/selecionar/:componente/:fkEmpresa", function (req, res) {
     maquinaController.selecionarComponente(req, res);
 });
 
+router.get("/selecionar/:fkEmpresa", function (req, res) {
+maquinaController.selecionarMaquinas(req, res);
+});
+
 module.exports = router;

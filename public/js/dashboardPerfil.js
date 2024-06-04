@@ -1,3 +1,5 @@
+import loadingUtils from "./Utils/loading.js";
+
 const btnAddRowContact = document.getElementById("addButton");
 
 const inpUserName = document.getElementById("inp_user_name");
@@ -23,6 +25,7 @@ let dadosOriginais = null;
 let selectedImage = null;
 
 ficheiro.addEventListener("change", (event) => {
+  loadingUtils.showPopup("Imagem de perfil", "Salve a alteração e faça login novamente para carregar a imagem em toda a plataforma.", "info")
   selectedImage = event.target.files[0];
   if (selectedImage) {
     const reader = new FileReader();
@@ -55,7 +58,7 @@ const createEnderecoObject = () => {
     numero: inpNumero.value,
   };
 };
- 
+
 document.addEventListener("DOMContentLoaded", async () => {
   await inicializarPagina();
 });
@@ -99,65 +102,62 @@ let tableContact;
 async function configurarTabelaContatos() {
   let originalData = [];
 
-  tableContact = new Tabulator(
-    document.getElementById("tabulator_contato"),
-    {
-      layout: "fitColumns",
-      data: await coletaDadosContatosUsuarioLogado(),
-      columns: [
-        { title: "id", field: "idContato", resizable: false },
-        {
-          title: "Número",
-          field: "telefone",
-          editor: "input",
-          resizable: false,
-          cellEdited: function (cell) {
-            enableConfirmButton(cell.getRow());
-          },
+  tableContact = new Tabulator(document.getElementById("tabulator_contato"), {
+    layout: "fitColumns",
+    data: await coletaDadosContatosUsuarioLogado(),
+    columns: [
+      { title: "id", field: "idContato", resizable: false },
+      {
+        title: "Número",
+        field: "telefone",
+        editor: "input",
+        resizable: false,
+        cellEdited: function (cell) {
+          enableConfirmButton(cell.getRow());
         },
-        {
-          title: "Tipo contato",
-          field: "tipo",
-          hozAlign: "center",
-          editor: "input",
-          resizable: false,
-          cellEdited: function (cell) {
-            enableConfirmButton(cell.getRow());
-          },
-        },
-        {
-          title: "Excluir",
-          field: "delete",
-          hozAlign: "center",
-          formatter: () => "<button>Excluir</button>",
-          cellClick: (e, cell) => {
-            cell.getRow().delete();
-            deleteContact(cell.getRow().getData().idContato);
-          },
-          resizable: false,
-        },
-        {
-          title: "Confirmar",
-          field: "confirm",
-          hozAlign: "center",
-          formatter: () => "<button disabled>Confirmar</button>",
-          cellClick: (e, cell) => {
-            const rowData = cell.getRow().getData();
-            if (!rowData.idContato) {
-              createContact(rowData);
-            } else {
-              updateContact(rowData);
-            }
-            disableConfirmButton(cell.getRow());
-          },
-          resizable: false,
-        },
-      ],
-      dataLoaded: function (data) {
-        originalData = data.map((obj) => ({ ...obj }));
       },
-    }
-  );
+      {
+        title: "Tipo contato",
+        field: "tipo",
+        hozAlign: "center",
+        editor: "input",
+        resizable: false,
+        cellEdited: function (cell) {
+          enableConfirmButton(cell.getRow());
+        },
+      },
+      {
+        title: "Excluir",
+        field: "delete",
+        hozAlign: "center",
+        formatter: () => "<button>Excluir</button>",
+        cellClick: (e, cell) => {
+          cell.getRow().delete();
+          deleteContact(cell.getRow().getData().idContato);
+        },
+        resizable: false,
+      },
+      {
+        title: "Confirmar",
+        field: "confirm",
+        hozAlign: "center",
+        formatter: () => "<button disabled>Confirmar</button>",
+        cellClick: (e, cell) => {
+          const rowData = cell.getRow().getData();
+          if (!rowData.idContato) {
+            createContact(rowData);
+          } else {
+            updateContact(rowData);
+          }
+          disableConfirmButton(cell.getRow());
+        },
+        resizable: false,
+      },
+    ],
+    dataLoaded: function (data) {
+      originalData = data.map((obj) => ({ ...obj }));
+    },
+  });
 }
 
 function enableConfirmButton(row) {
@@ -196,7 +196,6 @@ async function carregarImagemPerfil(caminhoImagem) {
     imagemContainer.src = imagemURL;
   } catch (error) {
     console.error(error);
-    alert("Erro ao buscar a imagem. Por favor, tente novamente.");
   }
 }
 
@@ -252,30 +251,48 @@ const coletaDadosContatosUsuarioLogado = async () => {
 let nomeArquivo = "";
 let usuario = "";
 const atualizaUsuario = async () => {
-  usuario = createUsuarioObject();
-
+  const usuario = createUsuarioObject();
   const inputImagem = document.getElementById("fileInput");
   const imagem = inputImagem.files[0];
 
-  if (!imagem) {
-    alert("Por favor, selecione uma imagem.");
-    return;
+  if (imagem) {
+    let fileName = imagem.name;
+    const fileExtension = fileName.split(".").pop();
+
+    if (fileName.length > 30) {
+      const extensionLength = fileExtension.length + 1;
+      const maxFileNameLength = 30 - extensionLength;
+      const truncatedFileName =
+        fileName.substring(0, maxFileNameLength) + "." + fileExtension;
+
+      fileName = truncatedFileName;
+    }
+
+    const updatedFileName = `empresa/${fileName}`;
+    usuario.imgUser = updatedFileName;
+
+    const renamedFile = new File([imagem], fileName, { type: imagem.type });
+
+    const formData = new FormData();
+    formData.append("imagem", renamedFile);
+
+    try {
+      const response = await fetch("/firebase/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao enviar a imagem para o Firebase Storage.");
+      }
+    } catch (error) {
+      console.error(error);
+      return;
+    }
   }
 
-  let fileName = imagem.name;
-  const fileExtension = fileName.split(".").pop();
-
-  if (fileName.length > 30) {
-    const extensionLength = fileExtension.length + 1;
-    const maxFileNameLength = 30 - extensionLength;
-    const truncatedFileName =
-      fileName.substring(0, maxFileNameLength) + "." + fileExtension;
-
-    fileName = truncatedFileName;
-  }
-
-  const updatedFileName = `empresa/${fileName}`;
-  usuario.imgUser = updatedFileName;
+  usuario.imgUser =
+    usuario.imgUser == "" ? dadosOriginais[0].imagemPerfil : usuario.imgUser;
 
   fetch(`/usuario/atualiza/${sessionStorage.getItem("idUsuario")}`, {
     method: "PUT",
@@ -292,36 +309,15 @@ const atualizaUsuario = async () => {
     })
     .then((data) => {
       console.log("Usuário atualizado com sucesso:", data);
+      loadingUtils.showPopup(
+        "Atualização",
+        "As informações alteradas do usuário foram salvas com sucesso!",
+        "info"
+      );
     })
     .catch((error) => {
       console.error("Erro:", error);
     });
-
-  if (!imagem) {
-    alert("Por favor, selecione uma imagem.");
-    return;
-  }
-
-  const renamedFile = new File([imagem], fileName, { type: imagem.type });
-
-  const formData = new FormData();
-  formData.append("imagem", renamedFile);
-
-  try {
-    const response = await fetch("/firebase/upload", {
-      method: "POST",
-      body: formData,
-    });
-
-    if (response.ok) {
-      alert("Imagem enviada com sucesso para o Firebase Storage.");
-    } else {
-      throw new Error("Erro ao enviar a imagem para o Firebase Storage.");
-    }
-  } catch (error) {
-    console.error(error);
-    alert("Erro ao enviar a imagem. Por favor, tente novamente.");
-  }
 };
 
 const atualizaEndereco = () => {
@@ -369,8 +365,19 @@ const createContact = (contactData) => {
     })
     .then((data) => {
       console.log("Novo contato criado com sucesso:", data);
+      loadingUtils.showPopup(
+        "Cadastro de contato",
+        "Seu novo contato foi salvo com sucesso.",
+        "info"
+      );
+      setTimeout(configurarTabelaContatos(), 1000);
     })
     .catch((error) => {
+      loadingUtils.showPopup(
+        "Cadastro de contato",
+        "Seu novo contato não pode ser salvo.",
+        "error"
+      );
       console.error("Erro:", error);
     });
 };
@@ -391,9 +398,19 @@ const updateContact = (contactData) => {
     })
     .then((data) => {
       console.log("Contato atualizado com sucesso:", data);
+      loadingUtils.showPopup(
+        "Atualização de contato",
+        "Seu contato foi atualizado com sucesso!",
+        "info"
+      );
     })
     .catch((error) => {
       console.error("Erro:", error);
+      loadingUtils.showPopup(
+        "Atualização de contato",
+        "Seu contato não pode ser atualizado.",
+        "error"
+      );
     });
 };
 
@@ -406,8 +423,18 @@ const deleteContact = (idContato) => {
         throw new Error("Erro ao excluir o contato");
       }
       console.log("Contato excluído com sucesso");
+      loadingUtils.showPopup(
+        "Exclusão de contato",
+        "Seu contato foi excluído.",
+        "error"
+      );
     })
     .catch((error) => {
       console.error("Erro:", error);
+      loadingUtils.showPopup(
+        "Exclusão de contato",
+        "Seu contato não pode ser excluído.",
+        "error"
+      );
     });
 };

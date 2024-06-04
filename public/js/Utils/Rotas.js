@@ -72,7 +72,6 @@ async function carregarImagemPerfil(caminhoImagem) {
 
   } catch (error) {
     console.error(error);
-    alert("Erro ao buscar a imagem. Por favor, tente novamente.");
   }
 }
 

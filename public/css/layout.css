@@ -306,72 +306,170 @@ button:hover {
     justify-content: center;
     align-items: center;
     z-index: 1000;
-  }
-  
-  .popup-content {
+}
+
+.popup-content {
     text-align: center;
     background: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     animation: slide-in-elliptic-top-fwd 1s ease both;
-  }
-  
-  .loading-icon {
+}
+
+.loading-icon {
     width: 50px;
     height: 50px;
     margin-bottom: 20px;
     animation: spin 2s linear infinite;
-  }
-  
-  .loading-text {
+}
+
+.loading-text {
     width: 220px;
     font-size: 18px;
     color: #333;
     animation: tracking-in-contract 1s infinite alternate;
-  }
-  
-  @keyframes slide-in-elliptic-top-fwd {
+}
+
+@keyframes slide-in-elliptic-top-fwd {
     0% {
-      transform: translateY(-1000px) rotateX(-30deg) scale(0.5);
-      transform-origin: 50% 100%;
-      opacity: 0;
+        transform: translateY(-1000px) rotateX(-30deg) scale(0.5);
+        transform-origin: 50% 100%;
+        opacity: 0;
     }
+
     100% {
-      transform: translateY(0) rotateX(0) scale(1);
-      transform-origin: 50% 140%;
-      opacity: 1;
+        transform: translateY(0) rotateX(0) scale(1);
+        transform-origin: 50% 140%;
+        opacity: 1;
     }
-  }
-  
-  @keyframes spin {
+}
+
+@keyframes spin {
     from {
-      transform: rotate(0deg);
+        transform: rotate(0deg);
     }
+
     to {
-      transform: rotate(360deg);
+        transform: rotate(360deg);
     }
-  }
-  
-  @keyframes tracking-in-contract {
+}
+
+@keyframes tracking-in-contract {
     0% {
-      letter-spacing: 1em;
-      opacity: 0;
+        letter-spacing: 1em;
+        opacity: 0;
     }
+
     100% {
-      letter-spacing: normal;
-      opacity: 1;
+        letter-spacing: normal;
+        opacity: 1;
     }
-  }
-  
-  @keyframes tracking-out-expand {
+}
+
+@keyframes tracking-out-expand {
     0% {
-      letter-spacing: normal;
-      opacity: 1;
+        letter-spacing: normal;
+        opacity: 1;
     }
+
     100% {
-      letter-spacing: 1em;
-      opacity: 0;
+        letter-spacing: 1em;
+        opacity: 0;
     }
-  }
-  
+}
+
+.custom-popup {
+    display: flex;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 30px;
+    animation: customFadeIn 0.3s ease-out;
+}
+
+.custom-popup-content {
+    background: linear-gradient(145deg, #1e3a5f, #283e6a);
+    padding: 25px;
+    border: none;
+    width: 60%;
+    max-width: 400px;
+    border-radius: 5px;
+    color: white;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.25);
+    animation: slideDown 0.5s ease-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.custom-popup-content h2 {
+    margin-top: 0;
+    font-size: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 10px;
+}
+
+.custom-popup-content p {
+    margin-bottom: 0;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.custom-popup-close-btn {
+    color: white;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.custom-popup-close-btn:hover,
+.custom-popup-close-btn:focus {
+    color: #bbb;
+}
+
+.progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 5px;
+    background-color: #4caf50;
+    width: 100%;
+    animation: progress 3s linear forwards;
+}
+
+@keyframes customFadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes slideDown {
+    from {transform: translateY(-100px);}
+    to {transform: translateY(0);}
+}
+
+@keyframes progress {
+    from {width: 100%;}
+    to {width: 0%;}
+}
+
+.custom-popup-content.info {
+    background: linear-gradient(145deg, #1e3a5f, #283e6a);
+}
+
+.custom-popup-content.warning {
+    background: linear-gradient(145deg, #ff9800, #ff5722);
+}
+
+.custom-popup-content.error {
+    background: linear-gradient(145deg, #f44336, #e53935);
+}

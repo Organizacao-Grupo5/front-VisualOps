@@ -90,7 +90,6 @@ async function autenticar(email, senha) {
         
               } catch (error) {
                 console.error(error);
-                alert('Erro ao listar as imagens. Por favor, tente novamente.');
               }
 
             setTimeout(() => {

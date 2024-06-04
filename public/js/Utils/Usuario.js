@@ -75,8 +75,22 @@ async function autenticar(email, senha) {
             sessionStorage.setItem("nomeUsuario", dados.nome);
             sessionStorage.setItem("nomeEmpresa", dados.nomeEmpresa);
             sessionStorage.setItem("fkEmpresa", dados.fkEmpresa);
+            sessionStorage.setItem("caminhoIMG", dados.imagemPerfil);
 
             mostrarMensagem(mensagem.tela.sucesso.login(dados.nome));
+
+            try {
+                const response = await fetch('/firebase/listar-imagens', {
+                  method: 'GET'
+                });
+        
+                if (!response.ok) {
+                  throw new Error('Erro ao listar as imagens');
+                }
+        
+              } catch (error) {
+                console.error(error);
+              }
 
             setTimeout(() => {
                 entrarPerfil();

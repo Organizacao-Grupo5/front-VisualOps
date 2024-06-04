@@ -8,7 +8,7 @@ function cadastrar(nome, email, senha, cargo, fkEmpresa) {
 }
 
 function autenticar(email, senha) {
-    var instrucao = `SELECT idUsuario as id, usuario.nome, usuario.email, empresa.nome as nomeEmpresa, usuario.fkEmpresa FROM usuario JOIN empresa ON usuario.fkEmpresa = empresa.idEmpresa WHERE email = '${email}' AND senha = '${senha}'`;
+    var instrucao = `SELECT idUsuario as id, usuario.nome, usuario.email, empresa.nome as nomeEmpresa, usuario.fkEmpresa, usuario.imagemPerfil FROM usuario JOIN empresa ON usuario.fkEmpresa = empresa.idEmpresa WHERE email = '${email}' AND senha = '${senha}'`;
     
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

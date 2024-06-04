@@ -15,7 +15,7 @@ const selecionaContatosUsuarioLogado = async (idUsuario) => {
 };
 
 const atualizaInfosUsuario = async (idUsuario, infos) => {
-  let instrucao = `UPDATE usuario set nome = '${infos.nome}', email = '${infos.email}', senha = '${infos.senha}', cargo = '${infos.cargo}', imagemPerfil = '${infos.imagemPerfil}' WHERE idUsuario = ${idUsuario};`;
+  let instrucao = `UPDATE usuario set nome = '${infos.nome}', email = '${infos.email}', senha = '${infos.senha}', cargo = '${infos.cargo}', imagemPerfil = '${infos.imgUser}' WHERE idUsuario = ${idUsuario};`;
 
   console.log("Executando instrução: " + instrucao);
 

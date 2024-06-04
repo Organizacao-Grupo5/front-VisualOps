@@ -33,7 +33,49 @@ const hideLoadingPopup = () => {
   }
 };
 
+const showPopup = (title, content, type) => {
+  const popup = document.createElement("div");
+  popup.className = "custom-popup";
+
+  const popupContent = document.createElement("div");
+  popupContent.className = `custom-popup-content ${type}`;
+
+  const closeButton = document.createElement("span");
+  closeButton.className = "custom-popup-close-btn";
+  closeButton.innerHTML = "&times;";
+  closeButton.onclick = () => {
+    document.body.removeChild(popup);
+  };
+
+  const popupTitle = document.createElement("h2");
+  popupTitle.innerText = title;
+
+  const popupBody = document.createElement("p");
+  popupBody.innerText = content;
+
+  const progressBar = document.createElement("div");
+  progressBar.className = "progress-bar";
+
+  popupContent.appendChild(closeButton);
+  popupContent.appendChild(popupTitle);
+  popupContent.appendChild(popupBody);
+  popupContent.appendChild(progressBar);
+
+  popup.appendChild(popupContent);
+  document.body.appendChild(popup);
+
+  setTimeout(() => {
+    document.body.removeChild(popup);
+  }, 3000);
+};
+
+const hidePopup = (popup) => {
+  document.body.removeChild(popup);
+};
+
 export default {
   showLoadingPopup,
-  hideLoadingPopup
+  hideLoadingPopup,
+  showPopup,
+  hidePopup,
 };

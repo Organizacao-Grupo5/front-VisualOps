@@ -113,7 +113,7 @@ const salvarMaquina = async (infos) => {
   }
 
   let instrucaoMaquina = `
-    INSERT INTO maquina (marca, modelo, fkUsuario) VALUES ('${infos.marca}', '${infos.modelo}', ${infos.fkUsuario});
+    INSERT INTO maquina (marca, modelo, numeroIdentificacao, fkUsuario) VALUES ('${infos.marca}', '${infos.modelo}', '${infos.patrimonio}', ${infos.fkUsuario});
   `;
   console.log(
     "Executando a instrução SQL para inserir na tabela 'maquina': \n" +
@@ -129,9 +129,9 @@ const salvarMaquina = async (infos) => {
   let idMaquinaInserido = resultadoInsercaoMaquina.insertId;
 
   let instrucaoIpv4 = `
-    INSERT INTO ipv4 (numeroIP, nomeLocal, fkMaquina, fkUsuario) VALUES 
-    ('${infos.numeroIP1}', '${infos.nomeLocal1}', ${idMaquinaInserido}, ${infos.fkUsuario}),
-    ('${infos.numeroIP2}', '${infos.nomeLocal2}', ${idMaquinaInserido}, ${infos.fkUsuario});
+    INSERT INTO ipv4 (numeroIP, nomeLocal, fkMaquina) VALUES 
+    ('${infos.numeroIP1}', '${infos.nomeLocal1}', ${idMaquinaInserido}),
+    ('${infos.numeroIP2}', '${infos.nomeLocal2}', ${idMaquinaInserido});
   `;
   console.log(
     "Executando a instrução SQL para inserir na tabela 'ipv4': \n" +
@@ -184,7 +184,7 @@ const editarMaquina = async (infos, idMaquina) => {
   }
 
   let instrucaoUpdateMaquina = `
-    UPDATE maquina SET marca = '${infos.marca}', modelo = '${infos.modelo}', fkUsuario = ${infos.fkUsuario} WHERE idMaquina = ${idMaquina};
+    UPDATE maquina SET marca = '${infos.marca}', modelo = '${infos.modelo}', fkUsuario = ${infos.fkUsuario}, numeroIdentificacao = '${infos.patrimonio}' WHERE idMaquina = ${idMaquina};
   `;
 
   console.log(

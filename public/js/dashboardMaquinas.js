@@ -16,10 +16,10 @@ let ipv4_2 = document.getElementById("ipv4_2");
 let nome_local_ipv4_2 = document.getElementById("nome_local_ipv4_2");
 
 let marca = document.getElementById("marca");
+let numeroPatrimonio = document.getElementById("numero_patrimonio");
 let modelo = document.getElementById("modelo");
 let responsavel = document.getElementById("responsavel");
-
-document.addEventListener("DOMContentLoaded", async () => {
+async function fetchMaquinas() {
   try {
     const response = await fetch(
       `/maquina/listarMaquina/${sessionStorage.getItem("fkEmpresa")}`,
@@ -35,44 +35,53 @@ document.addEventListener("DOMContentLoaded", async () => {
       throw new Error("Erro na resposta");
     }
 
-    const maquinas = await response.json();
-
-    const maquinasHtml = maquinas
-      .map((maquina) => {
-        let ipv4Info = "";
-
-        for (let i = 0; i < Math.min(maquina.numeroIP.length, 2); i++) {
-          ipv4Info += `IPV4(${i + 1}): ${maquina.numeroIP[i]} (${
-            maquina.nomeLocal[i]
-          })<br>`;
-        }
-        return `
-          <div class="maquina-card">
-            <i class="fa-solid fa-computer"></i>
-            <div class="info-pc">
-                <h6>${ipv4Info}Marca: ${maquina.marca}<br>Modelo: ${
-          maquina.modelo
-        }<br>Responsável: ${maquina.nome}</h6>
-            </div>
-            <button class="garbage" onclick='openModal(${JSON.stringify(
-              maquina
-            )})'>
-                <i class="fa-solid fa-trash-can"></i>
-            </button>
-            <button class="pencil" onclick='editarMaquina(${JSON.stringify(
-              maquina
-            )})'>
-                <i class="fa-solid fa-pen-to-square"></i>
-            </button>
-          </div>
-        `;
-      })
-      .join("");
-
-    document.getElementById("show_maquinas").innerHTML += maquinasHtml;
+    return await response.json();
   } catch (error) {
-    console.log("Ocorreu um erro: " + error);
+    console.log("Ocorreu um erro ao buscar as máquinas: " + error);
+    return [];
   }
+}
+
+function generateMaquinaHtml(maquina) {
+  let ipv4Info = "";
+
+  for (let i = 0; i < Math.min(maquina.numeroIP.length, 2); i++) {
+    ipv4Info += `IPV4(${i + 1}): ${maquina.numeroIP[i]} (${
+      maquina.nomeLocal[i]
+    })<br>`;
+  }
+
+  return `
+    <div class="maquina-card">
+      <i class="fa-solid fa-computer"></i>
+      <div class="info-pc">
+        <h6>${ipv4Info}Marca: ${maquina.marca}<br>Modelo: ${
+    maquina.modelo
+  }<br>Responsável: ${maquina.nome}<br>N° Patrimônio: ${
+    maquina.numeroIdentificacao
+  }</h6>
+      </div>
+      <button class="garbage" onclick='openModal(${JSON.stringify(maquina)})'>
+        <i class="fa-solid fa-trash-can"></i>
+      </button>
+      <button class="pencil" onclick='editarMaquina(${JSON.stringify(
+        maquina
+      )})'>
+        <i class="fa-solid fa-pen-to-square"></i>
+      </button>
+    </div>
+  `;
+}
+
+function addMaquinasToDOM(maquinas) {
+  const maquinasHtml = maquinas.map(generateMaquinaHtml).join("");
+  const showMaquina = document.getElementById("show_maquinas");
+  showMaquina.innerHTML = maquinasHtml;
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const maquinas = await fetchMaquinas();
+  addMaquinasToDOM(maquinas);
 });
 
 const inputResponsavel = document.getElementById("responsavel");
@@ -106,7 +115,7 @@ inputResponsavel.addEventListener("input", async () => {
   }
 });
 
-const salvar = (situacao, senha) => {
+const salvar = async (situacao, senha) => {
   if (!usuarios.idUsuario && situacao.toLowerCase() == "cadastro") {
     console.error("Usuário responsável não encontrado");
     return;
@@ -116,16 +125,25 @@ const salvar = (situacao, senha) => {
     infos: {
       marca: marca.value,
       modelo: modelo.value,
-      fkUsuario: situacao.toLowerCase() == "cadastro" ? usuarios.idUsuario : maquinaEditar.idUsuario,
+      fkUsuario:
+        situacao.toLowerCase() == "cadastro"
+          ? usuarios.idUsuario
+          : maquinaEditar.idUsuario,
       numeroIP1: ipv4_1.value,
       nomeLocal1: nome_local_ipv4_1.value,
       numeroIP2: ipv4_2.value,
       nomeLocal2: nome_local_ipv4_2.value,
+      patrimonio: numeroPatrimonio.value,
       senhaUsuario: senha,
-      idEmpresa: situacao.toLowerCase() == "cadastro" ? usuarios.fkEmpresa : maquinaEditar.idEmpresa,
+      idEmpresa:
+        situacao.toLowerCase() == "cadastro"
+          ? usuarios.fkEmpresa
+          : maquinaEditar.idEmpresa,
       idUsuarioLogado: sessionStorage.getItem("idUsuario"),
-      idIpv41: situacao.toLowerCase() !== "cadastro" ? maquinaEditar.idIpv4[0] : "",
-      idIpv42: situacao.toLowerCase() !== "cadastro" ? maquinaEditar.idIpv4[1] : "",
+      idIpv41:
+        situacao.toLowerCase() !== "cadastro" ? maquinaEditar.idIpv4[0] : "",
+      idIpv42:
+        situacao.toLowerCase() !== "cadastro" ? maquinaEditar.idIpv4[1] : "",
     },
   };
 
@@ -144,14 +162,16 @@ const salvar = (situacao, senha) => {
           throw new Error("Erro ao salvar os dados");
         }
       })
-      .then((data) => {
+      .then(async (data) => {
         console.log("Cadastro realizado:", data);
-        closeModalConfirma()
+        const maquinas = await fetchMaquinas();
+        addMaquinasToDOM(maquinas);
+        closeModalConfirma();
       })
       .catch((error) => {
         throw new Error("Erro ao realizar o cadastro:", error);
       });
-  } else if(situacao.toLowerCase() == "edição"){
+  } else if (situacao.toLowerCase() == "edição") {
     fetch(`/maquina/editar/${maquinaEditar.idMaquina}`, {
       method: "PUT",
       body: JSON.stringify(campos),
@@ -166,9 +186,11 @@ const salvar = (situacao, senha) => {
           throw new Error("Erro ao editar os dados");
         }
       })
-      .then((data) => {
+      .then(async (data) => {
         console.log("Edição realizada:", data);
-        closeModalConfirma()
+        const maquinas = await fetchMaquinas();
+        addMaquinasToDOM(maquinas);
+        closeModalConfirma();
       })
       .catch((error) => {
         throw new Error("Erro ao realizar a edição:", error);
@@ -223,6 +245,7 @@ const editarMaquina = (maquina) => {
   marca.value = maquina.marca;
   modelo.value = maquina.modelo;
   responsavel.value = maquina.nome;
+  numeroPatrimonio.value = maquina.numeroIdentificacao;
 
   maquinaEditar = maquina;
 };
@@ -300,9 +323,11 @@ passwordFormExcluir.addEventListener("submit", (e) => {
       "Content-Type": "application/json",
     },
   })
-    .then((resp) => {
+    .then(async (resp) => {
       if (resp.ok) {
         console.log("Máquina deletada com SUCESSO!");
+        const maquinas = await fetchMaquinas();
+        addMaquinasToDOM(maquinas);
         closeModal();
       }
     })
@@ -354,6 +379,9 @@ btnSave.addEventListener("click", () => {
   if (marca.value === "") {
     missingFields.push("Marca");
   }
+  if (numeroPatrimonio === "") {
+    missingFields.push("N° patrimônio");
+  }
 
   if (missingFields.length !== 0) {
     camposFaltantes.innerHTML = `
@@ -402,6 +430,7 @@ const resetFormulario = () => {
   marca.value = "";
   modelo.value = "";
   responsavel.value = "";
+  numeroPatrimonio.value = "";
 
   ipv4_1.classList.remove("invalid-field");
   nome_local_ipv4_1.classList.remove("invalid-field");

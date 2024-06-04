@@ -128,11 +128,33 @@ function selecionarComponente(req, res) {
     }
 }
 
+function selecionarMaquinas(req, res) {
+
+    const fkEmpresa = req.params.fkEmpresa;
+
+    if (fkEmpresa == undefined) {
+        res.status(400).send("O foreign key da empresa está indefinido!");
+    } else {
+        maquinaModel.selecionarMaquinas(componente, fkEmpresa)
+        .then(resposta => {
+
+            if (resposta.length > 0) {
+                res.json(resposta);
+            }
+        })
+        .catch(erro => {
+            res.status(500).json(erro.sqlMessage);
+        })
+    }
+}
+
+
 module.exports = {
     cadastrar,
     selecionarQualidade,
     selecionarPrejudicados,
     selecionarQuantidade,
     listarComponentes,
-    selecionarComponente
+    selecionarComponente,
+selecionarMaquinas
 }

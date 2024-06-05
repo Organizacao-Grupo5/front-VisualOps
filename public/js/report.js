@@ -70,7 +70,10 @@ const gerarPaginas = () => {
       .map((item) => ({
         dataCaptura: item.dataCaptura,
         dadoCaptura: item.dadoCaptura,
+        unidadeMedida: item.unidadeMedida,
       }));
+
+    console.log(todasCapturas);
 
     const dataInicio = new Date(
       datas.reduce((a, b) => {
@@ -94,7 +97,9 @@ const gerarPaginas = () => {
       .map((cap, index) => {
         return `<tr>
                 <td>${componente}</td>
-                <td>${cap.dadoCaptura}</td>
+                <td>${parseFloat(cap.dadoCaptura).toFixed(2)}${
+          todasCapturas[0].unidadeMedida
+        }</td>
                 <td>${formatarData(new Date(cap.dataCaptura))}</td>
             </tr>`;
       })
@@ -406,7 +411,7 @@ btnExpand.addEventListener("click", () => {
   aumentarVisualizacao();
 });
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const infoCapturas = JSON.parse(sessionStorage.getItem("relatorioDados"));
 
   let fim = 0;
@@ -507,15 +512,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("div_tab_tables").appendChild(containerTable);
 
-    const dadosTab = dadosCaptura.filter((dado) => {
-      return dado.componente === tabs[index];
-    });
+    let dadosTab = dadosCaptura
+      .filter((dado) => {
+        return dado.componente === tabs[index];
+      })
+      .map((dado) => {
+        dado.dadoCaptura = parseFloat(dado.dadoCaptura).toFixed(2);
+        return dado;
+      });
 
     let table = new Tabulator(document.getElementById(`tabela_${componente}`), {
       layout: "fitColumns",
       pagination: "local",
-      paginationSize: dadosTab.length,
-      paginationSizeSelector: [3, 6, 8, 10],
+      paginationSize: 10,
+      paginationSizeSelector: [3, 6, 8, 10, dadosTab.length],
       movableColumns: true,
       printAsHtml: true,
       printHeader: `<h1>Informações sobre as capturas do(a) ${componente}<h1>`,
@@ -526,7 +536,7 @@ document.addEventListener("DOMContentLoaded", () => {
       columns: [
         { title: "Componente", field: "componente", width: 150 },
         {
-          title: "Captura",
+          title: `Captura (${dadosTab[0].unidadeMedida})`,
           field: "dadoCaptura",
           hozAlign: "left",
         },
@@ -581,7 +591,34 @@ document.addEventListener("DOMContentLoaded", () => {
         "flex";
     });
   });
+
+  const userInfos = await infoMaquinaUsuario(infoCapturas.idMaquina);
+  let imgRespRelatorio = document.getElementById("img_user_report");
+  await coletaImgUserLogado(imgRespRelatorio, userInfos[0].imagemPerfil);
 });
+
+const coletaImgUserLogado = async (elemento, caminhoImg) => {
+  try {
+    const response = await fetch("/firebase/imagem", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ caminho: caminhoImg }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Erro ao buscar a imagem.");
+    }
+
+    const blob = await response.blob();
+    const imagemURL = URL.createObjectURL(blob);
+
+    elemento.src = imagemURL;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 tabRelatorio.addEventListener("click", () => {
   if ((tabRelatorio.value = "disable")) {
@@ -664,6 +701,24 @@ const btnRight = document
       alterarPagina();
     }
   });
+
+const infoMaquinaUsuario = async (idMaquina) => {
+  try {
+    const response = await fetch(`/relatorio/usuarioMaquina/${idMaquina}`, {
+      method: "GET",
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error("Erro ao buscar informações do usuário máquina: " + err);
+    return null;
+  }
+};
 
 // window.addEventListener("beforeunload", () => {
 //   sessionStorage.removeItem("relatorioDados");

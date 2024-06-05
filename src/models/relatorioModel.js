@@ -148,7 +148,9 @@ function infoCapturasData(infos, idUser) {
     SELECT 
         componente.componente,
         captura.dadoCaptura, 
-        captura.dataCaptura
+        captura.dataCaptura,
+        captura.unidadeMedida,
+        componente.fkMaquina
     FROM 
         captura 
     JOIN 
@@ -217,8 +219,18 @@ function gerarDadosParaExcel(dados, idMaquina) {
   return database.executar(query);
 }
 
+const selecionaUsuarioMaquina = async (idMaquina) => {
+    let instrucao = `
+        SELECT usuario.*, maquina.* FROM usuario JOIN maquina ON usuario.idUsuario = maquina.fkUsuario WHERE maquina.idMaquina = ${idMaquina};
+    `;
+
+    console.log(instrucao)
+    return await database.executar(instrucao);
+}
+
 module.exports = {
   buscarQtdRelatorios,
   infoCapturasData,
   gerarDadosParaExcel,
+  selecionaUsuarioMaquina,
 };

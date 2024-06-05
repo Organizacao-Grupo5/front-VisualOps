@@ -177,8 +177,16 @@
 .img-container{
     width: 140px;
     height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 100%;
+    overflow: hidden;
     background-color: red;
+}
+.img-container img{
+    width: 140px;
+    height: 140px;
 }
 .info-user-resp{
     height: 80%;

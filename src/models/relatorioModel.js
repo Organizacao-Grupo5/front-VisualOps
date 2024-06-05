@@ -221,7 +221,16 @@ function gerarDadosParaExcel(dados, idMaquina) {
 
 const selecionaUsuarioMaquina = async (idMaquina) => {
     let instrucao = `
-        SELECT usuario.*, maquina.* FROM usuario JOIN maquina ON usuario.idUsuario = maquina.fkUsuario WHERE maquina.idMaquina = ${idMaquina};
+        SELECT 
+            usuario.*, 
+            maquina.*,
+            GROUP_CONCAT(IFNULL(ipv4.idIpv4, '---') SEPARATOR ',') AS idIpv4,
+            GROUP_CONCAT(IFNULL(ipv4.numeroIP, '---') SEPARATOR ',') AS numeroIP,
+            GROUP_CONCAT(IFNULL(ipv4.nomeLocal, '---') SEPARATOR ',') AS nomeLocal
+        FROM usuario 
+        JOIN maquina ON usuario.idUsuario = maquina.fkUsuario
+        JOIN ipv4 ON ipv4.fkMaquina = maquina.idMaquina
+        WHERE maquina.idMaquina = ${idMaquina};
     `;
 
     console.log(instrucao)

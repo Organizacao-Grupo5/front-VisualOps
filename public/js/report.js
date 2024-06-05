@@ -594,7 +594,29 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const userInfos = await infoMaquinaUsuario(infoCapturas.idMaquina);
   let imgRespRelatorio = document.getElementById("img_user_report");
+
   await coletaImgUserLogado(imgRespRelatorio, userInfos[0].imagemPerfil);
+
+  document.getElementById('user_info_report').innerHTML = `
+    <h4><u>Informações do usuário</u></h4>
+    <h6>Nome: ${userInfos[0].nome}</h6>
+    <h6>E-mail: ${userInfos[0].email}</h6>
+    <h6>Cargo: ${userInfos[0].cargo}</h6>
+  `;
+  document.getElementById('machine_info_report').innerHTML = `
+    <h4><u>Informações da máquina</u></h4>
+    <h6>N°: ${userInfos[0].numeroIdentificacao}</h6>
+    <h6>Modelo: ${userInfos[0].modelo}</h6>
+    <h6>Marca: ${userInfos[0].marca}</h6>
+    <h6>Hostname: ${userInfos[0].hostname}</h6>
+  `;
+  document.getElementById('ipv4_info_report').innerHTML = `
+    <h4><u>Informações de IP da máquina</u></h4>
+    <h6>N° IP (1): ${userInfos[0].numeroIP.split(",")[0]}</h6>
+    <h6>Nome Local (1): ${userInfos[0].nomeLocal.split(",")[0]}</h6>
+    <h6>N° IP (2): ${userInfos[0].numeroIP.split(",")[1]}</h6>
+    <h6>Nome Local (2): ${userInfos[0].nomeLocal.split(",")[1]}</h6>
+  `;
 });
 
 const coletaImgUserLogado = async (elemento, caminhoImg) => {

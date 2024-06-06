@@ -20,7 +20,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
 app.use(express.static(path.join(__dirname, "public")));
 
-
 app.use(cors());
 
 app.use("/", queriesRouter);
@@ -33,10 +32,8 @@ app.use("/relatorio", relatorioRouter );
 app.use("/maquina", maquinaRouter);
 app.use("/firebase", firebaseRouter);
 
-app.use((req, res) => {
-    res.status(404).sendFile(path.join(__dirname, 'public/acesso', '404.html'));
-});
 
 app.listen(PORTA, function () {
     console.log(`Visualização é http://localhost:${PORTA}`)
 })
+

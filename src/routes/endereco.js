@@ -7,4 +7,8 @@ router.post("/cadastrar", function (req, res) {
     enderecoController.cadastrar(req, res);
 });
 
+router.get("/listar/:fkEmpresa", function (req, res) {
+    enderecoController.listarByFkEmpresa(req, res);
+});
+
 module.exports = router;

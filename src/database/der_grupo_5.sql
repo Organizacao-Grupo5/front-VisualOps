@@ -71,6 +71,24 @@ CREATE TABLE maquina (
 		CONSTRAINT fkEmpresaMaquina FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa) ON DELETE CASCADE
 );
 
+
+CREATE TABLE apps(
+idApp INT PRIMARY KEY AUTO_INCREMENT,
+nomeApp VARCHAR(50) NOT NULL,
+pid INT NOT NULL,
+ramConsumida INT NOT NULL, 
+localidade varchar(60) NOT NULL
+);
+
+CREATE TABLE appAcessado(
+fkApp INT NOT NULL,
+	CONSTRAINT fkAppMaquina FOREIGN KEY (fkApp) REFERENCES apps(idApp),
+fkMaquina INT NOT NULL,
+	CONSTRAINT fkMaquina FOREIGN KEY (fkMaquina) REFERENCES maquina(idMaquina),
+hora TIMESTAMP,
+PRIMARY KEY (fkApp, fkMaquina)
+);
+
 CREATE TABLE rede (
     idRede INT PRIMARY KEY AUTO_INCREMENT,
     nomeRede VARCHAR(45) NOT NULL,

@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil | VisualOps</title>
+    <title>Configuração de alertas | VisualOps</title>
 
-    <link rel="stylesheet" href="../css/dashboardGerente.css">
+    <link rel="stylesheet" href="../css/dashboardConfiguracaoAlerta.css">
     <link rel="stylesheet" href="../css/navBar.css">
-    <link rel="icon" href="../assets/favicon/logofundo-azul.ico">
     <link rel="stylesheet" href="../css/layout.css">
+    <link rel="icon" href="../assets/favicon/logofundo-azul.ico">
 
     <script src="https://kit.fontawesome.com/265fd07209.js" crossorigin="anonymous"></script>
 
@@ -44,15 +44,16 @@
                     <button class="btn-section" onclick="windowDashboardOwner()">DASHBOARD GERAL</button>
                 </div>
                 <div class="chose-section">
-                    <i class="fa-solid fa-bars-progress" style="font-size: 15px;" onclick="windowDashboardGerente()"></i>
+                    <i class="fa-solid fa-bars-progress" style="font-size: 15px;"
+                        onclick="windowDashboardGerente()"></i>
                     <button class="btn-section" onclick="windowDashboardGerente()">DASHBOARD<br>EQUIPE</button>
                 </div>
                 <div class="chose-section">
                     <i class="fa fa-line-chart" aria-hidden="true" onclick="windowDashboardPessoal()"></i>
                     <button class="btn-section" onclick="windowDashboardPessoal()">DASHBOARD PESSOAL</button>
                 </div>
-                
-               
+
+
                 <div class="chose-section">
                     <i class="fa-regular fa-file-lines" style="font-size: 18px;" onclick="windowRelatorio()"></i>
                     <button class="btn-section" onclick="windowRelatorio()">RELATÓRIOS</button>
@@ -86,9 +87,6 @@
                 </div>
             </div>
         </div>
-
-
-
         <button id="maximizar" class="maximizar" onclick="cliqueiMaximizarSidebar()"><i
                 class="fa-solid fa-angles-right"></i></button>
 
@@ -110,22 +108,65 @@
 
                 <div class="name-content">
 
-                    <div>DASHBOARD - MÁQUINAS DA EQUIPE</div>
+                    <div>Perfil > Notificações > Configuração de alertas</div>
 
                 </div>
 
                 <div class="chart-content">
 
-                    <div class="container-info-funcionario" id="containerInfo">
-
+                    <div class="chart-content-menu">
+                        <div class="titulo-menu">Menu</div>
+                        <div>Editar meu perfi ></div>
+                        <div>Segurança ></div>
+                        <div>Notificações ></div>
+                        <div>Máquinas</div>
                     </div>
+
+                    <div class="container-configuracao-alerta">
+                        <div class="titulo-configuracao-alerta">
+                            <div>Configuração de alerta</div>
+                            <div>Selecione a máquina</div>
+                        </div>
+                        <div class="lista-maquinas">
+
+                            <div class="card-maquina">
+                                <div class="infos-topo">
+                                    <div class="nome-maquina">Nome máquina</div>
+                                    <div class="ip-publico">IP Público: 00.00.000</div>
+                                    <div class="acessos">Acessos: Monitoramento: Visualização;</div>
+                                    <div class="btn-acessar">Acessar</div>
+                                </div>
+                                <div class=infos-meio>
+                                    <div class="sistema">
+                                        <div>Sistema</div>
+                                        <div>
+                                            <div>Ram Total: 16GB</div>
+                                            <div>Disco Total: 500GB</div>
+                                        </div>
+                                    </div>
+                                    <div class="info-hardware">
+                                        <div>Info. Hardware</div>
+                                        <div>
+                                            <div>Processador: </div>
+                                            <div>Placa de vídeo: </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="infos-fundo">
+                                    <div>Sist.operacional: Windows 11</div>
+                                    <div>Responsável: Nome usuário</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </section>
 
     <script src="../js/dashboardPerfil.js"></script>
-    <script src="../js/dashboardGerente.js"></script>
     <script src="../js/Utils/Usuario.js"></script>
     <script src="../js/minMax.js"></script>
     <script src="../js/Utils/tamanhoSidebar.js"></script>

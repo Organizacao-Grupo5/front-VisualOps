@@ -45,10 +45,9 @@ let h5Data = document.getElementById("h5_data");
 
 const btnPdf = document.getElementById("btn_pdf");
 const btnExcel = document.getElementById("btn_xlsx");
-const btnEdit = document.getElementById("btn_edit");
 const btnExpand = document.getElementById("btn_exp");
-const tabRelatorio = document.getElementById("tab_relatorio")
-const tabTabelaRegistro = document.getElementById("tab_tabela_registro")
+const tabRelatorio = document.getElementById("tab_relatorio");
+const tabTabelaRegistro = document.getElementById("tab_tabela_registro");
 
 const gerarPdf = () => {
   pdfConteiner.innerHTML += paginas.join("");
@@ -103,35 +102,39 @@ const gerarPaginas = () => {
 
     let pageHtml = `
     <div class="content-pdf ${componente}">
-    <div class="container">
-      <div class="header">
-        <h1>${componente}</h1>
-        <h6 style="font-size: 8px;">Data início: ${formatarData(
-          dataInicio
-        )}<br>Data fim: ${formatarData(dataFim)}</h6>
-      </div>
-      <h6 style="margin-top:2%; margin-bottom:1%;"><u>5 capturas mais altas registradas</u></h6>
-      <table class="blueTable">
-        <thead>
-          <tr>
-            <th>Componente</th>
-            <th>Captura</th>
-            <th>Data hora</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${table}           
-        </tbody>
-      </table> 
-      <h6 style="margin-top:2%; margin-bottom:1%;"><u>Gráfico das capturas registradas</u></h6>
-      <div class="div-grafico">
-          <canvas style="width: 100%;" id="ctx_${componente}"></canvas>
-      </div>
+      <div class="container">
+        <div class="header">
+          <h1>${componente}</h1>
+          <h6 style="font-size: 8px;">Data início: ${formatarData(
+            dataInicio
+          )}<br>Data fim: ${formatarData(dataFim)}</h6>
+        </div>
+        <h6 style="margin-top:2%; margin-bottom:1%;"><u>5 capturas mais altas registradas</u></h6>
+        <table class="blueTable">
+          <thead>
+            <tr>
+              <th>Componente</th>
+              <th>Captura</th>
+              <th>Data hora</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${table}           
+          </tbody>
+        </table> 
+        <h6 style="margin-top:2%; margin-bottom:1%;"><u>Gráfico das capturas registradas</u></h6>
+        <div class="div-grafico">
+          <canvas id="ctx_${componente}"></canvas>
+        </div>
       </div>
     </div>`;
     paginas.push(pageHtml);
   });
 };
+
+let listIdGraficos = [];
+let listLabelsGrafico = [];
+let listDadosGrafico = [];
 
 const gerarGraficos = () => {
   const componentes = Array.from(
@@ -168,6 +171,10 @@ const gerarGraficos = () => {
       .map((item) => item.dadoCaptura);
 
     const ctx = document.getElementById(`ctx_${componente}`);
+
+    listIdGraficos.push(`ctx_${componente}`);
+    listLabelsGrafico.push(labels);
+    listDadosGrafico.push(dados);
 
     if (ctx) {
       const maxPoints = 4;
@@ -231,7 +238,6 @@ const alterarPagina = () => {
 
 const aumentarVisualizacao = () => {
   let todasPaginas = document.querySelectorAll(".content-pdf");
-
   const pdfWidth = todasPaginas[0].clientWidth + 100;
   const movimento = -pdfWidth * 0;
 
@@ -258,6 +264,86 @@ const aumentarVisualizacao = () => {
 
     pdfContainerClone.style.transform = "none";
     pdfContainerClone.style.width = "auto";
+
+    let novosIds = listIdGraficos.map((id) => {
+      let grafico = pdfContainerClone.querySelector(`#${id}`);
+      console.log("grafico:", grafico);
+      let novoId = id + "_clone";
+      grafico.id = novoId;
+      console.log("novoId:", novoId);
+      return novoId;
+    });
+
+    novosIds.forEach((componente, index) => {
+      const limitarDados = (labels, dados, maxPoints) => {
+        if (labels.length <= maxPoints) {
+          return { limitedLabels: labels, limitedData: dados };
+        }
+
+        console.log(labels);
+        console.log(dados);
+
+        const limitedLabels = [labels[0][0]];
+        const limitedData = [dados[0][0]];
+
+        const step = Math.floor((labels.length - 2) / (maxPoints - 2));
+
+        for (let i = 1; i < labels.length - 1; i += step) {
+          limitedLabels.push(labels[i]);
+          limitedData.push(dados[i]);
+        }
+
+        limitedLabels.push(labels[labels.length - 1]);
+        limitedData.push(dados[dados.length - 1]);
+
+        return { limitedLabels, limitedData };
+      };
+
+      const labels = listLabelsGrafico[index];
+      const dados = listDadosGrafico[index];
+
+      const ctx = document.getElementById(componente);
+
+      if (ctx) {
+        const maxPoints = 4;
+        const { limitedLabels, limitedData } = limitarDados(
+          labels,
+          dados,
+          maxPoints
+        );
+        new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: limitedLabels,
+            datasets: [
+              {
+                label: "Capturas",
+                data: limitedData,
+                borderWidth: 1,
+                pointRadius: 0,
+                pointHoverRadius: 0,
+              },
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+              x: {
+                ticks: {
+                  font: {
+                    size: 7,
+                  },
+                },
+              },
+            },
+          },
+        });
+      } else {
+        console.error(`Canvas element with ID ctx_${componente} not found`);
+      }
+    });
 
     btnClose.addEventListener("click", () => {
       divExpand.style.display = "none";
@@ -313,7 +399,6 @@ async function baixarPDF() {
 }
 
 btnPdf.addEventListener("click", () => {
-  aumentarVisualizacao();
   baixarPDF();
 });
 
@@ -324,45 +409,197 @@ btnExpand.addEventListener("click", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const infoCapturas = JSON.parse(sessionStorage.getItem("relatorioDados"));
 
-  if(tabRelatorio.value == "activate"){
-    carregarTabRelatorios(infoCapturas);
-  } else{
-    
-  }
+  let fim = 0;
+  let inicio = 0;
 
   if (infoCapturas) {
     dadosCaptura = infoCapturas.dados;
+    loadingUtils.showLoadingPopup();
+
+    gerarPaginas();
+
+    loadingUtils.hideLoadingPopup();
+
+    h5QtdCapturas.innerHTML += infoCapturas.dados.length;
+
+    const datas = Array.from({ length: infoCapturas.dados.length }, (_, i) => {
+      return infoCapturas.dados[i].dataCaptura;
+    });
+
+    const dataInicio = new Date(
+      datas.reduce((a, b) => {
+        return a < b ? a : b;
+      })
+    );
+
+    const dataFim = new Date(
+      datas.reduce((a, b) => {
+        return a > b ? a : b;
+      })
+    );
+
+    const addZero = (num) => (num < 10 ? "0" + num : num);
+
+    inicio = `${dataInicio.getFullYear()}/${addZero(
+      dataInicio.getMonth() + 1
+    )}/${addZero(dataInicio.getDate())} ${
+      "| " +
+      addZero(dataInicio.getHours()) +
+      ":" +
+      addZero(dataInicio.getMinutes())
+    }`;
+
+    fim = `${dataFim.getFullYear()}/${addZero(
+      dataFim.getMonth() + 1
+    )}/${addZero(dataFim.getDate())} ${
+      "| " + addZero(dataFim.getHours()) + ":" + addZero(dataFim.getMinutes())
+    }`;
+
+    infoDataReport.innerHTML = `Relatório(s) ${infoCapturas.tipo} - Início: ${inicio} - Fim: ${fim}`;
+
+    h5Componentes.innerHTML += Array.from(
+      new Set(infoCapturas.dados.map((item) => item.componente))
+    ).join(", ");
+
+    h5Data.innerHTML += inicio + " até " + fim;
   } else {
     console.log("Nenhum dado de relatório encontrado.");
   }
+
+  if (tabRelatorio.value == "activate") {
+    document.getElementById("tab_1").style.display = "flex";
+    document.getElementById("tab_2").style.display = "none";
+  } else if (tabTabelaRegistro.value == "activate") {
+    document.getElementById("tab_1").style.display = "none";
+    document.getElementById("tab_2").style.display = "flex";
+  }
+
+  gerarPdf();
+  gerarGraficos();
+
+  document.getElementById("info_tabela_registro").innerHTML = `
+    Tabelas de registros do componentes (${inicio} | ${fim});
+  `;
+
+  const tabs = Array.from(
+    new Set(infoCapturas.dados.map((item) => item.componente))
+  );
+
+  tabs.forEach((componente, index) => {
+    document.getElementById("tabs_componente").innerHTML += `
+      <button value="${
+        index === 0 ? "activate" : "disable"
+      }" class="tab-table" id="tab_${componente}">${componente.toUpperCase()}</button>
+    `;
+
+    const containerTable = document.createElement("div");
+    containerTable.id = `container_table_${componente}`;
+    containerTable.classList.add("container-table");
+
+    containerTable.innerHTML += `
+      <div class="actions-table">
+        <button id="print_table_${componente}">Print</button>
+        <button id="download_xlsx_${componente}">Download XLSX</button>
+        <button id="download_pdf_${componente}">Download PDF</button>
+      </div>
+      <div class="tabulator" style="height:100%;" id="tabela_${componente}"></div>
+    `;
+
+    document.getElementById("div_tab_tables").appendChild(containerTable);
+
+    const dadosTab = dadosCaptura.filter((dado) => {
+      return dado.componente === tabs[index];
+    });
+
+    let table = new Tabulator(document.getElementById(`tabela_${componente}`), {
+      layout: "fitColumns",
+      pagination: "local",
+      paginationSize: dadosTab.length,
+      paginationSizeSelector: [3, 6, 8, 10],
+      movableColumns: true,
+      printAsHtml: true,
+      printHeader: `<h1>Informações sobre as capturas do(a) ${componente}<h1>`,
+      printFooter:
+        "<h5>Este relatório é gerado com base nos dados registrados dos componentes listados. Os dados apresentados são para referência e análise. Qualquer uso ou interpretação desses dados deve ser feito com cuidado e consideração das condições específicas de cada componente. Para informações mais detalhadas ou consultas adicionais, entre em contato conosco. Agradecemos sua atenção e confiança em nossos serviços.<h5>",
+      paginationCounter: "rows",
+      data: dadosTab,
+      columns: [
+        { title: "Componente", field: "componente", width: 150 },
+        {
+          title: "Captura",
+          field: "dadoCaptura",
+          hozAlign: "left",
+        },
+        {
+          title: "Data hora",
+          field: "dataCaptura",
+          sorter: "date",
+          hozAlign: "center",
+        },
+      ],
+    });
+
+    document
+      .getElementById(`print_table_${componente}`)
+      .addEventListener("click", function () {
+        table.print(false, true);
+      });
+
+    document
+      .getElementById(`download_xlsx_${componente}`)
+      .addEventListener("click", function () {
+        table.download("xlsx", "data.xlsx", {
+          sheetName: `Relatório VisualOps | ${componente}`,
+        });
+      });
+
+    document
+      .getElementById(`download_pdf_${componente}`)
+      .addEventListener("click", function () {
+        table.download("pdf", "data.pdf", {
+          orientation: "portrait",
+          title: `Relatório sobre o uso do(a) ${componente}`,
+        });
+      });
+
+    if (index !== 0) {
+      containerTable.style.display = "none";
+    }
+  });
+
+  document.querySelectorAll(".tab-table").forEach((tab, index) => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".tab-table").forEach((t) => {
+        t.value = "disable";
+      });
+      document.querySelectorAll("[id^='container_table_']").forEach((div) => {
+        div.style.display = "none";
+      });
+
+      tab.value = "activate";
+      document.getElementById(`container_table_${tabs[index]}`).style.display =
+        "flex";
+    });
+  });
 });
 
-const gerarTabela = () => {
-  new Tabulator(document.getElementById("div_tabulator"), {
-    layout: "fitColumns",
-    pagination: "local",
-    paginationSize: 6,
-    paginationSizeSelector: [3, 6, 8, 10],
-    movableColumns: true,
-    paginationCounter: "rows",
-    data: dadosCaptura,
-    groupBy: "componente",
-    columns: [
-      { title: "Componente", field: "componente", width: 150 },
-      {
-        title: "Captura",
-        field: "dadoCaptura",
-        hozAlign: "left",
-      },
-      {
-        title: "Data hora",
-        field: "dataCaptura",
-        sorter: "date",
-        hozAlign: "center",
-      },
-    ],
-  });
-};
+tabRelatorio.addEventListener("click", () => {
+  if ((tabRelatorio.value = "disable")) {
+    document.getElementById("tab_1").style.display = "flex";
+    document.getElementById("tab_2").style.display = "none";
+    tabTabelaRegistro.value = "disable";
+    tabRelatorio.value = "activate";
+  }
+});
+
+tabTabelaRegistro.addEventListener("click", () => {
+  if ((tabTabelaRegistro.value = "disable")) {
+    document.getElementById("tab_2").style.display = "flex";
+    document.getElementById("tab_1").style.display = "none";
+    tabRelatorio.value = "disable";
+    tabTabelaRegistro.value = "activate";
+  }
+});
 
 const containerPDF = document.getElementById("pdf_content");
 
@@ -427,60 +664,6 @@ const btnRight = document
       alterarPagina();
     }
   });
-
-const carregarTabRelatorios = (infoCapturas) => {
-  loadingUtils.showLoadingPopup();
-
-  gerarPaginas();
-
-  loadingUtils.hideLoadingPopup();
-
-  h5QtdCapturas.innerHTML += infoCapturas.dados.length;
-
-  const datas = Array.from({ length: infoCapturas.dados.length }, (_, i) => {
-    return infoCapturas.dados[i].dataCaptura;
-  });
-
-  const dataInicio = new Date(
-    datas.reduce((a, b) => {
-      return a < b ? a : b;
-    })
-  );
-
-  const dataFim = new Date(
-    datas.reduce((a, b) => {
-      return a > b ? a : b;
-    })
-  );
-
-  const addZero = (num) => (num < 10 ? "0" + num : num);
-
-  const inicio = `${dataInicio.getFullYear()}/${addZero(
-    dataInicio.getMonth() + 1
-  )}/${addZero(dataInicio.getDate())} ${
-    "| " +
-    addZero(dataInicio.getHours()) +
-    ":" +
-    addZero(dataInicio.getMinutes())
-  }`;
-
-  const fim = `${dataFim.getFullYear()}/${addZero(
-    dataFim.getMonth() + 1
-  )}/${addZero(dataFim.getDate())} ${
-    "| " + addZero(dataFim.getHours()) + ":" + addZero(dataFim.getMinutes())
-  }`;
-
-  infoDataReport.innerHTML = `Relatório(s) ${infoCapturas.tipo} - Início: ${inicio} - Fim: ${fim}`;
-
-  h5Componentes.innerHTML += Array.from(
-    new Set(infoCapturas.dados.map((item) => item.componente))
-  ).join(", ");
-
-  h5Data.innerHTML += inicio + " até " + fim;
-
-  gerarPdf();
-  gerarGraficos();
-};
 
 // window.addEventListener("beforeunload", () => {
 //   sessionStorage.removeItem("relatorioDados");

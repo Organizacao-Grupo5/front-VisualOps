@@ -12,7 +12,8 @@ const slackRouter = require("./src/routes/GoogleSlackRoute");
 const planoRouter = require("./src/routes/plano");
 const usuarioRouter = require("./src/routes/usuario");
 const relatorioRouter = require("./src/routes/relatorio");
-const maquinaRouter = require("./src/routes/maquina");
+const maquinaRouter = require("./src/routes/maquina")
+const firebaseRouter = require("./src/routes/firebase")
 
 
 app.use(express.json());
@@ -27,8 +28,9 @@ app.use("/endereco", enderecoRouter);
 app.use("/plano", planoRouter);
 app.use("/", slackRouter);
 app.use("/usuario", usuarioRouter);
-app.use("/relatorio", relatorioRouter);
+app.use("/relatorio", relatorioRouter );
 app.use("/maquina", maquinaRouter);
+app.use("/firebase", firebaseRouter);
 
 
 app.listen(PORTA, function () {

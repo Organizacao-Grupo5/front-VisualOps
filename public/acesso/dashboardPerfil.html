@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../css/navBar.css">
     <link rel="stylesheet" href="../css/layout.css">
     <link rel="icon" href="../assets/favicon/logofundo-azul.ico">
-
+    <link href="https://unpkg.com/tabulator-tables/dist/css/tabulator.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/265fd07209.js" crossorigin="anonymous"></script>
 
 </head>
@@ -19,6 +19,8 @@
     <script src="../js/Utils/Rotas.js"></script>
 
     <section>
+
+
         <div id="sidebar" class="sidebar">
             <div id="top_sidebar" class="top-sidebar">
                 <img id="logo_sidebar" src="../assets/img/logofundo.png" alt="">
@@ -39,35 +41,42 @@
                 <h1 id="menu_title">MENU</h1>
                 <div class="chose-section">
                     <i class="fa-solid fa-chart-column" style="font-size: 15px;" onclick="windowDashboardOwner()"></i>
-                    <button class="btn-section" onclick="windowDashboardOwner()">DASHBOARD</button>
+                    <button class="btn-section" onclick="windowDashboardOwner()">DASHBOARD GERAL</button>
                 </div>
                 <div class="chose-section">
-                    <i class="fa-solid fa-bars-progress" style="font-size: 15px;" onclick="windowDashboardGerente()"></i>
-                    <button class="btn-section" onclick="windowDashboardGerente()">GERENTE</button>
+                    <i class="fa-solid fa-bars-progress" style="font-size: 15px;"
+                        onclick="windowDashboardGerente()"></i>
+                    <button class="btn-section" onclick="windowDashboardGerente()">DASHBOARD<br>EQUIPE</button>
                 </div>
                 <div class="chose-section">
                     <i class="fa fa-line-chart" aria-hidden="true" onclick="windowDashboardPessoal()"></i>
                     <button class="btn-section" onclick="windowDashboardPessoal()">DASHBOARD PESSOAL</button>
                 </div>
+
+
                 <div class="chose-section">
-                    <i class="fa-regular fa-user" onclick="windowPerfil()"></i>
-                    <button class="btn-section" onclick="windowPerfil()">PERFIL</button>
+                    <i class="fa-regular fa-file-lines" style="font-size: 18px;" onclick="windowRelatorio()"></i>
+                    <button class="btn-section" onclick="windowRelatorio()">RELATÓRIOS</button>
                 </div>
                 <div class="chose-section">
+                    <i class="fa-solid fa-computer" style="font-size: 18px;" onclick="windowRelatorio()"></i>
+                    <button class="btn-section" onclick="windowMaquina()">MÁQUINAS</button>
+                </div>
+            </div>
+            <div class="end-sidebar">
+                <h6 id="suporte_text">SUPORTE / CONFIGURAÇÃO</h6>
+                <div class="chose-section">
                     <i class="fa fa-plus" aria-hidden="true" onclick="windowCadastroUser()"></i>
-                    <button class="btn-section" onclick="windowCadastroUser()">ADICIONAR</button>
+                    <button class="btn-section" onclick="windowCadastroUser()">GESTÃO</button>
+                </div>
+                <div class="chose-section">
+                    <i class="fa-regular fa-user" onclick="windowPerfil()"></i>
+                    <button class="btn-section" onclick="windowPerfil()">EDITAR PERFIL</button>
                 </div>
                 <div class="chose-section">
                     <i class="fa-solid fa-file-signature" style="font-size: 13px;"></i>
                     <button class="btn-section">ASSINATURA</button>
                 </div>
-                <div class="chose-section">
-                    <i class="fa-regular fa-file-lines" style="font-size: 18px;" onclick="windowRelatorio()"></i>
-                    <button class="btn-section" onclick="windowRelatorio()">RELATÓRIOS</button>
-                </div>
-            </div>
-            <div class="end-sidebar">
-                <h6 id="suporte_text">SUPORTE / CONFIGURAÇÃO</h6>
                 <div class="chose-section">
                     <i class="fa-solid fa-bullhorn"></i>
                     <button class="btn-section">SUPORTE</button>
@@ -78,6 +87,8 @@
                 </div>
             </div>
         </div>
+
+
         <button id="maximizar" class="maximizar" onclick="cliqueiMaximizarSidebar()"><i
                 class="fa-solid fa-angles-right"></i></button>
 
@@ -99,130 +110,93 @@
 
                 <div class="name-content">
 
-                    <div>Perfil</div>
+                    <div>SEU PERFIL</div>
 
                 </div>
 
                 <div class="chart-content">
-                    <div class="container-profile-address">
-
-                        <div class="profile-edit">
-
-                            <h2 class="titulo-editar-perfl">Editar Perfil</h2>
-
-                            <div class="profile-photo"></div>
-
-                            <div class="horizontal-spaced">
-
-                                <div class="half-width spacing">
-
-                                    <label for="nome">Nome:</label>
-                                    <input type="text" id="nome" name="nome">
-
-                                </div>
-
-                                <div class="half-width">
-
-                                    <label for="email">Email:</label>
-                                    <input type="email" id="email" name="email">
-
-                                </div>
-
+                    <div class="top-user-page">
+                        <div class="pointer" id="pointer"></div>
+                        <div class="user-img">
+                            <img src="" id="img_user" alt="">
+                            <div id="alt_img" class="alt-img">
+                                <h6>Alterar imagem de perfil<i class="fa-solid fa-pen-nib"></i></h6>
                             </div>
-
-                            <div class="horizontal-spaced">
-
-                                <div class="half-width spacing">
-
-                                    <label for="senha">Senha:</label>
-                                    <input type="text" id="senha" name="senha">
-
-                                </div>
-
-                                <div class="half-width">
-
-                                    <label for="numerotelefone">Telefone</label>
-                                    <input class="numero" type="text" id="numero" name="telefone"
-                                        placeholder="(xx) xxxx-xxxx">
-
-                                </div>
-
-                            </div>
-
-
                         </div>
-
-                        <div class="address-info">
-
-                            <h2 class="titulo-informacoes-endereco">Informações Endereço</h2>
-
-                            <div class="content-spacing">
-
-                                <label for="cep">CEP:</label>
-                                <input type="text" id="cep" name="cep" onblur="pesquisaCepDashboard(this.value)"
-                                    placeholder="xxxxx-xxx">
-
-                                <div class="horizontal-spaced">
-
-                                    <div class="half-width">
-
-                                        <label for="bairro">Bairro:</label>
-                                        <input type="text" id="bairro" name="bairro">
-
-                                    </div>
-
-                                    <div class="half-width">
-
-                                        <label for="estado">Estado:</label>
-                                        <input type="text" id="estado" name="estado">
-
-                                    </div>
-
-                                </div>
-
-                                <label for="rua">Rua:</label>
-                                <input type="text" id="rua" name="rua">
-
-                                <div class="horizontal-spaced">
-
-                                    <div class="half-width">
-
-                                        <label fo="numero">Número:</label>
-                                        <input type="text" id="numero" name="numero">
-
-                                    </div>
-
-                                    <div class="half-width">
-
-                                        <label for="complemento">Complemento:</label>
-                                        <input type="text" id="complemento" name="complemento">
-
-                                    </div>
-
-                                </div>
-
-
-
+                        <input class="upload-img-user" type="file" id="fileInput" accept="image/*">
+                    </div>
+                    <div class="middle-page">
+                        <div class="info-user-address">
+                            <div class="left-infos infos">
+                                <h3>Informações de perfil<br>
+                                    <p>Atualize ou altere suas informações de usuário</p>
+                                </h3>
+                                <label for="inp_user_name">Nome</label>
+                                <input type="text" id="inp_user_name">
+                                <label for="inp_user_email">E-mail</label>
+                                <input type="email" id="inp_user_email">
+                                <label for="inp_user_password">Senha</label>
+                                <input type="password" id="inp_user_password">
+                                <label for="select_cargo">Cargo</label>
+                                <select id="select_cargo">
+                                    <option value="Gerente">Gerente</option>
+                                    <option value="Designer">Designer</option>
+                                </select>
                             </div>
-
+                            <div class="right-infos infos">
+                                <h3>Informações de endereço<br>
+                                    <p>Atualize ou altere suas informações de endereço</p>
+                                </h3>
+                                <label for="inp_cep">CEP</label>
+                                <input type="text" id="inp_cep">
+                                <div class="inp-group">
+                                    <div class="inp-label">
+                                        <label for="inp_logradouro">Logradouro</label>
+                                        <input type="text" id="inp_logradouro">
+                                    </div>
+                                    <div class="inp-label">
+                                        <label for="inp_numero">Número</label>
+                                        <input type="text" id="inp_numero">
+                                    </div>
+                                </div>
+                                <div class="inp-group">
+                                    <div class="inp-label">
+                                        <label for="inp_bairro">Bairro</label>
+                                        <input type="text" id="inp_bairro">
+                                    </div>
+                                    <div class="inp-label">
+                                        <label for="inp_estado">Estado</label>
+                                        <input type="text" id="inp_estado">
+                                    </div>
+                                </div>
+                                <label for="inp_complemento">Complemento</label>
+                                <input type="text" id="inp_complemento">
+                            </div>
+                        </div>
+                        <div class="tabulator-contatos">
+                            <h3>Informações para contato <button id="addButton">Adicionar<i
+                                        class="fa-solid fa-plus"></i></button></h3>
+                            <div id="tabulator_contato"></div>
                         </div>
                     </div>
-                    <button class="button-att2" type="button">Atualizar</button>
+                    <div class="div-btn">
+                        <button class="btn" id="btn_save">SALVAR<i class="fa-solid fa-floppy-disk"></i></button>
+                        <button class="btn" id="btn_reset">RESETAR<i class="fa-solid fa-arrow-rotate-left"></i></button>
+                    </div>
                 </div>
-
             </div>
 
         </div>
 
     </section>
 
-    <script src="../js/dashboardPerfil.js"></script>
+    <script type="module" src="../js/dashboardPerfil.js"></script>
     <script src="../js/Utils/Usuario.js"></script>
     <script src="../js/Utils/Endereco.js"></script>
     <script src="../js/minMax.js"></script>
     <script src="../js/Utils/tamanhoSidebar.js"></script>
     <script src="../js/viaCep.js"></script>
-
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"></script>
 </body>
 </body>
 

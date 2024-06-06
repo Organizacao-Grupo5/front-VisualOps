@@ -13,7 +13,7 @@ router.post('/:idUsuario/abrirRelatorio', (req, res) => {
 })
 
 router.post("/upload-excel/:idMaquina", async(req, res) => {
-    return excelController.gerarRelatorioExcell(req, res);
+    excelController.gerarRelatorioExcell(req, res);
 })
 
 module.exports = router;

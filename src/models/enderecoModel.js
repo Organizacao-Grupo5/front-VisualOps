@@ -7,6 +7,14 @@ function cadastrar(cep, logradouro, numero, bairro, estado, complemento, fkEmpre
     return database.executar(instrucao);
 }
 
+function listarByFkEmpresa(fkEmpresa) {
+    const query = `SELECT * FROM endereco WHERE fkEmpresa = ${fkEmpresa} LIMIT 1`;
+
+    console.log("Executando a instrução SQL: \n" + query);
+    return database.executar(query);
+}
+
 module.exports = {
-    cadastrar
+    cadastrar,
+    listarByFkEmpresa
 };

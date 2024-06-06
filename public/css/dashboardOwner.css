@@ -91,9 +91,7 @@
 }
 
 .container_graficos3 {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+    text-align: center;
 
     width: 100%;
     height: 100%;
@@ -101,7 +99,7 @@
 
 .chart-horizontal {
     height: 90%;
-    width: 55%;
+    width: 100%;
 }
 
 .container_kpi3 {

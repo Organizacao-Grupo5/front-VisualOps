@@ -4,18 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planos | VisualOps</title>
-
+    <title>Relatórios | VisualOps</title>
+    <link rel="stylesheet" href="../css/dashboardRelatório.css">
     <link rel="stylesheet" href="../css/navBar.css">
-    <link rel="icon" href="../assets/favicon/logofundo-azul.ico">
     <link rel="stylesheet" href="../css/layout.css">
-
+    <link rel="icon" href="../assets/favicon/logofundo-azul.ico">
     <script src="https://kit.fontawesome.com/265fd07209.js" crossorigin="anonymous"></script>
-
 </head>
 
 <body>
     <section>
+        
         <div id="sidebar" class="sidebar">
             <div id="top_sidebar" class="top-sidebar">
                 <img id="logo_sidebar" src="../assets/img/logofundo.png" alt="">
@@ -69,7 +68,7 @@
                 </div>
                 <div class="chose-section">
                     <i class="fa-solid fa-file-signature" style="font-size: 13px;"></i>
-                    <button class="btn-section">ASSINATURA</button>
+                    <button class="btn-section" onclick="windowPlanos()">ASSINATURA</button>
                 </div>
                 <div class="chose-section">
                     <i class="fa-solid fa-bullhorn"></i>
@@ -83,12 +82,8 @@
         </div>
 
 
-
-        <button id="maximizar" class="maximizar" onclick="cliqueiMaximizarSidebar()"><i
-                class="fa-solid fa-angles-right"></i></button>
-
+        <button id="maximizar" class="maximizar"><i class="fa-solid fa-angles-right"></i></button>
         <div class="dashboard-content" id="dashboard">
-
             <nav>
                 <h1 class="user-welcome" style="font-size: 1rem;" id="txt_welcome_user"></h1>
                 <div class="nav-visual-info">
@@ -100,25 +95,126 @@
                     <h1 style="font-size: 0.5em;" id="txt_user_and_interprise"></h1>
                 </div>
             </nav>
-
-            <div class="name-chart-content">
-
+            <div class="content-dash-report">
                 <div class="name-content">
-
-                    <div>DASHBOARD - MÁQUINAS DA EQUIPE</div>
-
+                    <div>RELATÓRIOS DE DESEMPENHO DOS COMPONENTES</div>
                 </div>
+                <div class="content">
+                    <div class="side-content" style="border-right: 1px solid #fff;">
+                        <h1>Relatórios disponíveis</h1>
+                        <div class="calendar" id="relatorios_calendario">
+                            <div class="day-content">
+                                <div class="day">
+                                    <h4>Domingo</h4>
+                                    <h1>12</h1>
+                                    <h4>Maio</h4>
+                                </div>
+                            </div>
+                            <div class="day-content">
+                                <div class="day">
+                                    <h4>Segunda-feira</h4>
+                                    <h1>13</h1>
+                                    <h4>Maio</h4>
+                                </div>
+                            </div>
+                            <div class="day-content">
+                                <div class="day">
+                                    <h4>Terça-feira</h4>
+                                    <h1>14</h1>
+                                    <h4>Maio</h4>
+                                </div>
+                            </div>
+                            <div class="day-content">
+                                <div class="day">
+                                    <h4>Quarta-feira</h4>
+                                    <h1>15</h1>
+                                    <h4>Maio</h4>
+                                </div>
+                            </div>
+                            <div class="day-content">
+                                <div class="day">
+                                    <h4>Quinta-feira</h4>
+                                    <h1>16</h1>
+                                    <h4>Maio</h4>
+                                </div>
+                            </div>
+                            <div class="day-content">
+                                <div class="day">
+                                    <h4>Sexta-feira</h4>
+                                    <h1>17</h1>
+                                    <h4>Maio</h4>
+                                </div>
+                            </div>
+                            <div class="day-content">
+                                <div class="day">
+                                    <h4>Sábado</h4>
+                                    <h1>18</h1>
+                                    <h4>Maio</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="side-content">
+                        <h1>Filtrar</h1>
+                        <div class="line-content">
+                            <div class="side-line-content">
+                                <label class="lbl" for="input_name_our_ipv4">Nome da máquina ou IPV4</label>
+                                <input class="inp" type="text" name="ipv4OurName" id="input_name_our_ipv4" placeholder="Insira o IPV4 ou nome da máquina">
+                            </div>
+                            <div class="side-line-content">
+                                <label class="lbl" for="input_semana">Escolha a semana</label>
+                                <input class="inp" type="date" name="" id="input_semana" placeholder="--/--/----">
+                            </div>
+                        </div>
 
+                        <div class="line-content">
+                            <div class="side-line-content">
+                                <span>Tipo</span>
+                                <div class="checkbox-chose">
+                                    <label for="chk_diario">Diário</label>
+                                    <input checked type="checkbox" name="" id="chk_diario">
+                                    <label for="chk_semanal">Semanal</label>
+                                    <input checked type="checkbox" name="" id="chk_semanal">
+                                    <label for="chk_mensal">Mensal</label>
+                                    <input checked type="checkbox" name="" id="chk_mensal">
+                                </div>
+                            </div>
+                            <div class="side-line-content">
+                                <span>Responsáveis</span>
+                                <div class="checkbox-chose">
+                                    <label for="chk_proprio">Próprio</label>
+                                    <input type="checkbox" name="" id="chk_proprio">
+                                    <label for="chk_time">Time</label>
+                                    <input type="checkbox" name="" id="chk_time">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-content last-line">
+                            <div class="side-line-content" style="width: 100%;">
+                                <span>Relatórios encontrados(semana)</span>
+                                <h5>Relatório diário: </h5>
+                                <h5>Relatório mensal: </h5>
+                                <h5>Relatório anual: </h5>
+                                <h5>Total de relatórios: </h5>
+                            </div>
+                        </div>
+                        <div class="line-content line-btn" style="width: 100%;">
+                            <div class="side-line-content" >
+                                <button id="btn_apl">APLICAR</button>
+                            </div>
+                            <div class="side-line-content" >
+                                <button id="btn_rs">RESETAR</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
         </div>
-
     </section>
-
-    <script src="../js/minMax.js"></script>
-    <script src="../js/Utils/tamanhoSidebar.js"></script>
-
-</body>
 </body>
 
 </html>
+<script src="../js/minMax.js"></script>
+<script src="../js/Utils/tamanhoSidebar.js"></script>
+<script src="../js/dashboardRelatorio.js"></script>
+<script src="../js/Utils/Rotas.js"></script>

@@ -76,7 +76,7 @@ async function gerarLista() {
     const dadosTratados = tratarDados(dados);
     
     for (let index = 0; index < listaMaquinas.length; index++) {
-        container.
+        container.innerHTML = 
         `<div class="container-funcionario" onclick="windowDashboardPessoal()">
         <div class="status-bolinha" id="status"></div>
         <div class="info-funcionario">

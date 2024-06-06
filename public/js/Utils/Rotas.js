@@ -42,6 +42,10 @@ function windowMaquina() {
   window.location = "dashboardMaquinas.html";
 }
 
+function windowPlanos(){
+  window.location = `dashboardPlanos.html`;
+}
+
 function adicionarImagemNoCirculo(imagemSrc) {
   const circleElement = document.querySelector(".circle");
   if (circleElement) {

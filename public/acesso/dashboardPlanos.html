@@ -11,6 +11,7 @@
     <link rel="icon" href="../assets/favicon/logofundo-azul.ico">
     <link rel="stylesheet" href="../css/dashboardPlanos.css">
     <script src="https://kit.fontawesome.com/265fd07209.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -105,7 +106,7 @@
                     <div class="side-content">
                         <h1>Nossos planos</h1>
                         <h3 id="plano_atual" class="plano_atual">Seu plano atual: </h3>
-                    
+
                         <div class="tres_quadrados">
                             <div class="quadrado_planos">
                                 <div class="quadrados">
@@ -123,7 +124,7 @@
                                     <div class="side-content-botao-freelancer">
                                         <div class="line-content line-btn" style="width: 100%;">
                                             <div class="side-line-content botao_adquirir">
-                                                <button>ADQUIRIR</button>
+                                                <button onclick="pop_up()">ADQUIRIR</button>
                                             </div>
                                         </div>
                                     </div>
@@ -144,7 +145,7 @@
                                     <div class="side-content-botao-profissional">
                                         <div class="line-content line-btn" style="width: 100%;">
                                             <div class="side-line-content botao_adquirir">
-                                                <button>ADQUIRIR</button>
+                                                <button onclick="pop_up()">ADQUIRIR</button>
                                             </div>
                                         </div>
                                     </div>
@@ -166,7 +167,7 @@
                                     <div class="side-content-botao">
                                         <div class="line-content line-btn" style="width: 100%;">
                                             <div class="side-line-content botao_adquirir">
-                                                <button>ADQUIRIR</button>
+                                                <button onclick="pop_up()">ADQUIRIR</button>
                                             </div>
                                         </div>
                                     </div>
@@ -177,6 +178,7 @@
                 </div>
             </div>
         </div>
+
     </section>
     <script src="../js/minMax.js"></script>
     <script src="../js/Utils/tamanhoSidebar.js"></script>
@@ -210,5 +212,13 @@
     window.onload = function () {
         mostrarPlano();
     }
+
+    function pop_up() {
+        Swal.fire({
+            title: 'SweetAlert2 is working!',
+        })
+
+    }
+
 
 </script>

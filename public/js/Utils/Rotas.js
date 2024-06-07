@@ -19,7 +19,7 @@ function windowCadastroUser() {
 }
 
 function windowSair() {
-  window.location = "indexlogado.html";
+  window.location = "../index.html";
 }
 
 function windowLogin() {

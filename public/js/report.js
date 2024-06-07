@@ -490,6 +490,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     new Set(infoCapturas.dados.map((item) => item.componente))
   );
 
+  let htmlInfoQtdReport = "";
+
   tabs.forEach((componente, index) => {
     document.getElementById("tabs_componente").innerHTML += `
       <button value="${
@@ -518,8 +520,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       })
       .map((dado) => {
         dado.dadoCaptura = parseFloat(dado.dadoCaptura).toFixed(2);
+        dado.dataCaptura = new Date(dado.dataCaptura).getFullYear() + "/" + (new Date(dado.dataCaptura).getMonth() + 1) + "/" + new Date(dado.dataCaptura).getDate();
         return dado;
       });
+
+    htmlInfoQtdReport += `
+      <h6>${componente}: ${dadosTab.length} capturas</h6>
+    `;
 
     let table = new Tabulator(document.getElementById(`tabela_${componente}`), {
       layout: "fitColumns",
@@ -617,6 +624,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     <h6>N° IP (2): ${userInfos[0].numeroIP.split(",")[1]}</h6>
     <h6>Nome Local (2): ${userInfos[0].nomeLocal.split(",")[1]}</h6>
   `;
+  document.getElementById("qtd_info_report").innerHTML += `<h4><u>Quantidade de capturas</u></h4>${htmlInfoQtdReport}`;
 });
 
 const coletaImgUserLogado = async (elemento, caminhoImg) => {

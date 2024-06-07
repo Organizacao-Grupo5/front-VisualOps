@@ -67,12 +67,14 @@ async function carregarImagemPerfil(caminhoImagem) {
 
     const blob = await response.blob();
     const imagemURL = URL.createObjectURL(blob);
-    
-    adicionarImagemNoCirculo(imagemURL);
 
+    adicionarImagemNoCirculo(imagemURL);
   } catch (error) {
     console.error(error);
   }
 }
 
-carregarImagemPerfil(sessionStorage.getItem("caminhoIMG"))
+document.addEventListener(
+  "DOMContentLoaded",
+  carregarImagemPerfil(sessionStorage.getItem("caminhoIMG"))
+);

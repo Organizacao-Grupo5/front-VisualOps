@@ -134,7 +134,7 @@ const construirCalendarioSemanal = async () => {
             `
             <div class="report-content">
               <h4>Relatório - ${dado.tipo_relatorio}</h4>
-              <h4>Total de registros: ${dado.total_capturas}</h4>
+              <h4>Total de registros: ${dado.total_atividades}</h4>
               <div class="div-btn-action-report">
                 <button onclick="abrirRelatorio('${dado.tipo_relatorio === "diários" ? dado.data : dado.tipo_relatorio === "semanal" ? dado.data_inicio_semana : dado.data_inicio_mes}', '${dado.tipo_relatorio}', ${dado.idMaquina})">ABRIR</button>
               </div>

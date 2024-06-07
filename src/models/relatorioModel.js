@@ -6,130 +6,231 @@ function buscarQtdRelatorios(idUsuario, preferencias, tipo, idEmpresa) {
   let isInicioSemana = diaSemana === 0;
   let isInicioMes = data.getDate() === 1;
 
+  if (tipo === "mensal" && isInicioMes) {
+    data.setMonth(data.getMonth() - 1);
+  }
+
   let query = "";
 
   if (tipo === "diario") {
     query += `
-        SELECT 
-            DATE(captura.dataCaptura) AS data, 
-            COUNT(*) AS total_capturas, 
-            'diários' AS tipo_relatorio, 
-            maquina.idMaquina 
-        FROM 
-            captura
-        JOIN 
-            componente ON captura.fkComponente = componente.idComponente 
-        JOIN 
-            maquina ON componente.fkMaquina = maquina.idMaquina 
-        ${
-          preferencias.nomeIpv4 !== ""
-            ? "JOIN ipv4 ON ipv4.fkMaquina = maquina.idMaquina"
-            : ""
-        }   
-        JOIN 
-            usuario ON maquina.fkUsuario = usuario.idUsuario 
-        JOIN 
-            empresa ON usuario.fkEmpresa = empresa.idEmpresa
-        WHERE 
-            empresa.idEmpresa = 1
-            AND DATE(captura.dataCaptura) = '${preferencias.data}'
-        `;
+        SELECT
+            data,
+            idMaquina,
+            SUM(total) AS total_atividades,
+            'diários' AS tipo_relatorio
+        FROM (
+            SELECT
+                DATE(captura.dataCaptura) AS data,
+                maquina.idMaquina,
+                COUNT(*) AS total
+            FROM
+                captura
+            JOIN
+                componente ON captura.fkComponente = componente.idComponente
+            JOIN
+                maquina ON componente.fkMaquina = maquina.idMaquina
+            JOIN
+                usuario ON maquina.fkUsuario = usuario.idUsuario
+            JOIN
+                empresa ON usuario.fkEmpresa = empresa.idEmpresa
+            ${
+              preferencias.nomeIpv4 !== ""
+                ? "JOIN ipv4 ON ipv4.fkMaquina = maquina.idMaquina"
+                : ""
+            }
+            WHERE
+                empresa.idEmpresa = ${idEmpresa}
+                AND DATE(captura.dataCaptura) = '${preferencias.data}'
+            GROUP BY
+                data,
+                maquina.idMaquina
+
+            UNION ALL
+
+            SELECT
+                DATE(appAcessado.hora) AS data,
+                maquina.idMaquina,
+                COUNT(*) AS total
+            FROM
+                appAcessado
+            JOIN
+                maquina ON appAcessado.fkMaquina = maquina.idMaquina
+            JOIN
+                apps ON appAcessado.fkApp = apps.idApp
+            JOIN
+                usuario ON maquina.fkUsuario = usuario.idUsuario
+            JOIN
+                empresa ON usuario.fkEmpresa = empresa.idEmpresa
+            ${
+              preferencias.nomeIpv4 !== ""
+                ? "JOIN ipv4 ON ipv4.fkMaquina = maquina.idMaquina"
+                : ""
+            }
+            WHERE
+                empresa.idEmpresa = ${idEmpresa}
+                AND DATE(appAcessado.hora) = '${preferencias.data}'
+            GROUP BY
+                data,
+                maquina.idMaquina
+        ) AS combined_results
+        GROUP BY
+            data,
+            idMaquina
+        ORDER BY
+            data;
+    `;
   } else if (tipo === "semanal" && isInicioSemana) {
     query += `
-        SELECT 
-            YEAR(captura.dataCaptura) AS ano, 
-            WEEK(captura.dataCaptura, 0) AS semana, 
-            MIN(captura.dataCaptura) AS data_inicio_semana, 
-            MAX(captura.dataCaptura) AS data_fim_semana, 
-            COUNT(*) AS total_capturas, 
-            'semanal' as tipo_relatorio, 
-            maquina.idMaquina 
-        FROM 
-            captura
-        JOIN 
-            componente ON captura.fkComponente = componente.idComponente 
-        JOIN 
-            maquina ON componente.fkMaquina = maquina.idMaquina 
+        SELECT
+            semana,
+            idMaquina,
+            SUM(total) AS total_atividades,
+            'semanais' AS tipo_relatorio
+        FROM (
+            SELECT
+                YEARWEEK(captura.dataCaptura, 1) AS semana,
+                maquina.idMaquina,
+                COUNT(*) AS total
+            FROM
+                captura
+            JOIN
+                componente ON captura.fkComponente = componente.idComponente
+            JOIN
+                maquina ON componente.fkMaquina = maquina.idMaquina
+            JOIN
+                usuario ON maquina.fkUsuario = usuario.idUsuario
+            JOIN
+                empresa ON usuario.fkEmpresa = empresa.idEmpresa
             ${
               preferencias.nomeIpv4 !== ""
                 ? "JOIN ipv4 ON ipv4.fkMaquina = maquina.idMaquina"
                 : ""
-            }   
-        JOIN 
-            usuario ON maquina.fkUsuario = usuario.idUsuario 
-        JOIN 
-            empresa ON usuario.fkEmpresa = empresa.idEmpresa
-        WHERE 
-            YEAR(captura.dataCaptura) = YEAR('${preferencias.data}') 
-            AND WEEK(captura.dataCaptura, 0) = WEEK('${preferencias.data}', 0) 
-            AND empresa.idEmpresa = ${idEmpresa}
-        `;
+            }
+            WHERE
+                empresa.idEmpresa = ${idEmpresa}
+                AND YEARWEEK(captura.dataCaptura, 1) = YEARWEEK('${
+                  preferencias.data
+                }', 1)
+            GROUP BY
+                semana,
+                maquina.idMaquina
+
+            UNION ALL
+
+            SELECT
+                YEARWEEK(appAcessado.hora, 1) AS semana,
+                maquina.idMaquina,
+                COUNT(*) AS total
+            FROM
+                appAcessado
+            JOIN
+                maquina ON appAcessado.fkMaquina = maquina.idMaquina
+            JOIN
+                apps ON appAcessado.fkApp = apps.idApp
+            JOIN
+                usuario ON maquina.fkUsuario = usuario.idUsuario
+            JOIN
+                empresa ON usuario.fkEmpresa = empresa.idEmpresa
+            ${
+              preferencias.nomeIpv4 !== ""
+                ? "JOIN ipv4 ON ipv4.fkMaquina = maquina.idMaquina"
+                : ""
+            }
+            WHERE
+                empresa.idEmpresa = ${idEmpresa}
+                AND YEARWEEK(appAcessado.hora, 1) = YEARWEEK('${
+                  preferencias.data
+                }', 1)
+            GROUP BY
+                semana,
+                maquina.idMaquina
+        ) AS combined_results
+        GROUP BY
+            semana,
+            idMaquina
+        ORDER BY
+            semana;
+    `;
   } else if (tipo === "mensal" && isInicioMes) {
+    let data = new Date(preferencias.data);
+    data.setMonth(data.getMonth() - 1);
+    data.setDate(1);
+    let dataFormatada = data.toISOString().split('T')[0];
     query += `
-        SELECT 
-            YEAR(dataCaptura) AS ano, 
-            MONTH(dataCaptura) AS mes, 
-            DATE_FORMAT(MIN(dataCaptura), '%Y-%m-01') AS data_inicio_mes, 
-            LAST_DAY(MAX(dataCaptura)) AS data_fim_mes, 
-            COUNT(*) AS total_capturas, 
-            'mensal' as tipo_relatorio, 
-            maquina.idMaquina 
-        FROM 
-            captura 
-        JOIN 
-            componente ON captura.fkComponente = componente.idComponente 
-        JOIN 
-            maquina ON componente.fkMaquina = maquina.idMaquina 
-            ${
-              preferencias.nomeIpv4 !== ""
-                ? "JOIN ipv4 ON ipv4.fkMaquina = maquina.idMaquina"
-                : ""
-            }   
-        JOIN 
-            usuario ON maquina.fkUsuario = usuario.idUsuario 
-        JOIN 
-            empresa ON usuario.fkEmpresa = empresa.idEmpresa
-        WHERE 
-            YEAR(dataCaptura) = YEAR('${preferencias.data}') 
-            AND MONTH(dataCaptura) = MONTH('${preferencias.data}') 
-            AND empresa.idEmpresa = ${idEmpresa}
-        `;
+          SELECT
+              ano_mes,
+              idMaquina,
+              SUM(total) AS total_atividades,
+              'mensal' AS tipo_relatorio
+          FROM (
+              SELECT
+                  DATE_FORMAT(captura.dataCaptura, '%Y-%m') AS ano_mes,
+                  maquina.idMaquina,
+                  COUNT(*) AS total
+              FROM
+                  captura
+              JOIN
+                  componente ON captura.fkComponente = componente.idComponente
+              JOIN
+                  maquina ON componente.fkMaquina = maquina.idMaquina
+              JOIN
+                  usuario ON maquina.fkUsuario = usuario.idUsuario
+              JOIN
+                  empresa ON usuario.fkEmpresa = empresa.idEmpresa
+              ${
+                preferencias.nomeIpv4 !== ""
+                  ? "JOIN ipv4 ON ipv4.fkMaquina = maquina.idMaquina"
+                  : ""
+              }
+              WHERE
+                  empresa.idEmpresa = ${idEmpresa}
+                  AND DATE_FORMAT(captura.dataCaptura, '%Y-%m') = DATE_FORMAT('${dataFormatada}', '%Y-%m')
+              GROUP BY
+                  ano_mes,
+                  maquina.idMaquina
+  
+              UNION ALL
+  
+              SELECT
+                  DATE_FORMAT(appAcessado.hora, '%Y-%m') AS ano_mes,
+                  maquina.idMaquina,
+                  COUNT(*) AS total
+              FROM
+                  appAcessado
+              JOIN
+                  maquina ON appAcessado.fkMaquina = maquina.idMaquina
+              JOIN
+                  apps ON appAcessado.fkApp = apps.idApp
+              JOIN
+                  usuario ON maquina.fkUsuario = usuario.idUsuario
+              JOIN
+                  empresa ON usuario.fkEmpresa = empresa.idEmpresa
+              ${
+                preferencias.nomeIpv4 !== ""
+                  ? "JOIN ipv4 ON ipv4.fkMaquina = maquina.idMaquina"
+                  : ""
+              }
+              WHERE
+                  empresa.idEmpresa = ${idEmpresa}
+                  AND DATE_FORMAT(appAcessado.hora, '%Y-%m') = DATE_FORMAT('${dataFormatada}', '%Y-%m')
+              GROUP BY
+                  ano_mes,
+                  maquina.idMaquina
+          ) AS combined_results
+          GROUP BY
+              ano_mes,
+              idMaquina
+          ORDER BY
+              ano_mes;
+      `;
   }
 
   if (preferencias.responsaveis.proprio && query !== "") {
     query += ` AND usuario.idUsuario = ${idUsuario.idUsuario}`;
   }
   if (preferencias.nomeIpv4 !== "" && query !== "") {
-    query += ` AND (ipv4.numeroIP = '${preferencias.nomeIpv4}'
-                        OR maquina.username = '${preferencias.nomeIpv4}'
-                        OR maquina.hostname = '${preferencias.nomeIpv4}')`;
-  }
-
-  if (tipo === "diario" && query !== "") {
-    query += `
-        GROUP BY 
-            data, 
-            maquina.idMaquina
-        ORDER BY 
-            data;
-        `;
-  } else if (tipo === "semanal" && isInicioSemana && query !== "") {
-    query += `
-        GROUP BY 
-            ano, 
-            semana, 
-            maquina.idMaquina
-        ORDER BY 
-            ano, 
-            semana;
-        `;
-  } else if (tipo === "mensal" && isInicioMes && query !== "") {
-    query += `
-        GROUP BY 
-            ano, 
-            mes, 
-            maquina.idMaquina;
-        `;
+    query += ` AND ipv4.numeroIP = '${preferencias.nomeIpv4}'`;
   }
 
   console.log(query);
@@ -215,12 +316,12 @@ function gerarDadosParaExcel(dados, idMaquina) {
         AND dataCaptura <= "${dados.dataFim}" 
         AND maquina.idMaquina = ${idMaquina};
     `;
-
+  console.log(query);
   return database.executar(query);
 }
 
 const selecionaUsuarioMaquina = async (idMaquina) => {
-    let instrucao = `
+  let instrucao = `
         SELECT 
             usuario.*, 
             maquina.*,
@@ -233,9 +334,9 @@ const selecionaUsuarioMaquina = async (idMaquina) => {
         WHERE maquina.idMaquina = ${idMaquina};
     `;
 
-    console.log(instrucao)
-    return await database.executar(instrucao);
-}
+  console.log(instrucao);
+  return await database.executar(instrucao);
+};
 
 module.exports = {
   buscarQtdRelatorios,

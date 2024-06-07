@@ -129,3 +129,80 @@
 .plano_atual{
     margin-top: 1%;
 }
+
+
+.janela-modal {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #00000080;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal .titulos {
+    color: black;
+    margin-left: 2%;
+}
+
+.modal {
+    width: 30%;
+    min-width: 450px;
+    min-height: 200px;
+    background-color: #449ade80;
+    backdrop-filter: blur(10px);
+    padding: 50px;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.fechar {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 0;
+    background-color: white;
+    color: black;
+    font-size: 25px;
+    font-family: 'Chinese Rocks', sans-serif;
+    cursor: pointer;
+}
+
+.janela-modal.abrir {
+    display: flex;
+}
+
+@keyframes abrirModal {
+    from {
+        opacity: 0;
+        transform: translate3d(-20px, 0, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(0,0,0);
+    }
+}
+
+.abrir .modal {
+    animation: abrirModal 0.5s;
+}
+
+.box-modal {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: justify;
+    align-items: center;
+    font-size: 20px;
+    color: white;
+    margin-top: 2%;
+}

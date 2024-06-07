@@ -124,7 +124,7 @@
                                     <div class="side-content-botao-freelancer">
                                         <div class="line-content line-btn" style="width: 100%;">
                                             <div class="side-line-content botao_adquirir">
-                                                <button onclick="pop_up()">ADQUIRIR</button>
+                                                <button onclick="modal_plano()">ADQUIRIR</button>
                                             </div>
                                         </div>
                                     </div>
@@ -145,7 +145,7 @@
                                     <div class="side-content-botao-profissional">
                                         <div class="line-content line-btn" style="width: 100%;">
                                             <div class="side-line-content botao_adquirir">
-                                                <button onclick="pop_up()">ADQUIRIR</button>
+                                                <button onclick="modal_plano()">ADQUIRIR</button>
                                             </div>
                                         </div>
                                     </div>
@@ -167,7 +167,7 @@
                                     <div class="side-content-botao">
                                         <div class="line-content line-btn" style="width: 100%;">
                                             <div class="side-line-content botao_adquirir">
-                                                <button onclick="pop_up()">ADQUIRIR</button>
+                                                <button onclick="modal_plano()">ADQUIRIR</button>
                                             </div>
                                         </div>
                                     </div>
@@ -179,7 +179,16 @@
             </div>
         </div>
 
-    </section>
+        <section class="janela-modal" id="janela-modal">
+            <div class="modal">
+                <button class="fechar" id="fechar">&times;</button>
+                <div class="box-modal">
+                    Entraremos em contato para discutir opções de mudança de plano e ajudar com qualquer dúvida ou processo! 😊
+                </div>
+            </div>
+        </section>
+
+
     <script src="../js/minMax.js"></script>
     <script src="../js/Utils/tamanhoSidebar.js"></script>
     <script src="../js/Utils/Rotas.js"></script>
@@ -213,12 +222,16 @@
         mostrarPlano();
     }
 
-    function pop_up() {
-        Swal.fire({
-            title: 'SweetAlert2 is working!',
-        })
+    function modal_plano() {
+    const modal = document.getElementById('janela-modal');
+    modal.classList.add('abrir');
 
-    }
+    modal.addEventListener('click', (e) => {
+        if (e.target.id == 'fechar' || e.target.id == 'janela-modal3') {
+            modal.classList.remove('abrir')
+        }
+    });
+}
 
 
 </script>

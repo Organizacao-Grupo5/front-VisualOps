@@ -15,7 +15,7 @@
 
 <body>
     <section>
-        
+
         <div id="sidebar" class="sidebar">
             <div id="top_sidebar" class="top-sidebar">
                 <img id="logo_sidebar" src="../assets/img/logofundo.png" alt="">
@@ -39,15 +39,16 @@
                     <button class="btn-section" onclick="windowDashboardOwner()">DASHBOARD GERAL</button>
                 </div>
                 <div class="chose-section">
-                    <i class="fa-solid fa-bars-progress" style="font-size: 15px;" onclick="windowDashboardGerente()"></i>
+                    <i class="fa-solid fa-bars-progress" style="font-size: 15px;"
+                        onclick="windowDashboardGerente()"></i>
                     <button class="btn-section" onclick="windowDashboardGerente()">DASHBOARD<br>EQUIPE</button>
                 </div>
                 <div class="chose-section">
                     <i class="fa fa-line-chart" aria-hidden="true" onclick="windowDashboardPessoal()"></i>
                     <button class="btn-section" onclick="windowDashboardPessoal()">DASHBOARD PESSOAL</button>
                 </div>
-                
-               
+
+
                 <div class="chose-section">
                     <i class="fa-regular fa-file-lines" style="font-size: 18px;" onclick="windowRelatorio()"></i>
                     <button class="btn-section" onclick="windowRelatorio()">RELATÓRIOS</button>
@@ -103,11 +104,23 @@
                 <div class="content">
                     <div class="side-content">
                         <h1>Nossos planos</h1>
+                        <h3 id="plano_atual" class="plano_atual">Seu plano atual: </h3>
+                    
                         <div class="tres_quadrados">
                             <div class="quadrado_planos">
                                 <div class="quadrados">
-                                    <h3>PLANO FREELANCER</h3>
-                                    <div class="side-content">
+                                    <h3>PLANO FREELANCER</h3> <br>
+                                    <h3>Design Monitor:</h3>
+                                    <br>
+                                    <div class="frases_planos">
+                                        <li>Monitoramento de hardware para freelancers e profissionais individuais.
+                                        </li><br>
+                                        <li>Relatórios simples e regulares.</li> <br>
+                                        <li> Alertas básicos para problemas potenciais.</li> <br>
+                                        <li> Notificações por e-mail.</li>
+                                    </div>
+
+                                    <div class="side-content-botao-freelancer">
                                         <div class="line-content line-btn" style="width: 100%;">
                                             <div class="side-line-content botao_adquirir">
                                                 <button>ADQUIRIR</button>
@@ -118,8 +131,17 @@
                             </div>
                             <div class="quadrado_planos">
                                 <div class="quadrados">
-                                    <h3>PLANO PROFISSIONAL</h3>
-                                    <div class="side-content">
+                                    <h3>PLANO PROFISSIONAL</h3> <br>
+                                    <h3>Design Monitor Pro:</h3>
+                                    <br>
+                                    <div class="frases_planos">
+                                        <li>Monitoramento de hardware para pequenas e médias empresas.</li><br>
+                                        <li>Relatórios detalhados.</li><br>
+                                        <li>Notificações por e-mail, SMS e aplicativo móvel.</li><br>
+                                        <li>Integração com ferramentas de gerenciamento de projetos.</li>
+                                    </div>
+
+                                    <div class="side-content-botao-profissional">
                                         <div class="line-content line-btn" style="width: 100%;">
                                             <div class="side-line-content botao_adquirir">
                                                 <button>ADQUIRIR</button>
@@ -130,8 +152,18 @@
                             </div>
                             <div class="quadrado_planos">
                                 <div class="quadrados">
-                                    <h3>PLANO EMPRESARIAL</h3>
-                                    <div class="side-content">
+                                    <h3>PLANO EMPRESARIAL</h3> <br>
+                                    <h3>Design Monitor Elite:</h3>
+                                    <br>
+                                    <div class="frases_planos">
+                                        <li>Monitoramento de hardware para grandes empresas.</li><br>
+                                        <li>Monitoramento completo de componentes.</li><br>
+                                        <li>Relatórios personalizados.</li><br>
+                                        <li>Notificações customizadas.</li><br>
+                                        <li>Integração total com sistemas de gestão empresarial.</li>
+                                    </div>
+                                    <br>
+                                    <div class="side-content-botao">
                                         <div class="line-content line-btn" style="width: 100%;">
                                             <div class="side-line-content botao_adquirir">
                                                 <button>ADQUIRIR</button>
@@ -140,16 +172,43 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> 
-                    </div> 
-                </div> 
-            </div> 
-        </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
     <script src="../js/minMax.js"></script>
     <script src="../js/Utils/tamanhoSidebar.js"></script>
-    <script src="../js/dashboardRelatorio.js"></script>
     <script src="../js/Utils/Rotas.js"></script>
 </body>
 
 </html>
+
+<script>
+    var idUsuario = sessionStorage.idUsuario;
+
+    function mostrarPlano() {
+        fetch(`/plano/mostrarPlano/${idUsuario}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(function (resposta) {
+                resposta.json().then((resposta) => {
+                    resposta.forEach((resposta) => {
+                        if (resposta.nome) {
+                            plano_atual.innerHTML += `${resposta.nome}`;
+                        }
+                    });
+                });
+            });
+
+    }
+
+    window.onload = function () {
+        mostrarPlano();
+    }
+
+</script>

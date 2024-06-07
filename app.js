@@ -15,7 +15,6 @@ const relatorioRouter = require("./src/routes/relatorio");
 const maquinaRouter = require("./src/routes/maquina")
 const firebaseRouter = require("./src/routes/firebase")
 
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
 app.use(express.static(path.join(__dirname, "public")));
@@ -36,4 +35,3 @@ app.use("/firebase", firebaseRouter);
 app.listen(PORTA, function () {
     console.log(`Visualização é http://localhost:${PORTA}`)
 })
-

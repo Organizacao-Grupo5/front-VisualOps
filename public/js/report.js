@@ -497,10 +497,7 @@ const aumentarVisualizacao = () => {
         if (labels.length <= maxPoints) {
           return { limitedLabels: labels, limitedData: dados };
         }
-
-        console.log(labels);
-        console.log(dados);
-
+        
         const limitedLabels = [labels[0][0]];
         const limitedData = [dados[0][0]];
 

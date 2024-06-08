@@ -10,6 +10,15 @@ function buscarQtdRelatorios(idUsuario, preferencias, tipo, idEmpresa) {
     data.setMonth(data.getMonth() - 1);
   }
 
+  let moreWhere = "";
+  if (preferencias.responsaveis.proprio) {
+    moreWhere += ` AND usuario.idUsuario = ${idUsuario.idUsuario}`;
+  }
+  if (preferencias.nomeIpv4 !== "") {
+    moreWhere += ` AND (ipv4.numeroIP = '${preferencias.nomeIpv4}' OR usuario.nome = '${preferencias.nomeIpv4}')`;
+  }
+
+
   let query = "";
 
   if (tipo === "diario") {
@@ -42,6 +51,7 @@ function buscarQtdRelatorios(idUsuario, preferencias, tipo, idEmpresa) {
             WHERE
                 empresa.idEmpresa = ${idEmpresa}
                 AND DATE(captura.dataCaptura) = '${preferencias.data}'
+                ${moreWhere}
             GROUP BY
                 data,
                 maquina.idMaquina
@@ -70,6 +80,7 @@ function buscarQtdRelatorios(idUsuario, preferencias, tipo, idEmpresa) {
             WHERE
                 empresa.idEmpresa = ${idEmpresa}
                 AND DATE(appAcessado.hora) = '${preferencias.data}'
+                ${moreWhere}
             GROUP BY
                 data,
                 maquina.idMaquina
@@ -112,6 +123,7 @@ function buscarQtdRelatorios(idUsuario, preferencias, tipo, idEmpresa) {
                 AND YEARWEEK(captura.dataCaptura, 1) = YEARWEEK('${
                   preferencias.data
                 }', 1)
+                ${moreWhere}
             GROUP BY
                 semana,
                 maquina.idMaquina
@@ -142,6 +154,7 @@ function buscarQtdRelatorios(idUsuario, preferencias, tipo, idEmpresa) {
                 AND YEARWEEK(appAcessado.hora, 1) = YEARWEEK('${
                   preferencias.data
                 }', 1)
+                ${moreWhere}
             GROUP BY
                 semana,
                 maquina.idMaquina
@@ -186,6 +199,7 @@ function buscarQtdRelatorios(idUsuario, preferencias, tipo, idEmpresa) {
               WHERE
                   empresa.idEmpresa = ${idEmpresa}
                   AND DATE_FORMAT(captura.dataCaptura, '%Y-%m') = DATE_FORMAT('${dataFormatada}', '%Y-%m')
+                  ${moreWhere}
               GROUP BY
                   ano_mes,
                   maquina.idMaquina
@@ -214,6 +228,7 @@ function buscarQtdRelatorios(idUsuario, preferencias, tipo, idEmpresa) {
               WHERE
                   empresa.idEmpresa = ${idEmpresa}
                   AND DATE_FORMAT(appAcessado.hora, '%Y-%m') = DATE_FORMAT('${dataFormatada}', '%Y-%m')
+                  ${moreWhere}
               GROUP BY
                   ano_mes,
                   maquina.idMaquina
@@ -224,13 +239,6 @@ function buscarQtdRelatorios(idUsuario, preferencias, tipo, idEmpresa) {
           ORDER BY
               ano_mes;
       `;
-  }
-
-  if (preferencias.responsaveis.proprio && query !== "") {
-    query += ` AND usuario.idUsuario = ${idUsuario.idUsuario}`;
-  }
-  if (preferencias.nomeIpv4 !== "" && query !== "") {
-    query += ` AND ipv4.numeroIP = '${preferencias.nomeIpv4}'`;
   }
 
   console.log(query);

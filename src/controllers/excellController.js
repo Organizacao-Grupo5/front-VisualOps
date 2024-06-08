@@ -36,7 +36,7 @@ const gerarRelatorioExcell = async (req, res) => {
   
         dadosFiltrados.forEach((dado, index) => {
           const row = index + 13;
-          planilha.cell(`D${row}`).value("" + dado.dataCaptura);
+          planilha.cell(`D${row}`).value("" + new Date(dado.dataCaptura).getFullYear() + "/" + (new Date(dado.dataCaptura).getMonth() - 1) + "/" + new Date(dado.dataCaptura).getDate());
           planilha.cell(`F${row}`).value(dado.idCaptura);
           planilha.cell(`H${row}`).value(dado.dadoCaptura);
           planilha.cell(`J${row}`).value(dado.unidadeMedida);

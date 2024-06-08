@@ -311,8 +311,5 @@
 }
 .div-grafico{
     display: flex;
-    width: 500px;
-}
-.div-grafico canvas{
-    width: 500px;
+    width: 800px;
 }

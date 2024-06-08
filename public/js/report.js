@@ -117,6 +117,14 @@ const gerarPaginas = () => {
       })
       .slice(0, 5);
 
+    const menorCaptura = todasCapturas.reduce((menor, captura) => {
+      if (!isNaN(captura.dadoCaptura)) {
+        return captura.dadoCaptura < menor.dadoCaptura ? captura : menor;
+      } else {
+        return menor;
+      }
+    }, todasCapturas[0]);
+
     const table = top5Capturas
       .map((cap, index) => {
         return `<tr>
@@ -128,6 +136,134 @@ const gerarPaginas = () => {
             </tr>`;
       })
       .join("");
+
+    let recomendacao;
+    let acao;
+    let impacto;
+    let importancia;
+    let custo;
+
+    switch (componente) {
+      case "CPU":
+        impacto =
+          "A CPU é o cérebro do computador e afeta diretamente o desempenho geral do sistema.";
+        importancia =
+          "Importância da CPU: Crítica. Uma CPU defeituosa pode causar lentidão e instabilidade no sistema.";
+        custo = "Custo médio de uma nova CPU: $100 - $500.";
+        break;
+      case "HDD":
+        impacto = "O HDD é responsável pelo armazenamento de dados no sistema.";
+        importancia =
+          "Importância do HDD: Alta. Uma falha no HDD pode resultar na perda de dados preciosos.";
+        custo = "Custo médio de um novo HDD: $50 - $200.";
+        break;
+      case "GPU":
+        impacto =
+          "A GPU é responsável pelo processamento de gráficos e é essencial para jogos e aplicativos gráficos intensivos.";
+        importancia =
+          "Importância da GPU: Alta. Uma GPU defeituosa pode causar artefatos visuais, falhas e baixo desempenho em jogos e aplicativos gráficos.";
+        custo = "Custo médio de uma nova GPU: $200 - $1000.";
+        break;
+      case "MemoriaRam":
+        impacto =
+          "A RAM é usada para armazenar temporariamente dados em uso pelo sistema operacional e aplicativos.";
+        importancia =
+          "Importância da Memória RAM: Alta. Pouca RAM pode causar lentidão e travamentos do sistema quando muitos aplicativos estão em execução.";
+        custo =
+          "Custo médio de mais RAM: $50 - $200, dependendo da capacidade.";
+        break;
+      case "Bateria":
+        impacto =
+          "A bateria fornece energia para o laptop ou dispositivo móvel quando não está conectado à energia elétrica.";
+        importancia =
+          "Importância da Bateria: Alta. Uma bateria defeituosa pode resultar em tempo de vida limitado da bateria e incapacidade de uso portátil.";
+        custo = "Custo médio de uma nova bateria: $50 - $150.";
+        break;
+      case "Volume":
+        impacto =
+          "O volume de armazenamento contém todos os arquivos e dados do sistema.";
+        importancia =
+          "Importância do Volume de Armazenamento: Alta. A perda de dados devido a uma falha no volume de armazenamento pode ser catastrófica.";
+        custo =
+          "Custo médio de um novo volume de armazenamento: $50 - $200 para HDD, $100 - $500 para SSD.";
+        break;
+      default:
+        impacto = "Impacto do componente no sistema: Desconhecido.";
+        importancia = "Importância do componente: Desconhecida.";
+        custo = "Custo médio de substituição: Desconhecido.";
+    }
+
+    switch (componente) {
+      case "CPU":
+        recomendacao =
+          "Recomendação para a CPU: Verifique a temperatura e o uso da CPU regularmente para garantir um desempenho eficiente.";
+        acao =
+          "Ação para a CPU: Considere atualizar os drivers ou realizar uma limpeza de poeira para melhorar o desempenho, se necessário.";
+        break;
+      case "HDD":
+        recomendacao =
+          "Recomendação para o HDD: Monitore regularmente a saúde do disco rígido e faça backups de dados importantes.";
+        acao =
+          "Ação para o HDD: Considere substituir o disco rígido se estiver apresentando sinais de falha ou lentidão.";
+        break;
+      case "GPU":
+        recomendacao =
+          "Recomendação para a GPU: Verifique a temperatura e os drivers da GPU para garantir um desempenho ideal em jogos e aplicativos gráficos.";
+        acao =
+          "Ação para a GPU: Considere atualizar os drivers e limpar o cooler da GPU para evitar superaquecimento e artefatos visuais.";
+        break;
+      case "MemoriaRam":
+        recomendacao =
+          "Recomendação para a Memória RAM: Monitore o uso da RAM e feche aplicativos desnecessários para otimizar o desempenho do sistema.";
+        acao =
+          "Ação para a Memória RAM: Considere adicionar mais RAM ao sistema se estiver frequentemente atingindo sua capacidade máxima.";
+        break;
+      case "Bateria":
+        recomendacao =
+          "Recomendação para a Bateria: Calibre a bateria regularmente e evite descargas profundas para prolongar sua vida útil.";
+        acao =
+          "Ação para a Bateria: Substitua a bateria se estiver perdendo capacidade de retenção de carga ou não segurando a carga por muito tempo.";
+        break;
+      case "Volume":
+        recomendacao =
+          "Recomendação para o Volume: Verifique o espaço disponível no volume de armazenamento e faça limpezas regulares de arquivos desnecessários.";
+        acao =
+          "Ação para o Volume: Faça backups regulares dos dados importantes e considere a exclusão de arquivos desnecessários para liberar espaço em disco.";
+        break;
+      default:
+        recomendacao =
+          "Recomendação genérica: Verifique o estado e o desempenho do componente para garantir a operação adequada do sistema.";
+        acao =
+          "Ação genérica: Realize diagnósticos adicionais ou consulte um especialista se houver problemas persistentes.";
+    }
+
+    const estiloMensagem = `
+      font-size: 8px;
+      color: #555;
+    `;
+
+    let conteudoAdicional = `
+      <div style="margin-top: 20px;">
+        <h6 style="margin-bottom: 5px; font-size: 10px; color: #333;">Impacto do ${componente} no sistema:</h6>
+        <p style="${estiloMensagem}">${impacto}</p>
+      </div>
+      <div style="margin-top: 10px;">
+        <h6 style="margin-bottom: 5px; font-size: 10px; color: #333;">Importância do ${componente}:</h6>
+        <p style="${estiloMensagem}">${importancia}</p>
+      </div>
+      <div style="margin-top: 10px;">
+        <h6 style="margin-bottom: 5px; font-size: 10px; color: #333;">Custo médio em caso de perda do ${componente}:</h6>
+        <p style="${estiloMensagem}">${custo}</p>
+      </div>
+      <div style="margin-top: 10px;">
+        <h6 style="margin-bottom: 5px; font-size: 10px; color: #333;">Recomendação:</h6>
+        <p style="${estiloMensagem}">Siga as boas práticas de manutenção e cuidado para prolongar a vida útil do ${componente}.</p>
+      </div>
+      <div style="margin-top: 10px;">
+        <h6 style="margin-bottom: 5px; font-size: 10px; color: #333;">Ação recomendada:</h6>
+        <p style="${estiloMensagem}">Realize verificações regulares e mantenha o ${componente} limpo e livre de poeira.</p>
+      </div>
+    `;
 
     let pageHtml = `
     <div class="content-pdf ${componente}">
@@ -154,6 +290,9 @@ const gerarPaginas = () => {
         <h6 style="margin-top:2%; margin-bottom:1%;"><u>Gráfico das capturas registradas</u></h6>
         <div class="div-grafico">
           <canvas id="ctx_${componente}"></canvas>
+        </div>
+        <div class="div-conteudo-adicional">
+          ${conteudoAdicional}
         </div>
       </div>
     </div>`;
@@ -457,6 +596,7 @@ async function baixarPDF() {
   pdfHtml.querySelector(".footer-text").style.fontSize = "22px";
   pdfHtml.querySelector(".footer-img").style.height = "50pt";
   pdfHtml.querySelector(".footer-img").style.width = "50pt";
+  pdfHtml.querySelector(".div-conteudo-adicional").style.fontSize = "80px";
 
   contentElements.forEach((element) => {
     element.style.width = "595.28pt";

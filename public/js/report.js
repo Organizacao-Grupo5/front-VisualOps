@@ -1,6 +1,7 @@
 import loadingUtils from "./Utils/loading.js";
 
 let dadosCaptura = [];
+let dadosCapturaApps = [];
 let idxAtual = 0;
 
 let capaRelatorio = `
@@ -58,24 +59,50 @@ const gerarPaginas = () => {
     new Set(dadosCaptura.map((item) => item.componente))
   );
 
-  componentes.forEach((componente) => {
-    const datas = Array.from({ length: dadosCaptura.length }, (_, i) => {
-      if (dadosCaptura[i].componente == componente) {
-        return new Date(dadosCaptura[i].dataCaptura);
-      }
-    }).filter((date) => !isNaN(date));
+  componentes.push("Janelas");
 
-    const todasCapturas = dadosCaptura
-      .filter((item) => item.componente == componente)
-      .map((item) => ({
-        dataCaptura: item.dataCaptura,
-        dadoCaptura: item.dadoCaptura,
-      }));
+  componentes.forEach((componente) => {
+    const datas = Array.from(
+      {
+        length:
+          componente === "Janelas"
+            ? dadosCapturaApps.length
+            : dadosCaptura.length,
+      },
+      (_, i) => {
+        if (componente === "Janelas") {
+          return new Date(dadosCapturaApps[i].dataCaptura);
+        } else {
+          if (dadosCaptura[i].componente == componente) {
+            return new Date(dadosCaptura[i].dataCaptura);
+          }
+        }
+      }
+    ).filter((date) => !isNaN(date));
+
+    const todasCapturas =
+      componente !== "Janelas"
+        ? dadosCaptura
+            .filter((item) => item.componente == componente)
+            .map((item) => ({
+              dataCaptura: item.dataCaptura,
+              dadoCaptura: item.dadoCaptura,
+              unidadeMedida: item.unidadeMedida,
+            }))
+        : dadosCapturaApps.map((item) => ({
+            titulo: item.componente,
+            dataCaptura: item.dataCaptura,
+            dadoCaptura: item.dadoCaptura,
+            unidadeMedida: item.unidadeMedida,
+            localidade: item.localidade,
+          }));
+
+    console.log("Capturas do ", componente, "\nDADOS: ", todasCapturas);
 
     const dataInicio = new Date(
       datas.reduce((a, b) => {
         return a < b ? a : b;
-      })
+      }, Infinity)
     );
 
     const dataFim = new Date(
@@ -86,19 +113,157 @@ const gerarPaginas = () => {
 
     const top5Capturas = todasCapturas
       .sort((a, b) => {
-        b.dadoCaptura - a.dadoCaptura;
+        return b.dadoCaptura - a.dadoCaptura;
       })
       .slice(0, 5);
+
+    const menorCaptura = todasCapturas.reduce((menor, captura) => {
+      if (!isNaN(captura.dadoCaptura)) {
+        return captura.dadoCaptura < menor.dadoCaptura ? captura : menor;
+      } else {
+        return menor;
+      }
+    }, todasCapturas[0]);
 
     const table = top5Capturas
       .map((cap, index) => {
         return `<tr>
-                <td>${componente}</td>
-                <td>${cap.dadoCaptura}</td>
+                <td>${componente !== "Janelas" ? componente : cap.titulo}</td>
+                <td>${parseFloat(cap.dadoCaptura).toFixed(2)}${
+          todasCapturas[0].unidadeMedida
+        }</td>
                 <td>${formatarData(new Date(cap.dataCaptura))}</td>
             </tr>`;
       })
       .join("");
+
+    let recomendacao;
+    let acao;
+    let impacto;
+    let importancia;
+    let custo;
+
+    switch (componente) {
+      case "CPU":
+        impacto =
+          "A CPU é o cérebro do computador e afeta diretamente o desempenho geral do sistema.";
+        importancia =
+          "Importância da CPU: Crítica. Uma CPU defeituosa pode causar lentidão e instabilidade no sistema.";
+        custo = "Custo médio de uma nova CPU: $100 - $500.";
+        break;
+      case "HDD":
+        impacto = "O HDD é responsável pelo armazenamento de dados no sistema.";
+        importancia =
+          "Importância do HDD: Alta. Uma falha no HDD pode resultar na perda de dados preciosos.";
+        custo = "Custo médio de um novo HDD: $50 - $200.";
+        break;
+      case "GPU":
+        impacto =
+          "A GPU é responsável pelo processamento de gráficos e é essencial para jogos e aplicativos gráficos intensivos.";
+        importancia =
+          "Importância da GPU: Alta. Uma GPU defeituosa pode causar artefatos visuais, falhas e baixo desempenho em jogos e aplicativos gráficos.";
+        custo = "Custo médio de uma nova GPU: $200 - $1000.";
+        break;
+      case "MemoriaRam":
+        impacto =
+          "A RAM é usada para armazenar temporariamente dados em uso pelo sistema operacional e aplicativos.";
+        importancia =
+          "Importância da Memória RAM: Alta. Pouca RAM pode causar lentidão e travamentos do sistema quando muitos aplicativos estão em execução.";
+        custo =
+          "Custo médio de mais RAM: $50 - $200, dependendo da capacidade.";
+        break;
+      case "Bateria":
+        impacto =
+          "A bateria fornece energia para o laptop ou dispositivo móvel quando não está conectado à energia elétrica.";
+        importancia =
+          "Importância da Bateria: Alta. Uma bateria defeituosa pode resultar em tempo de vida limitado da bateria e incapacidade de uso portátil.";
+        custo = "Custo médio de uma nova bateria: $50 - $150.";
+        break;
+      case "Volume":
+        impacto =
+          "O volume de armazenamento contém todos os arquivos e dados do sistema.";
+        importancia =
+          "Importância do Volume de Armazenamento: Alta. A perda de dados devido a uma falha no volume de armazenamento pode ser catastrófica.";
+        custo =
+          "Custo médio de um novo volume de armazenamento: $50 - $200 para HDD, $100 - $500 para SSD.";
+        break;
+      default:
+        impacto = "Impacto do componente no sistema: Desconhecido.";
+        importancia = "Importância do componente: Desconhecida.";
+        custo = "Custo médio de substituição: Desconhecido.";
+    }
+
+    switch (componente) {
+      case "CPU":
+        recomendacao =
+          "Recomendação para a CPU: Verifique a temperatura e o uso da CPU regularmente para garantir um desempenho eficiente.";
+        acao =
+          "Ação para a CPU: Considere atualizar os drivers ou realizar uma limpeza de poeira para melhorar o desempenho, se necessário.";
+        break;
+      case "HDD":
+        recomendacao =
+          "Recomendação para o HDD: Monitore regularmente a saúde do disco rígido e faça backups de dados importantes.";
+        acao =
+          "Ação para o HDD: Considere substituir o disco rígido se estiver apresentando sinais de falha ou lentidão.";
+        break;
+      case "GPU":
+        recomendacao =
+          "Recomendação para a GPU: Verifique a temperatura e os drivers da GPU para garantir um desempenho ideal em jogos e aplicativos gráficos.";
+        acao =
+          "Ação para a GPU: Considere atualizar os drivers e limpar o cooler da GPU para evitar superaquecimento e artefatos visuais.";
+        break;
+      case "MemoriaRam":
+        recomendacao =
+          "Recomendação para a Memória RAM: Monitore o uso da RAM e feche aplicativos desnecessários para otimizar o desempenho do sistema.";
+        acao =
+          "Ação para a Memória RAM: Considere adicionar mais RAM ao sistema se estiver frequentemente atingindo sua capacidade máxima.";
+        break;
+      case "Bateria":
+        recomendacao =
+          "Recomendação para a Bateria: Calibre a bateria regularmente e evite descargas profundas para prolongar sua vida útil.";
+        acao =
+          "Ação para a Bateria: Substitua a bateria se estiver perdendo capacidade de retenção de carga ou não segurando a carga por muito tempo.";
+        break;
+      case "Volume":
+        recomendacao =
+          "Recomendação para o Volume: Verifique o espaço disponível no volume de armazenamento e faça limpezas regulares de arquivos desnecessários.";
+        acao =
+          "Ação para o Volume: Faça backups regulares dos dados importantes e considere a exclusão de arquivos desnecessários para liberar espaço em disco.";
+        break;
+      default:
+        recomendacao =
+          "Recomendação genérica: Verifique o estado e o desempenho do componente para garantir a operação adequada do sistema.";
+        acao =
+          "Ação genérica: Realize diagnósticos adicionais ou consulte um especialista se houver problemas persistentes.";
+    }
+
+    const estiloMensagem = `
+      font-size: 8px;
+      color: #555;
+    `;
+
+    let conteudoAdicional = `
+      <div style="margin-top: 20px;">
+        <h6 style="margin-bottom: 5px; font-size: 10px; color: #333;">Impacto do ${componente} no sistema:</h6>
+        <p style="${estiloMensagem}">${impacto}</p>
+      </div>
+      <div style="margin-top: 10px;">
+        <h6 style="margin-bottom: 5px; font-size: 10px; color: #333;">Importância do ${componente}:</h6>
+        <p style="${estiloMensagem}">${importancia}</p>
+      </div>
+      <div style="margin-top: 10px;">
+        <h6 style="margin-bottom: 5px; font-size: 10px; color: #333;">Custo médio em caso de perda do ${componente}:</h6>
+        <p style="${estiloMensagem}">${custo}</p>
+      </div>
+      <div style="margin-top: 10px;">
+        <h6 style="margin-bottom: 5px; font-size: 10px; color: #333;">Recomendação:</h6>
+        <p style="${estiloMensagem}">Siga as boas práticas de manutenção e cuidado para prolongar a vida útil do ${componente}.</p>
+      </div>
+      <div style="margin-top: 10px;">
+        <h6 style="margin-bottom: 5px; font-size: 10px; color: #333;">Ação recomendada:</h6>
+        <p style="${estiloMensagem}">Realize verificações regulares e mantenha o ${componente} limpo e livre de poeira.</p>
+      </div>
+    `;
 
     let pageHtml = `
     <div class="content-pdf ${componente}">
@@ -126,6 +291,9 @@ const gerarPaginas = () => {
         <div class="div-grafico">
           <canvas id="ctx_${componente}"></canvas>
         </div>
+        <div class="div-conteudo-adicional">
+          ${conteudoAdicional}
+        </div>
       </div>
     </div>`;
     paginas.push(pageHtml);
@@ -140,6 +308,8 @@ const gerarGraficos = () => {
   const componentes = Array.from(
     new Set(dadosCaptura.map((captura) => captura.componente))
   );
+
+  componentes.push("Janelas");
 
   componentes.forEach((componente) => {
     const limitarDados = (labels, dados, maxPoints) => {
@@ -162,13 +332,51 @@ const gerarGraficos = () => {
 
       return { limitedLabels, limitedData };
     };
+    (dado) => {
+      if (dado.componente === "") {
+        return (dado.componente = "GUI (Windows)");
+      }
+    };
+    const labels =
+      componente === "Janelas"
+        ? dadosCapturaApps
+            .filter(
+              (item, index, self) =>
+                index ===
+                self.findIndex(
+                  (t) =>
+                    t.componente !== "" &&
+                    t.componente === item.componente &&
+                    t.dadoCaptura !== 0
+                )
+            )
+            .map((dado) => {
+              if (dado.componente === "") {
+                return "GUI (Windows)";
+              }
+              return dado.componente;
+            })
+        : dadosCaptura
+            .filter((item) => item.componente === componente)
+            .map((item) => new Date(item.dataCaptura).toLocaleDateString());
 
-    const labels = dadosCaptura
-      .filter((item) => item.componente === componente)
-      .map((item) => new Date(item.dataCaptura).toLocaleDateString());
-    const dados = dadosCaptura
-      .filter((item) => item.componente === componente)
-      .map((item) => item.dadoCaptura);
+    const dados =
+      componente === "Janelas"
+        ? dadosCapturaApps
+            .filter(
+              (item, index, self) =>
+                index ===
+                self.findIndex(
+                  (t) =>
+                    t.componente !== "" &&
+                    t.componente === item.componente &&
+                    t.dadoCaptura !== 0
+                )
+            )
+            .map((item) => item.dadoCaptura)
+        : dadosCaptura
+            .filter((item) => item.componente === componente)
+            .map((item) => item.dadoCaptura);
 
     const ctx = document.getElementById(`ctx_${componente}`);
 
@@ -177,14 +385,24 @@ const gerarGraficos = () => {
     listDadosGrafico.push(dados);
 
     if (ctx) {
-      const maxPoints = 4;
+      const maxPoints = componente === "Janelas" ? 3 : 5;
       const { limitedLabels, limitedData } = limitarDados(
         labels,
         dados,
         maxPoints
       );
+
+      console.log(
+        "LABELS PARA GRÁFICO",
+        componente,
+        "\nDados: ",
+        limitedLabels
+      );
+
+      console.log("DADOS PARA GRÁFICO", componente, "\nDados: ", limitedData);
+
       new Chart(ctx, {
-        type: "line",
+        type: componente === "Janelas" ? "bar" : "line",
         data: {
           labels: limitedLabels,
           datasets: [
@@ -378,6 +596,7 @@ async function baixarPDF() {
   pdfHtml.querySelector(".footer-text").style.fontSize = "22px";
   pdfHtml.querySelector(".footer-img").style.height = "50pt";
   pdfHtml.querySelector(".footer-img").style.width = "50pt";
+  pdfHtml.querySelector(".div-conteudo-adicional").style.fontSize = "80px";
 
   contentElements.forEach((element) => {
     element.style.width = "595.28pt";
@@ -406,7 +625,7 @@ btnExpand.addEventListener("click", () => {
   aumentarVisualizacao();
 });
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const infoCapturas = JSON.parse(sessionStorage.getItem("relatorioDados"));
 
   let fim = 0;
@@ -414,6 +633,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (infoCapturas) {
     dadosCaptura = infoCapturas.dados;
+    dadosCapturaApps = infoCapturas.dadosApp;
     loadingUtils.showLoadingPopup();
 
     gerarPaginas();
@@ -481,9 +701,13 @@ document.addEventListener("DOMContentLoaded", () => {
     Tabelas de registros do componentes (${inicio} | ${fim});
   `;
 
-  const tabs = Array.from(
+  let tabs = Array.from(
     new Set(infoCapturas.dados.map((item) => item.componente))
   );
+
+  tabs.push("Janelas");
+
+  let htmlInfoQtdReport = "";
 
   tabs.forEach((componente, index) => {
     document.getElementById("tabs_componente").innerHTML += `
@@ -507,15 +731,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("div_tab_tables").appendChild(containerTable);
 
-    const dadosTab = dadosCaptura.filter((dado) => {
-      return dado.componente === tabs[index];
-    });
+    let dadosTab = [];
+
+    if (componente === "Janelas") {
+      dadosTab = dadosCapturaApps;
+      dadosTab.map((dado) => {
+        if (dado.componente === "") {
+          return (dado.componente = "GUI (Windows)");
+        }
+      });
+    } else {
+      dadosTab = dadosCaptura
+        .filter((dado) => {
+          return dado.componente === tabs[index];
+        })
+        .map((dado) => {
+          dado.dadoCaptura = parseFloat(dado.dadoCaptura).toFixed(2);
+          dado.dataCaptura =
+            new Date(dado.dataCaptura).getFullYear() +
+            "/" +
+            (new Date(dado.dataCaptura).getMonth() + 1) +
+            "/" +
+            new Date(dado.dataCaptura).getDate();
+          return dado;
+        });
+    }
+
+    htmlInfoQtdReport += `
+      <h6>${componente}: ${dadosTab.length} capturas</h6>
+    `;
 
     let table = new Tabulator(document.getElementById(`tabela_${componente}`), {
       layout: "fitColumns",
       pagination: "local",
-      paginationSize: dadosTab.length,
-      paginationSizeSelector: [3, 6, 8, 10],
+      paginationSize: 10,
+      paginationSizeSelector: [3, 6, 8, 10, dadosTab.length],
       movableColumns: true,
       printAsHtml: true,
       printHeader: `<h1>Informações sobre as capturas do(a) ${componente}<h1>`,
@@ -524,9 +774,15 @@ document.addEventListener("DOMContentLoaded", () => {
       paginationCounter: "rows",
       data: dadosTab,
       columns: [
-        { title: "Componente", field: "componente", width: 150 },
         {
-          title: "Captura",
+          title: componente === "Janelas" ? "Janela" : "Componente",
+          field: "componente",
+          width: 150,
+        },
+        {
+          title: `Captura (${
+            componente !== "Janelas" ? dadosTab[0].unidadeMedida : "MB"
+          })`,
           field: "dadoCaptura",
           hozAlign: "left",
         },
@@ -536,6 +792,12 @@ document.addEventListener("DOMContentLoaded", () => {
           sorter: "date",
           hozAlign: "center",
         },
+        ...(componente === "Janelas"
+          ? [
+              { title: "PID", field: "pid", hozAlign: "left" },
+              { title: "Localização", field: "localidade", hozAlign: "left" },
+            ]
+          : []),
       ],
     });
 
@@ -581,7 +843,58 @@ document.addEventListener("DOMContentLoaded", () => {
         "flex";
     });
   });
+
+  const userInfos = await infoMaquinaUsuario(infoCapturas.idMaquina);
+  let imgRespRelatorio = document.getElementById("img_user_report");
+
+  await coletaImgUserLogado(imgRespRelatorio, userInfos[0].imagemPerfil);
+
+  document.getElementById("user_info_report").innerHTML = `
+    <h4><u>Informações do usuário</u></h4>
+    <h6>Nome: ${userInfos[0].nome}</h6>
+    <h6>E-mail: ${userInfos[0].email}</h6>
+    <h6>Cargo: ${userInfos[0].cargo}</h6>
+  `;
+  document.getElementById("machine_info_report").innerHTML = `
+    <h4><u>Informações da máquina</u></h4>
+    <h6>N°: ${userInfos[0].numeroIdentificacao}</h6>
+    <h6>Modelo: ${userInfos[0].modelo}</h6>
+    <h6>Marca: ${userInfos[0].marca}</h6>
+  `;
+  document.getElementById("ipv4_info_report").innerHTML = `
+    <h4><u>Informações de IP da máquina</u></h4>
+    <h6>N° IP (1): ${userInfos[0].numeroIP.split(",")[0]}</h6>
+    <h6>Nome Local (1): ${userInfos[0].nomeLocal.split(",")[0]}</h6>
+    <h6>N° IP (2): ${userInfos[0].numeroIP.split(",")[1]}</h6>
+    <h6>Nome Local (2): ${userInfos[0].nomeLocal.split(",")[1]}</h6>
+  `;
+  document.getElementById(
+    "qtd_info_report"
+  ).innerHTML += `<h4><u>Quantidade de capturas</u></h4>${htmlInfoQtdReport}`;
 });
+
+const coletaImgUserLogado = async (elemento, caminhoImg) => {
+  try {
+    const response = await fetch("/firebase/imagem", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ caminho: caminhoImg }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Erro ao buscar a imagem.");
+    }
+
+    const blob = await response.blob();
+    const imagemURL = URL.createObjectURL(blob);
+
+    elemento.src = imagemURL;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 tabRelatorio.addEventListener("click", () => {
   if ((tabRelatorio.value = "disable")) {
@@ -664,6 +977,24 @@ const btnRight = document
       alterarPagina();
     }
   });
+
+const infoMaquinaUsuario = async (idMaquina) => {
+  try {
+    const response = await fetch(`/relatorio/usuarioMaquina/${idMaquina}`, {
+      method: "GET",
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error("Erro ao buscar informações do usuário máquina: " + err);
+    return null;
+  }
+};
 
 // window.addEventListener("beforeunload", () => {
 //   sessionStorage.removeItem("relatorioDados");

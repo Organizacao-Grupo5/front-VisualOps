@@ -60,7 +60,19 @@ const abrirRelatorio = (req, res) => {
     });
 }
 
+const buscaUsuarioMaquina = async (req, res) => {
+    const idMaquina = req.params.idMaquina;
+    await relatorioModel.selecionaUsuarioMaquina(idMaquina)
+    .then(resp => {
+       res.json(resp)
+    })
+    .catch(error => {
+        res.status(500).json({ error: 'Erro ao coletar informações do usuário da máquina', details: error });
+    })
+}
+
 module.exports = {
     buscarComponentesElegiveis,
-    abrirRelatorio
+    abrirRelatorio,
+    buscaUsuarioMaquina,
 };

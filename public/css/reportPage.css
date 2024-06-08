@@ -199,6 +199,9 @@
     gap: 5%;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
+.info-user-resp h6{
+    line-height: 8px;
+}
 .div-tab-table{
     width: 100%;
     height: auto;
@@ -300,6 +303,11 @@
     background-color: #24213a;
     color: #fff;
     
+}
+.tabulator-row .tabulator-cell {
+    background-color: #24213a;
+    color: #fff;
+    border: 1px solid #2e2b46;
 }
 .div-grafico{
     display: flex;

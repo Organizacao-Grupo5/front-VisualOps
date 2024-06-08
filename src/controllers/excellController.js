@@ -22,6 +22,8 @@ const gerarRelatorioExcell = async (req, res) => {
       return `${ano}/${mes}/${dia} | ${horas}:${minutos}`;
     };
 
+    console.log("DADOS PARA EXCEL: ", dados)
+
     workbook.sheets().forEach(planilha => {
       if(planilha.name().toLowerCase() !== "storage"){
         planilha.cell('C7').value(`   RELATÓRIO GERAL DOS COMPONENTES DA SUA MÁQUINA - ${(dados[0].nomeUsuario).toUpperCase()} - ${formatarData(new Date())} - Empresa ${(dados[0].nomeEmpresa).toUpperCase()} |`);

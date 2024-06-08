@@ -245,20 +245,42 @@ function buscarQtdRelatorios(idUsuario, preferencias, tipo, idEmpresa) {
 function infoCapturasData(infos, idUser) {
   console.log(infos);
 
-  const queryBase = `
+  const queryBaseCaptura = `
     SELECT 
+        'captura' AS tipo,
         componente.componente,
-        captura.dadoCaptura, 
+        captura.dadoCaptura,
         captura.dataCaptura,
         captura.unidadeMedida,
-        componente.fkMaquina
+        componente.fkMaquina,
+        NULL AS nomeApp,
+        NULL AS pid,
+        NULL AS localidade
     FROM 
         captura 
     JOIN 
         componente ON componente.idComponente = captura.fkComponente 
     WHERE`;
 
-  let query = "";
+  const queryBaseApp = `
+    SELECT 
+        'app' AS tipo,
+        apps.nomeApp AS componente,
+        apps.ramConsumida AS dadoCaptura,
+        appAcessado.hora AS dataCaptura,
+        'MB' AS unidadeMedida,
+        appAcessado.fkMaquina,
+        apps.nomeApp,
+        apps.pid,
+        apps.localidade
+    FROM 
+        appAcessado
+    JOIN 
+        apps ON appAcessado.fkApp = apps.idApp
+    WHERE`;
+
+  let queryCaptura = "";
+  let queryApp = "";
   const date = new Date(infos.data);
   const day = date.getUTCDate().toString().padStart(2, "0");
   const year = date.getUTCFullYear();
@@ -266,30 +288,43 @@ function infoCapturasData(infos, idUser) {
 
   switch (infos.tipo_relatorio) {
     case "diários":
-      query = `${queryBase} DATE(captura.dataCaptura) = '${year}-${month}-${day}'`;
+      queryCaptura = `${queryBaseCaptura} DATE(captura.dataCaptura) = '${year}-${month}-${day}'`;
+      queryApp = `${queryBaseApp} DATE(appAcessado.hora) = '${year}-${month}-${day}'`;
       break;
     case "semanal":
-      query = `${queryBase} YEAR(captura.dataCaptura) = YEAR('${year}-${month}-${day}') 
+      queryCaptura = `${queryBaseCaptura} YEAR(captura.dataCaptura) = YEAR('${year}-${month}-${day}') 
                       AND WEEK(captura.dataCaptura, 0) = WEEK('${year}-${month}-${day}', 0)`;
+      queryApp = `${queryBaseApp} YEAR(appAcessado.hora) = YEAR('${year}-${month}-${day}') 
+                  AND WEEK(appAcessado.hora, 0) = WEEK('${year}-${month}-${day}', 0)`;
       break;
     case "mensal":
-      query = `${queryBase} DATE_FORMAT(captura.dataCaptura, '%Y-%m') = '${year}-${month}'`;
+      queryCaptura = `${queryBaseCaptura} DATE_FORMAT(captura.dataCaptura, '%Y-%m') = '${year}-${month}'`;
+      queryApp = `${queryBaseApp} DATE_FORMAT(appAcessado.hora, '%Y-%m') = '${year}-${month}'`;
       break;
     default:
       console.error("Tipo de intervalo inválido");
       return;
   }
 
-  query += ` AND componente.fkMaquina = ${infos.idMaquina}`;
+  queryCaptura += ` AND componente.fkMaquina = ${infos.idMaquina}`;
+  queryApp += ` AND appAcessado.fkMaquina = ${infos.idMaquina}`;
 
-  query += " ORDER BY componente.componente, captura.dataCaptura;";
+  const queryFinal = `
+    (${queryCaptura})
+    UNION ALL
+    (${queryApp})
+    ORDER BY dataCaptura;
+  `;
 
-  console.log(query);
+  console.log(queryFinal);
 
-  return database.executar(query);
+  return database.executar(queryFinal);
 }
 
 function gerarDadosParaExcel(dados, idMaquina) {
+  const dataInicio = new Date(dados.dataInicio).toISOString().substring(0, 10);
+  const dataFim = new Date(dados.dataFim).toISOString().substring(0, 10);
+
   console.log(dados);
 
   const query = `
@@ -312,10 +347,10 @@ function gerarDadosParaExcel(dados, idMaquina) {
     JOIN 
         empresa ON usuario.fkEmpresa = empresa.idEmpresa
     WHERE 
-        dataCaptura >= "${dados.dataInicio}" 
-        AND dataCaptura <= "${dados.dataFim}" 
+        DATE(dataCaptura) >= "${dataInicio}" 
+        AND DATE(dataCaptura) <= "${dataFim}" 
         AND maquina.idMaquina = ${idMaquina};
-    `;
+  `;
   console.log(query);
   return database.executar(query);
 }

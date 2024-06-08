@@ -61,7 +61,12 @@ const abrirRelatorio = (data, tipo, idMaquina) => {
   })
   .then((dados) => {
     let dadosMod = {
-      dados,
+      dados: dados.filter(dado => {
+        return dado.tipo === "captura";
+      }) ,
+      dadosApp: dados.filter(dado => {
+        return dado.tipo === "app";
+      }),
       tipo: tipo,
       idMaquina: idMaquina
     };

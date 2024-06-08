@@ -1,6 +1,7 @@
 import loadingUtils from "./Utils/loading.js";
 
 let dadosCaptura = [];
+let dadosCapturaApps = [];
 let idxAtual = 0;
 
 let capaRelatorio = `
@@ -58,27 +59,50 @@ const gerarPaginas = () => {
     new Set(dadosCaptura.map((item) => item.componente))
   );
 
+  componentes.push("Janelas");
+
   componentes.forEach((componente) => {
-    const datas = Array.from({ length: dadosCaptura.length }, (_, i) => {
-      if (dadosCaptura[i].componente == componente) {
-        return new Date(dadosCaptura[i].dataCaptura);
+    const datas = Array.from(
+      {
+        length:
+          componente === "Janelas"
+            ? dadosCapturaApps.length
+            : dadosCaptura.length,
+      },
+      (_, i) => {
+        if (componente === "Janelas") {
+          return new Date(dadosCapturaApps[i].dataCaptura);
+        } else {
+          if (dadosCaptura[i].componente == componente) {
+            return new Date(dadosCaptura[i].dataCaptura);
+          }
+        }
       }
-    }).filter((date) => !isNaN(date));
+    ).filter((date) => !isNaN(date));
 
-    const todasCapturas = dadosCaptura
-      .filter((item) => item.componente == componente)
-      .map((item) => ({
-        dataCaptura: item.dataCaptura,
-        dadoCaptura: item.dadoCaptura,
-        unidadeMedida: item.unidadeMedida,
-      }));
+    const todasCapturas =
+      componente !== "Janelas"
+        ? dadosCaptura
+            .filter((item) => item.componente == componente)
+            .map((item) => ({
+              dataCaptura: item.dataCaptura,
+              dadoCaptura: item.dadoCaptura,
+              unidadeMedida: item.unidadeMedida,
+            }))
+        : dadosCapturaApps.map((item) => ({
+            titulo: item.componente,
+            dataCaptura: item.dataCaptura,
+            dadoCaptura: item.dadoCaptura,
+            unidadeMedida: item.unidadeMedida,
+            localidade: item.localidade,
+          }));
 
-    console.log(todasCapturas);
+    console.log("Capturas do ", componente, "\nDADOS: ", todasCapturas);
 
     const dataInicio = new Date(
       datas.reduce((a, b) => {
         return a < b ? a : b;
-      })
+      }, Infinity)
     );
 
     const dataFim = new Date(
@@ -89,14 +113,14 @@ const gerarPaginas = () => {
 
     const top5Capturas = todasCapturas
       .sort((a, b) => {
-        b.dadoCaptura - a.dadoCaptura;
+        return b.dadoCaptura - a.dadoCaptura;
       })
       .slice(0, 5);
 
     const table = top5Capturas
       .map((cap, index) => {
         return `<tr>
-                <td>${componente}</td>
+                <td>${componente !== "Janelas" ? componente : cap.titulo}</td>
                 <td>${parseFloat(cap.dadoCaptura).toFixed(2)}${
           todasCapturas[0].unidadeMedida
         }</td>
@@ -146,6 +170,8 @@ const gerarGraficos = () => {
     new Set(dadosCaptura.map((captura) => captura.componente))
   );
 
+  componentes.push("Janelas");
+
   componentes.forEach((componente) => {
     const limitarDados = (labels, dados, maxPoints) => {
       if (labels.length <= maxPoints) {
@@ -167,13 +193,51 @@ const gerarGraficos = () => {
 
       return { limitedLabels, limitedData };
     };
+    (dado) => {
+      if (dado.componente === "") {
+        return (dado.componente = "GUI (Windows)");
+      }
+    };
+    const labels =
+      componente === "Janelas"
+        ? dadosCapturaApps
+            .filter(
+              (item, index, self) =>
+                index ===
+                self.findIndex(
+                  (t) =>
+                    t.componente !== "" &&
+                    t.componente === item.componente &&
+                    t.dadoCaptura !== 0
+                )
+            )
+            .map((dado) => {
+              if (dado.componente === "") {
+                return "GUI (Windows)";
+              }
+              return dado.componente;
+            })
+        : dadosCaptura
+            .filter((item) => item.componente === componente)
+            .map((item) => new Date(item.dataCaptura).toLocaleDateString());
 
-    const labels = dadosCaptura
-      .filter((item) => item.componente === componente)
-      .map((item) => new Date(item.dataCaptura).toLocaleDateString());
-    const dados = dadosCaptura
-      .filter((item) => item.componente === componente)
-      .map((item) => item.dadoCaptura);
+    const dados =
+      componente === "Janelas"
+        ? dadosCapturaApps
+            .filter(
+              (item, index, self) =>
+                index ===
+                self.findIndex(
+                  (t) =>
+                    t.componente !== "" &&
+                    t.componente === item.componente &&
+                    t.dadoCaptura !== 0
+                )
+            )
+            .map((item) => item.dadoCaptura)
+        : dadosCaptura
+            .filter((item) => item.componente === componente)
+            .map((item) => item.dadoCaptura);
 
     const ctx = document.getElementById(`ctx_${componente}`);
 
@@ -182,14 +246,24 @@ const gerarGraficos = () => {
     listDadosGrafico.push(dados);
 
     if (ctx) {
-      const maxPoints = 4;
+      const maxPoints = componente === "Janelas" ? 3 : 5;
       const { limitedLabels, limitedData } = limitarDados(
         labels,
         dados,
         maxPoints
       );
+
+      console.log(
+        "LABELS PARA GRÁFICO",
+        componente,
+        "\nDados: ",
+        limitedLabels
+      );
+
+      console.log("DADOS PARA GRÁFICO", componente, "\nDados: ", limitedData);
+
       new Chart(ctx, {
-        type: "line",
+        type: componente === "Janelas" ? "bar" : "line",
         data: {
           labels: limitedLabels,
           datasets: [
@@ -419,6 +493,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (infoCapturas) {
     dadosCaptura = infoCapturas.dados;
+    dadosCapturaApps = infoCapturas.dadosApp;
     loadingUtils.showLoadingPopup();
 
     gerarPaginas();
@@ -486,9 +561,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     Tabelas de registros do componentes (${inicio} | ${fim});
   `;
 
-  const tabs = Array.from(
+  let tabs = Array.from(
     new Set(infoCapturas.dados.map((item) => item.componente))
   );
+
+  tabs.push("Janelas");
 
   let htmlInfoQtdReport = "";
 
@@ -514,15 +591,31 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     document.getElementById("div_tab_tables").appendChild(containerTable);
 
-    let dadosTab = dadosCaptura
-      .filter((dado) => {
-        return dado.componente === tabs[index];
-      })
-      .map((dado) => {
-        dado.dadoCaptura = parseFloat(dado.dadoCaptura).toFixed(2);
-        dado.dataCaptura = new Date(dado.dataCaptura).getFullYear() + "/" + (new Date(dado.dataCaptura).getMonth() + 1) + "/" + new Date(dado.dataCaptura).getDate();
-        return dado;
+    let dadosTab = [];
+
+    if (componente === "Janelas") {
+      dadosTab = dadosCapturaApps;
+      dadosTab.map((dado) => {
+        if (dado.componente === "") {
+          return (dado.componente = "GUI (Windows)");
+        }
       });
+    } else {
+      dadosTab = dadosCaptura
+        .filter((dado) => {
+          return dado.componente === tabs[index];
+        })
+        .map((dado) => {
+          dado.dadoCaptura = parseFloat(dado.dadoCaptura).toFixed(2);
+          dado.dataCaptura =
+            new Date(dado.dataCaptura).getFullYear() +
+            "/" +
+            (new Date(dado.dataCaptura).getMonth() + 1) +
+            "/" +
+            new Date(dado.dataCaptura).getDate();
+          return dado;
+        });
+    }
 
     htmlInfoQtdReport += `
       <h6>${componente}: ${dadosTab.length} capturas</h6>
@@ -541,9 +634,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       paginationCounter: "rows",
       data: dadosTab,
       columns: [
-        { title: "Componente", field: "componente", width: 150 },
         {
-          title: `Captura (${dadosTab[0].unidadeMedida})`,
+          title: componente === "Janelas" ? "Janela" : "Componente",
+          field: "componente",
+          width: 150,
+        },
+        {
+          title: `Captura (${
+            componente !== "Janelas" ? dadosTab[0].unidadeMedida : "MB"
+          })`,
           field: "dadoCaptura",
           hozAlign: "left",
         },
@@ -553,6 +652,12 @@ document.addEventListener("DOMContentLoaded", async () => {
           sorter: "date",
           hozAlign: "center",
         },
+        ...(componente === "Janelas"
+          ? [
+              { title: "PID", field: "pid", hozAlign: "left" },
+              { title: "Localização", field: "localidade", hozAlign: "left" },
+            ]
+          : []),
       ],
     });
 
@@ -604,27 +709,28 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   await coletaImgUserLogado(imgRespRelatorio, userInfos[0].imagemPerfil);
 
-  document.getElementById('user_info_report').innerHTML = `
+  document.getElementById("user_info_report").innerHTML = `
     <h4><u>Informações do usuário</u></h4>
     <h6>Nome: ${userInfos[0].nome}</h6>
     <h6>E-mail: ${userInfos[0].email}</h6>
     <h6>Cargo: ${userInfos[0].cargo}</h6>
   `;
-  document.getElementById('machine_info_report').innerHTML = `
+  document.getElementById("machine_info_report").innerHTML = `
     <h4><u>Informações da máquina</u></h4>
     <h6>N°: ${userInfos[0].numeroIdentificacao}</h6>
     <h6>Modelo: ${userInfos[0].modelo}</h6>
     <h6>Marca: ${userInfos[0].marca}</h6>
-    <h6>Hostname: ${userInfos[0].hostname}</h6>
   `;
-  document.getElementById('ipv4_info_report').innerHTML = `
+  document.getElementById("ipv4_info_report").innerHTML = `
     <h4><u>Informações de IP da máquina</u></h4>
     <h6>N° IP (1): ${userInfos[0].numeroIP.split(",")[0]}</h6>
     <h6>Nome Local (1): ${userInfos[0].nomeLocal.split(",")[0]}</h6>
     <h6>N° IP (2): ${userInfos[0].numeroIP.split(",")[1]}</h6>
     <h6>Nome Local (2): ${userInfos[0].nomeLocal.split(",")[1]}</h6>
   `;
-  document.getElementById("qtd_info_report").innerHTML += `<h4><u>Quantidade de capturas</u></h4>${htmlInfoQtdReport}`;
+  document.getElementById(
+    "qtd_info_report"
+  ).innerHTML += `<h4><u>Quantidade de capturas</u></h4>${htmlInfoQtdReport}`;
 });
 
 const coletaImgUserLogado = async (elemento, caminhoImg) => {

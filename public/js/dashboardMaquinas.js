@@ -19,6 +19,7 @@ let marca = document.getElementById("marca");
 let numeroPatrimonio = document.getElementById("numero_patrimonio");
 let modelo = document.getElementById("modelo");
 let responsavel = document.getElementById("responsavel");
+
 async function fetchMaquinas() {
   try {
     const response = await fetch(
@@ -113,6 +114,7 @@ inputResponsavel.addEventListener("input", async () => {
   } catch (erro) {
     console.error(erro);
   }
+  inputResponsavel.value = "";
 });
 
 const salvar = async (situacao, senha) => {
@@ -169,6 +171,9 @@ const salvar = async (situacao, senha) => {
         closeModalConfirma();
       })
       .catch((error) => {
+        document.getElementById("password_confirm").value = "";
+        document.getElementById("password_confirm").style.border = "2px solid red"
+        document.getElementById("password_confirm").placeholder = "Senha incorreta"
         throw new Error("Erro ao realizar o cadastro:", error);
       });
   } else if (situacao.toLowerCase() == "edição") {
@@ -193,6 +198,9 @@ const salvar = async (situacao, senha) => {
         closeModalConfirma();
       })
       .catch((error) => {
+        document.getElementById("password_confirm").value = "";
+        document.getElementById("password_confirm").style.border = "2px solid red"
+        document.getElementById("password_confirm").placeholder = "Senha incorreta"
         throw new Error("Erro ao realizar a edição:", error);
       });
   }

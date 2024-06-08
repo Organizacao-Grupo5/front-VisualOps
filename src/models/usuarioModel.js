@@ -14,7 +14,15 @@ function autenticar(email, senha) {
     return database.executar(instrucao);
 }
 
+function listar (idUsuario) {
+    const query = `SELECT * FROM usuario WHERE idUsuario = ${idUsuario}`;
+
+    console.log("Executando a instrução SQL: \n" + query);
+    return database.executar(query);
+}
+
 module.exports = {
     cadastrar,
-    autenticar
+    autenticar,
+    listar
 };

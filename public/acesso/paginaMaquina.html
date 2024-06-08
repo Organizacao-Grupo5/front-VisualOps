@@ -30,71 +30,75 @@
             <p class="pop" id="pop"></p>
         </div>
        
-        <div id="sidebar" class="sidebar">
-            <div id="top_sidebar" class="top-sidebar">
-                <img id="logo_sidebar" src="../assets/img/logofundo.png" alt="">
-                <div id="titulo_dash" class="title-dash">
-                    <i id="chart_logo" class="fa-solid fa-chart-area"></i>
-                    <div class="title">
-                        <h1 id="title_sidebar">DASHBOARD</h1>
-                        <h6>VISUALOPS</h6>
+        <body>
+            <section>
+               
+                <div id="sidebar" class="sidebar">
+                    <div id="top_sidebar" class="top-sidebar">
+                        <img id="logo_sidebar" src="../assets/img/logofundo.png" alt="">
+                        <div id="titulo_dash" class="title-dash">
+                            <i id="chart_logo" class="fa-solid fa-chart-area"></i>
+                            <div class="title">
+                                <h1 id="title_sidebar">DASHBOARD</h1>
+                                <h6>VISUALOPS</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="minimizar" class="minimizar" onclick="cliqueiMinimizarSidebar()">
+                        <div class="line"></div>
+                        <i class="fa-solid fa-angles-left"></i>
+                        <h6>MINIMIZAR</h6>
+                    </div>
+                    <div id="menu" class="menu">
+                        <h1 id="menu_title">MENU</h1>
+                        <div class="chose-section">
+                            <i class="fa-solid fa-chart-column" style="font-size: 15px;" onclick="windowDashboardOwner()"></i>
+                            <button class="btn-section" onclick="windowDashboardOwner()">DASHBOARD GERAL</button>
+                        </div>
+                        <div class="chose-section">
+                            <i class="fa-solid fa-bars-progress" style="font-size: 15px;"
+                                onclick="windowDashboardGerente()"></i>
+                            <button class="btn-section" onclick="windowDashboardGerente()">DASHBOARD<br>EQUIPE</button>
+                        </div>
+                        <div class="chose-section">
+                            <i class="fa fa-line-chart" aria-hidden="true" onclick="windowDashboardPessoal()"></i>
+                            <button class="btn-section" onclick="windowDashboardPessoal()">DASHBOARD PESSOAL</button>
+                        </div>
+        
+        
+                        <div class="chose-section">
+                            <i class="fa-regular fa-file-lines" style="font-size: 18px;" onclick="windowRelatorio()"></i>
+                            <button class="btn-section" onclick="windowRelatorio()">RELATÓRIOS</button>
+                        </div>
+                        <div class="chose-section">
+                            <i class="fa-solid fa-computer" style="font-size: 18px;" onclick="windowRelatorio()"></i>
+                            <button class="btn-section" onclick="windowMaquina()">MÁQUINAS</button>
+                        </div>
+                    </div>
+                    <div class="end-sidebar">
+                        <h6 id="suporte_text">SUPORTE / CONFIGURAÇÃO</h6>
+                        <div class="chose-section">
+                            <i class="fa fa-plus" aria-hidden="true" onclick="windowCadastroUser()"></i>
+                            <button class="btn-section" onclick="windowCadastroUser()">GESTÃO</button>
+                        </div>
+                        <div class="chose-section">
+                            <i class="fa-regular fa-user" onclick="windowPerfil()"></i>
+                            <button class="btn-section" onclick="windowPerfil()">EDITAR PERFIL</button>
+                        </div>
+                        <div class="chose-section">
+                            <i class="fa-solid fa-file-signature" style="font-size: 13px;"></i>
+                            <button class="btn-section" onclick="windowPlanos()">ASSINATURA</button>
+                        </div>
+                        <div class="chose-section">
+                            <i class="fa-solid fa-bullhorn"></i>
+                            <button class="btn-section">SUPORTE</button>
+                        </div>
+                        <div class="chose-section">
+                            <i class="fa-solid fa-arrow-right-from-bracket" onclick="windowSair()"></i>
+                            <button class="btn-section" onclick="windowSair()">SAIR</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div id="minimizar" class="minimizar" onclick="cliqueiMinimizarSidebar()">
-                <div class="line"></div>
-                <i class="fa-solid fa-angles-left"></i>
-                <h6>MINIMIZAR</h6>
-            </div>
-            <div id="menu" class="menu">
-                <h1 id="menu_title">MENU</h1>
-                <div class="chose-section">
-                    <i class="fa-solid fa-chart-column" style="font-size: 15px;" onclick="windowDashboardOwner()"></i>
-                    <button class="btn-section" onclick="windowDashboardOwner()">DASHBOARD GERAL</button>
-                </div>
-                <div class="chose-section">
-                    <i class="fa-solid fa-bars-progress" style="font-size: 15px;" onclick="windowDashboardGerente()"></i>
-                    <button class="btn-section" onclick="windowDashboardGerente()">DASHBOARD<br>EQUIPE</button>
-                </div>
-                <div class="chose-section">
-                    <i class="fa fa-line-chart" aria-hidden="true" onclick="windowDashboardPessoal()"></i>
-                    <button class="btn-section" onclick="windowDashboardPessoal()">DASHBOARD PESSOAL</button>
-                </div>
-                
-               
-                <div class="chose-section">
-                    <i class="fa-regular fa-file-lines" style="font-size: 18px;" onclick="windowRelatorio()"></i>
-                    <button class="btn-section" onclick="windowRelatorio()">RELATÓRIOS</button>
-                </div>
-                <div class="chose-section">
-                    <i class="fa-solid fa-computer" style="font-size: 18px;" onclick="windowRelatorio()"></i>
-                    <button class="btn-section" onclick="windowMaquina()">MÁQUINAS</button>
-                </div>
-            </div>
-            <div class="end-sidebar">
-                <h6 id="suporte_text">SUPORTE / CONFIGURAÇÃO</h6>
-                <div class="chose-section">
-                    <i class="fa fa-plus" aria-hidden="true" onclick="windowCadastroUser()"></i>
-                    <button class="btn-section" onclick="windowCadastroUser()">GESTÃO</button>
-                </div>
-                <div class="chose-section">
-                    <i class="fa-regular fa-user" onclick="windowPerfil()"></i>
-                    <button class="btn-section" onclick="windowPerfil()">EDITAR PERFIL</button>
-                </div>
-                <div class="chose-section">
-                    <i class="fa-solid fa-file-signature" style="font-size: 13px;"></i>
-                    <button class="btn-section" onclick="windowPlanos()">ASSINATURA</button>
-                </div>
-                <div class="chose-section">
-                    <i class="fa-solid fa-bullhorn"></i>
-                    <button class="btn-section">SUPORTE</button>
-                </div>
-                <div class="chose-section">
-                    <i class="fa-solid fa-arrow-right-from-bracket" onclick="windowSair()"></i>
-                    <button class="btn-section" onclick="windowSair()">SAIR</button>
-                </div>
-            </div>
-        </div>
 
 
         <button id="maximizar" class="maximizar" onclick="cliqueiMaximizarSidebar()"><i class="fa-solid fa-angles-right"></i></button>
@@ -117,7 +121,7 @@
         
                 <div class="name-content">
         
-                    <div> <b>DASHBOARD - VISÃO GERAL DAS MÁQUINAS</div></b>
+                    <div>Dashboard</div>
         
                 </div>
         
@@ -143,7 +147,7 @@
         
                             <div class="graficos2_1-content">
         
-                                <h3>Principais Hardwares Prejudicados por Dia</h3>
+                                <h3>Hardwares Prejudicados por Dia</h3>
         
                                 <div class="container_chart2">
         
@@ -155,48 +159,54 @@
         
                             <div class="graficos2_2-content">
         
-                                <h3>Quantidade componentes por Desempenho</h3>
+                                <h3>Quantidade componentes por</h3>
+        
+                                <div class="campo_componetes">
+                                    <i onclick="moverLeft()" class="fa-solid fa-angle-left"></i>
+                                    <h3>Desempenho</h3>
+                                    <i onclick="moverRight()" class="fa-solid fa-angle-right"></i>
+                                </div>
                                 <div class="info_componentes">    
                                     <ul class="lista_comparacao">
                                         <li>
                                             <div class="componente">CPU -</div>
                                             <div class="colunas_status">
-                                                <div class="col_bom" id="cpu_bom"></div>
-                                                <div class="col_medio" id="cpu_medio"></div>
-                                                <div class="col_ruim" id="cpu_ruim"></div>
+                                                <div class="col_ruim">10</div>
+                                                <div class="col_medio">7</div>
+                                                <div class="col_bom">23</div>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="componente">GPU -</div>
                                             <div class="colunas_status">
-                                                <div class="col_bom" id="gpu_bom"></div>
-                                                <div class="col_medio" id="gpu_medio"></div>
-                                                <div class="col_ruim" id="gpu_ruim"></div>
+                                                <div class="col_ruim">17</div>
+                                                <div class="col_medio">10</div>
+                                                <div class="col_bom">3</div>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="componente">RAM -</div>
                                             <div class="colunas_status">
-                                                <div class="col_bom" id="ram_bom"></div>
-                                                <div class="col_medio" id="ram_medio"></div>
-                                                <div class="col_ruim" id="ram_ruim"></div>
+                                                <div class="col_ruim"></div>
+                                                <div class="col_medio"></div>
+                                                <div class="col_bom"></div>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="componente">HDD -</div>
                                             <div class="colunas_status">
-                                                <div class="col_bom" id="hdd_bom"></div>
-                                                <div class="col_medio" id="hdd_medio"></div>
-                                                <div class="col_ruim" id="hdd_ruim"></div>
+                                                <div class="col_ruim"></div>
+                                                <div class="col_medio"></div>
+                                                <div class="col_bom"></div>
                                             </div>
                                         </li>
                                     </ul>
                                     <div class="titulos_status">
                                         <img src="../assets/img/logofundo-azul.png" alt="">
                                         <div class="status">
-                                            <p><span class="status_normal"></span>BOM</p>
-                                            <p><span class="status_medio"></span>MÉDIO</p>
                                             <p><span class="status_quente"></span>RUIM</p>
+                                            <p><span class="status_medio"></span>MÉDIO</p>
+                                            <p><span class="status_normal"></span>BOM</p>
                                         </div>
                                     </div>
                                 </div>
@@ -205,20 +215,19 @@
                         <div class="graficos3-content">
                             <div class="header_graficos3">
                                 <i onclick="moverLeft()" class="fa-solid fa-angle-left"></i>
-                                <h2 id="comp_graf3"></h2>
+                                <h2>CPU</h2>
                                 <i onclick="moverRight()" class="fa-solid fa-angle-right"></i>
                             </div>
                             <div class="container_graficos3">
                                 <div class="chart-horizontal">
                                     <canvas id="chart_horizontal"></canvas>
                                 </div>
-                                <span>Índices diários</span>
-                                <!-- <div class="container_kpi3">
+                                <div class="container_kpi3">
                                     <span>Equipe de <span id="funcionario">Banner</span></span>
                                     <p>Atual - <span class="relatorio"></span></p>
                                     <p>Últimos 7 Dias - <span class="relatorio"></span></p>
                                     <p>Últimos 30 Dias - <span class="relatorio"></span></p>
-                                </div> -->
+                                </div>
                             </div>
                         </div>
                     </div>

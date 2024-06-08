@@ -15,6 +15,10 @@ router.post("/autenticar", function (req, res) {
   usuarioController.autenticar(req, res);
 });
 
+router.get("/listar/:id", function (req, res) {
+    usuarioController.listar(req, res);
+});
+
 router.get("/infoUsuario/:idUsuario", (req, res) => {
   return perfilController.buscarInfosUsuario(req, res);
 });

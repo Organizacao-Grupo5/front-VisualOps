@@ -1,6 +1,7 @@
+const fs = require("fs");
 const path = require("path");
-const XlsxPopulate = require("xlsx-populate");
-const relatorioModel = require('../models/relatorioModel');
+const xlsx = require("xlsx");
+const jsontoxml = require("jsontoxml");
 
 const gerarRelatorioExcell = async (req, res) => {
   try {

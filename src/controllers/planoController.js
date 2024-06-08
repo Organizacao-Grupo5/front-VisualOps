@@ -14,6 +14,15 @@ function selecionarPlano(req, res) {
     });
 }
 
+function mostrarPlano(req, res) {
+    var idUsuario = req.params.idUsuario;
+
+    planoModel.mostrarPlano(idUsuario).then((resposta) => {
+        res.status(200).json(resposta);
+    });
+}
+
 module.exports = {
-    selecionarPlano
+    selecionarPlano,
+    mostrarPlano
 };

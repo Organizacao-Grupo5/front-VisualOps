@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil | VisualOps</title>
+    <title>Configuração de alertas | VisualOps</title>
 
-    <link rel="stylesheet" href="../css/dashboardPerfil.css">
+    <link rel="stylesheet" href="../css/dashboardConfiguracaoAlerta.css">
     <link rel="stylesheet" href="../css/navBar.css">
     <link rel="stylesheet" href="../css/layout.css">
     <link rel="icon" href="../assets/favicon/logofundo-azul.ico">
-    <link href="https://unpkg.com/tabulator-tables/dist/css/tabulator.min.css" rel="stylesheet">
+
     <script src="https://kit.fontawesome.com/265fd07209.js" crossorigin="anonymous"></script>
 
 </head>
@@ -18,9 +18,9 @@
 <body>
     <script src="../js/Utils/Rotas.js"></script>
 
+
+
     <section>
-
-
         <div id="sidebar" class="sidebar">
             <div id="top_sidebar" class="top-sidebar">
                 <img id="logo_sidebar" src="../assets/img/logofundo.png" alt="">
@@ -87,8 +87,6 @@
                 </div>
             </div>
         </div>
-
-
         <button id="maximizar" class="maximizar" onclick="cliqueiMaximizarSidebar()"><i
                 class="fa-solid fa-angles-right"></i></button>
 
@@ -110,93 +108,70 @@
 
                 <div class="name-content">
 
-                    <div>SEU PERFIL</div>
+                    <div>Perfil > Notificações > Configuração de alertas</div>
 
                 </div>
 
                 <div class="chart-content">
-                    <div class="top-user-page">
-                        <div class="pointer" id="pointer"></div>
-                        <div class="user-img">
-                            <img src="" id="img_user" alt="">
-                            <div id="alt_img" class="alt-img">
-                                <h6>Alterar imagem de perfil<i class="fa-solid fa-pen-nib"></i></h6>
-                            </div>
-                        </div>
-                        <input class="upload-img-user" type="file" id="fileInput" accept="image/*">
+
+                    <div class="chart-content-menu">
+                        <div class="titulo-menu">Menu</div>
+                        <div>Editar meu perfi ></div>
+                        <div>Segurança ></div>
+                        <div>Notificações ></div>
+                        <div>Máquinas</div>
                     </div>
-                    <div class="middle-page">
-                        <div class="info-user-address">
-                            <div class="left-infos infos">
-                                <h3>Informações de perfil<br>
-                                    <p>Atualize ou altere suas informações de usuário</p>
-                                </h3>
-                                <label for="inp_user_name">Nome</label>
-                                <input type="text" id="inp_user_name">
-                                <label for="inp_user_email">E-mail</label>
-                                <input type="email" id="inp_user_email">
-                                <label for="inp_user_password">Senha</label>
-                                <input type="password" id="inp_user_password">
-                                <label for="select_cargo">Cargo</label>
-                                <select disabled id="select_cargo">
-                                    <option value="Gerente">Gerente</option>
-                                    <option value="Designer">Designer</option>
-                                </select>
-                            </div>
-                            <div class="right-infos infos">
-                                <h3>Informações de endereço<br>
-                                    <p>Atualize ou altere suas informações de endereço</p>
-                                </h3>
-                                <label for="inp_cep">CEP</label>
-                                <input type="text" id="inp_cep">
-                                <div class="inp-group">
-                                    <div class="inp-label">
-                                        <label for="inp_logradouro">Logradouro</label>
-                                        <input type="text" id="inp_logradouro">
+
+                    <div class="container-configuracao-alerta">
+                        <div class="titulo-configuracao-alerta">
+                            <div>Configuração de alerta</div>
+                            <div>Selecione a máquina</div>
+                        </div>
+                        <div class="lista-maquinas">
+
+                            <div class="card-maquina">
+                                <div class="infos-topo">
+                                    <div class="nome-maquina">Nome máquina</div>
+                                    <div class="ip-publico">IP Público: 00.00.000</div>
+                                    <div class="acessos">Acessos: Monitoramento: Visualização;</div>
+                                    <div class="btn-acessar">Acessar</div>
+                                </div>
+                                <div class=infos-meio>
+                                    <div class="sistema">
+                                        <div>Sistema</div>
+                                        <div>
+                                            <div>Ram Total: 16GB</div>
+                                            <div>Disco Total: 500GB</div>
+                                        </div>
                                     </div>
-                                    <div class="inp-label">
-                                        <label for="inp_numero">Número</label>
-                                        <input type="text" id="inp_numero">
+                                    <div class="info-hardware">
+                                        <div>Info. Hardware</div>
+                                        <div>
+                                            <div>Processador: </div>
+                                            <div>Placa de vídeo: </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="inp-group">
-                                    <div class="inp-label">
-                                        <label for="inp_bairro">Bairro</label>
-                                        <input type="text" id="inp_bairro">
-                                    </div>
-                                    <div class="inp-label">
-                                        <label for="inp_estado">Estado</label>
-                                        <input type="text" id="inp_estado">
-                                    </div>
+                                <div class="infos-fundo">
+                                    <div>Sist.operacional: Windows 11</div>
+                                    <div>Responsável: Nome usuário</div>
                                 </div>
-                                <label for="inp_complemento">Complemento</label>
-                                <input type="text" id="inp_complemento">
                             </div>
-                        </div>
-                        <div class="tabulator-contatos">
-                            <h3>Informações para contato <button id="addButton">Adicionar<i
-                                        class="fa-solid fa-plus"></i></button></h3>
-                            <div id="tabulator_contato"></div>
+
                         </div>
                     </div>
-                    <div class="div-btn">
-                        <button class="btn" id="btn_save">SALVAR<i class="fa-solid fa-floppy-disk"></i></button>
-                        <button class="btn" id="btn_reset">RESETAR<i class="fa-solid fa-arrow-rotate-left"></i></button>
-                    </div>
+
                 </div>
             </div>
-
         </div>
-
     </section>
 
-    <script type="module" src="../js/dashboardPerfil.js"></script>
+    <script src="../js/dashboardPerfil.js"></script>
     <script src="../js/Utils/Usuario.js"></script>
-    <script src="../js/Utils/Endereco.js"></script>
     <script src="../js/minMax.js"></script>
     <script src="../js/Utils/tamanhoSidebar.js"></script>
     <script src="../js/viaCep.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"></script>
+
 </body>
 </body>
 

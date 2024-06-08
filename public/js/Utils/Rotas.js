@@ -19,7 +19,7 @@ function windowCadastroUser() {
 }
 
 function windowSair() {
-  window.location = "indexlogado.html";
+  window.location = "../index.html";
 }
 
 function windowLogin() {
@@ -40,6 +40,10 @@ function windowRelatorio() {
 
 function windowMaquina() {
   window.location = "dashboardMaquinas.html";
+}
+
+function windowPlanos(){
+  window.location = `dashboardPlanos.html`;
 }
 
 function adicionarImagemNoCirculo(imagemSrc) {

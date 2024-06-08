@@ -21,7 +21,7 @@
 
 
     <section>
-       
+
         <div id="sidebar" class="sidebar">
             <div id="top_sidebar" class="top-sidebar">
                 <img id="logo_sidebar" src="../assets/img/logofundo.png" alt="">
@@ -45,15 +45,16 @@
                     <button class="btn-section" onclick="windowDashboardOwner()">DASHBOARD GERAL</button>
                 </div>
                 <div class="chose-section">
-                    <i class="fa-solid fa-bars-progress" style="font-size: 15px;" onclick="windowDashboardGerente()"></i>
+                    <i class="fa-solid fa-bars-progress" style="font-size: 15px;"
+                        onclick="windowDashboardGerente()"></i>
                     <button class="btn-section" onclick="windowDashboardGerente()">DASHBOARD<br>EQUIPE</button>
                 </div>
                 <div class="chose-section">
                     <i class="fa fa-line-chart" aria-hidden="true" onclick="windowDashboardPessoal()"></i>
                     <button class="btn-section" onclick="windowDashboardPessoal()">DASHBOARD PESSOAL</button>
                 </div>
-                
-               
+
+
                 <div class="chose-section">
                     <i class="fa-regular fa-file-lines" style="font-size: 18px;" onclick="windowRelatorio()"></i>
                     <button class="btn-section" onclick="windowRelatorio()">RELATÓRIOS</button>
@@ -75,7 +76,7 @@
                 </div>
                 <div class="chose-section">
                     <i class="fa-solid fa-file-signature" style="font-size: 13px;"></i>
-                    <button class="btn-section">ASSINATURA</button>
+                    <button class="btn-section" onclick="windowPlanos()">ASSINATURA</button>
                 </div>
                 <div class="chose-section">
                     <i class="fa-solid fa-bullhorn"></i>
@@ -88,7 +89,8 @@
             </div>
         </div>
 
-        <button id="maximizar" class="maximizar" onclick="cliqueiMaximizarSidebar()"><i class="fa-solid fa-angles-right"></i></button>
+        <button id="maximizar" class="maximizar" onclick="cliqueiMaximizarSidebar()"><i
+                class="fa-solid fa-angles-right"></i></button>
         <div class="dashboard-content" id="dashboard">
             <nav>
                 <h1 class="user-welcome" style="font-size: 1rem;" id="txt_welcome_user"></h1>
@@ -104,94 +106,109 @@
 
             <div class="name-chart-content">
                 <div class="name-content">
-                    <div>ADICIONAR USUÁRIO OU MÁQUINA</div>
+                    <div>ADICIONAR FUNCIONÁRIO</div>
                 </div>
                 <div class="chart-content">
-                    <div class="area-entradas">
 
-                        <div class="cadastro">
-
-                            <h2 class="titulo-cadastrar">Novo Usuário</h2>
-
-
-                            <div class="horizontal-spaced">
-
-                                <div class="half-width">
-
-                                    <label for="nome">Nome:</label>
-                                    <input type="text" id="nome" name="nome">
-
-                                </div>
-
-                                <div class="half-width">
-
-                                    <label for="email">Email:</label>
-                                    <input type="email" id="email" name="email">
-
-                                </div>
+                    <div class="content">
+                        <div class="container-funcionarios">
+                            <h2>Funcionários</h2>
+                            <div id="show_funcionarios" class="todos-funcionarios">
 
                             </div>
-
-                            <div class="horizontal-spaced">
-
-                                <div class="half-width">
-
-                                    <label for="senha">Senha:</label>
-                                    <input type="password" id="senha" name="senha">
-
-                                </div>
-
-                                <div class="half-width">
-
-                                    <label for="cargo">Cargo:</label>
-                                    <input class="cargo" type="text" id="cargo" name="cargo">
-
-                                </div>
-
-                            </div>
-
                         </div>
-
-                        <div class="cadastro">
-
-                            <h2 class="titulo-cadastrar">Nova Máquina</h2>
-
-
-                            <div class="horizontal-spaced">
-
-                                <div class="half-width">
-
-                                    <label for="marca">Marca:</label>
-                                    <input type="text" id="marca" name="marca">
-
+                        <div class="container-cadastro-edicao">
+                            <h2>Cadastro | Edição</h2>
+                            <div id="infos-funcionario">
+                                <h2 id="situacao_formulario">CADASTRO</h2>
+                                <div class="cadastro-infos-funcionario">
+                                    <div class="infos-basicas">
+                                        <label for="nome_funcionario">Nome do funcionário</label>
+                                        <input id="nome_funcionario" type="text">
+                                        <label for="email_funcionario">Email do funcionário</label>
+                                        <input id="email_funcionario" type="text">
+                                        <label for="senha_funcionario">Senha do funcionário</label>
+                                        <input id="senha_funcionario" type="text">
+                                        <label for="cargo_funcionario">Cargo do funcionário</label>
+                                        <select name="cargo_funcionario" id="">
+                                            <option value="1">Gerente</option>
+                                            <option value="2">Designer</option>
+                                        </select>
+                                    </div>
                                 </div>
+                                <div class="cadastro-endereco-funcionario">
+                                    <div class="infos-basicas">
+                                        <label for="cep_funcionario">CEP do funcionário</label>
+                                        <input id="cep_funcionario" type="text">
+                                        <div>
+                                            <div>
+                                                <label for="logradouro_funcionario">Logradouro do funcionário</label>
+                                                <input id="logradouro_funcionario" class="" type="text">
+                                            </div>
+                                            <div>
+                                                <label for="numero_funcionario">Número</label>
+                                                <input id="numero_funcionario" type="text">
+                                            </div>
+                                            <div>
+                                                <label for="complemento_funcionario">Complemento</label>
+                                                <input id="complemento_funcionario" type="text">
+                                            </div>
+                                        </div>
+                                        <label for="bairro_funcionario">Bairro do funcionário</label>
+                                        <input id="bairro_funcionario" type="text">
+                                        <label for="estado_funcionario">Estado do funcionário</label>
+                                        <input id="estado_funcionario" type="text">
 
-                                <div class="half-width">
-
-                                    <label for="modelo">Modelo:</label>
-                                    <input type="text" id="modelo" name="modelo">
-
+                                    </div>
                                 </div>
-
+                                <div class="form-actions" id="opt_btns">
+                                    <button id="btn_save" class="btn save">Salvar</button>
+                                    <button id="btn_reset" class="btn reset">Limpar</button>
+                                    <button id='btn_vlt' class="btn" onclick='voltarCadastro()'>Voltar</button>
+                                </div>
                             </div>
-
-                            <div class="input-identificacao">
-
-                                <label for="num_identificacao">Número Identificação:</label>
-                                <input type="text" id="num_identificacao">
-
-                            </div>
-
                         </div>
-
-                    </div>
-                    <div class="div-button">
-                        <button class="button-att" type="button" onclick="adicionar()">Adicionar</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <span class="close-1 close">&times;</span>
+            <h2>Confirmar Exclusão</h2>
+            <div class="consequences">
+                <h3>Consequências da Exclusão:</h3>
+                <ul>
+                    <li>Todas as capturas e relatórios que não foram baixados serão perdidos.</li>
+                    <li>A máquina será removida permanentemente da lista.</li>
+                    <li>Configurações e personalizações específicas da máquina serão apagadas.</li>
+                    <li>Quaisquer integrações ou serviços vinculados à máquina serão desativados.</li>
+                    <li>Ações irreversíveis - esta ação não pode ser desfeita.</li>
+                </ul>
+            </div>
+            <p>Por favor, insira sua senha para confirmar a exclusão da máquina.</p>
+            <form id="passwordForm_excluir">
+                <input type="password" id="password" placeholder="Senha" required>
+                <button type="submit" class="btn">Confirmar</button>
+            </form>
+        </div>
+    </div> -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <span class="close-2 close">&times;</span>
+            <h2>Confirmar Ação</h2>
+            <div class="consequences" id="missing_fields">
+
+            </div>
+            <p>Por favor, insira sua senha para concluir a ação.</p>
+            <form id="passwordForm_confirmar">
+                <input type="password" id="password_confirm" placeholder="Senha" required>
+                <button type="submit" class="btn">Concluir</button>
+            </form>
+        </div>
+    </div>
 
     <script src="../js/dashboardOwner.js"></script>
     <script src="../js/Utils/Rotas.js"></script>

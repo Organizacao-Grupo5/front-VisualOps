@@ -243,25 +243,25 @@ const gerarPaginas = () => {
     `;
 
     let conteudoAdicional = `
-      <div style="margin-top: 20px;">
-        <h6 style="margin-bottom: 5px; font-size: 10px; color: #333;">Impacto do ${componente} no sistema:</h6>
-        <p style="${estiloMensagem}">${impacto}</p>
+      <div class="div-impacto" style="margin-top: 20px;">
+        <h6 class="impacto-h6" style="margin-bottom: 5px; font-size: 10px; color: #333;">Impacto do ${componente} no sistema:</h6>
+        <p class="impacto-p" style="${estiloMensagem}">${impacto}</p>
       </div>
-      <div style="margin-top: 10px;">
-        <h6 style="margin-bottom: 5px; font-size: 10px; color: #333;">Importância do ${componente}:</h6>
-        <p style="${estiloMensagem}">${importancia}</p>
+      <div class="div-impacto" style="margin-top: 10px;">
+        <h6  class="impacto-h6"style="margin-bottom: 5px; font-size: 10px; color: #333;">Importância do ${componente}:</h6>
+        <p class="impacto-p" style="${estiloMensagem}">${importancia}</p>
       </div>
-      <div style="margin-top: 10px;">
-        <h6 style="margin-bottom: 5px; font-size: 10px; color: #333;">Custo médio em caso de perda do ${componente}:</h6>
-        <p style="${estiloMensagem}">${custo}</p>
+      <div class="div-impacto" style="margin-top: 10px;">
+        <h6 class="impacto-h6" style="margin-bottom: 5px; font-size: 10px; color: #333;">Custo médio em caso de perda do ${componente}:</h6>
+        <p class="impacto-p" style="${estiloMensagem}">${custo}</p>
       </div>
-      <div style="margin-top: 10px;">
-        <h6 style="margin-bottom: 5px; font-size: 10px; color: #333;">Recomendação:</h6>
-        <p style="${estiloMensagem}">Siga as boas práticas de manutenção e cuidado para prolongar a vida útil do ${componente}.</p>
+      <div class="div-impacto" style="margin-top: 10px;">
+        <h6 class="impacto-h6" style="margin-bottom: 5px; font-size: 10px; color: #333;">Recomendação:</h6>
+        <p class="impacto-p" style="${estiloMensagem}">Siga as boas práticas de manutenção e cuidado para prolongar a vida útil do ${componente}.</p>
       </div>
-      <div style="margin-top: 10px;">
-        <h6 style="margin-bottom: 5px; font-size: 10px; color: #333;">Ação recomendada:</h6>
-        <p style="${estiloMensagem}">Realize verificações regulares e mantenha o ${componente} limpo e livre de poeira.</p>
+      <div class="div-impacto" style="margin-top: 10px;">
+        <h6 class="impacto-h6" style="margin-bottom: 5px; font-size: 10px; color: #333;">Ação recomendada:</h6>
+        <p class="impacto-p" style="${estiloMensagem}">Realize verificações regulares e mantenha o ${componente} limpo e livre de poeira.</p>
       </div>
     `;
 
@@ -274,7 +274,7 @@ const gerarPaginas = () => {
             dataInicio
           )}<br>Data fim: ${formatarData(dataFim)}</h6>
         </div>
-        <h6 style="margin-top:2%; margin-bottom:1%;"><u>5 capturas mais altas registradas</u></h6>
+        <h6 class="title-table" style="margin-top:2%; margin-bottom:1%;"><u>5 capturas mais altas registradas</u></h6>
         <table class="blueTable">
           <thead>
             <tr>
@@ -287,7 +287,7 @@ const gerarPaginas = () => {
             ${table}           
           </tbody>
         </table> 
-        <h6 style="margin-top:2%; margin-bottom:1%;"><u>Gráfico das capturas registradas</u></h6>
+        <h6 class="title-chart" style="margin-top:2%; margin-bottom:1%;"><u>Gráfico das capturas registradas</u></h6>
         <div class="div-grafico">
           <canvas id="ctx_${componente}"></canvas>
         </div>
@@ -497,7 +497,10 @@ const aumentarVisualizacao = () => {
         if (labels.length <= maxPoints) {
           return { limitedLabels: labels, limitedData: dados };
         }
-        
+
+        console.log(labels);
+        console.log(dados);
+
         const limitedLabels = [labels[0][0]];
         const limitedData = [dados[0][0]];
 
@@ -562,6 +565,10 @@ const aumentarVisualizacao = () => {
 
     btnClose.addEventListener("click", () => {
       divExpand.style.display = "none";
+      const btn = document.querySelector(".btn-exp-dowload");
+      if(btn){
+        document.body.removeChild(btn);
+      }
     });
   } else {
     divExpand = existingClone.parentElement;
@@ -570,6 +577,7 @@ const aumentarVisualizacao = () => {
 };
 
 async function baixarPDF() {
+
   const pdfHtml = document.querySelector(".pdf-clone");
 
   pdfHtml.style.flexDirection = "column";
@@ -595,9 +603,25 @@ async function baixarPDF() {
   pdfHtml.querySelector(".footer-img").style.width = "50pt";
   pdfHtml.querySelector(".div-conteudo-adicional").style.fontSize = "80px";
 
-  contentElements.forEach((element) => {
+  pdfHtml.querySelectorAll(".title-chart").forEach(e => e.style.fontSize = "15px")
+  pdfHtml.querySelectorAll('.blueTable').forEach(e => e.style.height = "200px")
+  pdfHtml.querySelectorAll(".title-table").forEach(e => e.style.fontSize = "15px")
+
+  contentElements.forEach((element, index) => {
+    element.style.padding = index > 0 ? "10px" : 0;
     element.style.width = "595.28pt";
     element.style.height = " 841.89pt";
+
+    element.querySelectorAll(".div-conteudo-adicional").forEach((conteudo) => {
+      element.querySelector(".div-grafico").style.width = "100%";
+      element.querySelector("canvas").style.width = "700px"
+      element.querySelector("canvas").style.height = "300px"
+      conteudo.querySelectorAll(".div-impacto").forEach((impacto) => {
+        impacto.style.marginTop = "40px"
+        impacto.querySelector(".impacto-h6").style.fontSize = "15px";
+        impacto.querySelector(".impacto-p").style.fontSize = "10px"
+      })
+    })
   });
 
   try {
@@ -615,7 +639,17 @@ async function baixarPDF() {
 }
 
 btnPdf.addEventListener("click", () => {
-  baixarPDF();
+  aumentarVisualizacao()
+  const btnDowloadPdf = document.createElement('button');
+  document.body.appendChild(btnDowloadPdf);
+  btnDowloadPdf.classList.add('btn-exp-dowload')
+  btnDowloadPdf.innerText = "BAIXAR RELATÓRIO PDF"
+  btnDowloadPdf.addEventListener('click', () => {
+    loadingUtils.showPopup("BAIXANDO PDF", "Espere alguns segundos, seu pdf está sendo baixado!", "info");
+    baixarPDF();
+    loadingUtils.hidePopup();
+    document.body.removeChild(btnDowloadPdf);
+  })
 });
 
 btnExpand.addEventListener("click", () => {
@@ -801,24 +835,30 @@ document.addEventListener("DOMContentLoaded", async () => {
     document
       .getElementById(`print_table_${componente}`)
       .addEventListener("click", function () {
+        loadingUtils.showPopup("IMPRIMINDO TABELA", "Espere alguns segundos, estamos gerando seu layout de impressão!", "info");
         table.print(false, true);
+        loadingUtils.hideLoadingPopup();
       });
 
     document
       .getElementById(`download_xlsx_${componente}`)
       .addEventListener("click", function () {
+        loadingUtils.showPopup("BAIXANDO EXCEL", "Espere alguns segundos, seu excel está sendo baixado!", "info");
         table.download("xlsx", "data.xlsx", {
           sheetName: `Relatório VisualOps | ${componente}`,
         });
+        loadingUtils.hidePopup();
       });
 
     document
       .getElementById(`download_pdf_${componente}`)
       .addEventListener("click", function () {
+        loadingUtils.showPopup("BAIXANDO PDF", "Espere alguns segundos, seu pdf está sendo baixado!", "info");
         table.download("pdf", "data.pdf", {
           orientation: "portrait",
           title: `Relatório sobre o uso do(a) ${componente}`,
         });
+        loadingUtils.hidePopup();
       });
 
     if (index !== 0) {
@@ -914,13 +954,15 @@ tabTabelaRegistro.addEventListener("click", () => {
 const containerPDF = document.getElementById("pdf_content");
 
 btnExcel.addEventListener("click", async () => {
+  
+  loadingUtils.showPopup("BAIXANDO EXCEL", "Espere alguns segundos, seu excel está sendo baixado!", "info");
   const datas = dadosCaptura
-    .map((dado) => new Date(dado.dataCaptura))
-    .filter((date) => !isNaN(date));
-
+  .map((dado) => new Date(dado.dataCaptura))
+  .filter((date) => !isNaN(date));
+  
   const dataInicio = new Date(Math.min(...datas));
   const dataFim = new Date(Math.max(...datas));
-
+  
   try {
     const resp = await fetch(
       `/relatorio/upload-excel/${
@@ -954,6 +996,7 @@ btnExcel.addEventListener("click", async () => {
     console.error(erro);
     throw erro;
   }
+  loadingUtils.hidePopup();
 });
 
 const btnLeft = document

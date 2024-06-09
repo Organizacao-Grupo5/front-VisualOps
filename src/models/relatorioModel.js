@@ -18,21 +18,21 @@ function buscarQtdRelatorios(idUsuario, preferencias, tipo, idEmpresa) {
     moreWhere += ` AND (ipv4.numeroIP = '${preferencias.nomeIpv4}' OR usuario.nome = '${preferencias.nomeIpv4}')`;
   }
 
-
   let query = "";
-
   if (tipo === "diario") {
     query += `
         SELECT
             data,
             idMaquina,
+            usuario,
             SUM(total) AS total_atividades,
             'diários' AS tipo_relatorio
         FROM (
             SELECT
                 DATE(captura.dataCaptura) AS data,
                 maquina.idMaquina,
-                COUNT(*) AS total
+                COUNT(*) AS total,
+                usuario.nome AS usuario
             FROM
                 captura
             JOIN
@@ -54,14 +54,16 @@ function buscarQtdRelatorios(idUsuario, preferencias, tipo, idEmpresa) {
                 ${moreWhere}
             GROUP BY
                 data,
-                maquina.idMaquina
+                maquina.idMaquina,
+                usuario.nome
 
             UNION ALL
 
             SELECT
                 DATE(appAcessado.hora) AS data,
                 maquina.idMaquina,
-                COUNT(*) AS total
+                COUNT(*) AS total,
+                usuario.nome AS usuario
             FROM
                 appAcessado
             JOIN
@@ -83,11 +85,13 @@ function buscarQtdRelatorios(idUsuario, preferencias, tipo, idEmpresa) {
                 ${moreWhere}
             GROUP BY
                 data,
-                maquina.idMaquina
+                maquina.idMaquina,
+                usuario.nome
         ) AS combined_results
         GROUP BY
             data,
-            idMaquina
+            idMaquina,
+            usuario
         ORDER BY
             data;
     `;
@@ -95,14 +99,21 @@ function buscarQtdRelatorios(idUsuario, preferencias, tipo, idEmpresa) {
     query += `
         SELECT
             semana,
+            DATE_ADD(
+                STR_TO_DATE(CONCAT(SUBSTRING(semana, 1, 4), '0101'), '%Y%j'),
+                INTERVAL (CAST(SUBSTRING(semana, 5) AS UNSIGNED) - 1) * 7 + (2 - WEEKDAY(STR_TO_DATE(CONCAT(SUBSTRING(semana, 1, 4), '0104'), '%Y%j'))) DAY
+            ) AS data_inicio_semana,
+            '${preferencias.data}' AS data,
             idMaquina,
             SUM(total) AS total_atividades,
+            usuario,
             'semanais' AS tipo_relatorio
         FROM (
             SELECT
                 YEARWEEK(captura.dataCaptura, 1) AS semana,
                 maquina.idMaquina,
-                COUNT(*) AS total
+                COUNT(*) AS total,
+                usuario.nome AS usuario
             FROM
                 captura
             JOIN
@@ -126,14 +137,16 @@ function buscarQtdRelatorios(idUsuario, preferencias, tipo, idEmpresa) {
                 ${moreWhere}
             GROUP BY
                 semana,
-                maquina.idMaquina
+                maquina.idMaquina,
+                usuario.nome
 
             UNION ALL
 
             SELECT
                 YEARWEEK(appAcessado.hora, 1) AS semana,
                 maquina.idMaquina,
-                COUNT(*) AS total
+                COUNT(*) AS total,
+                usuario.nome AS usuario
             FROM
                 appAcessado
             JOIN
@@ -157,11 +170,14 @@ function buscarQtdRelatorios(idUsuario, preferencias, tipo, idEmpresa) {
                 ${moreWhere}
             GROUP BY
                 semana,
-                maquina.idMaquina
+                maquina.idMaquina,
+                usuario.nome
         ) AS combined_results
         GROUP BY
             semana,
-            idMaquina
+            data_inicio_semana,
+            idMaquina,
+            usuario
         ORDER BY
             semana;
     `;
@@ -169,18 +185,20 @@ function buscarQtdRelatorios(idUsuario, preferencias, tipo, idEmpresa) {
     let data = new Date(preferencias.data);
     data.setMonth(data.getMonth() - 1);
     data.setDate(1);
-    let dataFormatada = data.toISOString().split('T')[0];
+    let dataFormatada = data.toISOString().split("T")[0];
     query += `
           SELECT
               ano_mes,
               idMaquina,
               SUM(total) AS total_atividades,
-              'mensal' AS tipo_relatorio
+              'mensal' AS tipo_relatorio,
+              usuario
           FROM (
               SELECT
                   DATE_FORMAT(captura.dataCaptura, '%Y-%m') AS ano_mes,
                   maquina.idMaquina,
-                  COUNT(*) AS total
+                  COUNT(*) AS total,
+                  usuario.nome AS usuario
               FROM
                   captura
               JOIN
@@ -202,14 +220,16 @@ function buscarQtdRelatorios(idUsuario, preferencias, tipo, idEmpresa) {
                   ${moreWhere}
               GROUP BY
                   ano_mes,
-                  maquina.idMaquina
+                  maquina.idMaquina,
+                  usuario.nome
   
               UNION ALL
   
               SELECT
                   DATE_FORMAT(appAcessado.hora, '%Y-%m') AS ano_mes,
                   maquina.idMaquina,
-                  COUNT(*) AS total
+                  COUNT(*) AS total,
+                  usuario.nome AS usuario
               FROM
                   appAcessado
               JOIN
@@ -231,11 +251,13 @@ function buscarQtdRelatorios(idUsuario, preferencias, tipo, idEmpresa) {
                   ${moreWhere}
               GROUP BY
                   ano_mes,
-                  maquina.idMaquina
+                  maquina.idMaquina,
+                  usuario.nome
           ) AS combined_results
           GROUP BY
               ano_mes,
-              idMaquina
+              idMaquina,
+              usuario
           ORDER BY
               ano_mes;
       `;
@@ -299,11 +321,11 @@ function infoCapturasData(infos, idUser) {
       queryCaptura = `${queryBaseCaptura} DATE(captura.dataCaptura) = '${year}-${month}-${day}'`;
       queryApp = `${queryBaseApp} DATE(appAcessado.hora) = '${year}-${month}-${day}'`;
       break;
-    case "semanal":
+    case "semanais":
       queryCaptura = `${queryBaseCaptura} YEAR(captura.dataCaptura) = YEAR('${year}-${month}-${day}') 
-                      AND WEEK(captura.dataCaptura, 0) = WEEK('${year}-${month}-${day}', 0)`;
+                      AND WEEK(captura.dataCaptura, 1) = WEEK('${year}-${month}-${day}', 1)`;
       queryApp = `${queryBaseApp} YEAR(appAcessado.hora) = YEAR('${year}-${month}-${day}') 
-                  AND WEEK(appAcessado.hora, 0) = WEEK('${year}-${month}-${day}', 0)`;
+                  AND WEEK(appAcessado.hora, 1) = WEEK('${year}-${month}-${day}', 1)`;
       break;
     case "mensal":
       queryCaptura = `${queryBaseCaptura} DATE_FORMAT(captura.dataCaptura, '%Y-%m') = '${year}-${month}'`;

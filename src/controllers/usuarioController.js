@@ -1,5 +1,8 @@
 const usuarioModel = require("../models/usuarioModel");
 
+
+
+
 function cadastrar(req, res) {
     const nome = req.body.nome;
     const email = req.body.email;
@@ -35,6 +38,38 @@ function cadastrar(req, res) {
     }
 }
 
+
+
+function cifraDeCesar(mensagem, deslocamento) {
+    return mensagem.split('').map(char => {
+        if (char.match(/[a-z]/i)) {
+            const code = char.charCodeAt();
+            const base = code >= 65 && code <= 90 ? 65 : 97;
+            return String.fromCharCode(((code - base + deslocamento) % 26) + base);
+        }
+        return char;
+    }).join('');
+}
+
+
+
+
+
+function validarLogin(resposta,res){
+    
+    res.json({
+        id: resposta[0].id,
+        email: resposta[0].email,
+        nome: resposta[0].nome,
+        senha: resposta[0].senha,
+        nomeEmpresa: resposta[0].nomeEmpresa,
+        fkEmpresa: resposta[0].fkEmpresa,
+        imagemPerfil: resposta[0].imagemPerfil,
+    });
+}
+
+
+
 function autenticar(req, res) {
     var email = req.body.emailJSON;
     var senha = req.body.senhaJSON;
@@ -44,27 +79,20 @@ function autenticar(req, res) {
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está indefinida!");
     } else {
-        usuarioModel.autenticar(email, senha)
-        .then(resultadoAutenticar => {
-
-            console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`);
-        
-            if (resultadoAutenticar.length == 1) {
-
-                res.json({
-                    id: resultadoAutenticar[0].id,
-                    email: resultadoAutenticar[0].email,
-                    nome: resultadoAutenticar[0].nome,
-                    senha: resultadoAutenticar[0].senha,
-                    nomeEmpresa: resultadoAutenticar[0].nomeEmpresa,
-                    fkEmpresa: resultadoAutenticar[0].fkEmpresa,
-                    imagemPerfil: resultadoAutenticar[0].imagemPerfil,
-                });
-                
+        usuarioModel.autenticar(email, cifraDeCesar(senha,3))
+        .then(resposta => {
+            if (resposta.length == 1) {
+                validarLogin(resposta,res)
             } else {
-                console.log("Erro nenhum usuário encontrado com essas informações!");
-
-                res.status(400).send("Erro não foi possível encontrar usuário com esse email e senha!");
+                usuarioModel.autenticar(email,senha)
+                .then(resposta=>{
+                    if (resposta.length == 1) {
+                        validarLogin(resposta,res)
+                    }
+                    else{
+                        res.status(400).send("Não foi possivel autenticar o usuário")
+                    }
+                })
             }
         })
         .catch (erro =>  {

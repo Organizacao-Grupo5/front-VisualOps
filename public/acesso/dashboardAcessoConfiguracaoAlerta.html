@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Configuração de alertas | VisualOps</title>
 
-    <link rel="stylesheet" href="../css/dashboardConfiguracaoAlerta.css">
+    <link rel="stylesheet" href="../css/dashboardAcessoConfiguracaoAlerta.css">
     <link rel="stylesheet" href="../css/navBar.css">
     <link rel="stylesheet" href="../css/layout.css">
     <link rel="icon" href="../assets/favicon/logofundo-azul.ico">
@@ -122,76 +122,22 @@
                         <div>Máquinas</div>
                     </div>
 
-                    <div class="container-configuracao-alerta" id="container_configuracao_alerta">
+                    <div class="container-configuracao-alerta">
                         <div class="titulo-configuracao-alerta">
-                            <div>Informações</div>
-
-                            <div class="nome-ip">
-                                <div id="ip_maquina">IP Máquina: 00.00.000</div>
-                            </div>
-
-                            <div class="componentes-maquina">
-                                <div>
-                                    <div id="processador_maquina">Processador: </div>
-                                    <div id="placa_de_video">Placa de vídeo:</div>
-                                </div>
-                                <div id="disco_maquina">Disco: </div>
-                            </div>
-
-                            <div class="responsavel-maquina">
-                                <div>Responsável:</div>
-                                <div>
-                                    <div id="nome_responsavel">Nome Responsável</div>
-                                </div>
-                            </div>
-
+                            <div>Configuração de alerta</div>
+                            <div>Selecione a máquina</div>
                         </div>
-
-                        <div class="barrinha-vertical"></div>
-
-                        <div class="personalizar-componentes">
-
-
-                            <div class="botoes-salvar">
-                                <button class="salvar" onclick="salvarAlertaCritico()">SALVAR</button>
-                            </div>
-
-                            <div class="conteiner-escolher-componentes" id="container_esolher_componentes">
-                                <div>Componentes</div>
-                            </div>
-
-                            <div class="personalizar-alertas">
-                                <label for="valor_alerta_critico">Personalizar alerta crítico a partir de</label>
-                                <input type="number" name="" id="valor_alerta_critico" onkeyup="niveisAlerta()">
-                            </div>
-
-
-                            <div class="container-alertas">
-                                <div class="adequado">ADEQUADO</div>
-                                <div class="baixo">BAIXO 30%</div>
-                                <div class="moderado">ESTOQUE MODERADO 50%</div>
-                                <div class="alto">ESTOQUE ALTO 70%</div>
-                                <div class="critico">ESTOQUE CRÍTICO 90%</div>
-
-                                <div class="adequado-transparente" id="adequado_transparente"></div>
-                                <div class="baixo-transparente" id="baixo_transparente"></div>
-                                <div class="moderado-transparente" id="moderado_transparente"></div>
-                                <div class="alto-transparente" id="alto_transparente"></div>
-                                <div class="critico-transparente" id="critico_transparente"></div>
-                            </div>
-
-
-
+                        <div class="lista-maquinas" id="lista_maquinas">
+                            
                         </div>
-
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
     </section>
 
-    <script src="../js/dashboardConfiguracaoAlerta.js"></script>
+    <script src="../js/dashboardAcessoConfiguracaoAlerta.js"></script>
     <script src="../js/Utils/Usuario.js"></script>
     <script src="../js/minMax.js"></script>
     <script src="../js/Utils/tamanhoSidebar.js"></script>

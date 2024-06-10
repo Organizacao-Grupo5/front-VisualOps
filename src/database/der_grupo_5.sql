@@ -1,6 +1,6 @@
 -- SQLBook: Code
 -- USER-Script
-DROP USER 'client'@'%';
+DROP USER IF EXISTS 'client'@'%';
 FLUSH PRIVILEGES;
 
 CREATE USER 'client'@'%' identified by 'Client123$';
@@ -177,7 +177,7 @@ INSERT INTO endereco (cep, logradouro, numero, fkEmpresa) VALUES
 	('56789-012', 'Rua C', '789', 3);
 
 INSERT INTO usuario (nome, email, senha, fkEmpresa) VALUES
-	('Usuário 1', 'usuario1@empresa.com', 'senha123', 1),
+	('Gui', 'gui@gmail.com', '@Senha123', 1),
 	('Usuário 2', 'usuario2@empresa.com', 'senha456', 1),
 	('Usuário 3', 'usuario3@empresa.com', 'senha789', 2);
 
@@ -192,7 +192,10 @@ INSERT INTO alerta VALUES
     (null, "Componente está comprometido!!", "RUIM");
 
 INSERT INTO ipv4(numeroIP, nomeLocal, fkMaquina) VALUES 
-	('192.168.15.6', 'Home', 1);
+	('26.245.80.14', 'Home', 1);
+
+INSERT INTO rede (nomeRede, interfaceRede, sinalRede, transmissaoRede, bssidRede) 
+VALUES ('Nome da Rede', 'Interface da Rede', 80, 2.4, '00:11:22:33:44:55');
 
 INSERT INTO relRedeIpv4 VALUES
 	(1, 1, DEFAULT);
@@ -243,5 +246,9 @@ SELECT COUNT(*) from maquina as m
 
 SELECT COLUMN_NAME, COLUMN_TYPE, COLUMN_DEFAULT, IS_NULLABLE, COLUMN_KEY, EXTRA, COLUMN_COMMENT FROM information_schema.columns WHERE TABLE_SCHEMA = 'der_grupo_5' AND TABLE_NAME = "alertas";
 
+SELECT dadoCaptura, componente FROM captura JOIN componente ON componente.idComponente = captura.fkComponente JOIN maquina ON maquina.idMaquina = componente.fkMaquina JOIN usuario ON usuario.idUsuario = maquina.fkUsuario 
+    JOIN (SELECT fkComponente, MAX(dataCaptura) AS MaxDate FROM captura GROUP BY fkComponente) AS LatestCaptura ON captura.fkComponente = LatestCaptura.fkComponente 
+        AND captura.dataCaptura = LatestCaptura.MaxDate WHERE usuario.idUsuario = idUsuario AND componente.componente IN ('MemoriaRam', 'HDD', 'CPU', 'GPU', 'Volume') ORDER BY componente.componente;
+
 -- UPDATE-Script
-UPDATE ipv4 SET numeroIP = '192.168.15.4' WHERE idIpv4 =  1;
+UPDATE ipv4 SET numeroIP = '26.245.80.14' WHERE idIpv4 =  1;

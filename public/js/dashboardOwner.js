@@ -609,7 +609,7 @@ async function moverRight() {
 
     const posicao = nomes.findIndex(nome => nome == comp_graf3.innerText);
 
-    if (posicao == 6) {
+    if (posicao == componentes.nome.length - 1) {
         comp_graf3.innerText = nomes[0];
         comp_graf3.value = componentes.value[0];
     } else {

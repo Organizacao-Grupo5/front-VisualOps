@@ -9,15 +9,21 @@ const passwordFormConfirm = document.getElementById("passwordForm_confirmar");
 const modalConfirmarAcao = document.getElementById("confirmModal");
 const camposFaltantes = document.getElementById("missing_fields");
 
-let ipv4_1 = document.getElementById("ipv4_1");
-let nome_local_ipv4_1 = document.getElementById("nome_local_ipv4_1");
+let nome_funcionario = document.getElementById("nome_funcionario");
+let email_funcionario = document.getElementById("email_funcionario");
+let senha_funcionario = document.getElementById("senha_funcionario");
+let cargo_funcionario = document.getElementById("cargo_funcionario");
 
-let ipv4_2 = document.getElementById("ipv4_2");
-let nome_local_ipv4_2 = document.getElementById("nome_local_ipv4_2");
 
-let marca = document.getElementById("marca");
-let modelo = document.getElementById("modelo");
-let responsavel = document.getElementById("responsavel");
+let cep_funcionario = document.getElementById("cep_funcionario");
+let logradouro_funcionario = document.getElementById("logradouro_funcionario");
+let numero_funcionario = document.getElementById("numero_funcionario");
+let complemento_funcionario = document.getElementById("complemento_funcionario");
+let bairro_funcionario = document.getElementById("bairro_funcionario");
+let estado_funcionario = document.getElementById("estado_funcionario");
+
+
+
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {

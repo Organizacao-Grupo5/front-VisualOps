@@ -21,8 +21,8 @@ var sqlServerConfig = {
 var mySqlConfig = {
     host: "localhost",
     database: "der_grupo_5",
-    user: "client",
-    password: "Client123$"
+    user: "root",
+    password: "admin"
 }
 
 const AMBIENTE = "desenvolvimento";

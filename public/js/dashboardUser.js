@@ -320,7 +320,9 @@ async function historicoDesempenho(index) {
 function atualizaHistoricoDesempenho(valor, dadoRequirido) {
     matarCanvasDesempenho();
 
-    componente = dadoRequirido
+    componente = dadoRequirido;
+
+    
 
     const historicoComponentes = document.getElementById("chart_historico_desempenho");
 

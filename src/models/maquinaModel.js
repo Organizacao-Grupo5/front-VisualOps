@@ -15,8 +15,6 @@ function listarMaquinas(empresa) {
             IFNULL(maquina.numeroIdentificacao, '---') AS numeroIdentificacao,
             IFNULL(maquina.modelo, '---') AS modelo,
             IFNULL(maquina.marca, '---') AS marca,
-            IFNULL(maquina.username, '---') AS username,
-            IFNULL(maquina.hostname, '---') AS hostname,
             IFNULL(usuario.idUsuario, '---') AS idUsuario,
             IFNULL(usuario.nome, '---') AS nome,
             IFNULL(usuario.email, '---') AS email,
@@ -42,9 +40,7 @@ function listarMaquinas(empresa) {
             maquina.idMaquina, 
             maquina.numeroIdentificacao,
             maquina.modelo,
-            maquina.marca,
-            maquina.username,
-            maquina.hostname,
+            maquina.marca, 
             usuario.idUsuario,
             usuario.nome,
             usuario.email,
@@ -113,7 +109,7 @@ const salvarMaquina = async (infos) => {
   }
 
   let instrucaoMaquina = `
-    INSERT INTO maquina (marca, modelo, numeroIdentificacao, fkUsuario) VALUES ('${infos.marca}', '${infos.modelo}', '${infos.patrimonio}', ${infos.fkUsuario});
+    INSERT INTO maquina (marca, modelo, numeroIdentificacao, fkUsuario, fkEmpresa) VALUES ('${infos.marca}', '${infos.modelo}', '${infos.patrimonio}', ${infos.fkUsuario}, ${infos.idEmpresa});
   `;
   console.log(
     "Executando a instrução SQL para inserir na tabela 'maquina': \n" +
@@ -240,11 +236,79 @@ const editarMaquina = async (infos, idMaquina) => {
   }
 };
 
+function selecionarQualidade(fkEmpresa) {
+    const query = `SELECT idMaquina, fkAlerta, MONTH(dataCaptura) as mes, COUNT(fkAlerta) AS qtdAlerta FROM maquina AS mac 
+    JOIN componente ON idMaquina = fkMaquina 
+        JOIN captura ON idComponente = fkComponente 
+            JOIN registroalerta ON idCaptura = fkCaptura 
+                WHERE fkEmpresa = ${fkEmpresa} 
+                    GROUP BY idMaquina, fkAlerta, mes;`;
+
+    console.log("Executando a instrução SQL: \n");
+    return database.executar(query);
+}
+
+function selecionarPrejudicados(fkEmpresa) {
+    const query = `SELECT idMaquina, componente, fkAlerta, MAX(DAY(dataCaptura)) dia FROM maquina AS mac 
+	JOIN componente AS comp ON idMaquina = fkMaquina 
+		JOIN captura ON idComponente = fkComponente 
+			JOIN registroalerta ON idCaptura = fkCaptura 
+				WHERE componente IN ('MemoriaRam', 'CPU', 'GPU', 'HDD') 
+					AND fkAlerta > 1 AND fkEmpresa = ${fkEmpresa}
+						GROUP BY idMaquina, componente, fkAlerta;`;
+
+    console.log("Executando a instrução SQL: \n");
+    return database.executar(query);
+}
+
+function selecionarQuantidade(fkEmpresa) {
+    const query = `SELECT idMaquina, componente, fkAlerta, MAX(dataCaptura) maxCap FROM maquina AS mac
+	JOIN componente AS comp ON idMaquina = fkMaquina
+		JOIN captura ON idComponente = fkComponente
+			JOIN registroalerta ON idCaptura = fkCaptura
+				WHERE fkEmpresa = ${fkEmpresa}
+                    AND componente IN ('MemoriaRam', 'CPU', 'GPU', 'HDD') 
+						GROUP BY idMaquina, idComponente, fkAlerta
+							ORDER BY idMaquina DESC`;
+
+    console.log("Executando a instrução SQL: \n");
+    return database.executar(query);
+}
+
+function listarComponentes(fkEmpresa) {
+    const query = `SELECT componente, cap.unidadeMedida uni, COUNT(DAY(cap.dataCaptura)) dia FROM maquina mac
+	RIGHT JOIN componente comp ON idMaquina = fkMaquina
+		LEFT JOIN captura cap ON idComponente = fkComponente
+            WHERE fkEmpresa = ${fkEmpresa}
+		    	GROUP BY componente, uni;`;
+
+    console.log("Executando a instrução SQL: \n");
+    return database.executar(query);
+}
+
+function selecionarComponente(componente, fkEmpresa) {
+    const query = `SELECT cap.dadoCaptura, cap.unidadeMedida, componente, MINUTE(dataCaptura) minuto FROM maquina mac
+	JOIN componente comp ON idMaquina = fkMaquina
+		JOIN captura cap ON idComponente = fkComponente
+			WHERE fkEmpresa = ${fkEmpresa} AND componente = '${componente}'
+				GROUP BY idMaquina, cap.dadoCaptura, cap.unidadeMedida, minuto
+                    ORDER BY minuto;`;
+
+    console.log(`Executando a instrução SQL: \n${query}`);
+    return database.executar(query);
+}
+
 module.exports = {
-  cadastrar,
+    cadastrar,
+    selecionarQualidade,
+    selecionarPrejudicados,
+    selecionarQuantidade,
+    listarComponentes,
+    selecionarComponente,
   listarMaquinas,
   buscarFuncionarios,
   salvarMaquina,
   deletarMaquina,
   editarMaquina,
 };
+

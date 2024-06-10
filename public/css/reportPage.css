@@ -171,17 +171,24 @@
     width: 100%;
     display: flex;
     height: 35%;
-    gap: 4%;
     align-items: center;
 }
 .img-container{
     width: 140px;
     height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 100%;
+    overflow: hidden;
     background-color: red;
 }
+.img-container img{
+    width: 140px;
+    height: 140px;
+}
 .info-user-resp{
-    height: 80%;
+    height: 100%;
     color: #fff;
     width: 20%;
     border-left: 1px solid #fff;
@@ -191,6 +198,9 @@
     flex-direction: column;
     gap: 5%;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+.info-user-resp h6{
+    line-height: 8px;
 }
 .div-tab-table{
     width: 100%;
@@ -294,10 +304,8 @@
     color: #fff;
     
 }
-.div-grafico{
-    display: flex;
-    width: 500px;
-}
-.div-grafico canvas{
-    width: 500px;
+.tabulator-row .tabulator-cell {
+    background-color: #24213a;
+    color: #fff;
+    border: 1px solid #2e2b46;
 }

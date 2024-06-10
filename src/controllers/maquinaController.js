@@ -110,8 +110,139 @@ const editarMaquina = async (req, res) => {
   }
 };
 
+
+function selecionarQualidade(req, res) {
+
+    const fkEmpresa = req.params.fkEmpresa;
+
+    if (fkEmpresa == undefined) {
+        res.status(400).send("O foreign key da empresa está indefinido!");
+    } else {
+        maquinaModel.selecionarQualidade(fkEmpresa)
+        .then(resposta => {
+
+            if (resposta.length > 0) {
+                res.json(resposta);
+            }
+        })
+        .catch(erro => {
+            res.status(500).json(erro.sqlMessage);
+        })
+    }
+}
+
+function selecionarPrejudicados(req, res) {
+
+    const fkEmpresa = req.params.fkEmpresa;
+
+    if (fkEmpresa == undefined) {
+        res.status(400).send("O foreign key da empresa está indefinido!");
+    } else {
+        maquinaModel.selecionarPrejudicados(fkEmpresa)
+        .then(resposta => {
+
+            if (resposta.length > 0) {
+                res.json(resposta);
+            }
+        })
+        .catch(erro => {
+            res.status(500).json(erro.sqlMessage);
+        })
+    }
+}
+
+function selecionarQuantidade(req, res) {
+
+    const fkEmpresa = req.params.fkEmpresa;
+
+    if (fkEmpresa == undefined) {
+        res.status(400).send("O foreign key da empresa está indefinido!");
+    } else {
+        maquinaModel.selecionarQuantidade(fkEmpresa)
+        .then(resposta => {
+
+            if (resposta.length > 0) {
+                res.json(resposta);
+            }
+        })
+        .catch(erro => {
+            res.status(500).json(erro.sqlMessage);
+        })
+    }
+}
+
+function listarComponentes(req, res) {
+
+    const fkEmpresa = req.params.fkEmpresa;
+
+    if (fkEmpresa == undefined) {
+        res.status(400).send("O foreign key da empresa está indefinido!");
+    } else {
+        maquinaModel.listarComponentes(fkEmpresa)
+        .then(resposta => {
+
+            if (resposta.length > 0) {
+                res.json(resposta);
+            }
+        })
+        .catch(erro => {
+            res.status(500).json(erro.sqlMessage);
+        })
+    }
+}
+
+function selecionarComponente(req, res) {
+
+    const componente = req.params.componente;
+    const fkEmpresa = req.params.fkEmpresa;
+
+    if (fkEmpresa == undefined) {
+        res.status(400).send("O foreign key da empresa está indefinido!");
+    } else if (componente == undefined) {
+        res.status(400).send("O componente está indefinido!");
+    } else {
+        maquinaModel.selecionarComponente(componente, fkEmpresa)
+        .then(resposta => {
+
+            if (resposta.length > 0) {
+                res.json(resposta);
+            }
+        })
+        .catch(erro => {
+            res.status(500).json(erro.sqlMessage);
+        })
+    }
+}
+
+function selecionarMaquinas(req, res) {
+
+    const fkEmpresa = req.params.fkEmpresa;
+
+    if (fkEmpresa == undefined) {
+        res.status(400).send("O foreign key da empresa está indefinido!");
+    } else {
+        maquinaModel.selecionarMaquinas(componente, fkEmpresa)
+        .then(resposta => {
+
+            if (resposta.length > 0) {
+                res.json(resposta);
+            }
+        })
+        .catch(erro => {
+            res.status(500).json(erro.sqlMessage);
+        })
+    }
+}
+
+
 module.exports = {
-  cadastrar,
+    cadastrar,
+    selecionarQualidade,
+    selecionarPrejudicados,
+    selecionarQuantidade,
+    listarComponentes,
+    selecionarComponente,
+selecionarMaquinas,
   buscarMaquinaPorEmpresa,
   buscarFuncionarios,
   salvarMaquina,

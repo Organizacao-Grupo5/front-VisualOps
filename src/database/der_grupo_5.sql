@@ -71,6 +71,7 @@ CREATE TABLE maquina (
 		CONSTRAINT fkEmpresaMaquina FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa) ON DELETE CASCADE
 );
 
+
 CREATE TABLE apps(
 idApp INT PRIMARY KEY AUTO_INCREMENT,
 nomeApp VARCHAR(50) NOT NULL,

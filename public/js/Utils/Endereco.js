@@ -38,3 +38,34 @@ function cadastrarEndereco() {
 
     return false;
 };
+
+async function listarEnderecoByFk(fkEmpresa) {
+    
+    try {
+        
+        const resposta = await fetch(`/endereco/listar/${fkEmpresa}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (resposta.ok) {
+            const dados = await resposta.json();
+
+            console.log("RESULTADO: ", dados);
+
+            return dados;
+        } else {
+            console.error("Houve um erro ao listar o endereço!");
+            
+            throw new Error("Houve um erro ao listar o endereço!")
+        }
+
+    } catch (error) {
+        console.log("Erro desconhecido na API ", error);
+
+        return false;
+    };
+
+}

@@ -25,7 +25,11 @@ let dadosOriginais = null;
 let selectedImage = null;
 
 ficheiro.addEventListener("change", (event) => {
-  loadingUtils.showPopup("Imagem de perfil", "Salve a alteração e faça login novamente para carregar a imagem em toda a plataforma.", "info")
+  loadingUtils.showPopup(
+    "Imagem de perfil",
+    "Salve a alteração e faça login novamente para carregar a imagem em toda a plataforma.",
+    "info"
+  );
   selectedImage = event.target.files[0];
   if (selectedImage) {
     const reader = new FileReader();
@@ -318,6 +322,19 @@ const atualizaUsuario = async () => {
     .catch((error) => {
       console.error("Erro:", error);
     });
+
+  try {
+    const response = await fetch("/firebase/listar-imagens", {
+      method: "GET",
+    });
+
+    if (!response.ok) {
+      throw new Error("Erro ao listar as imagens");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+  sessionStorage.setItem("caminhoIMG", usuario.imgUser)
 };
 
 const atualizaEndereco = () => {

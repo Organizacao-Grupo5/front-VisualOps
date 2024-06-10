@@ -1,6 +1,10 @@
+const fs = require("fs");
 const path = require("path");
+const xlsx = require("xlsx");
+const jsontoxml = require("jsontoxml");
 const XlsxPopulate = require("xlsx-populate");
-const relatorioModel = require('../models/relatorioModel');
+
+const relatorioModel = require("../models/relatorioModel")
 
 const gerarRelatorioExcell = async (req, res) => {
   try {
@@ -22,6 +26,8 @@ const gerarRelatorioExcell = async (req, res) => {
       return `${ano}/${mes}/${dia} | ${horas}:${minutos}`;
     };
 
+    console.log("DADOS PARA EXCEL: ", dados)
+
     workbook.sheets().forEach(planilha => {
       if(planilha.name().toLowerCase() !== "storage"){
         planilha.cell('C7').value(`   RELATÓRIO GERAL DOS COMPONENTES DA SUA MÁQUINA - ${(dados[0].nomeUsuario).toUpperCase()} - ${formatarData(new Date())} - Empresa ${(dados[0].nomeEmpresa).toUpperCase()} |`);
@@ -34,7 +40,7 @@ const gerarRelatorioExcell = async (req, res) => {
   
         dadosFiltrados.forEach((dado, index) => {
           const row = index + 13;
-          planilha.cell(`D${row}`).value("" + dado.dataCaptura);
+          planilha.cell(`D${row}`).value("" + new Date(dado.dataCaptura).getFullYear() + "/" + (new Date(dado.dataCaptura).getMonth() - 1) + "/" + new Date(dado.dataCaptura).getDate());
           planilha.cell(`F${row}`).value(dado.idCaptura);
           planilha.cell(`H${row}`).value(dado.dadoCaptura);
           planilha.cell(`J${row}`).value(dado.unidadeMedida);

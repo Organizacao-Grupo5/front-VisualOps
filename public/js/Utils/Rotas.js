@@ -19,7 +19,7 @@ function windowCadastroUser() {
 }
 
 function windowSair() {
-  window.location = "indexlogado.html";
+  window.location = "../index.html";
 }
 
 function windowLogin() {
@@ -42,8 +42,13 @@ function windowMaquina() {
   window.location = "dashboardMaquinas.html";
 }
 
+<<<<<<< HEAD
 function windowSuporte(){
   window.location = "dashboardSuporte.html"
+=======
+function windowPlanos(){
+  window.location = `dashboardPlanos.html`;
+>>>>>>> 50421c72213d5d06dc8fbc6b2e9590355f07669e
 }
 
 function adicionarImagemNoCirculo(imagemSrc) {
@@ -71,12 +76,14 @@ async function carregarImagemPerfil(caminhoImagem) {
 
     const blob = await response.blob();
     const imagemURL = URL.createObjectURL(blob);
-    
-    adicionarImagemNoCirculo(imagemURL);
 
+    adicionarImagemNoCirculo(imagemURL);
   } catch (error) {
     console.error(error);
   }
 }
 
-carregarImagemPerfil(sessionStorage.getItem("caminhoIMG"))
+document.addEventListener(
+  "DOMContentLoaded",
+  carregarImagemPerfil(sessionStorage.getItem("caminhoIMG"))
+);

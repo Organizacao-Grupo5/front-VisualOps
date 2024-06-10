@@ -16,4 +16,8 @@ router.post("/upload-excel/:idMaquina", async(req, res) => {
     excelController.gerarRelatorioExcell(req, res);
 })
 
+router.get("/usuarioMaquina/:idMaquina", async (req, res) => {
+    relatorioController.buscaUsuarioMaquina(req, res)
+})
+
 module.exports = router;

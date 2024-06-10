@@ -42,13 +42,12 @@ function windowMaquina() {
   window.location = "dashboardMaquinas.html";
 }
 
-<<<<<<< HEAD
 function windowSuporte(){
   window.location = "dashboardSuporte.html"
-=======
+}
+
 function windowPlanos(){
   window.location = `dashboardPlanos.html`;
->>>>>>> 50421c72213d5d06dc8fbc6b2e9590355f07669e
 }
 
 function adicionarImagemNoCirculo(imagemSrc) {

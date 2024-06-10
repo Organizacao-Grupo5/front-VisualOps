@@ -92,6 +92,7 @@ section {
     top: 8%;
     background-color: #fff;
     height: 1px;
+    z-index: 1;
 }
 
 .oculto h1::after {

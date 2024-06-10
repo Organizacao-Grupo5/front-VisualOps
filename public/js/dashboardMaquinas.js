@@ -20,6 +20,27 @@ let numeroPatrimonio = document.getElementById("numero_patrimonio");
 let modelo = document.getElementById("modelo");
 let responsavel = document.getElementById("responsavel");
 
+let maquinaEditar = [];
+const editarMaquina = (maquina) => {
+  situacaoFormulario.innerText = "EDIÇÃO";
+  document.getElementById("btn_vlt").style.display = "flex";
+  if (maquina.idIpv4.length > 0) {
+    ipv4_1.value = maquina.numeroIP[0];
+    nome_local_ipv4_1.value = maquina.nomeLocal[0];
+  }
+  if (maquina.idIpv4.length > 1) {
+    ipv4_2.value = maquina.numeroIP[1];
+    nome_local_ipv4_2.value = maquina.nomeLocal[1];
+  }
+  marca.value = maquina.marca;
+  modelo.value = maquina.modelo;
+  responsavel.value = maquina.nome;
+  numeroPatrimonio.value = maquina.numeroIdentificacao;
+
+  maquinaEditar = maquina;
+};
+
+
 async function fetchMaquinas() {
   try {
     const response = await fetch(
@@ -118,7 +139,7 @@ inputResponsavel.addEventListener("input", async () => {
 });
 
 const salvar = async (situacao, senha) => {
-  if (!usuarios.idUsuario && situacao.toLowerCase() == "cadastro") {
+  if (responsavel.value !== "" && !usuarios.idUsuario && situacao.toLowerCase() == "cadastro") {
     console.error("Usuário responsável não encontrado");
     return;
   }
@@ -139,7 +160,7 @@ const salvar = async (situacao, senha) => {
       senhaUsuario: senha,
       idEmpresa:
         situacao.toLowerCase() == "cadastro"
-          ? usuarios.fkEmpresa
+          ? sessionStorage.getItem("fkEmpresa")
           : maquinaEditar.idEmpresa,
       idUsuarioLogado: sessionStorage.getItem("idUsuario"),
       idIpv41:
@@ -237,26 +258,6 @@ inputResponsavel.addEventListener("keydown", (e) => {
   }
 });
 let situacaoFormulario = document.getElementById("situacao_formulario");
-
-let maquinaEditar = [];
-const editarMaquina = (maquina) => {
-  situacaoFormulario.innerText = "EDIÇÃO";
-  document.getElementById("btn_vlt").style.display = "flex";
-  if (maquina.idIpv4.length > 0) {
-    ipv4_1.value = maquina.numeroIP[0];
-    nome_local_ipv4_1.value = maquina.nomeLocal[0];
-  }
-  if (maquina.idIpv4.length > 1) {
-    ipv4_2.value = maquina.numeroIP[1];
-    nome_local_ipv4_2.value = maquina.nomeLocal[1];
-  }
-  marca.value = maquina.marca;
-  modelo.value = maquina.modelo;
-  responsavel.value = maquina.nome;
-  numeroPatrimonio.value = maquina.numeroIdentificacao;
-
-  maquinaEditar = maquina;
-};
 
 const voltarCadastro = () => {
   situacaoFormulario.innerText = "CADASTRO";

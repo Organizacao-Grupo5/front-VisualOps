@@ -383,12 +383,13 @@ button:hover {
 .custom-popup {
     display: flex;
     position: fixed;
-    z-index: 2000;
+    z-index: 1000;
     left: 0;
     right: 0;
     top: 0;
-    width: 100%;
+    width: 60%;
     height: auto;
+    margin: 0 auto;
     justify-content: center;
     align-items: flex-start;
     padding-top: 30px;
@@ -406,7 +407,6 @@ button:hover {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.25);
     animation: slideDown 0.5s ease-out;
     position: relative;
-    overflow: hidden;
 }
 
 .custom-popup-content h2 {
@@ -449,18 +449,33 @@ button:hover {
 }
 
 @keyframes customFadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes slideDown {
-    from {transform: translateY(-100px);}
-    to {transform: translateY(0);}
+    from {
+        transform: translateY(-100px);
+    }
+
+    to {
+        transform: translateY(0);
+    }
 }
 
 @keyframes progress {
-    from {width: 100%;}
-    to {width: 0%;}
+    from {
+        width: 100%;
+    }
+
+    to {
+        width: 0%;
+    }
 }
 
 .custom-popup-content.info {
@@ -473,4 +488,367 @@ button:hover {
 
 .custom-popup-content.error {
     background: linear-gradient(145deg, #f44336, #e53935);
+}
+
+.info {
+    background: linear-gradient(145deg, #1e3a5f, #283e6a);
+}
+
+.warning {
+    background: linear-gradient(145deg, #ff9800, #ff5722);
+}
+
+.error {
+    background: linear-gradient(145deg, #f44336, #e53935);
+}
+
+.content-alert {
+    width: 100%;
+    border-radius: 0.2rem;
+    box-shadow: 0 0 5px 0 #000 inset;
+    max-height: 150px;
+    overflow-y: auto;
+    position: relative;
+    padding: 10px;
+}
+
+.alert {
+    width: 100%;
+    height: 90px;
+    border-radius: 0.5rem;
+    margin-bottom: 10px;
+    box-shadow: 0 0 5px 0 #000;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+}
+
+.header-alert {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px #fff solid;
+    margin-bottom: 2px;
+}
+
+.header-alert h6 {
+    font-size: 15px;
+}
+
+.header-alert span {
+    font-size: 8px;
+}
+
+.alert-content {
+    width: 100%;
+    gap: 1px;
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 2px;
+    align-items: center;
+}
+
+.percent-alert {
+    margin-left: 10px;
+}
+
+.alert-date {
+    width: 100%;
+    text-align: right;
+    margin-top: 5px;
+}
+
+.notify {
+    color: #fff;
+    font-size: 20px;
+    background-color: #283e6a;
+    box-shadow: #000 0 0 6px 0;
+    border-radius: 100%;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notify:hover {
+    color: #283e6a;
+    background-color: #fff;
+    scale: 1;
+}
+
+.notification-container {
+    position: relative;
+}
+
+.notification-wrapper {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background-color: #1e3258;
+    border: 1px solid #0c1a37;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 5000;
+    width: 300px;
+    padding: 20px;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.notification-content {
+    color: #fff;
+}
+
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #0c1a37;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.notification-header h2 {
+    margin: 0;
+    color: #fff;
+}
+
+.close-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+}
+
+.close-button:hover {
+    color: #a6c1e1;
+}
+
+.action-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    width: 100%;
+    padding: 8px 15px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.action-button:hover {
+    background-color: #0056b3;
+}
+
+.message-card {
+    border: 1px solid #bdd7f0;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #f0f6ff;
+    margin-top: 5px;
+}
+
+.message-header {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #1e5092;
+}
+
+.message-content {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.message-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.message-info p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.read-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.read-button:hover {
+    background-color: #0056b3;
+}
+
+.count-alerts {
+    width: 20px;
+    height: 20px;
+    background-color: #007bff;
+    color: #fff;
+    box-shadow: 0 0 5px 0 #000;
+    border-radius: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    margin-top: -2%;
+    margin-left: 1%;
+}
+
+.action-notify {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.control {
+    font-family: arial;
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-left: 15px;
+}
+
+.control input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+
+.control_indicator {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background: #e6e6e6;
+    border: 0px solid #000000;
+    border-radius: 0px;
+}
+
+.control:hover input~.control_indicator,
+.control input:focus~.control_indicator {
+    background: #cccccc;
+}
+
+.control input:checked~.control_indicator {
+    background: #2aa1c0;
+}
+
+.control:hover input:not([disabled]):checked~.control_indicator,
+.control input:checked:focus~.control_indicator {
+    background: #0e6647;
+}
+
+.control input:disabled~.control_indicator {
+    background: #e6e6e6;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.control_indicator:after {
+    box-sizing: unset;
+    content: '';
+    position: absolute;
+    display: none;
+}
+
+.control input:checked~.control_indicator:after {
+    display: block;
+}
+
+.control-checkbox .control_indicator:after {
+    left: 8px;
+    top: 4px;
+    width: 3px;
+    height: 8px;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.control-checkbox input:disabled~.control_indicator:after {
+    border-color: #7b7b7b;
+}
+
+.control-checkbox .control_indicator::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4.5rem;
+    height: 4.5rem;
+    margin-left: -1.3rem;
+    margin-top: -1.3rem;
+    background: #2aa1c0;
+    border-radius: 3rem;
+    opacity: 0.6;
+    z-index: 99999;
+    transform: scale(0);
+}
+
+@keyframes s-ripple {
+    0% {
+        transform: scale(0);
+    }
+
+    20% {
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1);
+    }
+}
+
+@keyframes s-ripple-dup {
+    0% {
+        transform: scale(0);
+    }
+
+    30% {
+        transform: scale(1);
+    }
+
+    60% {
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1);
+    }
+}
+
+.control-checkbox input+.control_indicator::before {
+    animation: s-ripple 250ms ease-out;
+}
+
+.control-checkbox input:checked+.control_indicator::before {
+    animation-name: s-ripple-dup;
+}
+
+.message-header.ruim {
+    color: rgb(154, 2, 2);
+}
+
+.message-header.medio {
+    color: rgb(206, 162, 29);
 }

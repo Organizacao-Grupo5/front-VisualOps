@@ -5,7 +5,7 @@ const mensagem = {
         desenvolvimento: `TELA DE REDIRECIONAMENTO AINDA EM DESENVOLVIMENTO.`,
         sucesso: {
             cadastro: `Parabéns, Criação realizada com sucesso!`,
-            login: (nome) => `Perfeito ${nome}, Login autenticado com sucesso!`
+            login: (nome) => `Perfeito ${nome}, Login autenticado com sucesso! Aguarde alguns segunndos...`
         },
         fracasso: {
             cadastro: `Não foi possivel realizar o cadastro, por favor verifique os campos e tente novamente!`,

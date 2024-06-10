@@ -16,7 +16,7 @@ router.post("/autenticar", function (req, res) {
 });
 
 router.get("/listar/:id", function (req, res) {
-    usuarioController.listar(req, res);
+  usuarioController.listar(req, res);
 });
 
 router.get("/infoUsuario/:idUsuario", (req, res) => {
@@ -44,7 +44,19 @@ router.delete("/contato/:idContato", (req, res) => {
 });
 
 router.put("/endereco/:idEndereco", (req, res) => {
-    return perfilController.updateEndereco(req, res);
+  return perfilController.updateEndereco(req, res);
+});
+
+router.get("/alerta/:idUsuario", (req, res) => {
+  return usuarioController.alertaUsuario(req, res);
+});
+
+router.put("/alerta/update", (req, res) => {
+  return usuarioController.updateRegistroAlerta(req, res);
+});
+
+router.post("/alerta/carregar", (req, res) => {
+  return usuarioController.carregarMaisAlertas(req, res);
 });
 
 module.exports = router;

@@ -108,8 +108,11 @@ const salvarMaquina = async (infos) => {
     throw new Error("Senha inválida");
   }
 
+  let campRespMaq = infos.fkUsuario ? ", fkUsuario" : "";
+  let valueRespMaq = infos.fkUsuario ? ", " + infos.fkUsuario : "";
+
   let instrucaoMaquina = `
-    INSERT INTO maquina (marca, modelo, numeroIdentificacao, fkUsuario, fkEmpresa) VALUES ('${infos.marca}', '${infos.modelo}', '${infos.patrimonio}', ${infos.fkUsuario}, ${infos.idEmpresa});
+    INSERT INTO maquina (marca, modelo, numeroIdentificacao ${campRespMaq}, fkEmpresa) VALUES ('${infos.marca}', '${infos.modelo}', '${infos.patrimonio}'${valueRespMaq}, ${infos.idEmpresa});
   `;
   console.log(
     "Executando a instrução SQL para inserir na tabela 'maquina': \n" +

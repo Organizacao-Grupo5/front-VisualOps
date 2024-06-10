@@ -108,13 +108,19 @@
 .notificacoes-cabecalho-botoes .btn1,
 .notificacoes-cabecalho-botoes .btn2{
     height: 100%;
-    background-color: #ff80f2;
     margin-left: 2%;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-style: dashed;
-    border-width: 2px;
+
+    color: #fff;
+    background-color: #449ade;
+    box-shadow: 1px 1px 4px 1px #000;
+    border-radius: 0.4em;
+    border: none;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
 }
 
 .notificacoes-cabecalho-botoes .btn1{
@@ -287,6 +293,7 @@
 }
 
 .tipos-notificacao {
+    margin-top: 7%;
     margin-left: 1%;
     height: 25%;
 }

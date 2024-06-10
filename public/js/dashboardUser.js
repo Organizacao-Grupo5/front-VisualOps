@@ -504,6 +504,7 @@ async function desempenho(index) {
                         DiscoPorcentagem.push(Volume[i].dadoCaptura / DISCO[i].dadoCaptura * 100)
                     }
 
+
                     console.log(DiscoPorcentagem)
 
                     var componentesMap = {

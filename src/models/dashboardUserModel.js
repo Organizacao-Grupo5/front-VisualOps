@@ -52,7 +52,6 @@ function historicoDesempenho(id) {
         componente.idComponente
 )
 
--- Consulta principal usando a CTE
 SELECT 
     '30 dias atras' AS periodo, 
     componente.componente, 

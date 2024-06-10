@@ -22,7 +22,7 @@ function carregarInfosMaquina(id, maquina) {
 
 
 function carregarInfosComponente(id, maquina) {
-    var instrucao = `SELECT componente FROM componente join maquina on idMaquina where idMaquina = ${maquina};`;
+    var instrucao = `SELECT componente, idComponente FROM componente join maquina on idMaquina where idMaquina = ${maquina};`;
 
 
     console.log("Executando a instrução SQL: \n" + instrucao);
@@ -51,7 +51,7 @@ function carregaridComponente(componente, maquina) {
     var instrucao = `SELECT idComponente, fkMaquina, fkComponente, minimoParaSerMedio FROM componente join configuracao 
 on idComponente = fkComponente join maquina 
 on idMaquina = fkMaquina join usuario 
-on idUsuario = fkUsuario where componente = "${componente}" AND idMaquina = ${maquina};`;
+on idUsuario = fkUsuario where idComponente = "${componente}" AND idMaquina = ${maquina};`;
 
 
     console.log("Executando a instrução SQL: \n" + instrucao);

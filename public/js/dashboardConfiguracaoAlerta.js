@@ -138,6 +138,8 @@ async function carregarInfosComponente() {
         let componenteContainer = document.createElement("div");
         componenteContainer.className = 'container-componentes';
     
+        console.log(dadosRequeridos);
+
         // Percorre os dados recebidos
         for(let i = 0; i < dadosRequeridos.length - 1; i++){
             let componenteGerado = document.createElement("button");
@@ -167,7 +169,7 @@ async function carregarInfosComponente() {
 
                 componenteGerado.classList.add('selecionado');
     
-                dadoSelecionadoInput = dadosRequeridos[i].componente;
+                dadoSelecionadoInput = dadosRequeridos[i].idComponente;
 
                 carregaridComponente(dadoSelecionadoInput)
 

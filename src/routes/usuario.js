@@ -55,10 +55,6 @@ router.put("/alerta/update", (req, res) => {
   return usuarioController.updateRegistroAlerta(req, res);
 });
 
-router.get("/alerta/:idUsuario", (req, res) => {
-  return usuarioController.buscarRegistrosAlerta(req, res);
-});
-
 router.post("/alerta/carregar", (req, res) => {
   return usuarioController.carregarMaisAlertas(req, res);
 });

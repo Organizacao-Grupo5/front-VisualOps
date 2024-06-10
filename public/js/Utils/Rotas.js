@@ -84,9 +84,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   checkbox.checked = sessionStorage.getItem("alertaAtivado");
   carregarImagemPerfil(sessionStorage.getItem("caminhoIMG"));
 
-  // setInterval(verificarAlerta, 5000);
+  verificarAlerta()
   updateMessageCount();
-  verificarAlerta();
+  setInterval(() => {
+    verificarAlerta();
+    updateMessageCount();
+  }, 5000);
 
   document.getElementById("loadMoreBtn").addEventListener("click", () => {
     carregarMaisCapturas();
@@ -189,7 +192,6 @@ const verificarAlerta = async () => {
     updateMessageCount();
     showMessages();
 
-    console.log(messagesArray);
   } catch (error) {
     console.error("Erro ao verificar alerta:", error);
   }
@@ -211,6 +213,8 @@ const verificarAlerta = async () => {
     }
 
     dados = await response.json();
+
+    console.log("Mensagem dados: " + dados)
 
     criaAlerta();
 

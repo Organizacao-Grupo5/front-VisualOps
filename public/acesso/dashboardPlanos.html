@@ -83,8 +83,6 @@
                 </div>
             </div>
         </div>
-
-
         <button id="maximizar" class="maximizar"><i class="fa-solid fa-angles-right"></i></button>
         <div class="dashboard-content" id="dashboard">
             <nav>
@@ -108,16 +106,15 @@
                             <div class="notification-content">
                                 <p id="messageCount">Você tem <span id="messageCountNumber"></span> novas mensagens.</p>
                                 <div class="action-notify">
-                                    <button class="action-button" onclick="showMessages()">Exibir Mensagens</button>
                                     <label class="control control-checkbox">
                                         Ativar alertas
-                                            <input type="checkbox" id="activate_alerts" />
+                                        <input type="checkbox" id="activate_alerts" />
                                         <div class="control_indicator"></div>
                                     </label>
                                 </div>
                                 <div id="messages" style="display: none;">
                                     <div id="messageList" class="message-list"></div>
-                                    <button id="loadMoreBtn">Carregar Mais</button>
+                                    <button class="action-button" id="loadMoreBtn">Carregar Mais</button>
                                     <div id="loadingIndicator" style="display: none;">Carregando...</div>
                                 </div>
                             </div>
@@ -210,15 +207,16 @@
             <div class="modal">
                 <button class="fechar" id="fechar">&times;</button>
                 <div class="box-modal">
-                    Entraremos em contato para discutir opções de mudança de plano e ajudar com qualquer dúvida ou processo! 😊
+                    Entraremos em contato para discutir opções de mudança de plano e ajudar com qualquer dúvida ou
+                    processo! 😊
                 </div>
             </div>
         </section>
 
 
-    <script src="../js/minMax.js"></script>
-    <script src="../js/Utils/tamanhoSidebar.js"></script>
-    <script src="../js/Utils/Rotas.js"></script>
+        <script src="../js/minMax.js"></script>
+        <script src="../js/Utils/tamanhoSidebar.js"></script>
+        <script src="../js/Utils/Rotas.js"></script>
 </body>
 
 </html>
@@ -250,15 +248,15 @@
     }
 
     function modal_plano() {
-    const modal = document.getElementById('janela-modal');
-    modal.classList.add('abrir');
+        const modal = document.getElementById('janela-modal');
+        modal.classList.add('abrir');
 
-    modal.addEventListener('click', (e) => {
-        if (e.target.id == 'fechar' || e.target.id == 'janela-modal3') {
-            modal.classList.remove('abrir')
-        }
-    });
-}
+        modal.addEventListener('click', (e) => {
+            if (e.target.id == 'fechar' || e.target.id == 'janela-modal3') {
+                modal.classList.remove('abrir')
+            }
+        });
+    }
 
 
 </script>

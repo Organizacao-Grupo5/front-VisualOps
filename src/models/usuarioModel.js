@@ -22,27 +22,18 @@ function listar(idUsuario) {
 }
 const verificarAlerta = (idUsuario) => {
   const query = `
-        WITH CapturaMaisRecente AS (
-        SELECT c1.*
-        FROM captura c1
-        INNER JOIN (
-            SELECT fkComponente, MAX(dataCaptura) AS maxDataCaptura
-            FROM captura
-            GROUP BY fkComponente
-        ) c2 ON c1.fkComponente = c2.fkComponente AND c1.dataCaptura = c2.maxDataCaptura
-        )
-        SELECT ra.*, a.*, c.*, co.*, m.*
-        FROM registroAlerta ra
-        JOIN alerta a ON ra.fkAlerta = a.idAlerta
-        JOIN CapturaMaisRecente c ON c.idCaptura = ra.fkCaptura
-        JOIN componente co ON c.fkComponente = co.idComponente
-        JOIN maquina m ON m.idMaquina = co.fkMaquina
-        WHERE m.fkUsuario = ${idUsuario} AND ra.visualizado = 0
-        ORDER BY ra.idRegistroAlertas DESC
-        LIMIT 10;
-`;
+      SELECT ra.*, a.*, c.*, co.*, m.*
+      FROM registroAlerta ra
+      JOIN captura c ON c.idCaptura = ra.fkCaptura
+      JOIN alerta a ON ra.fkAlerta = a.idAlerta
+      JOIN componente co ON c.fkComponente = co.idComponente
+      JOIN maquina m ON m.idMaquina = co.fkMaquina
+      WHERE m.fkUsuario = ${idUsuario} AND ra.visualizado = 0
+      ORDER BY ra.idRegistroAlertas DESC
+      LIMIT 10;
+  `;
 
-  console.log(query);
+  console.log("QUERY VERIFICAR ALERTA", query);
   return database.executar(query).then((result) => {
     if (result.length === 0) {
       return [];
@@ -52,7 +43,7 @@ const verificarAlerta = (idUsuario) => {
 };
 
 const carregarMaisAlertas = (idUsuario, ultimoId) => {
-    const query = `  
+  const query = `  
       SELECT ra.*, a.*, c.*, co.*, m.*
       FROM registroAlerta ra
       JOIN captura c ON c.idCaptura = ra.fkCaptura
@@ -63,24 +54,24 @@ const carregarMaisAlertas = (idUsuario, ultimoId) => {
       ORDER BY ra.idRegistroAlertas DESC
       LIMIT 10;
   `;
-  
-    console.log("Query:", query);
-    return database.executar(query)
-      .then((result) => {
-        console.log("Resultado da consulta:", result); 
-        if (result.length === 0) {
-          console.log("Nenhum resultado encontrado."); 
-          return [];
-        }
-        console.log("Resultados encontrados:", result);
-        return result;
-      })
-      .catch((error) => {
-        console.error("Erro ao executar a consulta:", error); 
-        throw error; 
-      });
-  };
-  
+
+  console.log("Query:", query);
+  return database
+    .executar(query)
+    .then((result) => {
+      console.log("Resultado da consulta:", result);
+      if (result.length === 0) {
+        console.log("Nenhum resultado encontrado.");
+        return [];
+      }
+      console.log("Resultados encontrados:", result);
+      return result;
+    })
+    .catch((error) => {
+      console.error("Erro ao executar a consulta:", error);
+      throw error;
+    });
+};
 
 const updateAlertaVisualizado = (idCaptura, idAlerta) => {
   let query = `

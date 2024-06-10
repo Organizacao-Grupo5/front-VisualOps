@@ -99,7 +99,34 @@
                 </div>
                 <div class="nav-user-info">
                     <div class="circle"></div>
-                    <h1 style="font-size: 0.5em;" id="txt_user_and_interprise"></h1>
+                    <h1 class="user-info" id="txt_user_and_interprise">Usuário e Empresa</h1>
+                    <i id="notificationButton" class="fa-solid fa-bell notify">
+                        <div class="count-alerts" id="count_alerts"></div>
+                    </i>
+                    <div class="notification-container">
+                        <div class="notification-wrapper" id="notificationWrapper">
+                            <div class="notification-header">
+                                <h2>Notificação Importante</h2>
+                                <button class="close-button" onclick="closeNotification()">Fechar</button>
+                            </div>
+                            <div class="notification-content">
+                                <p id="messageCount">Você tem <span id="messageCountNumber"></span> novas mensagens.</p>
+                                <div class="action-notify">
+                                    <button class="action-button" onclick="showMessages()">Exibir Mensagens</button>
+                                    <label class="control control-checkbox">
+                                        Ativar alertas
+                                            <input type="checkbox" id="activate_alerts" />
+                                        <div class="control_indicator"></div>
+                                    </label>
+                                </div>
+                                <div id="messages" style="display: none;">
+                                    <div id="messageList" class="message-list"></div>
+                                    <button id="loadMoreBtn">Carregar Mais</button>
+                                    <div id="loadingIndicator" style="display: none;">Carregando...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </nav>
 

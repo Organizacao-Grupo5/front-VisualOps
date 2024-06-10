@@ -198,7 +198,7 @@ const verificarAlerta = async () => {
 
   console.log("Novos dados");
 
-  if (sessionStorage.getItem("alertaAtivado") === true) {
+  if (sessionStorage.getItem("alertaAtivado") === "true") {
     let dados = [];
 
     const response = await fetch(
@@ -216,10 +216,13 @@ const verificarAlerta = async () => {
 
     console.log("Mensagem dados: " + dados)
 
-    criaAlerta();
-
-    const alertPopUp = document.getElementById("popUp_alert");
-    const alertDiv = document.getElementById("alert");
+    let alertPopUp = document.getElementById("popUp_alert");
+    let alertDiv = document.getElementById("alert");
+    if(!alertPopUp){
+      criaAlerta();
+      alertPopUp = document.getElementById("popUp_alert");
+      alertDiv = document.getElementById("alert");
+    }
 
     alertPopUp.style.display = "flex";
 

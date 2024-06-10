@@ -150,7 +150,7 @@ table.blueTable tfoot .links a {
   width: 100vw;
   max-height: 100%;
   position: absolute;
-  background-color: #00000029;
+  background-color: #00000081;
   display: flex;
   justify-content: center;
   overflow-y: scroll;
@@ -238,4 +238,23 @@ table.blueTable tfoot .links a {
 
 .botao-fechar:hover i {
   color: #766ec6;
+}
+
+.div-expand table{
+  height: 220px;
+}
+
+.btn-exp-dowload{
+  width: 200px;
+  height: 75px;
+  color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 0 10px 0 #414040;
+  border: 3px solid #a7b3e3;
+  background-color: #1C6EA4;
+  position: absolute;
+  margin-top: -10%;
+  cursor: pointer;
+  margin-left: 45%;
+  z-index: 1000;
 }

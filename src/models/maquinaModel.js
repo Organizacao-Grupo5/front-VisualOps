@@ -15,8 +15,6 @@ function listarMaquinas(empresa) {
             IFNULL(maquina.numeroIdentificacao, '---') AS numeroIdentificacao,
             IFNULL(maquina.modelo, '---') AS modelo,
             IFNULL(maquina.marca, '---') AS marca,
-            IFNULL(maquina.username, '---') AS username,
-            IFNULL(maquina.hostname, '---') AS hostname,
             IFNULL(usuario.idUsuario, '---') AS idUsuario,
             IFNULL(usuario.nome, '---') AS nome,
             IFNULL(usuario.email, '---') AS email,
@@ -42,9 +40,7 @@ function listarMaquinas(empresa) {
             maquina.idMaquina, 
             maquina.numeroIdentificacao,
             maquina.modelo,
-            maquina.marca,
-            maquina.username,
-            maquina.hostname,
+            maquina.marca, 
             usuario.idUsuario,
             usuario.nome,
             usuario.email,
@@ -113,7 +109,7 @@ const salvarMaquina = async (infos) => {
   }
 
   let instrucaoMaquina = `
-    INSERT INTO maquina (marca, modelo, numeroIdentificacao, fkUsuario) VALUES ('${infos.marca}', '${infos.modelo}', '${infos.patrimonio}', ${infos.fkUsuario});
+    INSERT INTO maquina (marca, modelo, numeroIdentificacao, fkUsuario, fkEmpresa) VALUES ('${infos.marca}', '${infos.modelo}', '${infos.patrimonio}', ${infos.fkUsuario}, ${infos.idEmpresa});
   `;
   console.log(
     "Executando a instrução SQL para inserir na tabela 'maquina': \n" +

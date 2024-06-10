@@ -52,25 +52,30 @@ const abrirRelatorio = (data, tipo, idMaquina) => {
       "Content-Type": "application/json",
     },
   })
-  .then((resp) => {
-    if (resp.ok) {
-      return resp.json();
-    } else {
-      throw new Error('Erro na resposta');
-    }
-  })
-  .then((dados) => {
-    let dadosMod = {
-      dados,
-      tipo: tipo,
-      idMaquina: idMaquina
-    };
-    sessionStorage.setItem("relatorioDados", JSON.stringify(dadosMod));
-    window.location = "paginaRelatorio.html";
-  })
-  .catch((erro) => {
-    console.log("Ocorreu um erro: " + erro);
-  });
+    .then((resp) => {
+      if (resp.ok) {
+        return resp.json();
+      } else {
+        throw new Error("Erro na resposta");
+      }
+    })
+    .then((dados) => {
+      let dadosMod = {
+        dados: dados.filter((dado) => {
+          return dado.tipo === "captura";
+        }),
+        dadosApp: dados.filter((dado) => {
+          return dado.tipo === "app";
+        }),
+        tipo: tipo,
+        idMaquina: idMaquina,
+      };
+      sessionStorage.setItem("relatorioDados", JSON.stringify(dadosMod));
+      window.location = "paginaRelatorio.html";
+    })
+    .catch((erro) => {
+      console.log("Ocorreu um erro: " + erro);
+    });
 };
 
 const construirCalendarioSemanal = async () => {
@@ -123,24 +128,35 @@ const construirCalendarioSemanal = async () => {
   const promises = diasDaSemana.map(async (dia) => {
     try {
       const dados = await consultarRelatorioDia(
-        `${dia.data.getFullYear()}-${dia.data.getMonth() + 1}-${dia.data.getDate()}`
+        `${dia.data.getFullYear()}-${
+          dia.data.getMonth() + 1
+        }-${dia.data.getDate()}`
       );
 
-      console.log(dados)
-  
       if (dados && dados.length > 0) {
-        const html = dados.flatMap((lista) =>
-          lista.map((dado) => 
-            `
+        const html = dados
+          .flatMap((lista) =>
+            lista.map(
+              (dado) =>
+                `
             <div class="report-content">
               <h4>Relatório - ${dado.tipo_relatorio}</h4>
-              <h4>Total de registros: ${dado.total_capturas}</h4>
+              <h4>Total de registros: ${dado.total_atividades}</h4>
+              <h4>Responsável:<br>${dado.usuario}</h4>
               <div class="div-btn-action-report">
-                <button onclick="abrirRelatorio('${dado.tipo_relatorio === "diários" ? dado.data : dado.tipo_relatorio === "semanal" ? dado.data_inicio_semana : dado.data_inicio_mes}', '${dado.tipo_relatorio}', ${dado.idMaquina})">ABRIR</button>
-              </div>
+                <button onclick="abrirRelatorio('${
+                  dado.tipo_relatorio === "diários"
+                    ? dado.data
+                    : dado.tipo_relatorio === "semanais"
+                    ? dado.data
+                    : dado.ano_mes
+                }', '${dado.tipo_relatorio}', ${dado.idMaquina})">ABRIR</button>
+                </div>
             </div>
-          `)
-        ).join("");
+          `
+            )
+          )
+          .join("");
         return html;
       } else {
         return "";
@@ -150,7 +166,7 @@ const construirCalendarioSemanal = async () => {
       return "";
     }
   });
-  
+
   const htmlContents = await Promise.all(promises);
 
   relatoriosCalendarioDiv.innerHTML = diasDaSemana
@@ -183,7 +199,6 @@ const consultarRelatorioDia = async (data) => {
       time: chkTime.checked,
     },
   };
-
   try {
     const resp = await fetch(
       `/relatorio/${sessionStorage.getItem("idUsuario")}`,
@@ -194,7 +209,7 @@ const consultarRelatorioDia = async (data) => {
         },
         body: JSON.stringify({
           dados: preferencias,
-          idEmpresa: sessionStorage.getItem('fkEmpresa')
+          idEmpresa: sessionStorage.getItem("fkEmpresa"),
         }),
       }
     );

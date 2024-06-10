@@ -26,16 +26,16 @@ function listarMaquinas(empresa) {
             GROUP_CONCAT(IFNULL(ipv4.idIpv4, '---') SEPARATOR ',') AS idIpv4,
             GROUP_CONCAT(IFNULL(ipv4.numeroIP, '---') SEPARATOR ',') AS numeroIP,
             GROUP_CONCAT(IFNULL(ipv4.nomeLocal, '---') SEPARATOR ',') AS nomeLocal
-        FROM 
-            maquina 
-        JOIN 
-            usuario ON maquina.fkUsuario = usuario.idUsuario 
-        JOIN 
-            empresa ON usuario.fkEmpresa = empresa.idEmpresa 
-        LEFT JOIN 
-            ipv4 ON ipv4.fkMaquina = maquina.idMaquina 
-        WHERE 
-            empresa.idEmpresa = ${empresa.idEmpresa}
+        FROM
+            maquina
+        LEFT JOIN
+            usuario ON maquina.fkUsuario = usuario.idUsuario
+        LEFT JOIN
+            empresa ON usuario.fkEmpresa = empresa.idEmpresa
+        LEFT JOIN
+            ipv4 ON ipv4.fkMaquina = maquina.idMaquina
+        WHERE
+            maquina.fkEmpresa = ${empresa.idEmpresa}
         GROUP BY 
             maquina.idMaquina, 
             maquina.numeroIdentificacao,
@@ -108,8 +108,11 @@ const salvarMaquina = async (infos) => {
     throw new Error("Senha inválida");
   }
 
+  let campRespMaq = infos.fkUsuario ? ", fkUsuario" : "";
+  let valueRespMaq = infos.fkUsuario ? ", " + infos.fkUsuario : "";
+
   let instrucaoMaquina = `
-    INSERT INTO maquina (marca, modelo, numeroIdentificacao, fkUsuario, fkEmpresa) VALUES ('${infos.marca}', '${infos.modelo}', '${infos.patrimonio}', ${infos.fkUsuario}, ${infos.idEmpresa});
+    INSERT INTO maquina (marca, modelo, numeroIdentificacao ${campRespMaq}, fkEmpresa) VALUES ('${infos.marca}', '${infos.modelo}', '${infos.patrimonio}'${valueRespMaq}, ${infos.idEmpresa});
   `;
   console.log(
     "Executando a instrução SQL para inserir na tabela 'maquina': \n" +

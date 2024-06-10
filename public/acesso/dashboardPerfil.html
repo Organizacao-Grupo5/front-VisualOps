@@ -12,14 +12,10 @@
     <link rel="icon" href="../assets/favicon/logofundo-azul.ico">
     <link href="https://unpkg.com/tabulator-tables/dist/css/tabulator.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/265fd07209.js" crossorigin="anonymous"></script>
-
 </head>
 
 <body>
-    <script src="../js/Utils/Rotas.js"></script>
-
     <section>
-
 
         <div id="sidebar" class="sidebar">
             <div id="top_sidebar" class="top-sidebar">
@@ -87,13 +83,8 @@
                 </div>
             </div>
         </div>
-
-
-        <button id="maximizar" class="maximizar" onclick="cliqueiMaximizarSidebar()"><i
-                class="fa-solid fa-angles-right"></i></button>
-
+        <button id="maximizar" class="maximizar"><i class="fa-solid fa-angles-right"></i></button>
         <div class="dashboard-content" id="dashboard">
-
             <nav>
                 <h1 class="user-welcome" style="font-size: 1rem;" id="txt_welcome_user"></h1>
                 <div class="nav-visual-info">
@@ -102,10 +93,35 @@
                 </div>
                 <div class="nav-user-info">
                     <div class="circle"></div>
-                    <h1 style="font-size: 0.5em;" id="txt_user_and_interprise"></h1>
+                    <h1 class="user-info" id="txt_user_and_interprise">Usuário e Empresa</h1>
+                    <i id="notificationButton" class="fa-solid fa-bell notify">
+                        <div class="count-alerts" id="count_alerts"></div>
+                    </i>
+                    <div class="notification-container">
+                        <div class="notification-wrapper" id="notificationWrapper">
+                            <div class="notification-header">
+                                <h2>Notificação Importante</h2>
+                                <button class="close-button" onclick="closeNotification()">Fechar</button>
+                            </div>
+                            <div class="notification-content">
+                                <p id="messageCount">Você tem <span id="messageCountNumber"></span> novas mensagens.</p>
+                                <div class="action-notify">
+                                    <label class="control control-checkbox">
+                                        Ativar alertas
+                                        <input type="checkbox" id="activate_alerts" />
+                                        <div class="control_indicator"></div>
+                                    </label>
+                                </div>
+                                <div id="messages" style="display: none;">
+                                    <div id="messageList" class="message-list"></div>
+                                    <button class="action-button" id="loadMoreBtn">Carregar Mais</button>
+                                    <div id="loadingIndicator" style="display: none;">Carregando...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </nav>
-
             <div class="name-chart-content">
 
                 <div class="name-content">
@@ -196,6 +212,7 @@
     <script src="../js/minMax.js"></script>
     <script src="../js/Utils/tamanhoSidebar.js"></script>
     <script src="../js/viaCep.js"></script>
+    <script src="../js/Utils/Rotas.js"></script>
     <script type="text/javascript" src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"></script>
 </body>
 </body>

@@ -18,9 +18,8 @@
 <body>
     <script src="../js/Utils/Rotas.js"></script>
 
-
-
     <section>
+
         <div id="sidebar" class="sidebar">
             <div id="top_sidebar" class="top-sidebar">
                 <img id="logo_sidebar" src="../assets/img/logofundo.png" alt="">
@@ -44,15 +43,16 @@
                     <button class="btn-section" onclick="windowDashboardOwner()">DASHBOARD GERAL</button>
                 </div>
                 <div class="chose-section">
-                    <i class="fa-solid fa-bars-progress" style="font-size: 15px;" onclick="windowDashboardGerente()"></i>
+                    <i class="fa-solid fa-bars-progress" style="font-size: 15px;"
+                        onclick="windowDashboardGerente()"></i>
                     <button class="btn-section" onclick="windowDashboardGerente()">DASHBOARD<br>EQUIPE</button>
                 </div>
                 <div class="chose-section">
                     <i class="fa fa-line-chart" aria-hidden="true" onclick="windowDashboardPessoal()"></i>
                     <button class="btn-section" onclick="windowDashboardPessoal()">DASHBOARD PESSOAL</button>
                 </div>
-                
-               
+
+
                 <div class="chose-section">
                     <i class="fa-regular fa-file-lines" style="font-size: 18px;" onclick="windowRelatorio()"></i>
                     <button class="btn-section" onclick="windowRelatorio()">RELATÓRIOS</button>
@@ -86,11 +86,8 @@
                 </div>
             </div>
         </div>
-        <button id="maximizar" class="maximizar" onclick="cliqueiMaximizarSidebar()"><i
-                class="fa-solid fa-angles-right"></i></button>
-
+        <button id="maximizar" class="maximizar"><i class="fa-solid fa-angles-right"></i></button>
         <div class="dashboard-content" id="dashboard">
-
             <nav>
                 <h1 class="user-welcome" style="font-size: 1rem;" id="txt_welcome_user"></h1>
                 <div class="nav-visual-info">
@@ -99,10 +96,35 @@
                 </div>
                 <div class="nav-user-info">
                     <div class="circle"></div>
-                    <h1 style="font-size: 0.5em;" id="txt_user_and_interprise"></h1>
+                    <h1 class="user-info" id="txt_user_and_interprise">Usuário e Empresa</h1>
+                    <i id="notificationButton" class="fa-solid fa-bell notify">
+                        <div class="count-alerts" id="count_alerts"></div>
+                    </i>
+                    <div class="notification-container">
+                        <div class="notification-wrapper" id="notificationWrapper">
+                            <div class="notification-header">
+                                <h2>Notificação Importante</h2>
+                                <button class="close-button" onclick="closeNotification()">Fechar</button>
+                            </div>
+                            <div class="notification-content">
+                                <p id="messageCount">Você tem <span id="messageCountNumber"></span> novas mensagens.</p>
+                                <div class="action-notify">
+                                    <label class="control control-checkbox">
+                                        Ativar alertas
+                                        <input type="checkbox" id="activate_alerts" />
+                                        <div class="control_indicator"></div>
+                                    </label>
+                                </div>
+                                <div id="messages" style="display: none;">
+                                    <div id="messageList" class="message-list"></div>
+                                    <button class="action-button" id="loadMoreBtn">Carregar Mais</button>
+                                    <div id="loadingIndicator" style="display: none;">Carregando...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </nav>
-
             <div class="name-chart-content">
 
                 <div class="name-content">
@@ -122,7 +144,7 @@
                     </div>
 
                     <div class="chart-content-notificacoes">
-                        
+
                         <div class="container-notificacoes-cabecalho">
                             <div class="notificacoes-cabecalho-titulo">
                                 <div>Notificações</div>
@@ -148,7 +170,7 @@
                                     <div>Apr 5, 24</div>
                                     <div></div>
                                 </div>
-                                
+
                             </div>
 
                             <div class="notificacoes">
@@ -157,7 +179,11 @@
                                     <div class="notificacao-status"></div>
                                     <div class="container-notificacao-titulo-notificacao">
                                         <div class="notificacao-titulo-notificacao">Título da notificação</div>
-                                        <div class="notificacao-conteudo-notificacao">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida cum sociis natoque penatibus. Eget arcu dictum varius duis at consectetur lorem donec massa. Quisque egestas diam in arcu cursus euismod quis viverra nibh. </div>
+                                        <div class="notificacao-conteudo-notificacao">Lorem ipsum dolor sit amet,
+                                            consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                                            dolore magna aliqua. Gravida cum sociis natoque penatibus. Eget arcu dictum
+                                            varius duis at consectetur lorem donec massa. Quisque egestas diam in arcu
+                                            cursus euismod quis viverra nibh. </div>
                                     </div>
                                     <div class="container-notificacao-data-notificacao">
                                         <div>De: LoremIpsum | Para: LoremIpsum</div>
@@ -169,7 +195,11 @@
                                     <div class="notificacao-status"></div>
                                     <div class="container-notificacao-titulo-notificacao">
                                         <div class="notificacao-titulo-notificacao">Título da notificação</div>
-                                        <div class="notificacao-conteudo-notificacao">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida cum sociis natoque penatibus. Eget arcu dictum varius duis at consectetur lorem donec massa. Quisque egestas diam in arcu cursus euismod quis viverra nibh. </div>
+                                        <div class="notificacao-conteudo-notificacao">Lorem ipsum dolor sit amet,
+                                            consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                                            dolore magna aliqua. Gravida cum sociis natoque penatibus. Eget arcu dictum
+                                            varius duis at consectetur lorem donec massa. Quisque egestas diam in arcu
+                                            cursus euismod quis viverra nibh. </div>
                                     </div>
                                     <div class="container-notificacao-data-notificacao">
                                         <div>De: LoremIpsum | Para: LoremIpsum</div>
@@ -181,7 +211,11 @@
                                     <div class="notificacao-status"></div>
                                     <div class="container-notificacao-titulo-notificacao">
                                         <div class="notificacao-titulo-notificacao">Título da notificação</div>
-                                        <div class="notificacao-conteudo-notificacao">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida cum sociis natoque penatibus. Eget arcu dictum varius duis at consectetur lorem donec massa. Quisque egestas diam in arcu cursus euismod quis viverra nibh. </div>
+                                        <div class="notificacao-conteudo-notificacao">Lorem ipsum dolor sit amet,
+                                            consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                                            dolore magna aliqua. Gravida cum sociis natoque penatibus. Eget arcu dictum
+                                            varius duis at consectetur lorem donec massa. Quisque egestas diam in arcu
+                                            cursus euismod quis viverra nibh. </div>
                                     </div>
                                     <div class="container-notificacao-data-notificacao">
                                         <div>De: LoremIpsum | Para: LoremIpsum</div>

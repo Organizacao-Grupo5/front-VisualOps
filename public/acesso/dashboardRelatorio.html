@@ -14,7 +14,7 @@
 
 <body>
     <section>
-        
+
         <div id="sidebar" class="sidebar">
             <div id="top_sidebar" class="top-sidebar">
                 <img id="logo_sidebar" src="../assets/img/logofundo.png" alt="">
@@ -38,15 +38,16 @@
                     <button class="btn-section" onclick="windowDashboardOwner()">DASHBOARD GERAL</button>
                 </div>
                 <div class="chose-section">
-                    <i class="fa-solid fa-bars-progress" style="font-size: 15px;" onclick="windowDashboardGerente()"></i>
+                    <i class="fa-solid fa-bars-progress" style="font-size: 15px;"
+                        onclick="windowDashboardGerente()"></i>
                     <button class="btn-section" onclick="windowDashboardGerente()">DASHBOARD<br>EQUIPE</button>
                 </div>
                 <div class="chose-section">
                     <i class="fa fa-line-chart" aria-hidden="true" onclick="windowDashboardPessoal()"></i>
                     <button class="btn-section" onclick="windowDashboardPessoal()">DASHBOARD PESSOAL</button>
                 </div>
-                
-               
+
+
                 <div class="chose-section">
                     <i class="fa-regular fa-file-lines" style="font-size: 18px;" onclick="windowRelatorio()"></i>
                     <button class="btn-section" onclick="windowRelatorio()">RELATÓRIOS</button>
@@ -92,7 +93,33 @@
                 </div>
                 <div class="nav-user-info">
                     <div class="circle"></div>
-                    <h1 style="font-size: 0.5em;" id="txt_user_and_interprise"></h1>
+                    <h1 class="user-info" id="txt_user_and_interprise">Usuário e Empresa</h1>
+                    <i id="notificationButton" class="fa-solid fa-bell notify">
+                        <div class="count-alerts" id="count_alerts"></div>
+                    </i>
+                    <div class="notification-container">
+                        <div class="notification-wrapper" id="notificationWrapper">
+                            <div class="notification-header">
+                                <h2>Notificação Importante</h2>
+                                <button class="close-button" onclick="closeNotification()">Fechar</button>
+                            </div>
+                            <div class="notification-content">
+                                <p id="messageCount">Você tem <span id="messageCountNumber"></span> novas mensagens.</p>
+                                <div class="action-notify">
+                                    <label class="control control-checkbox">
+                                        Ativar alertas
+                                        <input type="checkbox" id="activate_alerts" />
+                                        <div class="control_indicator"></div>
+                                    </label>
+                                </div>
+                                <div id="messages" style="display: none;">
+                                    <div id="messageList" class="message-list"></div>
+                                    <button class="action-button" id="loadMoreBtn">Carregar Mais</button>
+                                    <div id="loadingIndicator" style="display: none;">Carregando...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </nav>
             <div class="content-dash-report">
@@ -159,7 +186,8 @@
                         <div class="line-content">
                             <div class="side-line-content">
                                 <label class="lbl" for="input_name_our_ipv4">Nome da máquina ou IPV4</label>
-                                <input class="inp" type="text" name="ipv4OurName" id="input_name_our_ipv4" placeholder="Insira o IPV4 ou nome da máquina">
+                                <input class="inp" type="text" name="ipv4OurName" id="input_name_our_ipv4"
+                                    placeholder="Insira o IPV4 ou nome da máquina">
                             </div>
                             <div class="side-line-content">
                                 <label class="lbl" for="input_semana">Escolha a semana</label>
@@ -198,10 +226,10 @@
                             </div>
                         </div>
                         <div class="line-content line-btn" style="width: 100%;">
-                            <div class="side-line-content" >
+                            <div class="side-line-content">
                                 <button id="btn_apl">APLICAR</button>
                             </div>
-                            <div class="side-line-content" >
+                            <div class="side-line-content">
                                 <button id="btn_rs">RESETAR</button>
                             </div>
                         </div>

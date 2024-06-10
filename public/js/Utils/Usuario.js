@@ -92,9 +92,7 @@ async function autenticar(email, senha) {
                 console.error(error);
               }
 
-            setTimeout(() => {
                 entrarPerfil();
-            }, 2000);
 
             return true;
 

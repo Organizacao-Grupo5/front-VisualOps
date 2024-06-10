@@ -618,6 +618,3 @@ function matarCanvasRelatorio() {
     novoCanvas.id = "chart_componente_relatorio";
     document.querySelector(".chart-componente-relatorio > div").appendChild(novoCanvas);
 }
-
-
-

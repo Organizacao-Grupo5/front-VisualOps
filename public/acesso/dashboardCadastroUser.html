@@ -134,7 +134,6 @@
                         <div class="container-funcionarios">
                             <h2>Funcionários</h2>
                             <div id="show_funcionarios" class="todos-funcionarios">
-
                             </div>
                         </div>
                         <div class="container-cadastro-edicao">
@@ -151,44 +150,24 @@
                                         <input id="senha_funcionario" type="text">
                                         <label for="cargo_funcionario">Cargo do funcionário</label>
                                         <select name="cargo_funcionario" id="cargo_funcionario">
-                                            <option value="1">Gerente</option>
-                                            <option value="2">Designer</option>
+                                            <option value="Gerente">Gerente</option>
+                                            <option value="Designer">Designer</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="cadastro-endereco-funcionario">
                                     <div class="infos-basicas">
 
-                                        <label for="nome_funcionario">Gestor do funcionário</label>
-                                        <input id="nome_funcionario" type="text">
-                                        <label for="email_funcionario">Maquina do funcionário</label>
-                                        <input id="email_funcionario" type="text">
-
-                                        <!-- <label for="cep_funcionario">CEP do funcionário</label>
-                                        <input id="cep_funcionario" type="text">
-                                        <div>
-                                            <div>
-                                                <label for="logradouro_funcionario">Logradouro do funcionário</label>
-                                                <input id="logradouro_funcionario" class="" type="text">
-                                            </div>
-                                            <div>
-                                                <label for="numero_funcionario">Número</label>
-                                                <input id="numero_funcionario" type="text">
-                                            </div>
-                                            <div>
-                                                <label for="complemento_funcionario">Complemento</label>
-                                                <input id="complemento_funcionario" type="text">
-                                            </div>
-                                        </div>
-                                        <label for="bairro_funcionario">Bairro do funcionário</label>
-                                        <input id="bairro_funcionario" type="text">
-                                        <label for="estado_funcionario">Estado do funcionário</label>
-                                        <input id="estado_funcionario" type="text"> -->
+                                        <label for="gestor_funcionario">Gestor do funcionário</label>
+                                        <input id="gestor_funcionario" type="text">
+                                        <label for="maquina_funcionario">Maquina do funcionário</label>
+                                        <input id="maquina_funcionario" type="text">
                                     </div>
                                 </div>
                                 <div class="form-actions" id="opt_btns">
-                                    <button id="btn_save" class="btn save">Salvar</button>
-                                    <button id="btn_reset" class="btn reset">Limpar</button>
+                                    <button id="btn_save" class="btn save"
+                                        onclick="escolhaCadastroEdicao()">Criar</button>
+                                    <button id="btn_reset" class="btn reset" onclick="limparDados()">Limpar</button>
                                     <button id='btn_vlt' class="btn" onclick='voltarCadastro()'>Voltar</button>
                                 </div>
                             </div>
@@ -199,27 +178,25 @@
         </div>
     </section>
 
-    <!-- <div id="deleteModal" class="modal">
+    <div id="deleteModal" class="modal">
         <div class="modal-content">
             <span class="close-1 close">&times;</span>
             <h2>Confirmar Exclusão</h2>
             <div class="consequences">
                 <h3>Consequências da Exclusão:</h3>
                 <ul>
-                    <li>Todas as capturas e relatórios que não foram baixados serão perdidos.</li>
-                    <li>A máquina será removida permanentemente da lista.</li>
-                    <li>Configurações e personalizações específicas da máquina serão apagadas.</li>
-                    <li>Quaisquer integrações ou serviços vinculados à máquina serão desativados.</li>
+                    <li>Todas as relacionadas a esse funcionário serão perdidas.</li>
+                    <li>O funcionário será removido permanentemente da lista.</li>
                     <li>Ações irreversíveis - esta ação não pode ser desfeita.</li>
                 </ul>
             </div>
-            <p>Por favor, insira sua senha para confirmar a exclusão da máquina.</p>
+            <p>Por favor, insira sua senha para confirmar a exclusão do funcionário.</p>
             <form id="passwordForm_excluir">
                 <input type="password" id="password" placeholder="Senha" required>
-                <button type="submit" class="btn">Confirmar</button>
+                <button type="submit" class="btn" onclick="excluirFuncionario()">Confirmar</button>
             </form>
         </div>
-    </div> -->
+    </div>
     <div id="confirmModal" class="modal">
         <div class="modal-content">
             <span class="close-2 close">&times;</span>
@@ -235,7 +212,7 @@
         </div>
     </div>
 
-    <script src="../js/dashboardOwner.js"></script>
+    <script src="../js/dashboardCadastroUser.js"></script>
     <script src="../js/Utils/Usuario.js"></script>
     <script src="../js/minMax.js"></script>
     <script src="../js/Utils/tamanhoSidebar.js"></script>

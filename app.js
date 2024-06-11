@@ -17,6 +17,7 @@ const firebaseRouter = require("./src/routes/firebase");
 const dashboardUserRouter = require("./src/routes/dashboardUserRoute");
 const dashboardConfiguracaoAlertaRouter = require("./src/routes/dashboardConfiguracaoAlertaRoute");
 const dashboardAcessoConfiguracaoAlertaRouter = require("./src/routes/dashboardAcessoConfiguracaoAlertaRoute");
+const dashboardCadastroUserRouter = require("./src/routes/dashboardCadastroUserRoute");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
@@ -36,6 +37,7 @@ app.use("/firebase", firebaseRouter);
 app.use("/dashboardUserRoute", dashboardUserRouter);
 app.use("/dashboardConfiguracaoAlertaRoute", dashboardConfiguracaoAlertaRouter);
 app.use("/dashboardAcessoConfiguracaoAlertaRoute", dashboardAcessoConfiguracaoAlertaRouter);
+app.use("/dashboardCadastroUserRoute", dashboardCadastroUserRouter);
 
 
 app.listen(PORTA, function () {

@@ -85,7 +85,12 @@ async function carregarImagemPerfil(caminhoImagem) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  checkbox.checked = sessionStorage.getItem("alertaAtivado");
+  checkbox = document.getElementById("activate_alerts");
+
+  
+  const isChecked = sessionStorage.getItem("checkboxState") === "true";
+  checkbox.checked = isChecked
+
   carregarImagemPerfil(sessionStorage.getItem("caminhoIMG"));
 
   verificarAlerta()

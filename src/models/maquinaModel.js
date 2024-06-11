@@ -10,46 +10,46 @@ function cadastrar(numeroIdentificacao, marca, modelo, fkUsuario) {
 function listarMaquinas(empresa) {
   console.log(empresa);
   let instrucao = `
-        SELECT 
-            maquina.idMaquina,
-            IFNULL(maquina.numeroIdentificacao, '---') AS numeroIdentificacao,
-            IFNULL(maquina.modelo, '---') AS modelo,
-            IFNULL(maquina.marca, '---') AS marca,
-            IFNULL(usuario.idUsuario, '---') AS idUsuario,
-            IFNULL(usuario.nome, '---') AS nome,
-            IFNULL(usuario.email, '---') AS email,
-            IFNULL(usuario.senha, '---') AS senha,
-            IFNULL(usuario.cargo, '---') AS cargo,
-            IFNULL(empresa.idEmpresa, '---') AS idEmpresa,
-            IFNULL(empresa.cnpj, '---') AS cnpj,
-            IFNULL(empresa.fkPlano, '---') AS fkPlano,
-            GROUP_CONCAT(IFNULL(ipv4.idIpv4, '---') SEPARATOR ',') AS idIpv4,
-            GROUP_CONCAT(IFNULL(ipv4.numeroIP, '---') SEPARATOR ',') AS numeroIP,
-            GROUP_CONCAT(IFNULL(ipv4.nomeLocal, '---') SEPARATOR ',') AS nomeLocal
-        FROM
-            maquina
-        LEFT JOIN
-            usuario ON maquina.fkUsuario = usuario.idUsuario
-        LEFT JOIN
-            empresa ON usuario.fkEmpresa = empresa.idEmpresa
-        LEFT JOIN
-            ipv4 ON ipv4.fkMaquina = maquina.idMaquina
-        WHERE
-            maquina.fkEmpresa = ${empresa.idEmpresa}
-        GROUP BY 
-            maquina.idMaquina, 
-            maquina.numeroIdentificacao,
-            maquina.modelo,
-            maquina.marca, 
-            usuario.idUsuario,
-            usuario.nome,
-            usuario.email,
-            usuario.senha,
-            usuario.cargo,
-            empresa.idEmpresa,
-            empresa.cnpj,
-            empresa.fkPlano;
-    `;
+    SELECT
+        maquina.idMaquina,
+        IFNULL(maquina.numeroIdentificacao, '---') AS numeroIdentificacao,
+        IFNULL(maquina.modelo, '---') AS modelo,
+        IFNULL(maquina.marca, '---') AS marca,
+        IFNULL(usuario.idUsuario, '---') AS idUsuario,
+        IFNULL(usuario.nome, '---') AS nome,
+        IFNULL(usuario.email, '---') AS email,
+        IFNULL(usuario.senha, '---') AS senha,
+        IFNULL(usuario.cargo, '---') AS cargo,
+        IFNULL(empresa.idEmpresa, '---') AS idEmpresa,
+        IFNULL(empresa.cnpj, '---') AS cnpj,
+        IFNULL(empresa.fkPlano, '---') AS fkPlano,
+        GROUP_CONCAT(IFNULL(ipv4.idIpv4, '---') SEPARATOR ',') AS idIpv4,
+        GROUP_CONCAT(IFNULL(ipv4.numeroIP, '---') SEPARATOR ',') AS numeroIP,
+        GROUP_CONCAT(IFNULL(ipv4.nomeLocal, '---') SEPARATOR ',') AS nomeLocal
+    FROM
+        maquina
+    LEFT JOIN
+        usuario ON maquina.fkUsuario = usuario.idUsuario
+    INNER JOIN
+        empresa ON (usuario.fkEmpresa = empresa.idEmpresa OR usuario.idUsuario IS NULL) AND empresa.idEmpresa = ${empresa.idEmpresa}
+    LEFT JOIN
+        ipv4 ON ipv4.fkMaquina = maquina.idMaquina
+    WHERE
+        empresa.idEmpresa = ${empresa.idEmpresa}
+    GROUP BY
+        maquina.idMaquina,
+        maquina.numeroIdentificacao,
+        maquina.modelo,
+        maquina.marca,
+        usuario.idUsuario,
+        usuario.nome,
+        usuario.email,
+        usuario.senha,
+        usuario.cargo,
+        empresa.idEmpresa,
+        empresa.cnpj,
+        empresa.fkPlano;
+  `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao).then((result) => {
     return result.map((row) => {

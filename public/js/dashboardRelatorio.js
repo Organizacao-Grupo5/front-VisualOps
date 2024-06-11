@@ -125,6 +125,10 @@ const construirCalendarioSemanal = async () => {
 
   relatoriosCalendarioDiv.innerHTML = "";
 
+  let qtdTotalDiario = 0;
+  let qtdTotalSemanal = 0;
+  let qtdTotalMensal = 0;
+
   const promises = diasDaSemana.map(async (dia) => {
     try {
       const dados = await consultarRelatorioDia(
@@ -136,9 +140,17 @@ const construirCalendarioSemanal = async () => {
       if (dados && dados.length > 0) {
         const html = dados
           .flatMap((lista) =>
-            lista.map(
-              (dado) =>
-                `
+            lista.map((dado) => {
+
+              if (dado.tipo_relatorio === "diários") {
+                qtdTotalDiario++;
+              } else if (dado.tipo_relatorio === "semanais") {
+                qtdTotalSemanal++;
+              } else if (dado.tipo_relatorio === "mensais") {
+                qtdTotalMensal++;
+              }
+
+              return `
             <div class="report-content">
               <h4>Relatório - ${dado.tipo_relatorio}</h4>
               <h4>Total de registros: ${dado.total_atividades}</h4>
@@ -153,8 +165,8 @@ const construirCalendarioSemanal = async () => {
                 }', '${dado.tipo_relatorio}', ${dado.idMaquina})">ABRIR</button>
                 </div>
             </div>
-          `
-            )
+          `;
+            })
           )
           .join("");
         return html;
@@ -183,6 +195,14 @@ const construirCalendarioSemanal = async () => {
   `
     )
     .join("");
+
+  document.getElementById("info_reports").innerHTML = `
+      <span>Relatórios encontrados(semana)</span>
+        <h5>Relatório diário: ${qtdTotalDiario}</h5>
+        <h5>Relatório mensal: ${qtdTotalMensal}</h5>
+        <h5>Relatório semanal: ${qtdTotalSemanal}</h5>
+      <h5>Total de relatórios: ${qtdTotalDiario + qtdTotalMensal + qtdTotalSemanal}</h5>
+    `;
 };
 
 const consultarRelatorioDia = async (data) => {

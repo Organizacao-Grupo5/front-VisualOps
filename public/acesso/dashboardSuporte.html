@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suporte | VisualOps</title>
+
+    <link rel="stylesheet" href="../css/dashboardSuporte.css">
+    <link rel="stylesheet" href="../css/navBar.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="icon" href="../assets/favicon/logofundo-azul.ico">
+    <script src="https://kit.fontawesome.com/265fd07209.js" crossorigin="anonymous"></script>
+    <script src="../js/dashboardSuporte.js"></script>
+</head>
+
+<body>
+
+    <div class="pop-up" id="pop-up">
+        <div class="pop-paragrafo">
+            <p>
+                SEU CHAMADO FOI ENVIADO COM SUCESSO! <br>
+                AGUARDE NOSSO RETORNO.
+            </p>
+            <br>
+            <button onclick="fechar()">Fechar</button>
+            <br>
+        </div>
+    </div>
+
+    <section>
+
+
+        <div id="sidebar" class="sidebar">
+            <div id="top_sidebar" class="top-sidebar">
+                <img id="logo_sidebar" src="../assets/img/logofundo.png" alt="">
+                <div id="titulo_dash" class="title-dash">
+                    <i id="chart_logo" class="fa-solid fa-chart-area"></i>
+                    <div class="title">
+                        <h1 id="title_sidebar">DASHBOARD</h1>
+                        <h6>VISUALOPS</h6>
+                    </div>
+                </div>
+            </div>
+            <div id="minimizar" class="minimizar" onclick="cliqueiMinimizarSidebar()">
+                <div class="line"></div>
+                <i class="fa-solid fa-angles-left"></i>
+                <h6>MINIMIZAR</h6>
+            </div>
+            <div id="menu" class="menu">
+                <h1 id="menu_title">MENU</h1>
+                <div class="chose-section">
+                    <i class="fa-solid fa-chart-column" style="font-size: 15px;" onclick="windowDashboardOwner()"></i>
+                    <button class="btn-section" onclick="windowDashboardOwner()">DASHBOARD GERAL</button>
+                </div>
+                <div class="chose-section">
+                    <i class="fa-solid fa-bars-progress" style="font-size: 15px;"
+                        onclick="windowDashboardGerente()"></i>
+                    <button class="btn-section" onclick="windowDashboardGerente()">DASHBOARD<br>EQUIPE</button>
+                </div>
+                <div class="chose-section">
+                    <i class="fa fa-line-chart" aria-hidden="true" onclick="windowDashboardPessoal()"></i>
+                    <button class="btn-section" onclick="windowDashboardPessoal()">DASHBOARD PESSOAL</button>
+                </div>
+
+
+                <div class="chose-section">
+                    <i class="fa-regular fa-file-lines" style="font-size: 18px;" onclick="windowRelatorio()"></i>
+                    <button class="btn-section" onclick="windowRelatorio()">RELATÓRIOS</button>
+                </div>
+                <div class="chose-section">
+                    <i class="fa-solid fa-computer" style="font-size: 18px;" onclick="windowRelatorio()"></i>
+                    <button class="btn-section" onclick="windowMaquina()">MÁQUINAS</button>
+                </div>
+            </div>
+            <div class="end-sidebar">
+                <h6 id="suporte_text">SUPORTE / CONFIGURAÇÃO</h6>
+                <div class="chose-section">
+                    <i class="fa fa-plus" aria-hidden="true" onclick="windowCadastroUser()"></i>
+                    <button class="btn-section" onclick="windowCadastroUser()">GESTÃO</button>
+                </div>
+                <div class="chose-section">
+                    <i class="fa-regular fa-user" onclick="windowPerfil()"></i>
+                    <button class="btn-section" onclick="windowPerfil()">EDITAR PERFIL</button>
+                </div>
+                <div class="chose-section">
+                    <i class="fa-solid fa-file-signature" style="font-size: 13px;"></i>
+                    <button class="btn-section" onclick="windowPlanos()">ASSINATURA</button>
+                </div>
+                <div class="chose-section">
+                    <i class="fa-solid fa-bullhorn" onclick="windowSuporte()"></i>
+                    <button class="btn-section" onclick="windowSuporte()">SUPORTE</button>
+                </div>
+                <div class="chose-section">
+                    <i class="fa-solid fa-arrow-right-from-bracket" onclick="windowSair()"></i>
+                    <button class="btn-section" onclick="windowSair()">SAIR</button>
+                </div>
+            </div>
+        </div>
+        <button id="maximizar" class="maximizar"><i class="fa-solid fa-angles-right"></i></button>
+        <div class="dashboard-content" id="dashboard">
+            <nav>
+                <h1 class="user-welcome" style="font-size: 1rem;" id="txt_welcome_user"></h1>
+                <div class="nav-visual-info">
+                    <h1 style="font-size: 1em;">VISUALOPS</h1>
+                    <img src="logofundo.png" alt="">
+                </div>
+                <div class="nav-user-info">
+                    <div class="circle"></div>
+                    <h1 class="user-info" id="txt_user_and_interprise">Usuário e Empresa</h1>
+                    <i id="notificationButton" class="fa-solid fa-bell notify">
+                        <div class="count-alerts" id="count_alerts"></div>
+                    </i>
+                    <div class="notification-container">
+                        <div class="notification-wrapper" id="notificationWrapper">
+                            <div class="notification-header">
+                                <h2>Notificação Importante</h2>
+                                <button class="close-button" onclick="closeNotification()">Fechar</button>
+                            </div>
+                            <div class="notification-content">
+                                <p id="messageCount">Você tem <span id="messageCountNumber"></span> novas mensagens.</p>
+                                <div class="action-notify">
+                                    <label class="control control-checkbox">
+                                        Ativar alertas
+                                        <input type="checkbox" id="activate_alerts" />
+                                        <div class="control_indicator"></div>
+                                    </label>
+                                </div>
+                                <div id="messages" style="display: none;">
+                                    <div id="messageList" class="message-list"></div>
+                                    <button class="action-button" id="loadMoreBtn">Carregar Mais</button>
+                                    <div id="loadingIndicator" style="display: none;">Carregando...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="name-chart-content">
+
+                <div class="name-content">
+
+                    <div>SUPORTE</div>
+
+                </div>
+
+                <div class="chart-content">
+                    <button class="accordion">Abrir Chamado</button>
+                    <div class="panel">
+
+                        <p class="assunto">
+                            Assunto do Chamado
+                        </p> <input type="text" placeholder="ex: Erro no sistema, Solicitação de acesso"
+                            class="input-assunto"> <br>
+                        <p class="p-descricao">
+                            Descrição do Chamado
+                        </p> <textarea class="descricao" placeholder="Descreva detalhadamente o problema ou solicitação"
+                            wrap="soft"></textarea> <br>
+
+                        <button class="button-enviar" onclick="abrir()">Enviar</button>
+
+                    </div>
+
+                    <button class="accordion">Manual - Como usar o Client</button>
+                    <div class="panel">
+                        <p class="p-manual">
+                            Clique aqui para baixar nosso Manual
+                        </p>
+
+                        <button class="baixar" id="downloadManual" onclick="baixar()">Download</button>
+                    </div>
+
+                    <button class="accordion">Download Client</button>
+                    <div class="panel">
+                        <p class="p-manual">
+                            Clique aqui para baixar nossa Aplicação Client
+                        </p>
+
+                        <button class="baixar" id="downloadJar" onclick="baixarJar()">Download</button>
+                    </div>
+                </div>
+
+            </div>
+
+    </section>
+
+    <script type="module" src="../js/dashboardPerfil.js"></script>
+    <script src="../js/minMax.js"></script>
+    <script src="../js/Utils/Rotas.js"></script>
+
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+                } else {
+                    panel.style.display = "block";
+                }
+            });
+        }
+    </script>
+
+</body>
+</body>
+
+</html>
